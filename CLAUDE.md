@@ -8,7 +8,7 @@ This file provides comprehensive guidance to Claude Code (claude.ai/code) when w
 
 ## Project Overview
 
-**DTCL (Data Transfer and Control Link)** is a professional data programming system for cartridge-based data storage devices, featuring a hybrid architecture with both C# WPF GUI and STM32 embedded firmware.
+**DTCL (Data Transfer Cartridge Loader)** is a professional data programming system for cartridge-based data storage devices, featuring a hybrid architecture with both C# WPF GUI and STM32 embedded firmware.
 
 ### Core Components
 - **DTCL GUI**: C# WPF application for user interface and control

@@ -1,4 +1,4 @@
-# DTCL - Data Transfer and Control Link System
+# DTCL - Data Transfer Cartridge Loader System
 
 A professional data programming system for cartridge-based storage devices with hybrid NAND/CF interface support.
 
@@ -23,7 +23,7 @@ A professional data programming system for cartridge-based storage devices with 
 
 ## 🚀 Project Overview
 
-**DTCL (Data Transfer and Control Link)** is a specialized data programming system for cartridge-based data storage devices, supporting multiple cartridge types with professional-grade reliability and performance.
+**DTCL (Data Transfer Cartridge Loader)** is a specialized data programming system for cartridge-based data storage devices, supporting multiple cartridge types with professional-grade reliability and performance.
 
 ### Core Components
 
