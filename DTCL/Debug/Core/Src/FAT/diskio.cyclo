@@ -1,0 +1,13 @@
+diskio.c:33:7:get_fattime	1
+diskio.c:38:9:disk_initialize	3
+diskio.c:63:9:disk_status	2
+diskio.c:73:9:disk_read	4
+diskio.c:105:9:disk_write	4
+diskio.c:138:9:disk_ioctl	9
+diskio.c:199:15:ChkCFRdyForCmd	4
+diskio.c:236:15:ChkCFRdyForData	4
+diskio.c:272:6:CfCmd	1
+diskio.c:284:15:ChkCF	1
+diskio.c:293:6:RstCf	1
+diskio.c:305:6:Delay	3
+diskio.c:317:6:SetCartNo	1

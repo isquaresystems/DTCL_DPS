@@ -1,0 +1,25 @@
+../Core/Src/Protocol/VennaCommandHandler.h:19:18:virtual void VennaCommandHandler::setTransport(VennaTransportInterface*)	16	static
+../Core/Src/Protocol/VennaFramingUtils.h:11:24:static std::size_t VennaFramingUtils::encodeFrame(const uint8_t*, std::size_t, volatile uint8_t*, std::size_t)	40	static
+../Core/Src/Protocol/VennaFramingUtils.h:41:20:static uint8_t VennaFramingUtils::computeCRC8(const uint8_t*, std::size_t)	32	static
+../Core/Src/Protocol/Logger.h:16:26:static SimpleLogger& SimpleLogger::getInstance()	8	static
+../Core/Src/Protocol/Logger.h:22:10:void SimpleLogger::log(SimpleLogger::Level, const char*)	24	static
+../Core/Src/Protocol/Logger.h:46:5:SimpleLogger::SimpleLogger()	16	static
+../Core/Src/Protocol/VennaCommandHandler.h:17:7:constexpr VennaCommandHandler::VennaCommandHandler()	16	static
+../Core/Src/Protocol/VennaCommandHandler.h:23:13:VennaCommandHandler::~VennaCommandHandler()	16	static
+../Core/Src/Protocol/VennaCommandHandler.h:23:13:virtual VennaCommandHandler::~VennaCommandHandler()	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:8:1:VennaCmdTransmitData::VennaCmdTransmitData()	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:14:6:void VennaCmdTransmitData::setSubProcessor(VennaSubCommandProcessor*)	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:18:6:void VennaCmdTransmitData::setDataToSend(uint32_t)	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:26:6:void VennaCmdTransmitData::startTransmission()	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:34:6:virtual bool VennaCmdTransmitData::match(uint8_t)	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:44:6:virtual void VennaCmdTransmitData::execute(uint8_t*, uint32_t)	32	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:76:6:void VennaCmdTransmitData::handleTxReset()	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:81:6:void VennaCmdTransmitData::handleTxDataCommand(uint8_t*, uint32_t)	40	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:110:6:void VennaCmdTransmitData::handleAck(uint8_t*, uint32_t)	32	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:129:6:void VennaCmdTransmitData::handleNack(uint8_t*, uint32_t)	32	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:145:6:void VennaCmdTransmitData::handleAckDone()	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:151:6:void VennaCmdTransmitData::sendTXNack(uint8_t, uint8_t)	56	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:165:6:void VennaCmdTransmitData::sendNextPacket(uint16_t)	184	static
+../Core/Src/Protocol/VennaCmdTransmitData.cpp:184:6:void VennaCmdTransmitData::reset()	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.h:18:7:VennaCmdTransmitData::~VennaCmdTransmitData()	16	static
+../Core/Src/Protocol/VennaCmdTransmitData.h:18:7:virtual VennaCmdTransmitData::~VennaCmdTransmitData()	16	static

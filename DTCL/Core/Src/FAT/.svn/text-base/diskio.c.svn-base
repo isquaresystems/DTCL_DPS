@@ -1,0 +1,372 @@
+/*-----------------------------------------------------------------------*/
+/* Low level disk I/O module skeleton for FatFs     (C)ChaN, 2007        */
+/*-----------------------------------------------------------------------*/
+/* This is a stub disk I/O module that acts as front end of the existing */
+/* disk I/O modules and attach it to FatFs module with common interface. */
+/*-----------------------------------------------------------------------*/
+#include <stdio.h>
+#include <system.h>
+#include <io.h>
+#include "diskio.h"
+/*-----------------------------------------------------------------------*/
+/* Correspondence between physical drive number and physical drive.      */
+/*-----------------------------------------------------------------------*/
+#define INT_CF	0
+#define CF_IDE_BASE CF_BASE
+
+#define DATA_REG       0x00 // DATA REGISTER (R/W)
+#define ERR_REG        0x04 // ERROR REGISTER (READ)
+#define FEATURE_REG    0x04 // FEATURE REGISTER (WRITE)
+#define SEC_COUNT_REG  0x08 // SECTOR COUNT REGISTER (R/W)
+#define SEC_NUM_REG    0x0C // SECTOR NUMBER REGISTER (R/W)
+#define CYL_LOW_REG    0x10 // CYLINDER LOW REGISTER (R/W)
+#define CYL_HI_REG     0x14 // CYLINDER HIGH REGISTER (R/W)
+#define DRV_HD_REG     0x18 // DRIVE/HEAD REGISTER (R/W)
+#define STATUS_REG     0x1C // STATUS REGISTER (READ)
+#define COMMAND_REG    0x1C // COMMAND REGISTER (WRITE)
+#define DEVICE_CNTRL   0x18 // DEVICE_CNTRL(WRITE)
+#define CF_SW_REG      0x38 // SW CNTRL
+
+#define ReadCmd        0x20 // Read Command For Compact Flash
+#define WriteCmd       0x30 // Write Command For Compact Flash
+#define EraseCmd       0xC0 // Erase Command For Compact Flash 
+#define IdentifyCmd    0xEC // Identify Command For Compact Flash 
+
+unsigned short RdBuf[256];
+//extern alt_u8 CF_FIFO_Trans;
+extern alt_u32 CF_TRANS_FIFO_BASE ; 
+/*-----------------------------------------------------------------------*/
+/*READ RTC(FUNCTION CREATED)                                             */
+/*-----------------------------------------------------------------------*/
+DWORD get_fattime(void)
+{
+ //bit31:25 -> Year from 1980 (0..127)
+ //bit24:21 -> Month (1..12)
+ //bit20:16 -> Day in month(1..31)
+ //bit15:11 -> Hour (0..23)
+ //bit10:5  -> Minute (0..59)
+ //bit4:0   -> Second / 2 (0..29) 
+ return(0x00000000);  
+}
+/*-----------------------------------------------------------------------*/
+/* Inidialize a Drive(ORIGINAL FUNCTION)                                 */
+/*-----------------------------------------------------------------------*/
+DSTATUS disk_initialize(BYTE drv)
+{
+ DSTATUS stat;
+ unsigned char Status;
+    //printf("%s\n",__func__);
+    if(drv == INT_CF)
+    {
+       Status = ChkCF();
+       if(Status == 0)
+        { 
+         stat = RES_OK;
+        }
+       else
+        {
+         stat = STA_NODISK;
+        }
+       RstCf(); 
+       return stat;
+    }
+    else
+    {
+	  return STA_NOINIT;
+    }
+}
+/*-----------------------------------------------------------------------*/
+/* Return Disk Status(ORIGINAL FUNCTION)                                 */
+/*-----------------------------------------------------------------------*/
+DSTATUS disk_status(BYTE drv)
+{
+    //printf("%s\n",__func__);
+    if(drv == INT_CF)
+    {
+      return(RES_OK);
+    }
+	return STA_NOINIT;
+}
+/*-----------------------------------------------------------------------*/
+/* Read Sector(s)(ORIGINAL FUNCTION)                                     */
+/*-----------------------------------------------------------------------*/
+DRESULT disk_read(BYTE drv,BYTE *buff,DWORD sector,BYTE count)
+{
+DRESULT res;  
+unsigned char Status;
+unsigned int i;
+unsigned int m;
+unsigned int temp;
+unsigned index = 0;
+unsigned short * BuffPtr = (unsigned short *)buff;
+
+    //printf("%s\n",__func__);
+	if(drv == INT_CF)
+    {
+         Status = ChkCFRdyForCmd();
+         if(Status == 0)
+         {
+            res = RES_NOTRDY;
+            return res;
+         }
+         else
+         {
+            CfCmd(sector,ReadCmd,count);
+            
+            for(m = 0;m<((count==0)?0x100:count);m++)
+            {
+             Status = ChkCFRdyForData();
+             if(Status == 0)
+              {
+                res = RES_ERROR;
+                return res;
+              }
+             else
+              { 
+//               if(!(CF_FIFO_Trans ))       
+//               {          
+                for(i = 0;i<256;i++)
+                  BuffPtr[i] = IORD_16DIRECT(CF_IDE_BASE,DATA_REG);
+//                   }
+//               else
+//               {
+//                for(i = 0;i<256;i++)
+//                    IOWR_32DIRECT(CF_TRANS_FIFO_BASE,0,IORD_16DIRECT(CF_IDE_BASE,DATA_REG)); 
+//               }
+              }
+            }
+            res = RES_OK;
+            return res; 
+         }
+    }
+    return RES_PARERR;
+}
+/*-----------------------------------------------------------------------*/
+/* Write Sector(s)(ORIGINAL FUNCTION)                                    */
+/*-----------------------------------------------------------------------*/
+/* The FatFs module will issue multiple sector transfer request
+/  (count > 1) to the disk I/O layer. The disk function should process
+/  the multiple sector transfer properly Do. not translate it into
+/  multiple single sector transfers to the media, or the data read/write
+/  performance may be drasticaly decreased. */
+
+#if _READONLY == 0
+DRESULT disk_write(BYTE drv,const BYTE *buff,DWORD sector,BYTE count)
+{
+DRESULT res;
+unsigned char Status;
+unsigned int i;
+unsigned int m;
+unsigned int data=0;
+unsigned short * BuffPtr = (unsigned short *)buff;	
+unsigned int index = 0;
+    //printf("%s\n",__func__);
+    if(drv == INT_CF)
+    {
+         Status = ChkCFRdyForCmd();
+         if(Status == 0)
+         {
+            res = RES_NOTRDY;
+            return res;
+         }
+         else
+         {
+            CfCmd(sector,WriteCmd,count);
+            for(m = 0;m<((count==0)?0x100:count);m++)
+            {
+             Status = ChkCFRdyForData();
+             if(Status == 0)
+              {
+                res = RES_ERROR;
+                return res;
+              }
+             else
+              {
+                for(i = 0;i<256;i++)
+                {
+                   IOWR_16DIRECT(CF_IDE_BASE,DATA_REG,BuffPtr[i]);
+//                   data = buff[index++]<<8;
+//                   data = data | buff[index++];
+//                   IOWR_16DIRECT(CF_IDE_BASE,DATA_REG,data);
+                } 
+              }
+             }
+             res = RES_OK;
+             return res;
+         }
+    }
+    return RES_PARERR;  
+}
+#endif
+/*-----------------------------------------------------------------------*/
+/* Miscellaneous Functions(ORIGINAL FUNCTION)                            */
+/*-----------------------------------------------------------------------*/
+DRESULT disk_ioctl(BYTE drv,BYTE ctrl,DWORD *buff)
+{
+DRESULT res;  
+unsigned char Status;
+unsigned int i;
+unsigned int RdData;
+    if(drv == INT_CF)
+    { 
+      //printf("%s\n",__func__);
+      switch(ctrl)
+      {
+        case          CTRL_SYNC:
+        
+                                break;
+        case   GET_SECTOR_COUNT:
+                                Status = ChkCFRdyForCmd();
+                                if(Status == 0)
+                                {
+                                  res = RES_ERROR;
+                                  return res;  
+                                }
+                                CfCmd(0,0xEC,0x01);
+                                Status = ChkCFRdyForData();
+                                if(Status == 0)
+                                {
+                                  res = RES_ERROR;
+                                  return res;  
+                                }
+                                for(i = 0;i<256;i = i + 1)
+                                 {
+                                   RdBuf[i] = IORD_16DIRECT(CF_IDE_BASE,0x00);          
+                                 }
+                                 RdData = RdBuf[61] << 16;
+                                 *buff  = RdData | RdBuf[60];
+                                break;
+        case    GET_SECTOR_SIZE:
+                                *buff  = 512;
+                                break;
+        case     GET_BLOCK_SIZE:
+                                *buff  = 512;
+                                break;
+        case  CTRL_ERASE_SECTOR:
+                                *buff  = 512;
+                                break;
+        default:
+                                *buff  = 0;
+                                res = RES_ERROR;
+                                return res;
+                                break;                     
+      }
+    }
+    res = RES_OK;
+    return res;
+}
+//**************************************************************************
+//Function to Check Compact Flash Ready for Command(FUNCTION CREATED)
+//**************************************************************************
+unsigned char ChkCFRdyForCmd(void)
+{
+  unsigned char RdStatus = 0;
+  unsigned int BusyCnt = 0;
+  //printf("%s\n",__func__);
+  RdStatus = IORD_8DIRECT(CF_IDE_BASE,STATUS_REG);
+  RdStatus = RdStatus & 0x01;
+      if(RdStatus == 0x01)
+      {
+         return(0);
+      }   
+      RdStatus = IORD_8DIRECT(CF_IDE_BASE,STATUS_REG);
+      RdStatus = RdStatus & 0xF0;
+      while(RdStatus != 0x50)
+      { 
+        RdStatus = IORD_8DIRECT(CF_IDE_BASE,STATUS_REG);
+        RdStatus = RdStatus & 0xF0;
+        BusyCnt++;
+        if(BusyCnt == 1000000)
+        {
+          return(0);   
+        }
+      }
+      return(1);
+}
+//**************************************************************************
+//Function to Check Compact Flash Ready for Data(FUNCTION CREATED)
+//**************************************************************************
+unsigned char ChkCFRdyForData(void)
+{
+  unsigned char RdStatus = 0;
+  unsigned int BusyCnt = 0;
+  //printf("%s\n",__func__);
+  RdStatus = IORD_8DIRECT(CF_IDE_BASE,STATUS_REG);
+  RdStatus = RdStatus & 0x01;
+      if(RdStatus == 0x01)
+      {
+         return(0);
+      }    
+  RdStatus = IORD_8DIRECT(CF_IDE_BASE,STATUS_REG);
+  RdStatus = RdStatus & 0xF8;
+      while(RdStatus != 0x58)
+      { 
+        RdStatus = IORD_8DIRECT(CF_IDE_BASE,STATUS_REG);
+        RdStatus = RdStatus & 0xF8;
+        BusyCnt++;
+        if(BusyCnt == 5000000)
+        {
+          return(0);   
+        }
+      }
+      return(1);
+}
+//**************************************************************************
+//Function to Send Command to Compact Flash(FUNCTION CREATED)
+//**************************************************************************
+void CfCmd(unsigned int LBA,unsigned char Cmd,unsigned char count)
+{
+   unsigned char SectorNo,CylinderLow,CylinderHigh;
+   //printf("%s\n",__func__);
+   //printf("%x  %x  %x  \n",LBA,Cmd,count);
+   SectorNo     = LBA & 0x000000FF;
+   CylinderLow  = LBA >> 8;
+   CylinderLow  = CylinderLow & 0x000000FF;
+   CylinderHigh = LBA >> 16; 
+   CylinderHigh = CylinderHigh & 0x000000FF;
+   
+   IOWR_8DIRECT(CF_IDE_BASE,FEATURE_REG,0x00);
+   IOWR_8DIRECT(CF_IDE_BASE,SEC_COUNT_REG,count);
+   IOWR_8DIRECT(CF_IDE_BASE,SEC_NUM_REG,SectorNo);
+   IOWR_8DIRECT(CF_IDE_BASE,CYL_LOW_REG,CylinderLow);
+   IOWR_8DIRECT(CF_IDE_BASE,CYL_HI_REG,CylinderHigh);
+   IOWR_8DIRECT(CF_IDE_BASE,DRV_HD_REG,0xE0);
+   IOWR_8DIRECT(CF_IDE_BASE,COMMAND_REG,Cmd);
+}
+//**************************************************************************
+//Function to Detect PCMCIA Compact Flash From NIOS (FUNCTION CREATED) 
+//**************************************************************************
+unsigned char ChkCF(void)
+{
+   unsigned char CfDetect;
+   CfDetect = IORD_8DIRECT(CFDETECT_BASE,0x00);
+   CfDetect = (CfDetect & 0x01);
+   return(CfDetect);
+}
+//**************************************************************************
+//Function to Reset PCMCIA Compact Flash From NIOS (FUNCTION CREATED)
+//**************************************************************************
+void RstCf(void)
+{
+   IOWR_32DIRECT(CFNRST_BASE,0x00,0x00000000);
+   Delay(1000,1000);
+   IOWR_32DIRECT(CFNRST_BASE,0x00,0xFFFFFFFF);
+   Delay(1000,1000);
+}
+//**************************************************************************
+//Delay Function(FUNCTION CREATED)
+//**************************************************************************        
+void Delay(unsigned int a,unsigned int b)
+{
+  unsigned int x,y;
+  for(x=0;x<a;x++)
+  {
+     for(y=0;y<b;y++)
+     {
+        
+     }
+  }  
+}
+
+
+

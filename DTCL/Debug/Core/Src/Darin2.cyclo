@@ -1,0 +1,20 @@
+IVennaSubCommandHandler.h:10:19:virtual uint32_t IVennaSubCommandHandler::prepareForRx(const uint8_t*, uint8_t, uint32_t)	1
+IVennaSubCommandHandler.h:11:21:virtual uint8_t IVennaSubCommandHandler::processRxData(const uint8_t*, uint8_t, uint32_t)	1
+IVennaSubCommandHandler.h:12:21:virtual uint8_t IVennaSubCommandHandler::prepareDataToTx(const uint8_t*, uint8_t, uint32_t&)	1
+IVennaSubCommandHandler.h:14:22:virtual uint16_t IVennaSubCommandHandler::DecodeCmdReq(uint8_t*)	2
+IVennaSubCommandHandler.h:25:22:virtual uint16_t IVennaSubCommandHandler::EnocdeCmdRes(uint8_t, uint8_t*, uint16_t)	2
+IVennaSubCommandHandler.h:38:29:virtual VennaSubCommand IVennaSubCommandHandler::getSubCmd()	1
+IVennaSubCommandHandler.h:40:22:virtual uint16_t IVennaSubCommandHandler::processCmdReq(uint8_t*)	1
+logger.h:16:26:static SimpleLogger& SimpleLogger::getInstance()	3
+logger.h:22:10:void SimpleLogger::log(SimpleLogger::Level, const char*)	1
+logger.h:46:5:SimpleLogger::SimpleLogger()	1
+IVennaSubCommandHandler.h:8:7:constexpr IVennaSubCommandHandler::IVennaSubCommandHandler()	1
+IVennaSubCommandHandler.h:43:13:IVennaSubCommandHandler::~IVennaSubCommandHandler()	1
+IVennaSubCommandHandler.h:43:13:virtual IVennaSubCommandHandler::~IVennaSubCommandHandler()	1
+Darin2.cpp:8:1:Darin2::Darin2()	1
+Darin2.cpp:12:10:virtual uint32_t Darin2::prepareForRx(const uint8_t*, uint8_t, uint32_t)	5
+Darin2.cpp:54:9:virtual uint8_t Darin2::processRxData(const uint8_t*, uint8_t, uint32_t)	3
+Darin2.cpp:89:9:virtual uint8_t Darin2::prepareDataToTx(const uint8_t*, uint8_t, uint32_t&)	7
+Darin2.cpp:138:6:void Darin2::TestDarinIIFlash(int, int)	9
+Darin2.h:8:7:Darin2::~Darin2()	1
+Darin2.h:8:7:virtual Darin2::~Darin2()	1

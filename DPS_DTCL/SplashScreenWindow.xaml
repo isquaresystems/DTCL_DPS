@@ -1,0 +1,86 @@
+﻿<Window x:Class="DTCL.SplashScreenWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Splash Screen" Height="400" Width="600"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <!-- Background with Mirage fighter jet image -->
+        <Image Source="/MirageJet.jpg" Stretch="UniformToFill" Opacity="20.0">
+            <Image.Effect>
+                <BlurEffect Radius="0"/>
+            </Image.Effect>
+        </Image>
+
+        <Border Background="#AA000000" CornerRadius="10" BorderThickness="2" BorderBrush="White" Padding="20">
+            <Border.Effect>
+                <DropShadowEffect Color="Black" Direction="320" ShadowDepth="10" BlurRadius="20" Opacity="0.7"/>
+            </Border.Effect>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Logo with fade-in and scale animation -->
+                <Image Source="pack://application:,,,/YourLogo.png" Width="100" Height="100" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Image.RenderTransform>
+                        <ScaleTransform x:Name="LogoScale" ScaleX="1" ScaleY="1"/>
+                    </Image.RenderTransform>
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2"/>
+                                    <DoubleAnimation Storyboard.TargetName="LogoScale" Storyboard.TargetProperty="ScaleX" From="0.8" To="1" Duration="0:0:2"/>
+                                    <DoubleAnimation Storyboard.TargetName="LogoScale" Storyboard.TargetProperty="ScaleY" From="0.8" To="1" Duration="0:0:2"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                </Image>
+
+                <!-- Application Name and Loading Text -->
+                <StackPanel Grid.Row="1" HorizontalAlignment="Center">
+                    <TextBlock x:Name="TitleName"  Text="Data Transfer Cartridge Loader" FontSize="28" FontWeight="Bold" Foreground="White" Margin="10" TextAlignment="Center"/>
+                    <TextBlock x:Name="LoadingText" Text="Loading, please wait..." FontSize="16" Foreground="White" Margin="10" TextAlignment="Center">
+                        <TextBlock.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:1.5" AutoReverse="True"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </TextBlock.Triggers>
+                    </TextBlock>
+                </StackPanel>
+
+                <!-- Progress Ring -->
+                <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="10">
+                    <Ellipse Width="50" Height="50" StrokeThickness="5" Stroke="White" Opacity="0.2"/>
+                    <Ellipse Width="50" Height="50" StrokeThickness="5" Stroke="White">
+                        <Ellipse.RenderTransform>
+                            <RotateTransform x:Name="rotateTransform" Angle="0" CenterX="25" CenterY="25"/>
+                        </Ellipse.RenderTransform>
+                        <Ellipse.Triggers>
+                            <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                <BeginStoryboard>
+                                    <Storyboard RepeatBehavior="Forever">
+                                        <DoubleAnimation Storyboard.TargetName="rotateTransform"
+                                                         Storyboard.TargetProperty="Angle"
+                                                         From="0" To="360" Duration="0:0:2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Ellipse.Triggers>
+                    </Ellipse>
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

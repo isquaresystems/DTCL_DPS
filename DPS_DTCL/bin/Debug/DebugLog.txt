@@ -1,0 +1,67 @@
+2025-11-08 21:03:08.238 [Info] Application started
+2025-11-08 21:03:13.122 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2025-11-08 21:03:13.531 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2025-11-08 21:03:13.947 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2025-11-08 21:03:14.530 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2025-11-08 21:03:31.003 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:31.005 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:31.260 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:31.261 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:31.510 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:31.511 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:32.763 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
+2025-11-08 21:03:32.764 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:32.795 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:32.796 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:32.834 [Debug] [RX-RESET] State reset to Idle
+2025-11-08 21:03:32.835 [Debug] [RX-INIT] IspCmdReceiveData initialized
+2025-11-08 21:03:32.838 [Debug] [TX-RESET] Transmission state reset to Idle
+2025-11-08 21:03:32.839 [Debug] [TX-INIT] IspCmdTransmitData initialized
+2025-11-08 21:03:32.839 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
+2025-11-08 21:03:32.840 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers.
+2025-11-08 21:03:32.844 [Info] [EVT0000] [OnHwConnected] Port Connected
+2025-11-08 21:03:33.132 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:03:33.133 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:33.136 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
+2025-11-08 21:03:33.174 [Debug] OnCartDetected isPCMode :False
+2025-11-08 21:03:33.185 [Info] [EVT3001] Registered handler for subcommand 0x00.
+2025-11-08 21:03:33.185 [Info] [EVT3001] Registered handler for subcommand 0x01.
+2025-11-08 21:03:33.185 [Info] [EVT3001] Registered handler for subcommand 0x02.
+2025-11-08 21:03:33.187 [Info] [EVT3001] Registered handler for subcommand 0x09.
+2025-11-08 21:03:33.187 [Debug] RegisterSubCommandHandlers :Darin2
+2025-11-08 21:03:33.198 [Debug] OnCartDetected isPCMode :False
+2025-11-08 21:03:34.138 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:03:34.139 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:34.140 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
+2025-11-08 21:03:34.177 [Debug] RegisterSubCommandHandlers :Darin2
+2025-11-08 21:03:34.180 [Debug] OnCartDetected isPCMode :False
+2025-11-08 21:03:35.138 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:03:35.139 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:35.140 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
+2025-11-08 21:03:35.176 [Debug] RegisterSubCommandHandlers :Darin2
+2025-11-08 21:03:35.178 [Debug] OnCartDetected isPCMode :False
+2025-11-08 21:03:35.616 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:35.617 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:35.620 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
+2025-11-08 21:03:36.139 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:03:36.140 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:36.142 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
+2025-11-08 21:03:36.179 [Debug] RegisterSubCommandHandlers :Darin2
+2025-11-08 21:03:36.185 [Debug] OnCartDetected isPCMode :False
+2025-11-08 21:03:37.139 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:03:37.140 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:37.142 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
+2025-11-08 21:03:37.171 [Debug] RegisterSubCommandHandlers :Darin2
+2025-11-08 21:03:37.183 [Debug] OnCartDetected isPCMode :False
+2025-11-08 21:03:38.140 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:03:38.140 [Debug] [EVT2014] Sending Command frame. Size = 0
+2025-11-08 21:03:38.141 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
+2025-11-08 21:03:38.178 [Debug] RegisterSubCommandHandlers :Darin2
+2025-11-08 21:03:38.209 [Debug] OnCartDetected isPCMode :False
+2025-11-08 21:03:38.967 [Error] Log file not found.
+2025-11-08 21:03:38.970 [Error] Log file not found.
+2025-11-08 21:03:39.069 [Info] Start FirmwareCtrlLed
+2025-11-08 21:03:39.070 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2025-11-08 21:03:39.070 [Debug] [EVT2014] Sending Command frame. Size = 1
+2025-11-08 21:03:39.071 [Debug] [TX-COMPLETE] Physical transmission completed - Success: False
+2025-11-08 21:03:39.072 [Error] UART transmit error: Port is not open.

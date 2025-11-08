@@ -1,0 +1,3298 @@
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.arch armv7e-m
+   3              		.fpu fpv4-sp-d16
+   4              		.eabi_attribute 27, 1
+   5              		.eabi_attribute 28, 1
+   6              		.eabi_attribute 20, 1
+   7              		.eabi_attribute 21, 1
+   8              		.eabi_attribute 23, 3
+   9              		.eabi_attribute 24, 1
+  10              		.eabi_attribute 25, 1
+  11              		.eabi_attribute 26, 1
+  12              		.eabi_attribute 30, 1
+  13              		.eabi_attribute 34, 1
+  14              		.eabi_attribute 18, 4
+  15              		.file	"Darin3Cart_Driver.c"
+  16              		.text
+  17              	.Ltext0:
+  18              		.cfi_sections	.debug_frame
+  19              		.section	.text.post_read_compact_flash,"ax",%progbits
+  20              		.align	1
+  21              		.global	post_read_compact_flash
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  26              	post_read_compact_flash:
+  27              	.LVL0:
+  28              	.LFB134:
+  29              		.file 1 "Core/Src/Darin3Cart_Driver.c"
+   1:Core/Src/Darin3Cart_Driver.c **** /*
+   2:Core/Src/Darin3Cart_Driver.c ****  * Darin3Cartridge.c
+   3:Core/Src/Darin3Cart_Driver.c ****  *
+   4:Core/Src/Darin3Cart_Driver.c ****  *  Created on: 10-Aug-2023
+   5:Core/Src/Darin3Cart_Driver.c ****  *      Author: Vijay
+   6:Core/Src/Darin3Cart_Driver.c ****  */
+   7:Core/Src/Darin3Cart_Driver.c **** 
+   8:Core/Src/Darin3Cart_Driver.c **** #include "stm32f4xx_hal.h"
+   9:Core/Src/Darin3Cart_Driver.c **** #include "main.h"
+  10:Core/Src/Darin3Cart_Driver.c **** #include "Darin3Cart_Driver.h"
+  11:Core/Src/Darin3Cart_Driver.c **** 
+  12:Core/Src/Darin3Cart_Driver.c **** uint16_t CF_WE  = C3WE_Pin;
+  13:Core/Src/Darin3Cart_Driver.c **** uint16_t CF_RST = C3RST_Pin;
+  14:Core/Src/Darin3Cart_Driver.c **** uint16_t CF_OE  = C3OE_Pin;
+  15:Core/Src/Darin3Cart_Driver.c **** uint16_t CF_CE  = C3CE1_Pin;
+  16:Core/Src/Darin3Cart_Driver.c **** 
+  17:Core/Src/Darin3Cart_Driver.c **** uint16_t A0  = C1A00_C2ALE_C3A00_Pin;
+  18:Core/Src/Darin3Cart_Driver.c **** uint16_t A1  = C1A01_C2nWP_C3A01_Pin;
+  19:Core/Src/Darin3Cart_Driver.c **** uint16_t A2  = C1A02_C3A02_Pin;
+  20:Core/Src/Darin3Cart_Driver.c **** uint16_t A3  = C1A03_C2nWE_C3A03_Pin;
+  21:Core/Src/Darin3Cart_Driver.c **** 
+  22:Core/Src/Darin3Cart_Driver.c **** uint16_t Address_Flash_Page1 = 0;
+  23:Core/Src/Darin3Cart_Driver.c **** 
+  24:Core/Src/Darin3Cart_Driver.c **** uint16_t sector_number = 0;
+  25:Core/Src/Darin3Cart_Driver.c **** 
+  26:Core/Src/Darin3Cart_Driver.c **** static uint8_t SLT_STATUS2[] = { 0, 0, 0, 0 };
+  27:Core/Src/Darin3Cart_Driver.c **** 
+  28:Core/Src/Darin3Cart_Driver.c **** #define data_reg 	   0x00
+  29:Core/Src/Darin3Cart_Driver.c **** #define feature        0x01
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 2
+
+
+  30:Core/Src/Darin3Cart_Driver.c **** #define sector_count   0x02
+  31:Core/Src/Darin3Cart_Driver.c **** #define sector_num     0x03
+  32:Core/Src/Darin3Cart_Driver.c **** #define cyc_low        0x04
+  33:Core/Src/Darin3Cart_Driver.c **** #define cyc_high       0x05
+  34:Core/Src/Darin3Cart_Driver.c **** #define drive          0x06
+  35:Core/Src/Darin3Cart_Driver.c **** #define command        0x07
+  36:Core/Src/Darin3Cart_Driver.c **** #define status_reg     0x07
+  37:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  38:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  39:Core/Src/Darin3Cart_Driver.c **** // COMPACT FLASH READ OPERATION
+  40:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  41:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  42:Core/Src/Darin3Cart_Driver.c **** void read_compact_flash(uint8_t *TempStorage,CartridgeID id)//this initiates the complete read cycl
+  43:Core/Src/Darin3Cart_Driver.c **** {
+  44:Core/Src/Darin3Cart_Driver.c ****  pre_read_compact_flash(id);	                 //function to pre intialise the ports to compact flas
+  45:Core/Src/Darin3Cart_Driver.c ****  compact_flash_ready();	                     //function to find wheather the compact flash is ready
+  46:Core/Src/Darin3Cart_Driver.c ****  command_for_read();		                 //function to intiate read command for compact flash
+  47:Core/Src/Darin3Cart_Driver.c ****  check_stat_of_compact_flash();              //function to check wheather the command is initiated 
+  48:Core/Src/Darin3Cart_Driver.c ****  compact_flash_read(TempStorage,512);		 //function to read the data from the compact flash and stor
+  49:Core/Src/Darin3Cart_Driver.c ****  post_read_compact_flash(id);                  //reset the mode of all the ports to input
+  50:Core/Src/Darin3Cart_Driver.c **** }
+  51:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  52:Core/Src/Darin3Cart_Driver.c **** //PRE_READ_COMPACT_FLASH
+  53:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  54:Core/Src/Darin3Cart_Driver.c **** void pre_read_compact_flash(CartridgeID id)//function to pre intialise the ports to compact flash
+  55:Core/Src/Darin3Cart_Driver.c **** {
+  56:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+  57:Core/Src/Darin3Cart_Driver.c ****  write_address_port(0);
+  58:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC,CF_WE,1);				//disable write signal
+  59:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA,CF_OE,1);				//disable output enable of compact flash
+  60:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB,CF_CE,0);
+  61:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,1);				//Enable reset
+  62:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(500);
+  63:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,0);				//disable reset
+  64:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(2500);
+  65:Core/Src/Darin3Cart_Driver.c **** }
+  66:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  67:Core/Src/Darin3Cart_Driver.c **** //COMMAND_FOR _READ
+  68:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+  69:Core/Src/Darin3Cart_Driver.c **** void command_for_read()						 //function to intiate read command for compact flash
+  70:Core/Src/Darin3Cart_Driver.c **** {
+  71:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Output);					 //set the mode of port p1 as output port
+  72:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_count); 				 //address the register pointer of CF to sector counter regi
+  73:Core/Src/Darin3Cart_Driver.c ****  write_port( 0x01);								 //since single page is accessed at a time put value 0x01 into port p1
+  74:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);	         //intiate write so that that value 0x01 is stored in
+  75:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);			 //sector count register
+  76:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_num);				 //address the register pointer of CF to sector number register
+  77:Core/Src/Darin3Cart_Driver.c ****  write_port( sector_number);  					 //send the sector number from which you want to read the data
+  78:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+  79:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+  80:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_low);					 //address the register pointer of CF to cylinder low register
+  81:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1);				 //send the cylinder low value from which you want to read the
+  82:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+  83:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+  84:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_high);					 //address the register pointer of CF to cylinder high register
+  85:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1  >> 8);			 //send the cylinder high value from which you want to re
+  86:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 3
+
+
+  87:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+  88:Core/Src/Darin3Cart_Driver.c ****  write_address_port(drive);						 //address the register pointer of CF to drive register
+  89:Core/Src/Darin3Cart_Driver.c ****  write_port(0xE0);								 //send the drive value from which you want to read the data
+  90:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+  91:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+  92:Core/Src/Darin3Cart_Driver.c ****  write_address_port(command);					 //address the register pointer of CF to comand register
+  93:Core/Src/Darin3Cart_Driver.c ****  write_port(0x20);								 //send the command value from which you want to read the data
+  94:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+  95:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+  96:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);									 //call delay function
+  97:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);					 //set the mode of port p1 as input port
+  98:Core/Src/Darin3Cart_Driver.c **** }
+  99:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 100:Core/Src/Darin3Cart_Driver.c **** //POST_READ_COMPACT_FLASH
+ 101:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 102:Core/Src/Darin3Cart_Driver.c **** void compact_flash_read(uint8_t *TempStorage,uint16_t datalength)
+ 103:Core/Src/Darin3Cart_Driver.c **** {
+ 104:Core/Src/Darin3Cart_Driver.c ****  write_address_port(data_reg) ;				 //address the register pointer to point to data regester
+ 105:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);				 //ready to access data from the CF
+ 106:Core/Src/Darin3Cart_Driver.c ****  for (uint16_t x=0 ;x<datalength ;x++)		 //if data counter 'x'<512 then
+ 107:Core/Src/Darin3Cart_Driver.c ****  {
+ 108:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA, CF_OE, 0);		 //activate the output enable of CF
+ 109:Core/Src/Darin3Cart_Driver.c ****   *TempStorage = Read_port();				 //read the data from the CF and store it in address specified by 
+ 110:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA, CF_OE, 1);	     //disbale output enable of CF
+ 111:Core/Src/Darin3Cart_Driver.c ****   TempStorage++;							 //increment 'pread'
+ 112:Core/Src/Darin3Cart_Driver.c ****  }
+ 113:Core/Src/Darin3Cart_Driver.c **** }
+ 114:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 115:Core/Src/Darin3Cart_Driver.c **** //POST_READ_COMPACT_FLASH
+ 116:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 117:Core/Src/Darin3Cart_Driver.c **** void post_read_compact_flash(CartridgeID id)				 //reset the mode of all the ports to input
+ 118:Core/Src/Darin3Cart_Driver.c **** {
+  30              		.loc 1 118 1 view -0
+  31              		.cfi_startproc
+  32              		@ args = 0, pretend = 0, frame = 0
+  33              		@ frame_needed = 0, uses_anonymous_args = 0
+  34              		.loc 1 118 1 is_stmt 0 view .LVU1
+  35 0000 08B5     		push	{r3, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 3, -8
+  39              		.cfi_offset 14, -4
+ 119:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB, CF_CE, 1);	    //disable compact flash chip
+  40              		.loc 1 119 2 is_stmt 1 view .LVU2
+  41 0002 0122     		movs	r2, #1
+  42 0004 0B4B     		ldr	r3, .L3
+  43 0006 1988     		ldrh	r1, [r3]
+  44 0008 0B48     		ldr	r0, .L3+4
+  45              	.LVL1:
+  46              		.loc 1 119 2 is_stmt 0 view .LVU3
+  47 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+  48              	.LVL2:
+ 120:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);	    //disable write enable signal
+  49              		.loc 1 120 2 is_stmt 1 view .LVU4
+  50 000e 0122     		movs	r2, #1
+  51 0010 0A4B     		ldr	r3, .L3+8
+  52 0012 1988     		ldrh	r1, [r3]
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 4
+
+
+  53 0014 0A48     		ldr	r0, .L3+12
+  54 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  55              	.LVL3:
+ 121:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE, CF_RST,1);	    //disable reset signal of compact flash
+  56              		.loc 1 121 2 view .LVU5
+  57 001a 0122     		movs	r2, #1
+  58 001c 094B     		ldr	r3, .L3+16
+  59 001e 1988     		ldrh	r1, [r3]
+  60 0020 0948     		ldr	r0, .L3+20
+  61 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+  62              	.LVL4:
+ 122:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA, CF_OE, 1);	    //disable output enable of compact flash
+  63              		.loc 1 122 2 view .LVU6
+  64 0026 0122     		movs	r2, #1
+  65 0028 084B     		ldr	r3, .L3+24
+  66 002a 1988     		ldrh	r1, [r3]
+  67 002c 0848     		ldr	r0, .L3+28
+  68 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+  69              	.LVL5:
+ 123:Core/Src/Darin3Cart_Driver.c **** }
+  70              		.loc 1 123 1 is_stmt 0 view .LVU7
+  71 0032 08BD     		pop	{r3, pc}
+  72              	.L4:
+  73              		.align	2
+  74              	.L3:
+  75 0034 00000000 		.word	.LANCHOR0
+  76 0038 00040240 		.word	1073873920
+  77 003c 00000000 		.word	.LANCHOR1
+  78 0040 00080240 		.word	1073874944
+  79 0044 00000000 		.word	.LANCHOR2
+  80 0048 00100240 		.word	1073876992
+  81 004c 00000000 		.word	.LANCHOR3
+  82 0050 00000240 		.word	1073872896
+  83              		.cfi_endproc
+  84              	.LFE134:
+  86              		.section	.text.post_write_compact_flash,"ax",%progbits
+  87              		.align	1
+  88              		.global	post_write_compact_flash
+  89              		.syntax unified
+  90              		.thumb
+  91              		.thumb_func
+  93              	post_write_compact_flash:
+  94              	.LVL6:
+  95              	.LFB141:
+ 124:Core/Src/Darin3Cart_Driver.c **** 
+ 125:Core/Src/Darin3Cart_Driver.c **** 
+ 126:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 127:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 128:Core/Src/Darin3Cart_Driver.c **** // COMPACT FLASH WRITE OPERATION
+ 129:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 130:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 131:Core/Src/Darin3Cart_Driver.c **** void write_compact_flash(uint8_t* TempStorage,CartridgeID id)	//this initiates the complete write c
+ 132:Core/Src/Darin3Cart_Driver.c **** {
+ 133:Core/Src/Darin3Cart_Driver.c ****  pre_write_compact_flash(id);	                    //this function initiates pre port settings for C
+ 134:Core/Src/Darin3Cart_Driver.c ****  compact_flash_ready();		                    //this is used to check wheather CF is ready for write
+ 135:Core/Src/Darin3Cart_Driver.c ****  command_for_write();			                //this function is used to initiate write command to CF
+ 136:Core/Src/Darin3Cart_Driver.c ****  check_stat_of_compact_flash();                 //this function is used to check the status of writ
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 5
+
+
+ 137:Core/Src/Darin3Cart_Driver.c ****  compact_flash_write(TempStorage,512);		    //if command was sucessesful then start writing data to
+ 138:Core/Src/Darin3Cart_Driver.c ****  post_write_compact_flash(id);	                //this function used to reset the mode of ports
+ 139:Core/Src/Darin3Cart_Driver.c **** }
+ 140:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 141:Core/Src/Darin3Cart_Driver.c **** //PRE_WRITE_COMPACT_FLASH
+ 142:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 143:Core/Src/Darin3Cart_Driver.c **** void pre_write_compact_flash(CartridgeID id)              //this function initiates pre port settin
+ 144:Core/Src/Darin3Cart_Driver.c **** {
+ 145:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 146:Core/Src/Darin3Cart_Driver.c ****  write_address_port(0);
+ 147:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC,CF_WE,1);				//disable write signal
+ 148:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA,CF_OE,1);				//disable output enable of compact flash
+ 149:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB,CF_CE,0);
+ 150:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,1);				//Enable reset
+ 151:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);
+ 152:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,0);				//disable reset
+ 153:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(2500);
+ 154:Core/Src/Darin3Cart_Driver.c **** }
+ 155:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 156:Core/Src/Darin3Cart_Driver.c **** //COMPACT_FLASH_READY
+ 157:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 158:Core/Src/Darin3Cart_Driver.c **** unsigned char compact_flash_ready()         //function to find wheather the compact flash is ready 
+ 159:Core/Src/Darin3Cart_Driver.c **** {
+ 160:Core/Src/Darin3Cart_Driver.c ****  unsigned char reg_status;
+ 161:Core/Src/Darin3Cart_Driver.c ****  write_address_port(status_reg);                //send 0x07 to CF so that select status register of
+ 162:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);			                        //call delay function
+ 163:Core/Src/Darin3Cart_Driver.c ****  unsigned int BusyCnt;
+ 164:Core/Src/Darin3Cart_Driver.c **** 
+ 165:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 166:Core/Src/Darin3Cart_Driver.c ****  do                   	                        //check for error if one it means previous
+ 167:Core/Src/Darin3Cart_Driver.c ****  {						                        //command was ended with error
+ 168:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 169:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 170:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 171:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 172:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80) && (BusyCnt<5000));
+ 173:Core/Src/Darin3Cart_Driver.c **** 
+ 174:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 175:Core/Src/Darin3Cart_Driver.c ****  do                   	                        //check for error if one it means previous
+ 176:Core/Src/Darin3Cart_Driver.c ****  {						                        //command was ended with error
+ 177:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 178:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 179:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 180:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 181:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt<5000));
+ 182:Core/Src/Darin3Cart_Driver.c **** 
+ 183:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 184:Core/Src/Darin3Cart_Driver.c ****  do                   	                        //check for error if one it means previous
+ 185:Core/Src/Darin3Cart_Driver.c ****  {						                        //command was ended with error
+ 186:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 187:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 188:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 189:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 190:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt<5000));
+ 191:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ 192:Core/Src/Darin3Cart_Driver.c **** }
+ 193:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 6
+
+
+ 194:Core/Src/Darin3Cart_Driver.c **** //COMMAND_FOR _WRITE
+ 195:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 196:Core/Src/Darin3Cart_Driver.c **** void command_for_write()	                    //this function is used to initiate write command to C
+ 197:Core/Src/Darin3Cart_Driver.c **** {
+ 198:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Output);	                //set the mode of port p1 as output port
+ 199:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_count); 				//address the register pointer of CF to sector counter regis
+ 200:Core/Src/Darin3Cart_Driver.c ****  write_port(0x01);								//since single page is accessed at a time put value 0x01 into port p1
+ 201:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate write so that that value 0x01 is stored in
+ 202:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);    		//sector count register
+ 203:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_num);	    		//address the register pointer of CF to sector number regist
+ 204:Core/Src/Darin3Cart_Driver.c ****  write_port(sector_number);			    		//send the sector number from which you want to read the data
+ 205:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 206:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 207:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_low);		    		//address the register pointer of CF to cylinder low register
+ 208:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1);				//send the cylinder low value from which you want to read the 
+ 209:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 210:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 211:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_high);		    		//address the register pointer of CF to cylinder high registe
+ 212:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1 >> 8);			//send the cylinder high value from which you want to read
+ 213:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 214:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 215:Core/Src/Darin3Cart_Driver.c ****  write_address_port(drive);			    		//address the register pointer of CF to drive register
+ 216:Core/Src/Darin3Cart_Driver.c ****  write_port(0xE0);								//send the drive value from which you want to read the data
+ 217:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 218:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 219:Core/Src/Darin3Cart_Driver.c ****  write_address_port(command);					//address the register pointer of CF to comand register
+ 220:Core/Src/Darin3Cart_Driver.c ****  write_port(0x30);								//send the command value from which you want to WRITE the data
+ 221:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 222:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 223:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 224:Core/Src/Darin3Cart_Driver.c **** }
+ 225:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 226:Core/Src/Darin3Cart_Driver.c **** //CHEAK_STATUS_FOR_COMPACT_FLASH
+ 227:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 228:Core/Src/Darin3Cart_Driver.c **** unsigned char check_stat_of_compact_flash()	//function to check wheather the command is initiated p
+ 229:Core/Src/Darin3Cart_Driver.c **** {
+ 230:Core/Src/Darin3Cart_Driver.c ****  unsigned char reg_status;
+ 231:Core/Src/Darin3Cart_Driver.c ****  write_address_port(status_reg);				//address the register pointer to point to status regester
+ 232:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);								    //wait for some delay //if error then quit
+ 233:Core/Src/Darin3Cart_Driver.c ****  unsigned int BusyCnt;
+ 234:Core/Src/Darin3Cart_Driver.c **** 
+ 235:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 236:Core/Src/Darin3Cart_Driver.c ****  do
+ 237:Core/Src/Darin3Cart_Driver.c ****  {
+ 238:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 239:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 240:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 241:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 242:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80)&& (BusyCnt < 500000));
+ 243:Core/Src/Darin3Cart_Driver.c **** 
+ 244:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 245:Core/Src/Darin3Cart_Driver.c ****  do
+ 246:Core/Src/Darin3Cart_Driver.c ****  {
+ 247:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 248:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 249:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 250:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;;
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 7
+
+
+ 251:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt < 500000));
+ 252:Core/Src/Darin3Cart_Driver.c **** 
+ 253:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 254:Core/Src/Darin3Cart_Driver.c ****  do
+ 255:Core/Src/Darin3Cart_Driver.c ****  {
+ 256:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 257:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 258:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 259:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 260:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt < 500000));
+ 261:Core/Src/Darin3Cart_Driver.c **** 
+ 262:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 263:Core/Src/Darin3Cart_Driver.c ****  do
+ 264:Core/Src/Darin3Cart_Driver.c ****  {
+ 265:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 266:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 267:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 268:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 269:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x08) == 0x00) && (BusyCnt < 500000));
+ 270:Core/Src/Darin3Cart_Driver.c **** 
+ 271:Core/Src/Darin3Cart_Driver.c ****  BusyCnt = 0;
+ 272:Core/Src/Darin3Cart_Driver.c ****  do
+ 273:Core/Src/Darin3Cart_Driver.c ****  {
+ 274:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,0);
+ 275:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 276:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 277:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 278:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x01) == 0x01) && (BusyCnt < 500000));
+ 279:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ 280:Core/Src/Darin3Cart_Driver.c **** }
+ 281:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 282:Core/Src/Darin3Cart_Driver.c **** //WRITE_COMPACT_FLASH
+ 283:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 284:Core/Src/Darin3Cart_Driver.c **** void compact_flash_write(uint8_t* TempStorage,uint16_t datalength)	//if command was sussesful then 
+ 285:Core/Src/Darin3Cart_Driver.c **** {
+ 286:Core/Src/Darin3Cart_Driver.c ****  unsigned char busy;
+ 287:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Output);				//set the mode of port p1 as output port
+ 288:Core/Src/Darin3Cart_Driver.c ****  write_address_port(data_reg);				//address the register pointer to point to data regester
+ 289:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);
+ 290:Core/Src/Darin3Cart_Driver.c ****  for (uint16_t x=0 ;x<datalength ;x++)      //if data counter value <last page size then
+ 291:Core/Src/Darin3Cart_Driver.c ****  {
+ 292:Core/Src/Darin3Cart_Driver.c ****   write_port(*TempStorage) ;			    //read the data from XRAM location load it into the CF
+ 293:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOC, CF_WE, 0);
+ 294:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOC, CF_WE, 1);	    //disable write signal of compact flash
+ 295:Core/Src/Darin3Cart_Driver.c ****   TempStorage++;					        //increment XRAM pointer
+ 296:Core/Src/Darin3Cart_Driver.c ****  }
+ 297:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 298:Core/Src/Darin3Cart_Driver.c ****  write_address_port(status_reg);
+ 299:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA, CF_OE, 0);
+ 300:Core/Src/Darin3Cart_Driver.c ****  do                   	                    //check for error if one it means previous
+ 301:Core/Src/Darin3Cart_Driver.c ****  {						                    //command was ended with error
+ 302:Core/Src/Darin3Cart_Driver.c ****   busy = Read_port();
+ 303:Core/Src/Darin3Cart_Driver.c ****  }while((busy & 0x80) == 0x80);
+ 304:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA, CF_OE, 1);
+ 305:Core/Src/Darin3Cart_Driver.c **** }
+ 306:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 307:Core/Src/Darin3Cart_Driver.c **** //POST_WRITE_COMPACT_FLASH
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 8
+
+
+ 308:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 309:Core/Src/Darin3Cart_Driver.c **** void post_write_compact_flash(CartridgeID id)
+ 310:Core/Src/Darin3Cart_Driver.c **** {
+  96              		.loc 1 310 1 is_stmt 1 view -0
+  97              		.cfi_startproc
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 0, uses_anonymous_args = 0
+ 100              		.loc 1 310 1 is_stmt 0 view .LVU9
+ 101 0000 08B5     		push	{r3, lr}
+ 102              	.LCFI1:
+ 103              		.cfi_def_cfa_offset 8
+ 104              		.cfi_offset 3, -8
+ 105              		.cfi_offset 14, -4
+ 311:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB, CF_CE, 1);	    //disable compact flash chip
+ 106              		.loc 1 311 2 is_stmt 1 view .LVU10
+ 107 0002 0122     		movs	r2, #1
+ 108 0004 0B4B     		ldr	r3, .L7
+ 109 0006 1988     		ldrh	r1, [r3]
+ 110 0008 0B48     		ldr	r0, .L7+4
+ 111              	.LVL7:
+ 112              		.loc 1 311 2 is_stmt 0 view .LVU11
+ 113 000a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 114              	.LVL8:
+ 312:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);	    //disable write enable signal
+ 115              		.loc 1 312 2 is_stmt 1 view .LVU12
+ 116 000e 0122     		movs	r2, #1
+ 117 0010 0A4B     		ldr	r3, .L7+8
+ 118 0012 1988     		ldrh	r1, [r3]
+ 119 0014 0A48     		ldr	r0, .L7+12
+ 120 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 121              	.LVL9:
+ 313:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE, CF_RST,1);	    //disable reset signal of compact flash
+ 122              		.loc 1 313 2 view .LVU13
+ 123 001a 0122     		movs	r2, #1
+ 124 001c 094B     		ldr	r3, .L7+16
+ 125 001e 1988     		ldrh	r1, [r3]
+ 126 0020 0948     		ldr	r0, .L7+20
+ 127 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 128              	.LVL10:
+ 314:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA, CF_OE, 1);	    //disable output enable of compact flash
+ 129              		.loc 1 314 2 view .LVU14
+ 130 0026 0122     		movs	r2, #1
+ 131 0028 084B     		ldr	r3, .L7+24
+ 132 002a 1988     		ldrh	r1, [r3]
+ 133 002c 0848     		ldr	r0, .L7+28
+ 134 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 135              	.LVL11:
+ 315:Core/Src/Darin3Cart_Driver.c **** }
+ 136              		.loc 1 315 1 is_stmt 0 view .LVU15
+ 137 0032 08BD     		pop	{r3, pc}
+ 138              	.L8:
+ 139              		.align	2
+ 140              	.L7:
+ 141 0034 00000000 		.word	.LANCHOR0
+ 142 0038 00040240 		.word	1073873920
+ 143 003c 00000000 		.word	.LANCHOR1
+ 144 0040 00080240 		.word	1073874944
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 9
+
+
+ 145 0044 00000000 		.word	.LANCHOR2
+ 146 0048 00100240 		.word	1073876992
+ 147 004c 00000000 		.word	.LANCHOR3
+ 148 0050 00000240 		.word	1073872896
+ 149              		.cfi_endproc
+ 150              	.LFE141:
+ 152              		.section	.text.D3_Cartridge_Check,"ax",%progbits
+ 153              		.align	1
+ 154              		.global	D3_Cartridge_Check
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 159              	D3_Cartridge_Check:
+ 160              	.LVL12:
+ 161              	.LFB142:
+ 316:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 317:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 318:Core/Src/Darin3Cart_Driver.c **** //
+ 319:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 320:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 321:Core/Src/Darin3Cart_Driver.c **** uint8_t D3_Cartridge_Check(CartridgeID id)
+ 322:Core/Src/Darin3Cart_Driver.c **** {
+ 162              		.loc 1 322 1 is_stmt 1 view -0
+ 163              		.cfi_startproc
+ 164              		@ args = 0, pretend = 0, frame = 24
+ 165              		@ frame_needed = 0, uses_anonymous_args = 0
+ 166              		.loc 1 322 1 is_stmt 0 view .LVU17
+ 167 0000 30B5     		push	{r4, r5, lr}
+ 168              	.LCFI2:
+ 169              		.cfi_def_cfa_offset 12
+ 170              		.cfi_offset 4, -12
+ 171              		.cfi_offset 5, -8
+ 172              		.cfi_offset 14, -4
+ 173 0002 87B0     		sub	sp, sp, #28
+ 174              	.LCFI3:
+ 175              		.cfi_def_cfa_offset 40
+ 323:Core/Src/Darin3Cart_Driver.c ****  GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 176              		.loc 1 323 2 is_stmt 1 view .LVU18
+ 177              		.loc 1 323 19 is_stmt 0 view .LVU19
+ 178 0004 0023     		movs	r3, #0
+ 179 0006 0193     		str	r3, [sp, #4]
+ 180 0008 0293     		str	r3, [sp, #8]
+ 181 000a 0393     		str	r3, [sp, #12]
+ 182 000c 0493     		str	r3, [sp, #16]
+ 183 000e 0593     		str	r3, [sp, #20]
+ 324:Core/Src/Darin3Cart_Driver.c ****  GPIO_InitStruct.Pin =  C3SLTS1_Pin;
+ 184              		.loc 1 324 2 is_stmt 1 view .LVU20
+ 185              		.loc 1 324 22 is_stmt 0 view .LVU21
+ 186 0010 4FF40055 		mov	r5, #8192
+ 187 0014 0195     		str	r5, [sp, #4]
+ 325:Core/Src/Darin3Cart_Driver.c ****  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 188              		.loc 1 325 2 is_stmt 1 view .LVU22
+ 326:Core/Src/Darin3Cart_Driver.c ****  GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 189              		.loc 1 326 2 view .LVU23
+ 190              		.loc 1 326 23 is_stmt 0 view .LVU24
+ 191 0016 0123     		movs	r3, #1
+ 192 0018 0393     		str	r3, [sp, #12]
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 10
+
+
+ 327:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+ 193              		.loc 1 327 2 is_stmt 1 view .LVU25
+ 194 001a 054C     		ldr	r4, .L11
+ 195 001c 01A9     		add	r1, sp, #4
+ 196 001e 2046     		mov	r0, r4
+ 197              	.LVL13:
+ 198              		.loc 1 327 2 is_stmt 0 view .LVU26
+ 199 0020 FFF7FEFF 		bl	HAL_GPIO_Init
+ 200              	.LVL14:
+ 328:Core/Src/Darin3Cart_Driver.c ****  return HAL_GPIO_ReadPin(GPIOD, C3SLTS1_Pin);
+ 201              		.loc 1 328 2 is_stmt 1 view .LVU27
+ 202              		.loc 1 328 9 is_stmt 0 view .LVU28
+ 203 0024 2946     		mov	r1, r5
+ 204 0026 2046     		mov	r0, r4
+ 205 0028 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 206              	.LVL15:
+ 329:Core/Src/Darin3Cart_Driver.c **** }
+ 207              		.loc 1 329 1 view .LVU29
+ 208 002c 07B0     		add	sp, sp, #28
+ 209              	.LCFI4:
+ 210              		.cfi_def_cfa_offset 12
+ 211              		@ sp needed
+ 212 002e 30BD     		pop	{r4, r5, pc}
+ 213              	.L12:
+ 214              		.align	2
+ 215              	.L11:
+ 216 0030 000C0240 		.word	1073875968
+ 217              		.cfi_endproc
+ 218              	.LFE142:
+ 220              		.section	.text.write_address_port,"ax",%progbits
+ 221              		.align	1
+ 222              		.global	write_address_port
+ 223              		.syntax unified
+ 224              		.thumb
+ 225              		.thumb_func
+ 227              	write_address_port:
+ 228              	.LVL16:
+ 229              	.LFB143:
+ 330:Core/Src/Darin3Cart_Driver.c **** 
+ 331:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 332:Core/Src/Darin3Cart_Driver.c **** //
+ 333:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 334:Core/Src/Darin3Cart_Driver.c **** void write_address_port(uint8_t data)
+ 335:Core/Src/Darin3Cart_Driver.c **** {
+ 230              		.loc 1 335 1 is_stmt 1 view -0
+ 231              		.cfi_startproc
+ 232              		@ args = 0, pretend = 0, frame = 0
+ 233              		@ frame_needed = 0, uses_anonymous_args = 0
+ 234              		.loc 1 335 1 is_stmt 0 view .LVU31
+ 235 0000 38B5     		push	{r3, r4, r5, lr}
+ 236              	.LCFI5:
+ 237              		.cfi_def_cfa_offset 16
+ 238              		.cfi_offset 3, -16
+ 239              		.cfi_offset 4, -12
+ 240              		.cfi_offset 5, -8
+ 241              		.cfi_offset 14, -4
+ 242 0002 0446     		mov	r4, r0
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 11
+
+
+ 336:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB, A3, ((data & 0x08) >> 3));
+ 243              		.loc 1 336 2 is_stmt 1 view .LVU32
+ 244 0004 0E4D     		ldr	r5, .L15
+ 245 0006 C0F3C002 		ubfx	r2, r0, #3, #1
+ 246 000a 0E4B     		ldr	r3, .L15+4
+ 247 000c 1988     		ldrh	r1, [r3]
+ 248 000e 2846     		mov	r0, r5
+ 249              	.LVL17:
+ 250              		.loc 1 336 2 is_stmt 0 view .LVU33
+ 251 0010 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 252              	.LVL18:
+ 337:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE, A2, ((data & 0x04) >> 2));
+ 253              		.loc 1 337 2 is_stmt 1 view .LVU34
+ 254 0014 C4F38002 		ubfx	r2, r4, #2, #1
+ 255 0018 0B4B     		ldr	r3, .L15+8
+ 256 001a 1988     		ldrh	r1, [r3]
+ 257 001c 0B48     		ldr	r0, .L15+12
+ 258 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 259              	.LVL19:
+ 338:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB, A1, ((data & 0x02) >> 1));
+ 260              		.loc 1 338 2 view .LVU35
+ 261 0022 C4F34002 		ubfx	r2, r4, #1, #1
+ 262 0026 0A4B     		ldr	r3, .L15+16
+ 263 0028 1988     		ldrh	r1, [r3]
+ 264 002a 2846     		mov	r0, r5
+ 265 002c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 266              	.LVL20:
+ 339:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB, A0, (data & 0x01));
+ 267              		.loc 1 339 2 view .LVU36
+ 268 0030 04F00102 		and	r2, r4, #1
+ 269 0034 074B     		ldr	r3, .L15+20
+ 270 0036 1988     		ldrh	r1, [r3]
+ 271 0038 2846     		mov	r0, r5
+ 272 003a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 273              	.LVL21:
+ 340:Core/Src/Darin3Cart_Driver.c **** }
+ 274              		.loc 1 340 1 is_stmt 0 view .LVU37
+ 275 003e 38BD     		pop	{r3, r4, r5, pc}
+ 276              	.L16:
+ 277              		.align	2
+ 278              	.L15:
+ 279 0040 00040240 		.word	1073873920
+ 280 0044 00000000 		.word	.LANCHOR4
+ 281 0048 00000000 		.word	.LANCHOR5
+ 282 004c 00100240 		.word	1073876992
+ 283 0050 00000000 		.word	.LANCHOR6
+ 284 0054 00000000 		.word	.LANCHOR7
+ 285              		.cfi_endproc
+ 286              	.LFE143:
+ 288              		.section	.text.pre_read_compact_flash,"ax",%progbits
+ 289              		.align	1
+ 290              		.global	pre_read_compact_flash
+ 291              		.syntax unified
+ 292              		.thumb
+ 293              		.thumb_func
+ 295              	pre_read_compact_flash:
+ 296              	.LVL22:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 12
+
+
+ 297              	.LFB131:
+  55:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 298              		.loc 1 55 1 is_stmt 1 view -0
+ 299              		.cfi_startproc
+ 300              		@ args = 0, pretend = 0, frame = 0
+ 301              		@ frame_needed = 0, uses_anonymous_args = 0
+  55:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 302              		.loc 1 55 1 is_stmt 0 view .LVU39
+ 303 0000 38B5     		push	{r3, r4, r5, lr}
+ 304              	.LCFI6:
+ 305              		.cfi_def_cfa_offset 16
+ 306              		.cfi_offset 3, -16
+ 307              		.cfi_offset 4, -12
+ 308              		.cfi_offset 5, -8
+ 309              		.cfi_offset 14, -4
+  56:Core/Src/Darin3Cart_Driver.c ****  write_address_port(0);
+ 310              		.loc 1 56 2 is_stmt 1 view .LVU40
+ 311 0002 0020     		movs	r0, #0
+ 312              	.LVL23:
+  56:Core/Src/Darin3Cart_Driver.c ****  write_address_port(0);
+ 313              		.loc 1 56 2 is_stmt 0 view .LVU41
+ 314 0004 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 315              	.LVL24:
+  57:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC,CF_WE,1);				//disable write signal
+ 316              		.loc 1 57 2 is_stmt 1 view .LVU42
+ 317 0008 0020     		movs	r0, #0
+ 318 000a FFF7FEFF 		bl	write_address_port
+ 319              	.LVL25:
+  58:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA,CF_OE,1);				//disable output enable of compact flash
+ 320              		.loc 1 58 2 view .LVU43
+ 321 000e 0122     		movs	r2, #1
+ 322 0010 124B     		ldr	r3, .L19
+ 323 0012 1988     		ldrh	r1, [r3]
+ 324 0014 1248     		ldr	r0, .L19+4
+ 325 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 326              	.LVL26:
+  59:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB,CF_CE,0);
+ 327              		.loc 1 59 2 view .LVU44
+ 328 001a 0122     		movs	r2, #1
+ 329 001c 114B     		ldr	r3, .L19+8
+ 330 001e 1988     		ldrh	r1, [r3]
+ 331 0020 1148     		ldr	r0, .L19+12
+ 332 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 333              	.LVL27:
+  60:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,1);				//Enable reset
+ 334              		.loc 1 60 2 view .LVU45
+ 335 0026 0022     		movs	r2, #0
+ 336 0028 104B     		ldr	r3, .L19+16
+ 337 002a 1988     		ldrh	r1, [r3]
+ 338 002c 1048     		ldr	r0, .L19+20
+ 339 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 340              	.LVL28:
+  61:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(500);
+ 341              		.loc 1 61 2 view .LVU46
+ 342 0032 104D     		ldr	r5, .L19+24
+ 343 0034 104C     		ldr	r4, .L19+28
+ 344 0036 0122     		movs	r2, #1
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 13
+
+
+ 345 0038 2988     		ldrh	r1, [r5]
+ 346 003a 2046     		mov	r0, r4
+ 347 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 348              	.LVL29:
+  62:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,0);				//disable reset
+ 349              		.loc 1 62 2 view .LVU47
+ 350 0040 4FF4FA70 		mov	r0, #500
+ 351 0044 FFF7FEFF 		bl	short_delay_us
+ 352              	.LVL30:
+  63:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(2500);
+ 353              		.loc 1 63 2 view .LVU48
+ 354 0048 0022     		movs	r2, #0
+ 355 004a 2988     		ldrh	r1, [r5]
+ 356 004c 2046     		mov	r0, r4
+ 357 004e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 358              	.LVL31:
+  64:Core/Src/Darin3Cart_Driver.c **** }
+ 359              		.loc 1 64 2 view .LVU49
+ 360 0052 40F6C410 		movw	r0, #2500
+ 361 0056 FFF7FEFF 		bl	short_delay_us
+ 362              	.LVL32:
+  65:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 363              		.loc 1 65 1 is_stmt 0 view .LVU50
+ 364 005a 38BD     		pop	{r3, r4, r5, pc}
+ 365              	.L20:
+ 366              		.align	2
+ 367              	.L19:
+ 368 005c 00000000 		.word	.LANCHOR1
+ 369 0060 00080240 		.word	1073874944
+ 370 0064 00000000 		.word	.LANCHOR3
+ 371 0068 00000240 		.word	1073872896
+ 372 006c 00000000 		.word	.LANCHOR0
+ 373 0070 00040240 		.word	1073873920
+ 374 0074 00000000 		.word	.LANCHOR2
+ 375 0078 00100240 		.word	1073876992
+ 376              		.cfi_endproc
+ 377              	.LFE131:
+ 379              		.section	.text.command_for_read,"ax",%progbits
+ 380              		.align	1
+ 381              		.global	command_for_read
+ 382              		.syntax unified
+ 383              		.thumb
+ 384              		.thumb_func
+ 386              	command_for_read:
+ 387              	.LFB132:
+  70:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Output);					 //set the mode of port p1 as output port
+ 388              		.loc 1 70 1 is_stmt 1 view -0
+ 389              		.cfi_startproc
+ 390              		@ args = 0, pretend = 0, frame = 0
+ 391              		@ frame_needed = 0, uses_anonymous_args = 0
+ 392 0000 70B5     		push	{r4, r5, r6, lr}
+ 393              	.LCFI7:
+ 394              		.cfi_def_cfa_offset 16
+ 395              		.cfi_offset 4, -16
+ 396              		.cfi_offset 5, -12
+ 397              		.cfi_offset 6, -8
+ 398              		.cfi_offset 14, -4
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 14
+
+
+  71:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_count); 				 //address the register pointer of CF to sector counter regi
+ 399              		.loc 1 71 2 view .LVU52
+ 400 0002 0120     		movs	r0, #1
+ 401 0004 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 402              	.LVL33:
+  72:Core/Src/Darin3Cart_Driver.c ****  write_port( 0x01);								 //since single page is accessed at a time put value 0x01 into port p1
+ 403              		.loc 1 72 2 view .LVU53
+ 404 0008 0220     		movs	r0, #2
+ 405 000a FFF7FEFF 		bl	write_address_port
+ 406              	.LVL34:
+  73:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);	         //intiate write so that that value 0x01 is stored in
+ 407              		.loc 1 73 2 view .LVU54
+ 408 000e 0120     		movs	r0, #1
+ 409 0010 FFF7FEFF 		bl	write_port
+ 410              	.LVL35:
+  74:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);			 //sector count register
+ 411              		.loc 1 74 2 view .LVU55
+ 412 0014 324D     		ldr	r5, .L23
+ 413 0016 334C     		ldr	r4, .L23+4
+ 414 0018 0022     		movs	r2, #0
+ 415 001a 2988     		ldrh	r1, [r5]
+ 416 001c 2046     		mov	r0, r4
+ 417 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 418              	.LVL36:
+  75:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_num);				 //address the register pointer of CF to sector number register
+ 419              		.loc 1 75 2 view .LVU56
+ 420 0022 0122     		movs	r2, #1
+ 421 0024 2988     		ldrh	r1, [r5]
+ 422 0026 2046     		mov	r0, r4
+ 423 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 424              	.LVL37:
+  76:Core/Src/Darin3Cart_Driver.c ****  write_port( sector_number);  					 //send the sector number from which you want to read the data
+ 425              		.loc 1 76 2 view .LVU57
+ 426 002c 0320     		movs	r0, #3
+ 427 002e FFF7FEFF 		bl	write_address_port
+ 428              	.LVL38:
+  77:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+ 429              		.loc 1 77 2 view .LVU58
+ 430 0032 2D4B     		ldr	r3, .L23+8
+ 431 0034 1888     		ldrh	r0, [r3]
+ 432 0036 FFF7FEFF 		bl	write_port
+ 433              	.LVL39:
+  78:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 434              		.loc 1 78 2 view .LVU59
+ 435 003a 0022     		movs	r2, #0
+ 436 003c 2988     		ldrh	r1, [r5]
+ 437 003e 2046     		mov	r0, r4
+ 438 0040 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 439              	.LVL40:
+  79:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_low);					 //address the register pointer of CF to cylinder low register
+ 440              		.loc 1 79 2 view .LVU60
+ 441 0044 0122     		movs	r2, #1
+ 442 0046 2988     		ldrh	r1, [r5]
+ 443 0048 2046     		mov	r0, r4
+ 444 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 445              	.LVL41:
+  80:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1);				 //send the cylinder low value from which you want to read the
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 15
+
+
+ 446              		.loc 1 80 2 view .LVU61
+ 447 004e 0420     		movs	r0, #4
+ 448 0050 FFF7FEFF 		bl	write_address_port
+ 449              	.LVL42:
+  81:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+ 450              		.loc 1 81 2 view .LVU62
+ 451 0054 254E     		ldr	r6, .L23+12
+ 452 0056 3088     		ldrh	r0, [r6]
+ 453 0058 FFF7FEFF 		bl	write_port
+ 454              	.LVL43:
+  82:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 455              		.loc 1 82 2 view .LVU63
+ 456 005c 0022     		movs	r2, #0
+ 457 005e 2988     		ldrh	r1, [r5]
+ 458 0060 2046     		mov	r0, r4
+ 459 0062 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 460              	.LVL44:
+  83:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_high);					 //address the register pointer of CF to cylinder high register
+ 461              		.loc 1 83 2 view .LVU64
+ 462 0066 0122     		movs	r2, #1
+ 463 0068 2988     		ldrh	r1, [r5]
+ 464 006a 2046     		mov	r0, r4
+ 465 006c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 466              	.LVL45:
+  84:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1  >> 8);			 //send the cylinder high value from which you want to re
+ 467              		.loc 1 84 2 view .LVU65
+ 468 0070 0520     		movs	r0, #5
+ 469 0072 FFF7FEFF 		bl	write_address_port
+ 470              	.LVL46:
+  85:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+ 471              		.loc 1 85 2 view .LVU66
+ 472 0076 3088     		ldrh	r0, [r6]
+ 473 0078 000A     		lsrs	r0, r0, #8
+ 474 007a FFF7FEFF 		bl	write_port
+ 475              	.LVL47:
+  86:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 476              		.loc 1 86 2 view .LVU67
+ 477 007e 0022     		movs	r2, #0
+ 478 0080 2988     		ldrh	r1, [r5]
+ 479 0082 2046     		mov	r0, r4
+ 480 0084 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 481              	.LVL48:
+  87:Core/Src/Darin3Cart_Driver.c ****  write_address_port(drive);						 //address the register pointer of CF to drive register
+ 482              		.loc 1 87 2 view .LVU68
+ 483 0088 0122     		movs	r2, #1
+ 484 008a 2988     		ldrh	r1, [r5]
+ 485 008c 2046     		mov	r0, r4
+ 486 008e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 487              	.LVL49:
+  88:Core/Src/Darin3Cart_Driver.c ****  write_port(0xE0);								 //send the drive value from which you want to read the data
+ 488              		.loc 1 88 2 view .LVU69
+ 489 0092 0620     		movs	r0, #6
+ 490 0094 FFF7FEFF 		bl	write_address_port
+ 491              	.LVL50:
+  89:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+ 492              		.loc 1 89 2 view .LVU70
+ 493 0098 E020     		movs	r0, #224
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 16
+
+
+ 494 009a FFF7FEFF 		bl	write_port
+ 495              	.LVL51:
+  90:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 496              		.loc 1 90 2 view .LVU71
+ 497 009e 0022     		movs	r2, #0
+ 498 00a0 2988     		ldrh	r1, [r5]
+ 499 00a2 2046     		mov	r0, r4
+ 500 00a4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 501              	.LVL52:
+  91:Core/Src/Darin3Cart_Driver.c ****  write_address_port(command);					 //address the register pointer of CF to comand register
+ 502              		.loc 1 91 2 view .LVU72
+ 503 00a8 0122     		movs	r2, #1
+ 504 00aa 2988     		ldrh	r1, [r5]
+ 505 00ac 2046     		mov	r0, r4
+ 506 00ae FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 507              	.LVL53:
+  92:Core/Src/Darin3Cart_Driver.c ****  write_port(0x20);								 //send the command value from which you want to read the data
+ 508              		.loc 1 92 2 view .LVU73
+ 509 00b2 0720     		movs	r0, #7
+ 510 00b4 FFF7FEFF 		bl	write_address_port
+ 511              	.LVL54:
+  93:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);			 //intiate the write signal
+ 512              		.loc 1 93 2 view .LVU74
+ 513 00b8 2020     		movs	r0, #32
+ 514 00ba FFF7FEFF 		bl	write_port
+ 515              	.LVL55:
+  94:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 516              		.loc 1 94 2 view .LVU75
+ 517 00be 0022     		movs	r2, #0
+ 518 00c0 2988     		ldrh	r1, [r5]
+ 519 00c2 2046     		mov	r0, r4
+ 520 00c4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 521              	.LVL56:
+  95:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);									 //call delay function
+ 522              		.loc 1 95 2 view .LVU76
+ 523 00c8 0122     		movs	r2, #1
+ 524 00ca 2988     		ldrh	r1, [r5]
+ 525 00cc 2046     		mov	r0, r4
+ 526 00ce FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 527              	.LVL57:
+  96:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);					 //set the mode of port p1 as input port
+ 528              		.loc 1 96 2 view .LVU77
+ 529 00d2 3220     		movs	r0, #50
+ 530 00d4 FFF7FEFF 		bl	short_delay_us
+ 531              	.LVL58:
+  97:Core/Src/Darin3Cart_Driver.c **** }
+ 532              		.loc 1 97 2 view .LVU78
+ 533 00d8 0020     		movs	r0, #0
+ 534 00da FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 535              	.LVL59:
+  98:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 536              		.loc 1 98 1 is_stmt 0 view .LVU79
+ 537 00de 70BD     		pop	{r4, r5, r6, pc}
+ 538              	.L24:
+ 539              		.align	2
+ 540              	.L23:
+ 541 00e0 00000000 		.word	.LANCHOR1
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 17
+
+
+ 542 00e4 00080240 		.word	1073874944
+ 543 00e8 00000000 		.word	.LANCHOR8
+ 544 00ec 00000000 		.word	.LANCHOR9
+ 545              		.cfi_endproc
+ 546              	.LFE132:
+ 548              		.section	.text.compact_flash_read,"ax",%progbits
+ 549              		.align	1
+ 550              		.global	compact_flash_read
+ 551              		.syntax unified
+ 552              		.thumb
+ 553              		.thumb_func
+ 555              	compact_flash_read:
+ 556              	.LVL60:
+ 557              	.LFB133:
+ 103:Core/Src/Darin3Cart_Driver.c ****  write_address_port(data_reg) ;				 //address the register pointer to point to data regester
+ 558              		.loc 1 103 1 is_stmt 1 view -0
+ 559              		.cfi_startproc
+ 560              		@ args = 0, pretend = 0, frame = 0
+ 561              		@ frame_needed = 0, uses_anonymous_args = 0
+ 103:Core/Src/Darin3Cart_Driver.c ****  write_address_port(data_reg) ;				 //address the register pointer to point to data regester
+ 562              		.loc 1 103 1 is_stmt 0 view .LVU81
+ 563 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 564              	.LCFI8:
+ 565              		.cfi_def_cfa_offset 24
+ 566              		.cfi_offset 4, -24
+ 567              		.cfi_offset 5, -20
+ 568              		.cfi_offset 6, -16
+ 569              		.cfi_offset 7, -12
+ 570              		.cfi_offset 8, -8
+ 571              		.cfi_offset 14, -4
+ 572 0004 0746     		mov	r7, r0
+ 573 0006 8846     		mov	r8, r1
+ 104:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);				 //ready to access data from the CF
+ 574              		.loc 1 104 2 is_stmt 1 view .LVU82
+ 575 0008 0020     		movs	r0, #0
+ 576              	.LVL61:
+ 104:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);				 //ready to access data from the CF
+ 577              		.loc 1 104 2 is_stmt 0 view .LVU83
+ 578 000a FFF7FEFF 		bl	write_address_port
+ 579              	.LVL62:
+ 105:Core/Src/Darin3Cart_Driver.c ****  for (uint16_t x=0 ;x<datalength ;x++)		 //if data counter 'x'<512 then
+ 580              		.loc 1 105 2 is_stmt 1 view .LVU84
+ 581 000e 0020     		movs	r0, #0
+ 582 0010 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 583              	.LVL63:
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 584              		.loc 1 106 2 view .LVU85
+ 585              	.LBB2:
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 586              		.loc 1 106 7 view .LVU86
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 587              		.loc 1 106 16 is_stmt 0 view .LVU87
+ 588 0014 0024     		movs	r4, #0
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 589              		.loc 1 106 2 view .LVU88
+ 590 0016 11E0     		b	.L26
+ 591              	.LVL64:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 18
+
+
+ 592              	.L27:
+ 593              	.LBB3:
+ 108:Core/Src/Darin3Cart_Driver.c ****   *TempStorage = Read_port();				 //read the data from the CF and store it in address specified by 
+ 594              		.loc 1 108 3 is_stmt 1 discriminator 3 view .LVU89
+ 595 0018 0A4E     		ldr	r6, .L29
+ 596 001a 0B4D     		ldr	r5, .L29+4
+ 597 001c 0022     		movs	r2, #0
+ 598 001e 3188     		ldrh	r1, [r6]
+ 599 0020 2846     		mov	r0, r5
+ 600 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 601              	.LVL65:
+ 109:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA, CF_OE, 1);	     //disbale output enable of CF
+ 602              		.loc 1 109 3 discriminator 3 view .LVU90
+ 109:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA, CF_OE, 1);	     //disbale output enable of CF
+ 603              		.loc 1 109 18 is_stmt 0 discriminator 3 view .LVU91
+ 604 0026 FFF7FEFF 		bl	Read_port
+ 605              	.LVL66:
+ 109:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA, CF_OE, 1);	     //disbale output enable of CF
+ 606              		.loc 1 109 16 discriminator 3 view .LVU92
+ 607 002a 07F8010B 		strb	r0, [r7], #1
+ 608              	.LVL67:
+ 110:Core/Src/Darin3Cart_Driver.c ****   TempStorage++;							 //increment 'pread'
+ 609              		.loc 1 110 3 is_stmt 1 discriminator 3 view .LVU93
+ 610 002e 0122     		movs	r2, #1
+ 611 0030 3188     		ldrh	r1, [r6]
+ 612 0032 2846     		mov	r0, r5
+ 613 0034 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 614              	.LVL68:
+ 111:Core/Src/Darin3Cart_Driver.c ****  }
+ 615              		.loc 1 111 3 discriminator 3 view .LVU94
+ 111:Core/Src/Darin3Cart_Driver.c ****  }
+ 616              		.loc 1 111 3 is_stmt 0 discriminator 3 view .LVU95
+ 617              	.LBE3:
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 618              		.loc 1 106 35 is_stmt 1 discriminator 3 view .LVU96
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 619              		.loc 1 106 36 is_stmt 0 discriminator 3 view .LVU97
+ 620 0038 0134     		adds	r4, r4, #1
+ 621              	.LVL69:
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 622              		.loc 1 106 36 discriminator 3 view .LVU98
+ 623 003a A4B2     		uxth	r4, r4
+ 624              	.LVL70:
+ 625              	.L26:
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 626              		.loc 1 106 21 is_stmt 1 discriminator 1 view .LVU99
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 627              		.loc 1 106 2 is_stmt 0 discriminator 1 view .LVU100
+ 628 003c 4445     		cmp	r4, r8
+ 629 003e EBD3     		bcc	.L27
+ 106:Core/Src/Darin3Cart_Driver.c ****  {
+ 630              		.loc 1 106 2 discriminator 1 view .LVU101
+ 631              	.LBE2:
+ 113:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 632              		.loc 1 113 1 view .LVU102
+ 633 0040 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 634              	.LVL71:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 19
+
+
+ 635              	.L30:
+ 113:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 636              		.loc 1 113 1 view .LVU103
+ 637              		.align	2
+ 638              	.L29:
+ 639 0044 00000000 		.word	.LANCHOR3
+ 640 0048 00000240 		.word	1073872896
+ 641              		.cfi_endproc
+ 642              	.LFE133:
+ 644              		.section	.text.pre_write_compact_flash,"ax",%progbits
+ 645              		.align	1
+ 646              		.global	pre_write_compact_flash
+ 647              		.syntax unified
+ 648              		.thumb
+ 649              		.thumb_func
+ 651              	pre_write_compact_flash:
+ 652              	.LVL72:
+ 653              	.LFB136:
+ 144:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 654              		.loc 1 144 1 is_stmt 1 view -0
+ 655              		.cfi_startproc
+ 656              		@ args = 0, pretend = 0, frame = 0
+ 657              		@ frame_needed = 0, uses_anonymous_args = 0
+ 144:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 658              		.loc 1 144 1 is_stmt 0 view .LVU105
+ 659 0000 38B5     		push	{r3, r4, r5, lr}
+ 660              	.LCFI9:
+ 661              		.cfi_def_cfa_offset 16
+ 662              		.cfi_offset 3, -16
+ 663              		.cfi_offset 4, -12
+ 664              		.cfi_offset 5, -8
+ 665              		.cfi_offset 14, -4
+ 145:Core/Src/Darin3Cart_Driver.c ****  write_address_port(0);
+ 666              		.loc 1 145 2 is_stmt 1 view .LVU106
+ 667 0002 0020     		movs	r0, #0
+ 668              	.LVL73:
+ 145:Core/Src/Darin3Cart_Driver.c ****  write_address_port(0);
+ 669              		.loc 1 145 2 is_stmt 0 view .LVU107
+ 670 0004 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 671              	.LVL74:
+ 146:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC,CF_WE,1);				//disable write signal
+ 672              		.loc 1 146 2 is_stmt 1 view .LVU108
+ 673 0008 0020     		movs	r0, #0
+ 674 000a FFF7FEFF 		bl	write_address_port
+ 675              	.LVL75:
+ 147:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA,CF_OE,1);				//disable output enable of compact flash
+ 676              		.loc 1 147 2 view .LVU109
+ 677 000e 0122     		movs	r2, #1
+ 678 0010 124B     		ldr	r3, .L33
+ 679 0012 1988     		ldrh	r1, [r3]
+ 680 0014 1248     		ldr	r0, .L33+4
+ 681 0016 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 682              	.LVL76:
+ 148:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOB,CF_CE,0);
+ 683              		.loc 1 148 2 view .LVU110
+ 684 001a 0122     		movs	r2, #1
+ 685 001c 114B     		ldr	r3, .L33+8
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 20
+
+
+ 686 001e 1988     		ldrh	r1, [r3]
+ 687 0020 1148     		ldr	r0, .L33+12
+ 688 0022 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 689              	.LVL77:
+ 149:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,1);				//Enable reset
+ 690              		.loc 1 149 2 view .LVU111
+ 691 0026 0022     		movs	r2, #0
+ 692 0028 104B     		ldr	r3, .L33+16
+ 693 002a 1988     		ldrh	r1, [r3]
+ 694 002c 1048     		ldr	r0, .L33+20
+ 695 002e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 696              	.LVL78:
+ 150:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);
+ 697              		.loc 1 150 2 view .LVU112
+ 698 0032 104D     		ldr	r5, .L33+24
+ 699 0034 104C     		ldr	r4, .L33+28
+ 700 0036 0122     		movs	r2, #1
+ 701 0038 2988     		ldrh	r1, [r5]
+ 702 003a 2046     		mov	r0, r4
+ 703 003c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 704              	.LVL79:
+ 151:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOE,CF_RST,0);				//disable reset
+ 705              		.loc 1 151 2 view .LVU113
+ 706 0040 3220     		movs	r0, #50
+ 707 0042 FFF7FEFF 		bl	short_delay_us
+ 708              	.LVL80:
+ 152:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(2500);
+ 709              		.loc 1 152 2 view .LVU114
+ 710 0046 0022     		movs	r2, #0
+ 711 0048 2988     		ldrh	r1, [r5]
+ 712 004a 2046     		mov	r0, r4
+ 713 004c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 714              	.LVL81:
+ 153:Core/Src/Darin3Cart_Driver.c **** }
+ 715              		.loc 1 153 2 view .LVU115
+ 716 0050 40F6C410 		movw	r0, #2500
+ 717 0054 FFF7FEFF 		bl	short_delay_us
+ 718              	.LVL82:
+ 154:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 719              		.loc 1 154 1 is_stmt 0 view .LVU116
+ 720 0058 38BD     		pop	{r3, r4, r5, pc}
+ 721              	.L34:
+ 722 005a 00BF     		.align	2
+ 723              	.L33:
+ 724 005c 00000000 		.word	.LANCHOR1
+ 725 0060 00080240 		.word	1073874944
+ 726 0064 00000000 		.word	.LANCHOR3
+ 727 0068 00000240 		.word	1073872896
+ 728 006c 00000000 		.word	.LANCHOR0
+ 729 0070 00040240 		.word	1073873920
+ 730 0074 00000000 		.word	.LANCHOR2
+ 731 0078 00100240 		.word	1073876992
+ 732              		.cfi_endproc
+ 733              	.LFE136:
+ 735              		.section	.text.compact_flash_ready,"ax",%progbits
+ 736              		.align	1
+ 737              		.global	compact_flash_ready
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 21
+
+
+ 738              		.syntax unified
+ 739              		.thumb
+ 740              		.thumb_func
+ 742              	compact_flash_ready:
+ 743              	.LFB137:
+ 159:Core/Src/Darin3Cart_Driver.c ****  unsigned char reg_status;
+ 744              		.loc 1 159 1 is_stmt 1 view -0
+ 745              		.cfi_startproc
+ 746              		@ args = 0, pretend = 0, frame = 0
+ 747              		@ frame_needed = 0, uses_anonymous_args = 0
+ 748 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 749              	.LCFI10:
+ 750              		.cfi_def_cfa_offset 24
+ 751              		.cfi_offset 4, -24
+ 752              		.cfi_offset 5, -20
+ 753              		.cfi_offset 6, -16
+ 754              		.cfi_offset 7, -12
+ 755              		.cfi_offset 8, -8
+ 756              		.cfi_offset 14, -4
+ 160:Core/Src/Darin3Cart_Driver.c ****  write_address_port(status_reg);                //send 0x07 to CF so that select status register of
+ 757              		.loc 1 160 2 view .LVU118
+ 161:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);			                        //call delay function
+ 758              		.loc 1 161 2 view .LVU119
+ 759 0004 0720     		movs	r0, #7
+ 760 0006 FFF7FEFF 		bl	write_address_port
+ 761              	.LVL83:
+ 162:Core/Src/Darin3Cart_Driver.c ****  unsigned int BusyCnt;
+ 762              		.loc 1 162 2 view .LVU120
+ 763 000a 3220     		movs	r0, #50
+ 764 000c FFF7FEFF 		bl	short_delay_us
+ 765              	.LVL84:
+ 163:Core/Src/Darin3Cart_Driver.c **** 
+ 766              		.loc 1 163 2 view .LVU121
+ 165:Core/Src/Darin3Cart_Driver.c ****  do                   	                        //check for error if one it means previous
+ 767              		.loc 1 165 2 view .LVU122
+ 165:Core/Src/Darin3Cart_Driver.c ****  do                   	                        //check for error if one it means previous
+ 768              		.loc 1 165 10 is_stmt 0 view .LVU123
+ 769 0010 0025     		movs	r5, #0
+ 770              	.LVL85:
+ 771              	.L37:
+ 166:Core/Src/Darin3Cart_Driver.c ****  {						                        //command was ended with error
+ 772              		.loc 1 166 2 is_stmt 1 discriminator 2 view .LVU124
+ 773              	.LBB4:
+ 168:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 774              		.loc 1 168 3 discriminator 2 view .LVU125
+ 775 0012 284F     		ldr	r7, .L45
+ 776 0014 284E     		ldr	r6, .L45+4
+ 777 0016 0022     		movs	r2, #0
+ 778 0018 3988     		ldrh	r1, [r7]
+ 779 001a 3046     		mov	r0, r6
+ 780 001c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 781              	.LVL86:
+ 169:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 782              		.loc 1 169 3 discriminator 2 view .LVU126
+ 169:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 783              		.loc 1 169 16 is_stmt 0 discriminator 2 view .LVU127
+ 784 0020 FFF7FEFF 		bl	Read_port
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 22
+
+
+ 785              	.LVL87:
+ 786 0024 0446     		mov	r4, r0
+ 787              	.LVL88:
+ 170:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 788              		.loc 1 170 3 is_stmt 1 discriminator 2 view .LVU128
+ 789 0026 0122     		movs	r2, #1
+ 790 0028 3988     		ldrh	r1, [r7]
+ 791 002a 3046     		mov	r0, r6
+ 792 002c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 793              	.LVL89:
+ 171:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80) && (BusyCnt<5000));
+ 794              		.loc 1 171 3 discriminator 2 view .LVU129
+ 171:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80) && (BusyCnt<5000));
+ 795              		.loc 1 171 10 is_stmt 0 discriminator 2 view .LVU130
+ 796 0030 0135     		adds	r5, r5, #1
+ 797              	.LVL90:
+ 171:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80) && (BusyCnt<5000));
+ 798              		.loc 1 171 10 discriminator 2 view .LVU131
+ 799              	.LBE4:
+ 172:Core/Src/Darin3Cart_Driver.c **** 
+ 800              		.loc 1 172 8 is_stmt 1 discriminator 2 view .LVU132
+ 172:Core/Src/Darin3Cart_Driver.c **** 
+ 801              		.loc 1 172 2 is_stmt 0 discriminator 2 view .LVU133
+ 802 0032 14F0800F 		tst	r4, #128
+ 803 0036 05D0     		beq	.L42
+ 172:Core/Src/Darin3Cart_Driver.c **** 
+ 804              		.loc 1 172 39 discriminator 1 view .LVU134
+ 805 0038 41F28733 		movw	r3, #4999
+ 806 003c 9D42     		cmp	r5, r3
+ 807 003e E8D9     		bls	.L37
+ 808 0040 0025     		movs	r5, #0
+ 809              	.LVL91:
+ 172:Core/Src/Darin3Cart_Driver.c **** 
+ 810              		.loc 1 172 39 discriminator 1 view .LVU135
+ 811 0042 00E0     		b	.L39
+ 812              	.LVL92:
+ 813              	.L42:
+ 172:Core/Src/Darin3Cart_Driver.c **** 
+ 814              		.loc 1 172 39 discriminator 1 view .LVU136
+ 815 0044 0025     		movs	r5, #0
+ 816              	.LVL93:
+ 817              	.L39:
+ 175:Core/Src/Darin3Cart_Driver.c ****  {						                        //command was ended with error
+ 818              		.loc 1 175 2 is_stmt 1 discriminator 2 view .LVU137
+ 819              	.LBB5:
+ 177:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 820              		.loc 1 177 3 discriminator 2 view .LVU138
+ 821 0046 1B4F     		ldr	r7, .L45
+ 822 0048 1B4E     		ldr	r6, .L45+4
+ 823 004a 0022     		movs	r2, #0
+ 824 004c 3988     		ldrh	r1, [r7]
+ 825 004e 3046     		mov	r0, r6
+ 826 0050 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 827              	.LVL94:
+ 178:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 828              		.loc 1 178 3 discriminator 2 view .LVU139
+ 178:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 23
+
+
+ 829              		.loc 1 178 16 is_stmt 0 discriminator 2 view .LVU140
+ 830 0054 FFF7FEFF 		bl	Read_port
+ 831              	.LVL95:
+ 832 0058 0446     		mov	r4, r0
+ 833              	.LVL96:
+ 179:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 834              		.loc 1 179 3 is_stmt 1 discriminator 2 view .LVU141
+ 835 005a 0122     		movs	r2, #1
+ 836 005c 3988     		ldrh	r1, [r7]
+ 837 005e 3046     		mov	r0, r6
+ 838 0060 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 839              	.LVL97:
+ 180:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt<5000));
+ 840              		.loc 1 180 3 discriminator 2 view .LVU142
+ 180:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt<5000));
+ 841              		.loc 1 180 10 is_stmt 0 discriminator 2 view .LVU143
+ 842 0064 0135     		adds	r5, r5, #1
+ 843              	.LVL98:
+ 180:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt<5000));
+ 844              		.loc 1 180 10 discriminator 2 view .LVU144
+ 845              	.LBE5:
+ 181:Core/Src/Darin3Cart_Driver.c **** 
+ 846              		.loc 1 181 8 is_stmt 1 discriminator 2 view .LVU145
+ 181:Core/Src/Darin3Cart_Driver.c **** 
+ 847              		.loc 1 181 2 is_stmt 0 discriminator 2 view .LVU146
+ 848 0066 14F0400F 		tst	r4, #64
+ 849 006a 05D1     		bne	.L43
+ 181:Core/Src/Darin3Cart_Driver.c **** 
+ 850              		.loc 1 181 39 discriminator 1 view .LVU147
+ 851 006c 41F28733 		movw	r3, #4999
+ 852 0070 9D42     		cmp	r5, r3
+ 853 0072 E8D9     		bls	.L39
+ 854 0074 0025     		movs	r5, #0
+ 855              	.LVL99:
+ 181:Core/Src/Darin3Cart_Driver.c **** 
+ 856              		.loc 1 181 39 discriminator 1 view .LVU148
+ 857 0076 00E0     		b	.L41
+ 858              	.LVL100:
+ 859              	.L43:
+ 181:Core/Src/Darin3Cart_Driver.c **** 
+ 860              		.loc 1 181 39 discriminator 1 view .LVU149
+ 861 0078 0025     		movs	r5, #0
+ 862              	.LVL101:
+ 863              	.L41:
+ 184:Core/Src/Darin3Cart_Driver.c ****  {						                        //command was ended with error
+ 864              		.loc 1 184 2 is_stmt 1 discriminator 2 view .LVU150
+ 865              	.LBB6:
+ 186:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 866              		.loc 1 186 3 discriminator 2 view .LVU151
+ 867 007a 0E4F     		ldr	r7, .L45
+ 868 007c 0E4E     		ldr	r6, .L45+4
+ 869 007e 0022     		movs	r2, #0
+ 870 0080 3988     		ldrh	r1, [r7]
+ 871 0082 3046     		mov	r0, r6
+ 872 0084 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 873              	.LVL102:
+ 187:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 24
+
+
+ 874              		.loc 1 187 3 discriminator 2 view .LVU152
+ 187:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 875              		.loc 1 187 16 is_stmt 0 discriminator 2 view .LVU153
+ 876 0088 FFF7FEFF 		bl	Read_port
+ 877              	.LVL103:
+ 878 008c 0446     		mov	r4, r0
+ 187:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 879              		.loc 1 187 14 discriminator 2 view .LVU154
+ 880 008e 5FFA80F8 		uxtb	r8, r0
+ 881              	.LVL104:
+ 188:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 882              		.loc 1 188 3 is_stmt 1 discriminator 2 view .LVU155
+ 883 0092 0122     		movs	r2, #1
+ 884 0094 3988     		ldrh	r1, [r7]
+ 885 0096 3046     		mov	r0, r6
+ 886 0098 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 887              	.LVL105:
+ 189:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt<5000));
+ 888              		.loc 1 189 3 discriminator 2 view .LVU156
+ 189:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt<5000));
+ 889              		.loc 1 189 10 is_stmt 0 discriminator 2 view .LVU157
+ 890 009c 0135     		adds	r5, r5, #1
+ 891              	.LVL106:
+ 189:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt<5000));
+ 892              		.loc 1 189 10 discriminator 2 view .LVU158
+ 893              	.LBE6:
+ 190:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ 894              		.loc 1 190 8 is_stmt 1 discriminator 2 view .LVU159
+ 190:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ 895              		.loc 1 190 2 is_stmt 0 discriminator 2 view .LVU160
+ 896 009e 14F0100F 		tst	r4, #16
+ 897 00a2 03D1     		bne	.L40
+ 190:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ 898              		.loc 1 190 39 discriminator 1 view .LVU161
+ 899 00a4 41F28733 		movw	r3, #4999
+ 900 00a8 9D42     		cmp	r5, r3
+ 901 00aa E6D9     		bls	.L41
+ 902              	.L40:
+ 191:Core/Src/Darin3Cart_Driver.c **** }
+ 903              		.loc 1 191 2 is_stmt 1 view .LVU162
+ 192:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 904              		.loc 1 192 1 is_stmt 0 view .LVU163
+ 905 00ac 4046     		mov	r0, r8
+ 906 00ae BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 907              	.LVL107:
+ 908              	.L46:
+ 192:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 909              		.loc 1 192 1 view .LVU164
+ 910 00b2 00BF     		.align	2
+ 911              	.L45:
+ 912 00b4 00000000 		.word	.LANCHOR3
+ 913 00b8 00000240 		.word	1073872896
+ 914              		.cfi_endproc
+ 915              	.LFE137:
+ 917              		.section	.text.command_for_write,"ax",%progbits
+ 918              		.align	1
+ 919              		.global	command_for_write
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 25
+
+
+ 920              		.syntax unified
+ 921              		.thumb
+ 922              		.thumb_func
+ 924              	command_for_write:
+ 925              	.LFB138:
+ 197:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Output);	                //set the mode of port p1 as output port
+ 926              		.loc 1 197 1 is_stmt 1 view -0
+ 927              		.cfi_startproc
+ 928              		@ args = 0, pretend = 0, frame = 0
+ 929              		@ frame_needed = 0, uses_anonymous_args = 0
+ 930 0000 70B5     		push	{r4, r5, r6, lr}
+ 931              	.LCFI11:
+ 932              		.cfi_def_cfa_offset 16
+ 933              		.cfi_offset 4, -16
+ 934              		.cfi_offset 5, -12
+ 935              		.cfi_offset 6, -8
+ 936              		.cfi_offset 14, -4
+ 198:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_count); 				//address the register pointer of CF to sector counter regis
+ 937              		.loc 1 198 2 view .LVU166
+ 938 0002 0120     		movs	r0, #1
+ 939 0004 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 940              	.LVL108:
+ 199:Core/Src/Darin3Cart_Driver.c ****  write_port(0x01);								//since single page is accessed at a time put value 0x01 into port p1
+ 941              		.loc 1 199 2 view .LVU167
+ 942 0008 0220     		movs	r0, #2
+ 943 000a FFF7FEFF 		bl	write_address_port
+ 944              	.LVL109:
+ 200:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate write so that that value 0x01 is stored in
+ 945              		.loc 1 200 2 view .LVU168
+ 946 000e 0120     		movs	r0, #1
+ 947 0010 FFF7FEFF 		bl	write_port
+ 948              	.LVL110:
+ 201:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);    		//sector count register
+ 949              		.loc 1 201 2 view .LVU169
+ 950 0014 314D     		ldr	r5, .L49
+ 951 0016 324C     		ldr	r4, .L49+4
+ 952 0018 0022     		movs	r2, #0
+ 953 001a 2988     		ldrh	r1, [r5]
+ 954 001c 2046     		mov	r0, r4
+ 955 001e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 956              	.LVL111:
+ 202:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_num);	    		//address the register pointer of CF to sector number regist
+ 957              		.loc 1 202 2 view .LVU170
+ 958 0022 0122     		movs	r2, #1
+ 959 0024 2988     		ldrh	r1, [r5]
+ 960 0026 2046     		mov	r0, r4
+ 961 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 962              	.LVL112:
+ 203:Core/Src/Darin3Cart_Driver.c ****  write_port(sector_number);			    		//send the sector number from which you want to read the data
+ 963              		.loc 1 203 2 view .LVU171
+ 964 002c 0320     		movs	r0, #3
+ 965 002e FFF7FEFF 		bl	write_address_port
+ 966              	.LVL113:
+ 204:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 967              		.loc 1 204 2 view .LVU172
+ 968 0032 2C4B     		ldr	r3, .L49+8
+ 969 0034 1888     		ldrh	r0, [r3]
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 26
+
+
+ 970 0036 FFF7FEFF 		bl	write_port
+ 971              	.LVL114:
+ 205:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 972              		.loc 1 205 2 view .LVU173
+ 973 003a 0022     		movs	r2, #0
+ 974 003c 2988     		ldrh	r1, [r5]
+ 975 003e 2046     		mov	r0, r4
+ 976 0040 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 977              	.LVL115:
+ 206:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_low);		    		//address the register pointer of CF to cylinder low register
+ 978              		.loc 1 206 2 view .LVU174
+ 979 0044 0122     		movs	r2, #1
+ 980 0046 2988     		ldrh	r1, [r5]
+ 981 0048 2046     		mov	r0, r4
+ 982 004a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 983              	.LVL116:
+ 207:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1);				//send the cylinder low value from which you want to read the 
+ 984              		.loc 1 207 2 view .LVU175
+ 985 004e 0420     		movs	r0, #4
+ 986 0050 FFF7FEFF 		bl	write_address_port
+ 987              	.LVL117:
+ 208:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 988              		.loc 1 208 2 view .LVU176
+ 989 0054 244E     		ldr	r6, .L49+12
+ 990 0056 3088     		ldrh	r0, [r6]
+ 991 0058 FFF7FEFF 		bl	write_port
+ 992              	.LVL118:
+ 209:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 993              		.loc 1 209 2 view .LVU177
+ 994 005c 0022     		movs	r2, #0
+ 995 005e 2988     		ldrh	r1, [r5]
+ 996 0060 2046     		mov	r0, r4
+ 997 0062 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 998              	.LVL119:
+ 210:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_high);		    		//address the register pointer of CF to cylinder high registe
+ 999              		.loc 1 210 2 view .LVU178
+ 1000 0066 0122     		movs	r2, #1
+ 1001 0068 2988     		ldrh	r1, [r5]
+ 1002 006a 2046     		mov	r0, r4
+ 1003 006c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1004              	.LVL120:
+ 211:Core/Src/Darin3Cart_Driver.c ****  write_port(Address_Flash_Page1 >> 8);			//send the cylinder high value from which you want to read
+ 1005              		.loc 1 211 2 view .LVU179
+ 1006 0070 0520     		movs	r0, #5
+ 1007 0072 FFF7FEFF 		bl	write_address_port
+ 1008              	.LVL121:
+ 212:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 1009              		.loc 1 212 2 view .LVU180
+ 1010 0076 3088     		ldrh	r0, [r6]
+ 1011 0078 000A     		lsrs	r0, r0, #8
+ 1012 007a FFF7FEFF 		bl	write_port
+ 1013              	.LVL122:
+ 213:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1014              		.loc 1 213 2 view .LVU181
+ 1015 007e 0022     		movs	r2, #0
+ 1016 0080 2988     		ldrh	r1, [r5]
+ 1017 0082 2046     		mov	r0, r4
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 27
+
+
+ 1018 0084 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1019              	.LVL123:
+ 214:Core/Src/Darin3Cart_Driver.c ****  write_address_port(drive);			    		//address the register pointer of CF to drive register
+ 1020              		.loc 1 214 2 view .LVU182
+ 1021 0088 0122     		movs	r2, #1
+ 1022 008a 2988     		ldrh	r1, [r5]
+ 1023 008c 2046     		mov	r0, r4
+ 1024 008e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1025              	.LVL124:
+ 215:Core/Src/Darin3Cart_Driver.c ****  write_port(0xE0);								//send the drive value from which you want to read the data
+ 1026              		.loc 1 215 2 view .LVU183
+ 1027 0092 0620     		movs	r0, #6
+ 1028 0094 FFF7FEFF 		bl	write_address_port
+ 1029              	.LVL125:
+ 216:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 1030              		.loc 1 216 2 view .LVU184
+ 1031 0098 E020     		movs	r0, #224
+ 1032 009a FFF7FEFF 		bl	write_port
+ 1033              	.LVL126:
+ 217:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1034              		.loc 1 217 2 view .LVU185
+ 1035 009e 0022     		movs	r2, #0
+ 1036 00a0 2988     		ldrh	r1, [r5]
+ 1037 00a2 2046     		mov	r0, r4
+ 1038 00a4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1039              	.LVL127:
+ 218:Core/Src/Darin3Cart_Driver.c ****  write_address_port(command);					//address the register pointer of CF to comand register
+ 1040              		.loc 1 218 2 view .LVU186
+ 1041 00a8 0122     		movs	r2, #1
+ 1042 00aa 2988     		ldrh	r1, [r5]
+ 1043 00ac 2046     		mov	r0, r4
+ 1044 00ae FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1045              	.LVL128:
+ 219:Core/Src/Darin3Cart_Driver.c ****  write_port(0x30);								//send the command value from which you want to WRITE the data
+ 1046              		.loc 1 219 2 view .LVU187
+ 1047 00b2 0720     		movs	r0, #7
+ 1048 00b4 FFF7FEFF 		bl	write_address_port
+ 1049              	.LVL129:
+ 220:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);    		//initiate the write signal
+ 1050              		.loc 1 220 2 view .LVU188
+ 1051 00b8 3020     		movs	r0, #48
+ 1052 00ba FFF7FEFF 		bl	write_port
+ 1053              	.LVL130:
+ 221:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1054              		.loc 1 221 2 view .LVU189
+ 1055 00be 0022     		movs	r2, #0
+ 1056 00c0 2988     		ldrh	r1, [r5]
+ 1057 00c2 2046     		mov	r0, r4
+ 1058 00c4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1059              	.LVL131:
+ 222:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 1060              		.loc 1 222 2 view .LVU190
+ 1061 00c8 0122     		movs	r2, #1
+ 1062 00ca 2988     		ldrh	r1, [r5]
+ 1063 00cc 2046     		mov	r0, r4
+ 1064 00ce FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1065              	.LVL132:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 28
+
+
+ 223:Core/Src/Darin3Cart_Driver.c **** }
+ 1066              		.loc 1 223 2 view .LVU191
+ 1067 00d2 0020     		movs	r0, #0
+ 1068 00d4 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 1069              	.LVL133:
+ 224:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1070              		.loc 1 224 1 is_stmt 0 view .LVU192
+ 1071 00d8 70BD     		pop	{r4, r5, r6, pc}
+ 1072              	.L50:
+ 1073 00da 00BF     		.align	2
+ 1074              	.L49:
+ 1075 00dc 00000000 		.word	.LANCHOR1
+ 1076 00e0 00080240 		.word	1073874944
+ 1077 00e4 00000000 		.word	.LANCHOR8
+ 1078 00e8 00000000 		.word	.LANCHOR9
+ 1079              		.cfi_endproc
+ 1080              	.LFE138:
+ 1082              		.section	.text.check_stat_of_compact_flash,"ax",%progbits
+ 1083              		.align	1
+ 1084              		.global	check_stat_of_compact_flash
+ 1085              		.syntax unified
+ 1086              		.thumb
+ 1087              		.thumb_func
+ 1089              	check_stat_of_compact_flash:
+ 1090              	.LFB139:
+ 229:Core/Src/Darin3Cart_Driver.c ****  unsigned char reg_status;
+ 1091              		.loc 1 229 1 is_stmt 1 view -0
+ 1092              		.cfi_startproc
+ 1093              		@ args = 0, pretend = 0, frame = 0
+ 1094              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1095 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1096              	.LCFI12:
+ 1097              		.cfi_def_cfa_offset 24
+ 1098              		.cfi_offset 4, -24
+ 1099              		.cfi_offset 5, -20
+ 1100              		.cfi_offset 6, -16
+ 1101              		.cfi_offset 7, -12
+ 1102              		.cfi_offset 8, -8
+ 1103              		.cfi_offset 14, -4
+ 230:Core/Src/Darin3Cart_Driver.c ****  write_address_port(status_reg);				//address the register pointer to point to status regester
+ 1104              		.loc 1 230 2 view .LVU194
+ 231:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);								    //wait for some delay //if error then quit
+ 1105              		.loc 1 231 2 view .LVU195
+ 1106 0004 0720     		movs	r0, #7
+ 1107 0006 FFF7FEFF 		bl	write_address_port
+ 1108              	.LVL134:
+ 232:Core/Src/Darin3Cart_Driver.c ****  unsigned int BusyCnt;
+ 1109              		.loc 1 232 2 view .LVU196
+ 1110 000a 3220     		movs	r0, #50
+ 1111 000c FFF7FEFF 		bl	short_delay_us
+ 1112              	.LVL135:
+ 233:Core/Src/Darin3Cart_Driver.c **** 
+ 1113              		.loc 1 233 2 view .LVU197
+ 235:Core/Src/Darin3Cart_Driver.c ****  do
+ 1114              		.loc 1 235 2 view .LVU198
+ 235:Core/Src/Darin3Cart_Driver.c ****  do
+ 1115              		.loc 1 235 10 is_stmt 0 view .LVU199
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 29
+
+
+ 1116 0010 0025     		movs	r5, #0
+ 1117              	.LVL136:
+ 1118              	.L53:
+ 236:Core/Src/Darin3Cart_Driver.c ****  {
+ 1119              		.loc 1 236 2 is_stmt 1 discriminator 2 view .LVU200
+ 1120              	.LBB7:
+ 238:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 1121              		.loc 1 238 3 discriminator 2 view .LVU201
+ 1122 0012 3F4F     		ldr	r7, .L67
+ 1123 0014 3F4E     		ldr	r6, .L67+4
+ 1124 0016 0022     		movs	r2, #0
+ 1125 0018 3988     		ldrh	r1, [r7]
+ 1126 001a 3046     		mov	r0, r6
+ 1127 001c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1128              	.LVL137:
+ 239:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1129              		.loc 1 239 3 discriminator 2 view .LVU202
+ 239:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1130              		.loc 1 239 16 is_stmt 0 discriminator 2 view .LVU203
+ 1131 0020 FFF7FEFF 		bl	Read_port
+ 1132              	.LVL138:
+ 1133 0024 0446     		mov	r4, r0
+ 1134              	.LVL139:
+ 240:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 1135              		.loc 1 240 3 is_stmt 1 discriminator 2 view .LVU204
+ 1136 0026 0122     		movs	r2, #1
+ 1137 0028 3988     		ldrh	r1, [r7]
+ 1138 002a 3046     		mov	r0, r6
+ 1139 002c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1140              	.LVL140:
+ 241:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80)&& (BusyCnt < 500000));
+ 1141              		.loc 1 241 3 discriminator 2 view .LVU205
+ 241:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80)&& (BusyCnt < 500000));
+ 1142              		.loc 1 241 10 is_stmt 0 discriminator 2 view .LVU206
+ 1143 0030 0135     		adds	r5, r5, #1
+ 1144              	.LVL141:
+ 241:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x80) == 0x80)&& (BusyCnt < 500000));
+ 1145              		.loc 1 241 10 discriminator 2 view .LVU207
+ 1146              	.LBE7:
+ 242:Core/Src/Darin3Cart_Driver.c **** 
+ 1147              		.loc 1 242 8 is_stmt 1 discriminator 2 view .LVU208
+ 242:Core/Src/Darin3Cart_Driver.c **** 
+ 1148              		.loc 1 242 2 is_stmt 0 discriminator 2 view .LVU209
+ 1149 0032 14F0800F 		tst	r4, #128
+ 1150 0036 04D0     		beq	.L62
+ 242:Core/Src/Darin3Cart_Driver.c **** 
+ 1151              		.loc 1 242 38 discriminator 1 view .LVU210
+ 1152 0038 374B     		ldr	r3, .L67+8
+ 1153 003a 9D42     		cmp	r5, r3
+ 1154 003c E9D9     		bls	.L53
+ 1155 003e 0025     		movs	r5, #0
+ 1156              	.LVL142:
+ 242:Core/Src/Darin3Cart_Driver.c **** 
+ 1157              		.loc 1 242 38 discriminator 1 view .LVU211
+ 1158 0040 00E0     		b	.L55
+ 1159              	.LVL143:
+ 1160              	.L62:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 30
+
+
+ 242:Core/Src/Darin3Cart_Driver.c **** 
+ 1161              		.loc 1 242 38 discriminator 1 view .LVU212
+ 1162 0042 0025     		movs	r5, #0
+ 1163              	.LVL144:
+ 1164              	.L55:
+ 245:Core/Src/Darin3Cart_Driver.c ****  {
+ 1165              		.loc 1 245 2 is_stmt 1 discriminator 2 view .LVU213
+ 1166              	.LBB8:
+ 247:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 1167              		.loc 1 247 3 discriminator 2 view .LVU214
+ 1168 0044 324F     		ldr	r7, .L67
+ 1169 0046 334E     		ldr	r6, .L67+4
+ 1170 0048 0022     		movs	r2, #0
+ 1171 004a 3988     		ldrh	r1, [r7]
+ 1172 004c 3046     		mov	r0, r6
+ 1173 004e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1174              	.LVL145:
+ 248:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1175              		.loc 1 248 3 discriminator 2 view .LVU215
+ 248:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1176              		.loc 1 248 16 is_stmt 0 discriminator 2 view .LVU216
+ 1177 0052 FFF7FEFF 		bl	Read_port
+ 1178              	.LVL146:
+ 1179 0056 0446     		mov	r4, r0
+ 1180              	.LVL147:
+ 249:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;;
+ 1181              		.loc 1 249 3 is_stmt 1 discriminator 2 view .LVU217
+ 1182 0058 0122     		movs	r2, #1
+ 1183 005a 3988     		ldrh	r1, [r7]
+ 1184 005c 3046     		mov	r0, r6
+ 1185 005e FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1186              	.LVL148:
+ 250:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt < 500000));
+ 1187              		.loc 1 250 3 discriminator 2 view .LVU218
+ 250:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt < 500000));
+ 1188              		.loc 1 250 10 is_stmt 0 discriminator 2 view .LVU219
+ 1189 0062 0135     		adds	r5, r5, #1
+ 1190              	.LVL149:
+ 250:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x40) == 0x00) && (BusyCnt < 500000));
+ 1191              		.loc 1 250 13 is_stmt 1 discriminator 2 view .LVU220
+ 1192              	.LBE8:
+ 251:Core/Src/Darin3Cart_Driver.c **** 
+ 1193              		.loc 1 251 8 discriminator 2 view .LVU221
+ 251:Core/Src/Darin3Cart_Driver.c **** 
+ 1194              		.loc 1 251 2 is_stmt 0 discriminator 2 view .LVU222
+ 1195 0064 14F0400F 		tst	r4, #64
+ 1196 0068 04D1     		bne	.L63
+ 251:Core/Src/Darin3Cart_Driver.c **** 
+ 1197              		.loc 1 251 39 discriminator 1 view .LVU223
+ 1198 006a 2B4B     		ldr	r3, .L67+8
+ 1199 006c 9D42     		cmp	r5, r3
+ 1200 006e E9D9     		bls	.L55
+ 1201 0070 0025     		movs	r5, #0
+ 1202              	.LVL150:
+ 251:Core/Src/Darin3Cart_Driver.c **** 
+ 1203              		.loc 1 251 39 discriminator 1 view .LVU224
+ 1204 0072 00E0     		b	.L57
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 31
+
+
+ 1205              	.LVL151:
+ 1206              	.L63:
+ 251:Core/Src/Darin3Cart_Driver.c **** 
+ 1207              		.loc 1 251 39 discriminator 1 view .LVU225
+ 1208 0074 0025     		movs	r5, #0
+ 1209              	.LVL152:
+ 1210              	.L57:
+ 254:Core/Src/Darin3Cart_Driver.c ****  {
+ 1211              		.loc 1 254 2 is_stmt 1 discriminator 2 view .LVU226
+ 1212              	.LBB9:
+ 256:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 1213              		.loc 1 256 3 discriminator 2 view .LVU227
+ 1214 0076 264F     		ldr	r7, .L67
+ 1215 0078 264E     		ldr	r6, .L67+4
+ 1216 007a 0022     		movs	r2, #0
+ 1217 007c 3988     		ldrh	r1, [r7]
+ 1218 007e 3046     		mov	r0, r6
+ 1219 0080 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1220              	.LVL153:
+ 257:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1221              		.loc 1 257 3 discriminator 2 view .LVU228
+ 257:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1222              		.loc 1 257 16 is_stmt 0 discriminator 2 view .LVU229
+ 1223 0084 FFF7FEFF 		bl	Read_port
+ 1224              	.LVL154:
+ 1225 0088 0446     		mov	r4, r0
+ 1226              	.LVL155:
+ 258:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 1227              		.loc 1 258 3 is_stmt 1 discriminator 2 view .LVU230
+ 1228 008a 0122     		movs	r2, #1
+ 1229 008c 3988     		ldrh	r1, [r7]
+ 1230 008e 3046     		mov	r0, r6
+ 1231 0090 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1232              	.LVL156:
+ 259:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt < 500000));
+ 1233              		.loc 1 259 3 discriminator 2 view .LVU231
+ 259:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt < 500000));
+ 1234              		.loc 1 259 10 is_stmt 0 discriminator 2 view .LVU232
+ 1235 0094 0135     		adds	r5, r5, #1
+ 1236              	.LVL157:
+ 259:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x10) == 0x00) && (BusyCnt < 500000));
+ 1237              		.loc 1 259 10 discriminator 2 view .LVU233
+ 1238              	.LBE9:
+ 260:Core/Src/Darin3Cart_Driver.c **** 
+ 1239              		.loc 1 260 8 is_stmt 1 discriminator 2 view .LVU234
+ 260:Core/Src/Darin3Cart_Driver.c **** 
+ 1240              		.loc 1 260 2 is_stmt 0 discriminator 2 view .LVU235
+ 1241 0096 14F0100F 		tst	r4, #16
+ 1242 009a 04D1     		bne	.L64
+ 260:Core/Src/Darin3Cart_Driver.c **** 
+ 1243              		.loc 1 260 39 discriminator 1 view .LVU236
+ 1244 009c 1E4B     		ldr	r3, .L67+8
+ 1245 009e 9D42     		cmp	r5, r3
+ 1246 00a0 E9D9     		bls	.L57
+ 1247 00a2 0025     		movs	r5, #0
+ 1248              	.LVL158:
+ 260:Core/Src/Darin3Cart_Driver.c **** 
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 32
+
+
+ 1249              		.loc 1 260 39 discriminator 1 view .LVU237
+ 1250 00a4 00E0     		b	.L59
+ 1251              	.LVL159:
+ 1252              	.L64:
+ 260:Core/Src/Darin3Cart_Driver.c **** 
+ 1253              		.loc 1 260 39 discriminator 1 view .LVU238
+ 1254 00a6 0025     		movs	r5, #0
+ 1255              	.LVL160:
+ 1256              	.L59:
+ 263:Core/Src/Darin3Cart_Driver.c ****  {
+ 1257              		.loc 1 263 2 is_stmt 1 discriminator 2 view .LVU239
+ 1258              	.LBB10:
+ 265:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 1259              		.loc 1 265 3 discriminator 2 view .LVU240
+ 1260 00a8 194F     		ldr	r7, .L67
+ 1261 00aa 1A4E     		ldr	r6, .L67+4
+ 1262 00ac 0022     		movs	r2, #0
+ 1263 00ae 3988     		ldrh	r1, [r7]
+ 1264 00b0 3046     		mov	r0, r6
+ 1265 00b2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1266              	.LVL161:
+ 266:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1267              		.loc 1 266 3 discriminator 2 view .LVU241
+ 266:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1268              		.loc 1 266 16 is_stmt 0 discriminator 2 view .LVU242
+ 1269 00b6 FFF7FEFF 		bl	Read_port
+ 1270              	.LVL162:
+ 1271 00ba 0446     		mov	r4, r0
+ 1272              	.LVL163:
+ 267:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 1273              		.loc 1 267 3 is_stmt 1 discriminator 2 view .LVU243
+ 1274 00bc 0122     		movs	r2, #1
+ 1275 00be 3988     		ldrh	r1, [r7]
+ 1276 00c0 3046     		mov	r0, r6
+ 1277 00c2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1278              	.LVL164:
+ 268:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x08) == 0x00) && (BusyCnt < 500000));
+ 1279              		.loc 1 268 3 discriminator 2 view .LVU244
+ 268:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x08) == 0x00) && (BusyCnt < 500000));
+ 1280              		.loc 1 268 10 is_stmt 0 discriminator 2 view .LVU245
+ 1281 00c6 0135     		adds	r5, r5, #1
+ 1282              	.LVL165:
+ 268:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x08) == 0x00) && (BusyCnt < 500000));
+ 1283              		.loc 1 268 10 discriminator 2 view .LVU246
+ 1284              	.LBE10:
+ 269:Core/Src/Darin3Cart_Driver.c **** 
+ 1285              		.loc 1 269 8 is_stmt 1 discriminator 2 view .LVU247
+ 269:Core/Src/Darin3Cart_Driver.c **** 
+ 1286              		.loc 1 269 2 is_stmt 0 discriminator 2 view .LVU248
+ 1287 00c8 14F0080F 		tst	r4, #8
+ 1288 00cc 04D1     		bne	.L65
+ 269:Core/Src/Darin3Cart_Driver.c **** 
+ 1289              		.loc 1 269 39 discriminator 1 view .LVU249
+ 1290 00ce 124B     		ldr	r3, .L67+8
+ 1291 00d0 9D42     		cmp	r5, r3
+ 1292 00d2 E9D9     		bls	.L59
+ 1293 00d4 0025     		movs	r5, #0
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 33
+
+
+ 1294              	.LVL166:
+ 269:Core/Src/Darin3Cart_Driver.c **** 
+ 1295              		.loc 1 269 39 discriminator 1 view .LVU250
+ 1296 00d6 00E0     		b	.L61
+ 1297              	.LVL167:
+ 1298              	.L65:
+ 269:Core/Src/Darin3Cart_Driver.c **** 
+ 1299              		.loc 1 269 39 discriminator 1 view .LVU251
+ 1300 00d8 0025     		movs	r5, #0
+ 1301              	.LVL168:
+ 1302              	.L61:
+ 272:Core/Src/Darin3Cart_Driver.c ****  {
+ 1303              		.loc 1 272 2 is_stmt 1 discriminator 2 view .LVU252
+ 1304              	.LBB11:
+ 274:Core/Src/Darin3Cart_Driver.c ****   reg_status = Read_port();
+ 1305              		.loc 1 274 3 discriminator 2 view .LVU253
+ 1306 00da 0D4F     		ldr	r7, .L67
+ 1307 00dc 0D4E     		ldr	r6, .L67+4
+ 1308 00de 0022     		movs	r2, #0
+ 1309 00e0 3988     		ldrh	r1, [r7]
+ 1310 00e2 3046     		mov	r0, r6
+ 1311 00e4 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1312              	.LVL169:
+ 275:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1313              		.loc 1 275 3 discriminator 2 view .LVU254
+ 275:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1314              		.loc 1 275 16 is_stmt 0 discriminator 2 view .LVU255
+ 1315 00e8 FFF7FEFF 		bl	Read_port
+ 1316              	.LVL170:
+ 1317 00ec 0446     		mov	r4, r0
+ 275:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOA,CF_OE,1);
+ 1318              		.loc 1 275 14 discriminator 2 view .LVU256
+ 1319 00ee 5FFA80F8 		uxtb	r8, r0
+ 1320              	.LVL171:
+ 276:Core/Src/Darin3Cart_Driver.c ****   BusyCnt++;
+ 1321              		.loc 1 276 3 is_stmt 1 discriminator 2 view .LVU257
+ 1322 00f2 0122     		movs	r2, #1
+ 1323 00f4 3988     		ldrh	r1, [r7]
+ 1324 00f6 3046     		mov	r0, r6
+ 1325 00f8 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1326              	.LVL172:
+ 277:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x01) == 0x01) && (BusyCnt < 500000));
+ 1327              		.loc 1 277 3 discriminator 2 view .LVU258
+ 277:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x01) == 0x01) && (BusyCnt < 500000));
+ 1328              		.loc 1 277 10 is_stmt 0 discriminator 2 view .LVU259
+ 1329 00fc 0135     		adds	r5, r5, #1
+ 1330              	.LVL173:
+ 277:Core/Src/Darin3Cart_Driver.c ****  }while(((reg_status & 0x01) == 0x01) && (BusyCnt < 500000));
+ 1331              		.loc 1 277 10 discriminator 2 view .LVU260
+ 1332              	.LBE11:
+ 278:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ 1333              		.loc 1 278 8 is_stmt 1 discriminator 2 view .LVU261
+ 278:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ 1334              		.loc 1 278 2 is_stmt 0 discriminator 2 view .LVU262
+ 1335 00fe 14F0010F 		tst	r4, #1
+ 1336 0102 02D0     		beq	.L60
+ 278:Core/Src/Darin3Cart_Driver.c ****  return reg_status;
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 34
+
+
+ 1337              		.loc 1 278 39 discriminator 1 view .LVU263
+ 1338 0104 044B     		ldr	r3, .L67+8
+ 1339 0106 9D42     		cmp	r5, r3
+ 1340 0108 E7D9     		bls	.L61
+ 1341              	.L60:
+ 279:Core/Src/Darin3Cart_Driver.c **** }
+ 1342              		.loc 1 279 2 is_stmt 1 view .LVU264
+ 280:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1343              		.loc 1 280 1 is_stmt 0 view .LVU265
+ 1344 010a 4046     		mov	r0, r8
+ 1345 010c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1346              	.LVL174:
+ 1347              	.L68:
+ 280:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1348              		.loc 1 280 1 view .LVU266
+ 1349              		.align	2
+ 1350              	.L67:
+ 1351 0110 00000000 		.word	.LANCHOR3
+ 1352 0114 00000240 		.word	1073872896
+ 1353 0118 1FA10700 		.word	499999
+ 1354              		.cfi_endproc
+ 1355              	.LFE139:
+ 1357              		.section	.text.read_compact_flash,"ax",%progbits
+ 1358              		.align	1
+ 1359              		.global	read_compact_flash
+ 1360              		.syntax unified
+ 1361              		.thumb
+ 1362              		.thumb_func
+ 1364              	read_compact_flash:
+ 1365              	.LVL175:
+ 1366              	.LFB130:
+  43:Core/Src/Darin3Cart_Driver.c ****  pre_read_compact_flash(id);	                 //function to pre intialise the ports to compact flas
+ 1367              		.loc 1 43 1 is_stmt 1 view -0
+ 1368              		.cfi_startproc
+ 1369              		@ args = 0, pretend = 0, frame = 0
+ 1370              		@ frame_needed = 0, uses_anonymous_args = 0
+  43:Core/Src/Darin3Cart_Driver.c ****  pre_read_compact_flash(id);	                 //function to pre intialise the ports to compact flas
+ 1371              		.loc 1 43 1 is_stmt 0 view .LVU268
+ 1372 0000 38B5     		push	{r3, r4, r5, lr}
+ 1373              	.LCFI13:
+ 1374              		.cfi_def_cfa_offset 16
+ 1375              		.cfi_offset 3, -16
+ 1376              		.cfi_offset 4, -12
+ 1377              		.cfi_offset 5, -8
+ 1378              		.cfi_offset 14, -4
+ 1379 0002 0546     		mov	r5, r0
+ 1380 0004 0C46     		mov	r4, r1
+  44:Core/Src/Darin3Cart_Driver.c ****  compact_flash_ready();	                     //function to find wheather the compact flash is ready
+ 1381              		.loc 1 44 2 is_stmt 1 view .LVU269
+ 1382 0006 0846     		mov	r0, r1
+ 1383              	.LVL176:
+  44:Core/Src/Darin3Cart_Driver.c ****  compact_flash_ready();	                     //function to find wheather the compact flash is ready
+ 1384              		.loc 1 44 2 is_stmt 0 view .LVU270
+ 1385 0008 FFF7FEFF 		bl	pre_read_compact_flash
+ 1386              	.LVL177:
+  45:Core/Src/Darin3Cart_Driver.c ****  command_for_read();		                 //function to intiate read command for compact flash
+ 1387              		.loc 1 45 2 is_stmt 1 view .LVU271
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 35
+
+
+ 1388 000c FFF7FEFF 		bl	compact_flash_ready
+ 1389              	.LVL178:
+  46:Core/Src/Darin3Cart_Driver.c ****  check_stat_of_compact_flash();              //function to check wheather the command is initiated 
+ 1390              		.loc 1 46 2 view .LVU272
+ 1391 0010 FFF7FEFF 		bl	command_for_read
+ 1392              	.LVL179:
+  47:Core/Src/Darin3Cart_Driver.c ****  compact_flash_read(TempStorage,512);		 //function to read the data from the compact flash and stor
+ 1393              		.loc 1 47 2 view .LVU273
+ 1394 0014 FFF7FEFF 		bl	check_stat_of_compact_flash
+ 1395              	.LVL180:
+  48:Core/Src/Darin3Cart_Driver.c ****  post_read_compact_flash(id);                  //reset the mode of all the ports to input
+ 1396              		.loc 1 48 2 view .LVU274
+ 1397 0018 4FF40071 		mov	r1, #512
+ 1398 001c 2846     		mov	r0, r5
+ 1399 001e FFF7FEFF 		bl	compact_flash_read
+ 1400              	.LVL181:
+  49:Core/Src/Darin3Cart_Driver.c **** }
+ 1401              		.loc 1 49 2 view .LVU275
+ 1402 0022 2046     		mov	r0, r4
+ 1403 0024 FFF7FEFF 		bl	post_read_compact_flash
+ 1404              	.LVL182:
+  50:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1405              		.loc 1 50 1 is_stmt 0 view .LVU276
+ 1406 0028 38BD     		pop	{r3, r4, r5, pc}
+  50:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1407              		.loc 1 50 1 view .LVU277
+ 1408              		.cfi_endproc
+ 1409              	.LFE130:
+ 1411              		.section	.text.compact_flash_write,"ax",%progbits
+ 1412              		.align	1
+ 1413              		.global	compact_flash_write
+ 1414              		.syntax unified
+ 1415              		.thumb
+ 1416              		.thumb_func
+ 1418              	compact_flash_write:
+ 1419              	.LVL183:
+ 1420              	.LFB140:
+ 285:Core/Src/Darin3Cart_Driver.c ****  unsigned char busy;
+ 1421              		.loc 1 285 1 is_stmt 1 view -0
+ 1422              		.cfi_startproc
+ 1423              		@ args = 0, pretend = 0, frame = 0
+ 1424              		@ frame_needed = 0, uses_anonymous_args = 0
+ 285:Core/Src/Darin3Cart_Driver.c ****  unsigned char busy;
+ 1425              		.loc 1 285 1 is_stmt 0 view .LVU279
+ 1426 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 1427              	.LCFI14:
+ 1428              		.cfi_def_cfa_offset 24
+ 1429              		.cfi_offset 4, -24
+ 1430              		.cfi_offset 5, -20
+ 1431              		.cfi_offset 6, -16
+ 1432              		.cfi_offset 7, -12
+ 1433              		.cfi_offset 8, -8
+ 1434              		.cfi_offset 14, -4
+ 1435 0004 0746     		mov	r7, r0
+ 1436 0006 8846     		mov	r8, r1
+ 286:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Output);				//set the mode of port p1 as output port
+ 1437              		.loc 1 286 2 is_stmt 1 view .LVU280
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 36
+
+
+ 287:Core/Src/Darin3Cart_Driver.c ****  write_address_port(data_reg);				//address the register pointer to point to data regester
+ 1438              		.loc 1 287 2 view .LVU281
+ 1439 0008 0120     		movs	r0, #1
+ 1440              	.LVL184:
+ 287:Core/Src/Darin3Cart_Driver.c ****  write_address_port(data_reg);				//address the register pointer to point to data regester
+ 1441              		.loc 1 287 2 is_stmt 0 view .LVU282
+ 1442 000a FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 1443              	.LVL185:
+ 288:Core/Src/Darin3Cart_Driver.c ****  short_delay_us(50);
+ 1444              		.loc 1 288 2 is_stmt 1 view .LVU283
+ 1445 000e 0020     		movs	r0, #0
+ 1446 0010 FFF7FEFF 		bl	write_address_port
+ 1447              	.LVL186:
+ 289:Core/Src/Darin3Cart_Driver.c ****  for (uint16_t x=0 ;x<datalength ;x++)      //if data counter value <last page size then
+ 1448              		.loc 1 289 2 view .LVU284
+ 1449 0014 3220     		movs	r0, #50
+ 1450 0016 FFF7FEFF 		bl	short_delay_us
+ 1451              	.LVL187:
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1452              		.loc 1 290 2 view .LVU285
+ 1453              	.LBB12:
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1454              		.loc 1 290 7 view .LVU286
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1455              		.loc 1 290 16 is_stmt 0 view .LVU287
+ 1456 001a 0024     		movs	r4, #0
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1457              		.loc 1 290 2 view .LVU288
+ 1458 001c 11E0     		b	.L72
+ 1459              	.LVL188:
+ 1460              	.L73:
+ 1461              	.LBB13:
+ 292:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOC, CF_WE, 0);
+ 1462              		.loc 1 292 3 is_stmt 1 discriminator 3 view .LVU289
+ 1463 001e 17F8010B 		ldrb	r0, [r7], #1	@ zero_extendqisi2
+ 1464              	.LVL189:
+ 292:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOC, CF_WE, 0);
+ 1465              		.loc 1 292 3 is_stmt 0 discriminator 3 view .LVU290
+ 1466 0022 FFF7FEFF 		bl	write_port
+ 1467              	.LVL190:
+ 293:Core/Src/Darin3Cart_Driver.c ****   HAL_GPIO_WritePin(GPIOC, CF_WE, 1);	    //disable write signal of compact flash
+ 1468              		.loc 1 293 3 is_stmt 1 discriminator 3 view .LVU291
+ 1469 0026 144E     		ldr	r6, .L76
+ 1470 0028 144D     		ldr	r5, .L76+4
+ 1471 002a 0022     		movs	r2, #0
+ 1472 002c 3188     		ldrh	r1, [r6]
+ 1473 002e 2846     		mov	r0, r5
+ 1474 0030 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1475              	.LVL191:
+ 294:Core/Src/Darin3Cart_Driver.c ****   TempStorage++;					        //increment XRAM pointer
+ 1476              		.loc 1 294 3 discriminator 3 view .LVU292
+ 1477 0034 0122     		movs	r2, #1
+ 1478 0036 3188     		ldrh	r1, [r6]
+ 1479 0038 2846     		mov	r0, r5
+ 1480 003a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1481              	.LVL192:
+ 295:Core/Src/Darin3Cart_Driver.c ****  }
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 37
+
+
+ 1482              		.loc 1 295 3 discriminator 3 view .LVU293
+ 295:Core/Src/Darin3Cart_Driver.c ****  }
+ 1483              		.loc 1 295 3 is_stmt 0 discriminator 3 view .LVU294
+ 1484              	.LBE13:
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1485              		.loc 1 290 35 is_stmt 1 discriminator 3 view .LVU295
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1486              		.loc 1 290 36 is_stmt 0 discriminator 3 view .LVU296
+ 1487 003e 0134     		adds	r4, r4, #1
+ 1488              	.LVL193:
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1489              		.loc 1 290 36 discriminator 3 view .LVU297
+ 1490 0040 A4B2     		uxth	r4, r4
+ 1491              	.LVL194:
+ 1492              	.L72:
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1493              		.loc 1 290 21 is_stmt 1 discriminator 1 view .LVU298
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1494              		.loc 1 290 2 is_stmt 0 discriminator 1 view .LVU299
+ 1495 0042 4445     		cmp	r4, r8
+ 1496 0044 EBD3     		bcc	.L73
+ 290:Core/Src/Darin3Cart_Driver.c ****  {
+ 1497              		.loc 1 290 2 discriminator 1 view .LVU300
+ 1498              	.LBE12:
+ 297:Core/Src/Darin3Cart_Driver.c ****  write_address_port(status_reg);
+ 1499              		.loc 1 297 2 is_stmt 1 view .LVU301
+ 1500 0046 0020     		movs	r0, #0
+ 1501 0048 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 1502              	.LVL195:
+ 298:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA, CF_OE, 0);
+ 1503              		.loc 1 298 2 view .LVU302
+ 1504 004c 0720     		movs	r0, #7
+ 1505 004e FFF7FEFF 		bl	write_address_port
+ 1506              	.LVL196:
+ 299:Core/Src/Darin3Cart_Driver.c ****  do                   	                    //check for error if one it means previous
+ 1507              		.loc 1 299 2 view .LVU303
+ 1508 0052 0022     		movs	r2, #0
+ 1509 0054 0A4B     		ldr	r3, .L76+8
+ 1510 0056 1988     		ldrh	r1, [r3]
+ 1511 0058 0A48     		ldr	r0, .L76+12
+ 1512 005a FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1513              	.LVL197:
+ 1514              	.L74:
+ 300:Core/Src/Darin3Cart_Driver.c ****  {						                    //command was ended with error
+ 1515              		.loc 1 300 2 discriminator 1 view .LVU304
+ 1516              	.LBB14:
+ 302:Core/Src/Darin3Cart_Driver.c ****  }while((busy & 0x80) == 0x80);
+ 1517              		.loc 1 302 3 discriminator 1 view .LVU305
+ 302:Core/Src/Darin3Cart_Driver.c ****  }while((busy & 0x80) == 0x80);
+ 1518              		.loc 1 302 10 is_stmt 0 discriminator 1 view .LVU306
+ 1519 005e FFF7FEFF 		bl	Read_port
+ 1520              	.LVL198:
+ 302:Core/Src/Darin3Cart_Driver.c ****  }while((busy & 0x80) == 0x80);
+ 1521              		.loc 1 302 10 discriminator 1 view .LVU307
+ 1522              	.LBE14:
+ 303:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA, CF_OE, 1);
+ 1523              		.loc 1 303 8 is_stmt 1 discriminator 1 view .LVU308
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 38
+
+
+ 303:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOA, CF_OE, 1);
+ 1524              		.loc 1 303 2 is_stmt 0 discriminator 1 view .LVU309
+ 1525 0062 10F0800F 		tst	r0, #128
+ 1526 0066 FAD1     		bne	.L74
+ 304:Core/Src/Darin3Cart_Driver.c **** }
+ 1527              		.loc 1 304 2 is_stmt 1 view .LVU310
+ 1528 0068 0122     		movs	r2, #1
+ 1529 006a 054B     		ldr	r3, .L76+8
+ 1530 006c 1988     		ldrh	r1, [r3]
+ 1531 006e 0548     		ldr	r0, .L76+12
+ 1532              	.LVL199:
+ 304:Core/Src/Darin3Cart_Driver.c **** }
+ 1533              		.loc 1 304 2 is_stmt 0 view .LVU311
+ 1534 0070 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1535              	.LVL200:
+ 305:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1536              		.loc 1 305 1 view .LVU312
+ 1537 0074 BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 1538              	.LVL201:
+ 1539              	.L77:
+ 305:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1540              		.loc 1 305 1 view .LVU313
+ 1541              		.align	2
+ 1542              	.L76:
+ 1543 0078 00000000 		.word	.LANCHOR1
+ 1544 007c 00080240 		.word	1073874944
+ 1545 0080 00000000 		.word	.LANCHOR3
+ 1546 0084 00000240 		.word	1073872896
+ 1547              		.cfi_endproc
+ 1548              	.LFE140:
+ 1550              		.section	.text.write_compact_flash,"ax",%progbits
+ 1551              		.align	1
+ 1552              		.global	write_compact_flash
+ 1553              		.syntax unified
+ 1554              		.thumb
+ 1555              		.thumb_func
+ 1557              	write_compact_flash:
+ 1558              	.LVL202:
+ 1559              	.LFB135:
+ 132:Core/Src/Darin3Cart_Driver.c ****  pre_write_compact_flash(id);	                    //this function initiates pre port settings for C
+ 1560              		.loc 1 132 1 is_stmt 1 view -0
+ 1561              		.cfi_startproc
+ 1562              		@ args = 0, pretend = 0, frame = 0
+ 1563              		@ frame_needed = 0, uses_anonymous_args = 0
+ 132:Core/Src/Darin3Cart_Driver.c ****  pre_write_compact_flash(id);	                    //this function initiates pre port settings for C
+ 1564              		.loc 1 132 1 is_stmt 0 view .LVU315
+ 1565 0000 38B5     		push	{r3, r4, r5, lr}
+ 1566              	.LCFI15:
+ 1567              		.cfi_def_cfa_offset 16
+ 1568              		.cfi_offset 3, -16
+ 1569              		.cfi_offset 4, -12
+ 1570              		.cfi_offset 5, -8
+ 1571              		.cfi_offset 14, -4
+ 1572 0002 0546     		mov	r5, r0
+ 1573 0004 0C46     		mov	r4, r1
+ 133:Core/Src/Darin3Cart_Driver.c ****  compact_flash_ready();		                    //this is used to check wheather CF is ready for write
+ 1574              		.loc 1 133 2 is_stmt 1 view .LVU316
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 39
+
+
+ 1575 0006 0846     		mov	r0, r1
+ 1576              	.LVL203:
+ 133:Core/Src/Darin3Cart_Driver.c ****  compact_flash_ready();		                    //this is used to check wheather CF is ready for write
+ 1577              		.loc 1 133 2 is_stmt 0 view .LVU317
+ 1578 0008 FFF7FEFF 		bl	pre_write_compact_flash
+ 1579              	.LVL204:
+ 134:Core/Src/Darin3Cart_Driver.c ****  command_for_write();			                //this function is used to initiate write command to CF
+ 1580              		.loc 1 134 2 is_stmt 1 view .LVU318
+ 1581 000c FFF7FEFF 		bl	compact_flash_ready
+ 1582              	.LVL205:
+ 135:Core/Src/Darin3Cart_Driver.c ****  check_stat_of_compact_flash();                 //this function is used to check the status of writ
+ 1583              		.loc 1 135 2 view .LVU319
+ 1584 0010 FFF7FEFF 		bl	command_for_write
+ 1585              	.LVL206:
+ 136:Core/Src/Darin3Cart_Driver.c ****  compact_flash_write(TempStorage,512);		    //if command was sucessesful then start writing data to
+ 1586              		.loc 1 136 2 view .LVU320
+ 1587 0014 FFF7FEFF 		bl	check_stat_of_compact_flash
+ 1588              	.LVL207:
+ 137:Core/Src/Darin3Cart_Driver.c ****  post_write_compact_flash(id);	                //this function used to reset the mode of ports
+ 1589              		.loc 1 137 2 view .LVU321
+ 1590 0018 4FF40071 		mov	r1, #512
+ 1591 001c 2846     		mov	r0, r5
+ 1592 001e FFF7FEFF 		bl	compact_flash_write
+ 1593              	.LVL208:
+ 138:Core/Src/Darin3Cart_Driver.c **** }
+ 1594              		.loc 1 138 2 view .LVU322
+ 1595 0022 2046     		mov	r0, r4
+ 1596 0024 FFF7FEFF 		bl	post_write_compact_flash
+ 1597              	.LVL209:
+ 139:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1598              		.loc 1 139 1 is_stmt 0 view .LVU323
+ 1599 0028 38BD     		pop	{r3, r4, r5, pc}
+ 139:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 1600              		.loc 1 139 1 view .LVU324
+ 1601              		.cfi_endproc
+ 1602              	.LFE135:
+ 1604              		.section	.text.Read_address_port,"ax",%progbits
+ 1605              		.align	1
+ 1606              		.global	Read_address_port
+ 1607              		.syntax unified
+ 1608              		.thumb
+ 1609              		.thumb_func
+ 1611              	Read_address_port:
+ 1612              	.LFB144:
+ 341:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 342:Core/Src/Darin3Cart_Driver.c **** //POST_READ_COMPACT_FLASH
+ 343:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 344:Core/Src/Darin3Cart_Driver.c **** uint8_t Read_address_port()
+ 345:Core/Src/Darin3Cart_Driver.c **** {
+ 1613              		.loc 1 345 1 is_stmt 1 view -0
+ 1614              		.cfi_startproc
+ 1615              		@ args = 0, pretend = 0, frame = 0
+ 1616              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1617 0000 38B5     		push	{r3, r4, r5, lr}
+ 1618              	.LCFI16:
+ 1619              		.cfi_def_cfa_offset 16
+ 1620              		.cfi_offset 3, -16
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 40
+
+
+ 1621              		.cfi_offset 4, -12
+ 1622              		.cfi_offset 5, -8
+ 1623              		.cfi_offset 14, -4
+ 346:Core/Src/Darin3Cart_Driver.c ****  uint8_t ret =
+ 1624              		.loc 1 346 2 view .LVU326
+ 347:Core/Src/Darin3Cart_Driver.c ****  (HAL_GPIO_ReadPin(GPIOB, A3) << 3) |
+ 1625              		.loc 1 347 3 is_stmt 0 view .LVU327
+ 1626 0002 104D     		ldr	r5, .L82
+ 1627 0004 104B     		ldr	r3, .L82+4
+ 1628 0006 1988     		ldrh	r1, [r3]
+ 1629 0008 2846     		mov	r0, r5
+ 1630 000a FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1631              	.LVL210:
+ 1632              		.loc 1 347 31 view .LVU328
+ 1633 000e C400     		lsls	r4, r0, #3
+ 348:Core/Src/Darin3Cart_Driver.c ****  (HAL_GPIO_ReadPin(GPIOE, A2) << 2) |
+ 1634              		.loc 1 348 3 view .LVU329
+ 1635 0010 0E4B     		ldr	r3, .L82+8
+ 1636 0012 1988     		ldrh	r1, [r3]
+ 1637 0014 0E48     		ldr	r0, .L82+12
+ 1638 0016 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1639              	.LVL211:
+ 347:Core/Src/Darin3Cart_Driver.c ****  (HAL_GPIO_ReadPin(GPIOB, A3) << 3) |
+ 1640              		.loc 1 347 37 view .LVU330
+ 1641 001a 44EA8004 		orr	r4, r4, r0, lsl #2
+ 1642 001e 64B2     		sxtb	r4, r4
+ 349:Core/Src/Darin3Cart_Driver.c ****  (HAL_GPIO_ReadPin(GPIOB, A1) << 1) |
+ 1643              		.loc 1 349 3 view .LVU331
+ 1644 0020 0C4B     		ldr	r3, .L82+16
+ 1645 0022 1988     		ldrh	r1, [r3]
+ 1646 0024 2846     		mov	r0, r5
+ 1647 0026 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1648              	.LVL212:
+ 348:Core/Src/Darin3Cart_Driver.c ****  (HAL_GPIO_ReadPin(GPIOE, A2) << 2) |
+ 1649              		.loc 1 348 37 view .LVU332
+ 1650 002a 44EA4004 		orr	r4, r4, r0, lsl #1
+ 1651 002e 64B2     		sxtb	r4, r4
+ 350:Core/Src/Darin3Cart_Driver.c ****  (HAL_GPIO_ReadPin(GPIOB, A0));
+ 1652              		.loc 1 350 3 view .LVU333
+ 1653 0030 094B     		ldr	r3, .L82+20
+ 1654 0032 1988     		ldrh	r1, [r3]
+ 1655 0034 2846     		mov	r0, r5
+ 1656 0036 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1657              	.LVL213:
+ 1658 003a 40B2     		sxtb	r0, r0
+ 349:Core/Src/Darin3Cart_Driver.c ****  (HAL_GPIO_ReadPin(GPIOB, A1) << 1) |
+ 1659              		.loc 1 349 37 view .LVU334
+ 1660 003c 2043     		orrs	r0, r0, r4
+ 1661              	.LVL214:
+ 351:Core/Src/Darin3Cart_Driver.c ****  return ret;
+ 1662              		.loc 1 351 2 is_stmt 1 view .LVU335
+ 352:Core/Src/Darin3Cart_Driver.c **** }
+ 1663              		.loc 1 352 1 is_stmt 0 view .LVU336
+ 1664 003e C0B2     		uxtb	r0, r0
+ 1665              		.loc 1 352 1 view .LVU337
+ 1666 0040 38BD     		pop	{r3, r4, r5, pc}
+ 1667              	.L83:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 41
+
+
+ 1668 0042 00BF     		.align	2
+ 1669              	.L82:
+ 1670 0044 00040240 		.word	1073873920
+ 1671 0048 00000000 		.word	.LANCHOR4
+ 1672 004c 00000000 		.word	.LANCHOR5
+ 1673 0050 00100240 		.word	1073876992
+ 1674 0054 00000000 		.word	.LANCHOR6
+ 1675 0058 00000000 		.word	.LANCHOR7
+ 1676              		.cfi_endproc
+ 1677              	.LFE144:
+ 1679              		.section	.text.generic_CF_CMD,"ax",%progbits
+ 1680              		.align	1
+ 1681              		.global	generic_CF_CMD
+ 1682              		.syntax unified
+ 1683              		.thumb
+ 1684              		.thumb_func
+ 1686              	generic_CF_CMD:
+ 1687              	.LVL215:
+ 1688              	.LFB145:
+ 353:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 354:Core/Src/Darin3Cart_Driver.c **** //
+ 355:Core/Src/Darin3Cart_Driver.c **** //****************************************************************************
+ 356:Core/Src/Darin3Cart_Driver.c **** void generic_CF_CMD(unsigned char sector_num1,unsigned char Cmd, unsigned char CylinderLow, unsigne
+ 357:Core/Src/Darin3Cart_Driver.c **** {
+ 1689              		.loc 1 357 1 is_stmt 1 view -0
+ 1690              		.cfi_startproc
+ 1691              		@ args = 0, pretend = 0, frame = 0
+ 1692              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1693              		.loc 1 357 1 is_stmt 0 view .LVU339
+ 1694 0000 2DE9F843 		push	{r3, r4, r5, r6, r7, r8, r9, lr}
+ 1695              	.LCFI17:
+ 1696              		.cfi_def_cfa_offset 32
+ 1697              		.cfi_offset 3, -32
+ 1698              		.cfi_offset 4, -28
+ 1699              		.cfi_offset 5, -24
+ 1700              		.cfi_offset 6, -20
+ 1701              		.cfi_offset 7, -16
+ 1702              		.cfi_offset 8, -12
+ 1703              		.cfi_offset 9, -8
+ 1704              		.cfi_offset 14, -4
+ 1705 0004 8146     		mov	r9, r0
+ 1706 0006 0E46     		mov	r6, r1
+ 1707 0008 9046     		mov	r8, r2
+ 1708 000a 1F46     		mov	r7, r3
+ 358:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Output);	                        //set the mode of port p1 as output port
+ 1709              		.loc 1 358 2 is_stmt 1 view .LVU340
+ 1710 000c 0120     		movs	r0, #1
+ 1711              	.LVL216:
+ 1712              		.loc 1 358 2 is_stmt 0 view .LVU341
+ 1713 000e FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 1714              	.LVL217:
+ 359:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_count); 				        //address the register pointer of CF to sector count
+ 1715              		.loc 1 359 2 is_stmt 1 view .LVU342
+ 1716 0012 0220     		movs	r0, #2
+ 1717 0014 FFF7FEFF 		bl	write_address_port
+ 1718              	.LVL218:
+ 360:Core/Src/Darin3Cart_Driver.c ****  write_port(0x01);						                //since single page is accessed at a time put value 0x01 in
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 42
+
+
+ 1719              		.loc 1 360 2 view .LVU343
+ 1720 0018 0120     		movs	r0, #1
+ 1721 001a FFF7FEFF 		bl	write_port
+ 1722              	.LVL219:
+ 361:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);					//intiate write so that that value 0x01 is stored in
+ 1723              		.loc 1 361 2 view .LVU344
+ 1724 001e 304D     		ldr	r5, .L86
+ 1725 0020 304C     		ldr	r4, .L86+4
+ 1726 0022 0022     		movs	r2, #0
+ 1727 0024 2988     		ldrh	r1, [r5]
+ 1728 0026 2046     		mov	r0, r4
+ 1729 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1730              	.LVL220:
+ 362:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);					//sector count register
+ 1731              		.loc 1 362 2 view .LVU345
+ 1732 002c 0122     		movs	r2, #1
+ 1733 002e 2988     		ldrh	r1, [r5]
+ 1734 0030 2046     		mov	r0, r4
+ 1735 0032 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1736              	.LVL221:
+ 363:Core/Src/Darin3Cart_Driver.c ****  write_address_port(sector_num);				        //address the register pointer of CF to sector number r
+ 1737              		.loc 1 363 2 view .LVU346
+ 1738 0036 0320     		movs	r0, #3
+ 1739 0038 FFF7FEFF 		bl	write_address_port
+ 1740              	.LVL222:
+ 364:Core/Src/Darin3Cart_Driver.c ****  write_port(sector_num1);			                    //send the sector number from which you want to rea
+ 1741              		.loc 1 364 2 view .LVU347
+ 1742 003c 4846     		mov	r0, r9
+ 1743 003e FFF7FEFF 		bl	write_port
+ 1744              	.LVL223:
+ 365:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);					//intiate the write signal
+ 1745              		.loc 1 365 2 view .LVU348
+ 1746 0042 0022     		movs	r2, #0
+ 1747 0044 2988     		ldrh	r1, [r5]
+ 1748 0046 2046     		mov	r0, r4
+ 1749 0048 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1750              	.LVL224:
+ 366:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1751              		.loc 1 366 2 view .LVU349
+ 1752 004c 0122     		movs	r2, #1
+ 1753 004e 2988     		ldrh	r1, [r5]
+ 1754 0050 2046     		mov	r0, r4
+ 1755 0052 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1756              	.LVL225:
+ 367:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_low);					        //address the register pointer of CF to cylinder low regi
+ 1757              		.loc 1 367 2 view .LVU350
+ 1758 0056 0420     		movs	r0, #4
+ 1759 0058 FFF7FEFF 		bl	write_address_port
+ 1760              	.LVL226:
+ 368:Core/Src/Darin3Cart_Driver.c ****  write_port(CylinderLow);		                        //send the cylinder low value from which you wan
+ 1761              		.loc 1 368 2 view .LVU351
+ 1762 005c 4046     		mov	r0, r8
+ 1763 005e FFF7FEFF 		bl	write_port
+ 1764              	.LVL227:
+ 369:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);					//intiate the write signal
+ 1765              		.loc 1 369 2 view .LVU352
+ 1766 0062 0022     		movs	r2, #0
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 43
+
+
+ 1767 0064 2988     		ldrh	r1, [r5]
+ 1768 0066 2046     		mov	r0, r4
+ 1769 0068 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1770              	.LVL228:
+ 370:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1771              		.loc 1 370 2 view .LVU353
+ 1772 006c 0122     		movs	r2, #1
+ 1773 006e 2988     		ldrh	r1, [r5]
+ 1774 0070 2046     		mov	r0, r4
+ 1775 0072 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1776              	.LVL229:
+ 371:Core/Src/Darin3Cart_Driver.c ****  write_address_port(cyc_high);					        //address the register pointer of CF to cylinder high re
+ 1777              		.loc 1 371 2 view .LVU354
+ 1778 0076 0520     		movs	r0, #5
+ 1779 0078 FFF7FEFF 		bl	write_address_port
+ 1780              	.LVL230:
+ 372:Core/Src/Darin3Cart_Driver.c ****  write_port(CylinderHigh);	                            //send the cylinder high value from which yo
+ 1781              		.loc 1 372 2 view .LVU355
+ 1782 007c 3846     		mov	r0, r7
+ 1783 007e FFF7FEFF 		bl	write_port
+ 1784              	.LVL231:
+ 373:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);					//intiate the write signal
+ 1785              		.loc 1 373 2 view .LVU356
+ 1786 0082 0022     		movs	r2, #0
+ 1787 0084 2988     		ldrh	r1, [r5]
+ 1788 0086 2046     		mov	r0, r4
+ 1789 0088 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1790              	.LVL232:
+ 374:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1791              		.loc 1 374 2 view .LVU357
+ 1792 008c 0122     		movs	r2, #1
+ 1793 008e 2988     		ldrh	r1, [r5]
+ 1794 0090 2046     		mov	r0, r4
+ 1795 0092 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1796              	.LVL233:
+ 375:Core/Src/Darin3Cart_Driver.c ****  write_address_port(drive);					            //address the register pointer of CF to drive register
+ 1797              		.loc 1 375 2 view .LVU358
+ 1798 0096 0620     		movs	r0, #6
+ 1799 0098 FFF7FEFF 		bl	write_address_port
+ 1800              	.LVL234:
+ 376:Core/Src/Darin3Cart_Driver.c ****  write_port(0xE0);						                //send the drive value from which you want to read the data
+ 1801              		.loc 1 376 2 view .LVU359
+ 1802 009c E020     		movs	r0, #224
+ 1803 009e FFF7FEFF 		bl	write_port
+ 1804              	.LVL235:
+ 377:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);					//intiate the write signal
+ 1805              		.loc 1 377 2 view .LVU360
+ 1806 00a2 0022     		movs	r2, #0
+ 1807 00a4 2988     		ldrh	r1, [r5]
+ 1808 00a6 2046     		mov	r0, r4
+ 1809 00a8 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1810              	.LVL236:
+ 378:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1811              		.loc 1 378 2 view .LVU361
+ 1812 00ac 0122     		movs	r2, #1
+ 1813 00ae 2988     		ldrh	r1, [r5]
+ 1814 00b0 2046     		mov	r0, r4
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 44
+
+
+ 1815 00b2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1816              	.LVL237:
+ 379:Core/Src/Darin3Cart_Driver.c ****  write_address_port(command);					        //address the register pointer of CF to comand register
+ 1817              		.loc 1 379 2 view .LVU362
+ 1818 00b6 0720     		movs	r0, #7
+ 1819 00b8 FFF7FEFF 		bl	write_address_port
+ 1820              	.LVL238:
+ 380:Core/Src/Darin3Cart_Driver.c ****  write_port(Cmd);						                //send the command value from which you want to WRITE the da
+ 1821              		.loc 1 380 2 view .LVU363
+ 1822 00bc 3046     		mov	r0, r6
+ 1823 00be FFF7FEFF 		bl	write_port
+ 1824              	.LVL239:
+ 381:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 0);					//intiate the write signal
+ 1825              		.loc 1 381 2 view .LVU364
+ 1826 00c2 0022     		movs	r2, #0
+ 1827 00c4 2988     		ldrh	r1, [r5]
+ 1828 00c6 2046     		mov	r0, r4
+ 1829 00c8 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1830              	.LVL240:
+ 382:Core/Src/Darin3Cart_Driver.c ****  HAL_GPIO_WritePin(GPIOC, CF_WE, 1);
+ 1831              		.loc 1 382 2 view .LVU365
+ 1832 00cc 0122     		movs	r2, #1
+ 1833 00ce 2988     		ldrh	r1, [r5]
+ 1834 00d0 2046     		mov	r0, r4
+ 1835 00d2 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 1836              	.LVL241:
+ 383:Core/Src/Darin3Cart_Driver.c ****  Configure_GPIO_IO_D2(Input);
+ 1837              		.loc 1 383 2 view .LVU366
+ 1838 00d6 0020     		movs	r0, #0
+ 1839 00d8 FFF7FEFF 		bl	Configure_GPIO_IO_D2
+ 1840              	.LVL242:
+ 384:Core/Src/Darin3Cart_Driver.c **** }
+ 1841              		.loc 1 384 1 is_stmt 0 view .LVU367
+ 1842 00dc BDE8F883 		pop	{r3, r4, r5, r6, r7, r8, r9, pc}
+ 1843              	.L87:
+ 1844              		.align	2
+ 1845              	.L86:
+ 1846 00e0 00000000 		.word	.LANCHOR1
+ 1847 00e4 00080240 		.word	1073874944
+ 1848              		.cfi_endproc
+ 1849              	.LFE145:
+ 1851              		.section	.text.UpdateD3SlotStatus,"ax",%progbits
+ 1852              		.align	1
+ 1853              		.global	UpdateD3SlotStatus
+ 1854              		.syntax unified
+ 1855              		.thumb
+ 1856              		.thumb_func
+ 1858              	UpdateD3SlotStatus:
+ 1859              	.LFB146:
+ 385:Core/Src/Darin3Cart_Driver.c **** 
+ 386:Core/Src/Darin3Cart_Driver.c **** void UpdateD3SlotStatus()
+ 387:Core/Src/Darin3Cart_Driver.c **** {
+ 1860              		.loc 1 387 1 is_stmt 1 view -0
+ 1861              		.cfi_startproc
+ 1862              		@ args = 0, pretend = 0, frame = 24
+ 1863              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1864 0000 30B5     		push	{r4, r5, lr}
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 45
+
+
+ 1865              	.LCFI18:
+ 1866              		.cfi_def_cfa_offset 12
+ 1867              		.cfi_offset 4, -12
+ 1868              		.cfi_offset 5, -8
+ 1869              		.cfi_offset 14, -4
+ 1870 0002 87B0     		sub	sp, sp, #28
+ 1871              	.LCFI19:
+ 1872              		.cfi_def_cfa_offset 40
+ 388:Core/Src/Darin3Cart_Driver.c **** 	GPIO_InitTypeDef GPIO_InitStruct = {0};
+ 1873              		.loc 1 388 2 view .LVU369
+ 1874              		.loc 1 388 19 is_stmt 0 view .LVU370
+ 1875 0004 0023     		movs	r3, #0
+ 1876 0006 0193     		str	r3, [sp, #4]
+ 1877 0008 0293     		str	r3, [sp, #8]
+ 1878 000a 0393     		str	r3, [sp, #12]
+ 1879 000c 0493     		str	r3, [sp, #16]
+ 1880 000e 0593     		str	r3, [sp, #20]
+ 389:Core/Src/Darin3Cart_Driver.c **** 	GPIO_InitStruct.Pin =  C3SLTS1_Pin;
+ 1881              		.loc 1 389 2 is_stmt 1 view .LVU371
+ 1882              		.loc 1 389 22 is_stmt 0 view .LVU372
+ 1883 0010 4FF40055 		mov	r5, #8192
+ 1884 0014 0195     		str	r5, [sp, #4]
+ 390:Core/Src/Darin3Cart_Driver.c **** 	GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 1885              		.loc 1 390 2 is_stmt 1 view .LVU373
+ 391:Core/Src/Darin3Cart_Driver.c **** 	GPIO_InitStruct.Pull = GPIO_PULLUP;
+ 1886              		.loc 1 391 2 view .LVU374
+ 1887              		.loc 1 391 23 is_stmt 0 view .LVU375
+ 1888 0016 0123     		movs	r3, #1
+ 1889 0018 0393     		str	r3, [sp, #12]
+ 392:Core/Src/Darin3Cart_Driver.c **** 	HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+ 1890              		.loc 1 392 2 is_stmt 1 view .LVU376
+ 1891 001a 0C4C     		ldr	r4, .L92
+ 1892 001c 01A9     		add	r1, sp, #4
+ 1893 001e 2046     		mov	r0, r4
+ 1894 0020 FFF7FEFF 		bl	HAL_GPIO_Init
+ 1895              	.LVL243:
+ 393:Core/Src/Darin3Cart_Driver.c **** 
+ 394:Core/Src/Darin3Cart_Driver.c **** 	if( 0 == HAL_GPIO_ReadPin(GPIOD, C3SLTS1_Pin))
+ 1896              		.loc 1 394 2 view .LVU377
+ 1897              		.loc 1 394 11 is_stmt 0 view .LVU378
+ 1898 0024 2946     		mov	r1, r5
+ 1899 0026 2046     		mov	r0, r4
+ 1900 0028 FFF7FEFF 		bl	HAL_GPIO_ReadPin
+ 1901              	.LVL244:
+ 1902              		.loc 1 394 4 view .LVU379
+ 1903 002c 38B9     		cbnz	r0, .L89
+ 395:Core/Src/Darin3Cart_Driver.c **** 	{
+ 396:Core/Src/Darin3Cart_Driver.c **** 		SLT_STATUS2[0] = 0x03;SLT_STATUS2[1] = 0x03;SLT_STATUS2[2] = 0x03;SLT_STATUS2[3] = 0x03;
+ 1904              		.loc 1 396 3 is_stmt 1 view .LVU380
+ 1905              		.loc 1 396 18 is_stmt 0 view .LVU381
+ 1906 002e 084B     		ldr	r3, .L92+4
+ 1907 0030 0322     		movs	r2, #3
+ 1908 0032 1A70     		strb	r2, [r3]
+ 1909              		.loc 1 396 25 is_stmt 1 view .LVU382
+ 1910              		.loc 1 396 40 is_stmt 0 view .LVU383
+ 1911 0034 5A70     		strb	r2, [r3, #1]
+ 1912              		.loc 1 396 47 is_stmt 1 view .LVU384
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 46
+
+
+ 1913              		.loc 1 396 62 is_stmt 0 view .LVU385
+ 1914 0036 9A70     		strb	r2, [r3, #2]
+ 1915              		.loc 1 396 69 is_stmt 1 view .LVU386
+ 1916              		.loc 1 396 84 is_stmt 0 view .LVU387
+ 1917 0038 DA70     		strb	r2, [r3, #3]
+ 1918              	.L88:
+ 397:Core/Src/Darin3Cart_Driver.c **** 	}
+ 398:Core/Src/Darin3Cart_Driver.c **** 	else
+ 399:Core/Src/Darin3Cart_Driver.c **** 	{
+ 400:Core/Src/Darin3Cart_Driver.c **** 		SLT_STATUS2[0] = 0x00;SLT_STATUS2[1] = 0x00;SLT_STATUS2[2] = 0x00;SLT_STATUS2[3] = 0x00;
+ 401:Core/Src/Darin3Cart_Driver.c **** 	}
+ 402:Core/Src/Darin3Cart_Driver.c **** }
+ 1919              		.loc 1 402 1 view .LVU388
+ 1920 003a 07B0     		add	sp, sp, #28
+ 1921              	.LCFI20:
+ 1922              		.cfi_remember_state
+ 1923              		.cfi_def_cfa_offset 12
+ 1924              		@ sp needed
+ 1925 003c 30BD     		pop	{r4, r5, pc}
+ 1926              	.L89:
+ 1927              	.LCFI21:
+ 1928              		.cfi_restore_state
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1929              		.loc 1 400 3 is_stmt 1 view .LVU389
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1930              		.loc 1 400 18 is_stmt 0 view .LVU390
+ 1931 003e 044B     		ldr	r3, .L92+4
+ 1932 0040 0022     		movs	r2, #0
+ 1933 0042 1A70     		strb	r2, [r3]
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1934              		.loc 1 400 25 is_stmt 1 view .LVU391
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1935              		.loc 1 400 40 is_stmt 0 view .LVU392
+ 1936 0044 5A70     		strb	r2, [r3, #1]
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1937              		.loc 1 400 47 is_stmt 1 view .LVU393
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1938              		.loc 1 400 62 is_stmt 0 view .LVU394
+ 1939 0046 9A70     		strb	r2, [r3, #2]
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1940              		.loc 1 400 69 is_stmt 1 view .LVU395
+ 400:Core/Src/Darin3Cart_Driver.c **** 	}
+ 1941              		.loc 1 400 84 is_stmt 0 view .LVU396
+ 1942 0048 DA70     		strb	r2, [r3, #3]
+ 1943              		.loc 1 402 1 view .LVU397
+ 1944 004a F6E7     		b	.L88
+ 1945              	.L93:
+ 1946              		.align	2
+ 1947              	.L92:
+ 1948 004c 000C0240 		.word	1073875968
+ 1949 0050 00000000 		.word	.LANCHOR10
+ 1950              		.cfi_endproc
+ 1951              	.LFE146:
+ 1953              		.section	.text.get_D3_Green_LedPins,"ax",%progbits
+ 1954              		.align	1
+ 1955              		.global	get_D3_Green_LedPins
+ 1956              		.syntax unified
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 47
+
+
+ 1957              		.thumb
+ 1958              		.thumb_func
+ 1960              	get_D3_Green_LedPins:
+ 1961              	.LVL245:
+ 1962              	.LFB147:
+ 403:Core/Src/Darin3Cart_Driver.c **** 
+ 404:Core/Src/Darin3Cart_Driver.c **** static const uint16_t RED_LED[] = { LED1_Pin, LED1_Pin, LED1_Pin, LED1_Pin };
+ 405:Core/Src/Darin3Cart_Driver.c **** static const uint16_t GREEN_LED[] = { LED2_Pin, LED2_Pin, LED2_Pin, LED2_Pin };
+ 406:Core/Src/Darin3Cart_Driver.c **** 
+ 407:Core/Src/Darin3Cart_Driver.c **** uint16_t get_D3_Green_LedPins(CartridgeID id) {
+ 1963              		.loc 1 407 47 is_stmt 1 view -0
+ 1964              		.cfi_startproc
+ 1965              		@ args = 0, pretend = 0, frame = 0
+ 1966              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1967              		@ link register save eliminated.
+ 408:Core/Src/Darin3Cart_Driver.c ****     return GREEN_LED[id];
+ 1968              		.loc 1 408 5 view .LVU399
+ 409:Core/Src/Darin3Cart_Driver.c **** }
+ 1969              		.loc 1 409 1 is_stmt 0 view .LVU400
+ 1970 0000 014B     		ldr	r3, .L95
+ 1971 0002 33F81000 		ldrh	r0, [r3, r0, lsl #1]
+ 1972              	.LVL246:
+ 1973              		.loc 1 409 1 view .LVU401
+ 1974 0006 7047     		bx	lr
+ 1975              	.L96:
+ 1976              		.align	2
+ 1977              	.L95:
+ 1978 0008 00000000 		.word	.LANCHOR11
+ 1979              		.cfi_endproc
+ 1980              	.LFE147:
+ 1982              		.section	.text.get_D3_Red_LedPins,"ax",%progbits
+ 1983              		.align	1
+ 1984              		.global	get_D3_Red_LedPins
+ 1985              		.syntax unified
+ 1986              		.thumb
+ 1987              		.thumb_func
+ 1989              	get_D3_Red_LedPins:
+ 1990              	.LVL247:
+ 1991              	.LFB148:
+ 410:Core/Src/Darin3Cart_Driver.c **** 
+ 411:Core/Src/Darin3Cart_Driver.c **** uint16_t get_D3_Red_LedPins(CartridgeID id) {
+ 1992              		.loc 1 411 45 is_stmt 1 view -0
+ 1993              		.cfi_startproc
+ 1994              		@ args = 0, pretend = 0, frame = 0
+ 1995              		@ frame_needed = 0, uses_anonymous_args = 0
+ 1996              		@ link register save eliminated.
+ 412:Core/Src/Darin3Cart_Driver.c ****     return RED_LED[id];
+ 1997              		.loc 1 412 5 view .LVU403
+ 413:Core/Src/Darin3Cart_Driver.c **** }
+ 1998              		.loc 1 413 1 is_stmt 0 view .LVU404
+ 1999 0000 014B     		ldr	r3, .L98
+ 2000 0002 33F81000 		ldrh	r0, [r3, r0, lsl #1]
+ 2001              	.LVL248:
+ 2002              		.loc 1 413 1 view .LVU405
+ 2003 0006 7047     		bx	lr
+ 2004              	.L99:
+ 2005              		.align	2
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 48
+
+
+ 2006              	.L98:
+ 2007 0008 00000000 		.word	.LANCHOR12
+ 2008              		.cfi_endproc
+ 2009              	.LFE148:
+ 2011              		.section	.text.get_D3_slt_status,"ax",%progbits
+ 2012              		.align	1
+ 2013              		.global	get_D3_slt_status
+ 2014              		.syntax unified
+ 2015              		.thumb
+ 2016              		.thumb_func
+ 2018              	get_D3_slt_status:
+ 2019              	.LVL249:
+ 2020              	.LFB149:
+ 414:Core/Src/Darin3Cart_Driver.c **** 
+ 415:Core/Src/Darin3Cart_Driver.c **** uint16_t get_D3_slt_status(CartridgeID id) {
+ 2021              		.loc 1 415 44 is_stmt 1 view -0
+ 2022              		.cfi_startproc
+ 2023              		@ args = 0, pretend = 0, frame = 0
+ 2024              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2025              		@ link register save eliminated.
+ 416:Core/Src/Darin3Cart_Driver.c ****     return SLT_STATUS2[id];
+ 2026              		.loc 1 416 5 view .LVU407
+ 417:Core/Src/Darin3Cart_Driver.c **** }
+ 2027              		.loc 1 417 1 is_stmt 0 view .LVU408
+ 2028 0000 014B     		ldr	r3, .L101
+ 2029 0002 185C     		ldrb	r0, [r3, r0]	@ zero_extendqisi2
+ 2030              	.LVL250:
+ 2031              		.loc 1 417 1 view .LVU409
+ 2032 0004 7047     		bx	lr
+ 2033              	.L102:
+ 2034 0006 00BF     		.align	2
+ 2035              	.L101:
+ 2036 0008 00000000 		.word	.LANCHOR10
+ 2037              		.cfi_endproc
+ 2038              	.LFE149:
+ 2040              		.section	.text.LedLoopBack,"ax",%progbits
+ 2041              		.align	1
+ 2042              		.global	LedLoopBack
+ 2043              		.syntax unified
+ 2044              		.thumb
+ 2045              		.thumb_func
+ 2047              	LedLoopBack:
+ 2048              	.LVL251:
+ 2049              	.LFB150:
+ 418:Core/Src/Darin3Cart_Driver.c **** 
+ 419:Core/Src/Darin3Cart_Driver.c **** uint8_t LedLoopBack(uint8_t value)
+ 420:Core/Src/Darin3Cart_Driver.c **** {
+ 2050              		.loc 1 420 1 is_stmt 1 view -0
+ 2051              		.cfi_startproc
+ 2052              		@ args = 0, pretend = 0, frame = 0
+ 2053              		@ frame_needed = 0, uses_anonymous_args = 0
+ 2054              		.loc 1 420 1 is_stmt 0 view .LVU411
+ 2055 0000 2DE9F041 		push	{r4, r5, r6, r7, r8, lr}
+ 2056              	.LCFI22:
+ 2057              		.cfi_def_cfa_offset 24
+ 2058              		.cfi_offset 4, -24
+ 2059              		.cfi_offset 5, -20
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 49
+
+
+ 2060              		.cfi_offset 6, -16
+ 2061              		.cfi_offset 7, -12
+ 2062              		.cfi_offset 8, -8
+ 2063              		.cfi_offset 14, -4
+ 2064 0004 0446     		mov	r4, r0
+ 421:Core/Src/Darin3Cart_Driver.c ****     uint8_t data = 0, data2 = 0;
+ 2065              		.loc 1 421 5 is_stmt 1 view .LVU412
+ 2066              	.LVL252:
+ 422:Core/Src/Darin3Cart_Driver.c ****     while(value)
+ 2067              		.loc 1 422 5 view .LVU413
+ 421:Core/Src/Darin3Cart_Driver.c ****     uint8_t data = 0, data2 = 0;
+ 2068              		.loc 1 421 23 is_stmt 0 view .LVU414
+ 2069 0006 0027     		movs	r7, #0
+ 421:Core/Src/Darin3Cart_Driver.c ****     uint8_t data = 0, data2 = 0;
+ 2070              		.loc 1 421 13 view .LVU415
+ 2071 0008 B846     		mov	r8, r7
+ 2072              		.loc 1 422 10 view .LVU416
+ 2073 000a 01E0     		b	.L104
+ 2074              	.LVL253:
+ 2075              	.L108:
+ 2076              	.LBB15:
+ 423:Core/Src/Darin3Cart_Driver.c ****     {
+ 424:Core/Src/Darin3Cart_Driver.c ****         HAL_GPIO_WritePin(GPIOB, LED1_Pin, 0x01);
+ 425:Core/Src/Darin3Cart_Driver.c ****         HAL_GPIO_WritePin(GPIOB, LED2_Pin, 0x01);
+ 426:Core/Src/Darin3Cart_Driver.c **** 
+ 427:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED1_LOOPBACK_Pin)
+ 428:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x01;
+ 429:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED4_LOOPBACK_Pin)
+ 430:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x02;
+ 431:Core/Src/Darin3Cart_Driver.c ****   
+ 432:Core/Src/Darin3Cart_Driver.c ****         short_delay_us(500000);
+ 433:Core/Src/Darin3Cart_Driver.c **** 
+ 434:Core/Src/Darin3Cart_Driver.c ****         HAL_GPIO_WritePin(GPIOB, LED1_Pin, 0x00);
+ 435:Core/Src/Darin3Cart_Driver.c ****         HAL_GPIO_WritePin(GPIOB, LED2_Pin, 0x00);
+ 436:Core/Src/Darin3Cart_Driver.c **** 
+ 437:Core/Src/Darin3Cart_Driver.c ****         short_delay_us(500000);
+ 438:Core/Src/Darin3Cart_Driver.c **** 
+ 439:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED1_LOOPBACK_Pin)
+ 440:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x01;
+ 441:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED4_LOOPBACK_Pin)
+ 442:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x02;
+ 443:Core/Src/Darin3Cart_Driver.c **** 
+ 444:Core/Src/Darin3Cart_Driver.c ****         --value;
+ 2077              		.loc 1 444 9 is_stmt 1 view .LVU417
+ 2078 000c 013C     		subs	r4, r4, #1
+ 2079              	.LVL254:
+ 2080              		.loc 1 444 9 is_stmt 0 view .LVU418
+ 2081 000e E4B2     		uxtb	r4, r4
+ 2082              	.LVL255:
+ 2083              	.L104:
+ 2084              		.loc 1 444 9 view .LVU419
+ 2085              	.LBE15:
+ 422:Core/Src/Darin3Cart_Driver.c ****     while(value)
+ 2086              		.loc 1 422 10 is_stmt 1 view .LVU420
+ 2087 0010 002C     		cmp	r4, #0
+ 2088 0012 3BD0     		beq	.L113
+ 2089              	.LBB16:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 50
+
+
+ 424:Core/Src/Darin3Cart_Driver.c ****         HAL_GPIO_WritePin(GPIOB, LED2_Pin, 0x01);
+ 2090              		.loc 1 424 9 view .LVU421
+ 2091 0014 224D     		ldr	r5, .L114
+ 2092 0016 0122     		movs	r2, #1
+ 2093 0018 8021     		movs	r1, #128
+ 2094 001a 2846     		mov	r0, r5
+ 2095 001c FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 2096              	.LVL256:
+ 425:Core/Src/Darin3Cart_Driver.c **** 
+ 2097              		.loc 1 425 9 view .LVU422
+ 2098 0020 0122     		movs	r2, #1
+ 2099 0022 4FF40071 		mov	r1, #512
+ 2100 0026 2846     		mov	r0, r5
+ 2101 0028 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 2102              	.LVL257:
+ 427:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x01;
+ 2103              		.loc 1 427 9 view .LVU423
+ 427:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x01;
+ 2104              		.loc 1 427 17 is_stmt 0 view .LVU424
+ 2105 002c 1D4B     		ldr	r3, .L114+4
+ 2106 002e 1B69     		ldr	r3, [r3, #16]
+ 427:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x01;
+ 2107              		.loc 1 427 11 view .LVU425
+ 2108 0030 13F0040F 		tst	r3, #4
+ 2109 0034 01D0     		beq	.L105
+ 428:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED4_LOOPBACK_Pin)
+ 2110              		.loc 1 428 13 is_stmt 1 view .LVU426
+ 428:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED4_LOOPBACK_Pin)
+ 2111              		.loc 1 428 18 is_stmt 0 view .LVU427
+ 2112 0036 48F00108 		orr	r8, r8, #1
+ 2113              	.LVL258:
+ 2114              	.L105:
+ 429:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x02;
+ 2115              		.loc 1 429 9 is_stmt 1 view .LVU428
+ 429:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x02;
+ 2116              		.loc 1 429 17 is_stmt 0 view .LVU429
+ 2117 003a 1A4B     		ldr	r3, .L114+4
+ 2118 003c 1B69     		ldr	r3, [r3, #16]
+ 429:Core/Src/Darin3Cart_Driver.c ****             data = data | 0x02;
+ 2119              		.loc 1 429 11 view .LVU430
+ 2120 003e 13F0080F 		tst	r3, #8
+ 2121 0042 01D0     		beq	.L106
+ 430:Core/Src/Darin3Cart_Driver.c ****   
+ 2122              		.loc 1 430 13 is_stmt 1 view .LVU431
+ 430:Core/Src/Darin3Cart_Driver.c ****   
+ 2123              		.loc 1 430 18 is_stmt 0 view .LVU432
+ 2124 0044 48F00208 		orr	r8, r8, #2
+ 2125              	.LVL259:
+ 2126              	.L106:
+ 432:Core/Src/Darin3Cart_Driver.c **** 
+ 2127              		.loc 1 432 9 is_stmt 1 view .LVU433
+ 2128 0048 174D     		ldr	r5, .L114+8
+ 2129 004a 2846     		mov	r0, r5
+ 2130 004c FFF7FEFF 		bl	short_delay_us
+ 2131              	.LVL260:
+ 434:Core/Src/Darin3Cart_Driver.c ****         HAL_GPIO_WritePin(GPIOB, LED2_Pin, 0x00);
+ 2132              		.loc 1 434 9 view .LVU434
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 51
+
+
+ 2133 0050 134E     		ldr	r6, .L114
+ 2134 0052 0022     		movs	r2, #0
+ 2135 0054 8021     		movs	r1, #128
+ 2136 0056 3046     		mov	r0, r6
+ 2137 0058 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 2138              	.LVL261:
+ 435:Core/Src/Darin3Cart_Driver.c **** 
+ 2139              		.loc 1 435 9 view .LVU435
+ 2140 005c 0022     		movs	r2, #0
+ 2141 005e 4FF40071 		mov	r1, #512
+ 2142 0062 3046     		mov	r0, r6
+ 2143 0064 FFF7FEFF 		bl	HAL_GPIO_WritePin
+ 2144              	.LVL262:
+ 437:Core/Src/Darin3Cart_Driver.c **** 
+ 2145              		.loc 1 437 9 view .LVU436
+ 2146 0068 2846     		mov	r0, r5
+ 2147 006a FFF7FEFF 		bl	short_delay_us
+ 2148              	.LVL263:
+ 439:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x01;
+ 2149              		.loc 1 439 9 view .LVU437
+ 439:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x01;
+ 2150              		.loc 1 439 17 is_stmt 0 view .LVU438
+ 2151 006e 0D4B     		ldr	r3, .L114+4
+ 2152 0070 1B69     		ldr	r3, [r3, #16]
+ 439:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x01;
+ 2153              		.loc 1 439 11 view .LVU439
+ 2154 0072 13F0040F 		tst	r3, #4
+ 2155 0076 01D0     		beq	.L107
+ 440:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED4_LOOPBACK_Pin)
+ 2156              		.loc 1 440 13 is_stmt 1 view .LVU440
+ 440:Core/Src/Darin3Cart_Driver.c ****         if(GPIOE->IDR & LED4_LOOPBACK_Pin)
+ 2157              		.loc 1 440 19 is_stmt 0 view .LVU441
+ 2158 0078 47F00107 		orr	r7, r7, #1
+ 2159              	.LVL264:
+ 2160              	.L107:
+ 441:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x02;
+ 2161              		.loc 1 441 9 is_stmt 1 view .LVU442
+ 441:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x02;
+ 2162              		.loc 1 441 17 is_stmt 0 view .LVU443
+ 2163 007c 094B     		ldr	r3, .L114+4
+ 2164 007e 1B69     		ldr	r3, [r3, #16]
+ 441:Core/Src/Darin3Cart_Driver.c ****             data2 = data2 | 0x02;
+ 2165              		.loc 1 441 11 view .LVU444
+ 2166 0080 13F0080F 		tst	r3, #8
+ 2167 0084 C2D0     		beq	.L108
+ 442:Core/Src/Darin3Cart_Driver.c **** 
+ 2168              		.loc 1 442 13 is_stmt 1 view .LVU445
+ 442:Core/Src/Darin3Cart_Driver.c **** 
+ 2169              		.loc 1 442 19 is_stmt 0 view .LVU446
+ 2170 0086 47F00207 		orr	r7, r7, #2
+ 2171              	.LVL265:
+ 442:Core/Src/Darin3Cart_Driver.c **** 
+ 2172              		.loc 1 442 19 view .LVU447
+ 2173 008a BFE7     		b	.L108
+ 2174              	.L113:
+ 442:Core/Src/Darin3Cart_Driver.c **** 
+ 2175              		.loc 1 442 19 view .LVU448
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 52
+
+
+ 2176              	.LBE16:
+ 445:Core/Src/Darin3Cart_Driver.c ****     }
+ 446:Core/Src/Darin3Cart_Driver.c ****     if((data == 0x03 ) && (data2 == 0))
+ 2177              		.loc 1 446 5 is_stmt 1 view .LVU449
+ 2178              		.loc 1 446 7 is_stmt 0 view .LVU450
+ 2179 008c B8F1030F 		cmp	r8, #3
+ 2180 0090 02D1     		bne	.L111
+ 2181              		.loc 1 446 24 discriminator 1 view .LVU451
+ 2182 0092 17B1     		cbz	r7, .L110
+ 447:Core/Src/Darin3Cart_Driver.c ****         return 0;
+ 448:Core/Src/Darin3Cart_Driver.c ****     else
+ 449:Core/Src/Darin3Cart_Driver.c ****         return 1;
+ 2183              		.loc 1 449 16 view .LVU452
+ 2184 0094 0127     		movs	r7, #1
+ 2185              	.LVL266:
+ 2186              		.loc 1 449 16 view .LVU453
+ 2187 0096 00E0     		b	.L110
+ 2188              	.LVL267:
+ 2189              	.L111:
+ 2190              		.loc 1 449 16 view .LVU454
+ 2191 0098 0127     		movs	r7, #1
+ 2192              	.LVL268:
+ 2193              	.L110:
+ 450:Core/Src/Darin3Cart_Driver.c **** }
+ 2194              		.loc 1 450 1 view .LVU455
+ 2195 009a 3846     		mov	r0, r7
+ 2196 009c BDE8F081 		pop	{r4, r5, r6, r7, r8, pc}
+ 2197              	.LVL269:
+ 2198              	.L115:
+ 2199              		.loc 1 450 1 view .LVU456
+ 2200              		.align	2
+ 2201              	.L114:
+ 2202 00a0 00040240 		.word	1073873920
+ 2203 00a4 00100240 		.word	1073876992
+ 2204 00a8 20A10700 		.word	500000
+ 2205              		.cfi_endproc
+ 2206              	.LFE150:
+ 2208              		.global	sector_number
+ 2209              		.global	Address_Flash_Page1
+ 2210              		.global	A3
+ 2211              		.global	A2
+ 2212              		.global	A1
+ 2213              		.global	A0
+ 2214              		.global	CF_CE
+ 2215              		.global	CF_OE
+ 2216              		.global	CF_RST
+ 2217              		.global	CF_WE
+ 2218              		.section	.bss.Address_Flash_Page1,"aw",%nobits
+ 2219              		.align	1
+ 2220              		.set	.LANCHOR9,. + 0
+ 2223              	Address_Flash_Page1:
+ 2224 0000 0000     		.space	2
+ 2225              		.section	.bss.SLT_STATUS2,"aw",%nobits
+ 2226              		.align	2
+ 2227              		.set	.LANCHOR10,. + 0
+ 2230              	SLT_STATUS2:
+ 2231 0000 00000000 		.space	4
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 53
+
+
+ 2232              		.section	.bss.sector_number,"aw",%nobits
+ 2233              		.align	1
+ 2234              		.set	.LANCHOR8,. + 0
+ 2237              	sector_number:
+ 2238 0000 0000     		.space	2
+ 2239              		.section	.data.A0,"aw"
+ 2240              		.align	1
+ 2241              		.set	.LANCHOR7,. + 0
+ 2244              	A0:
+ 2245 0000 0010     		.short	4096
+ 2246              		.section	.data.A1,"aw"
+ 2247              		.align	1
+ 2248              		.set	.LANCHOR6,. + 0
+ 2251              	A1:
+ 2252 0000 0020     		.short	8192
+ 2253              		.section	.data.A2,"aw"
+ 2254              		.align	1
+ 2255              		.set	.LANCHOR5,. + 0
+ 2258              	A2:
+ 2259 0000 0008     		.short	2048
+ 2260              		.section	.data.A3,"aw"
+ 2261              		.align	1
+ 2262              		.set	.LANCHOR4,. + 0
+ 2265              	A3:
+ 2266 0000 0004     		.short	1024
+ 2267              		.section	.data.CF_CE,"aw"
+ 2268              		.align	1
+ 2269              		.set	.LANCHOR0,. + 0
+ 2272              	CF_CE:
+ 2273 0000 0200     		.short	2
+ 2274              		.section	.data.CF_OE,"aw"
+ 2275              		.align	1
+ 2276              		.set	.LANCHOR3,. + 0
+ 2279              	CF_OE:
+ 2280 0000 0800     		.short	8
+ 2281              		.section	.data.CF_RST,"aw"
+ 2282              		.align	1
+ 2283              		.set	.LANCHOR2,. + 0
+ 2286              	CF_RST:
+ 2287 0000 0020     		.short	8192
+ 2288              		.section	.data.CF_WE,"aw"
+ 2289              		.align	1
+ 2290              		.set	.LANCHOR1,. + 0
+ 2293              	CF_WE:
+ 2294 0000 0002     		.short	512
+ 2295              		.section	.rodata.GREEN_LED,"a"
+ 2296              		.align	2
+ 2297              		.set	.LANCHOR11,. + 0
+ 2300              	GREEN_LED:
+ 2301 0000 0002     		.short	512
+ 2302 0002 0002     		.short	512
+ 2303 0004 0002     		.short	512
+ 2304 0006 0002     		.short	512
+ 2305              		.section	.rodata.RED_LED,"a"
+ 2306              		.align	2
+ 2307              		.set	.LANCHOR12,. + 0
+ 2310              	RED_LED:
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 54
+
+
+ 2311 0000 8000     		.short	128
+ 2312 0002 8000     		.short	128
+ 2313 0004 8000     		.short	128
+ 2314 0006 8000     		.short	128
+ 2315              		.text
+ 2316              	.Letext0:
+ 2317              		.file 2 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\
+ 2318              		.file 3 "c:\\program files (x86)\\gnu arm embedded toolchain\\10 2021.10\\arm-none-eabi\\include\\
+ 2319              		.file 4 "Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f411xe.h"
+ 2320              		.file 5 "Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h"
+ 2321              		.file 6 "Core/Src/Darin3Cart_Driver.h"
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 55
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 Darin3Cart_Driver.c
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:20     .text.post_read_compact_flash:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:26     .text.post_read_compact_flash:00000000 post_read_compact_flash
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:75     .text.post_read_compact_flash:00000034 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:87     .text.post_write_compact_flash:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:93     .text.post_write_compact_flash:00000000 post_write_compact_flash
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:141    .text.post_write_compact_flash:00000034 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:153    .text.D3_Cartridge_Check:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:159    .text.D3_Cartridge_Check:00000000 D3_Cartridge_Check
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:216    .text.D3_Cartridge_Check:00000030 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:221    .text.write_address_port:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:227    .text.write_address_port:00000000 write_address_port
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:279    .text.write_address_port:00000040 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:289    .text.pre_read_compact_flash:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:295    .text.pre_read_compact_flash:00000000 pre_read_compact_flash
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:368    .text.pre_read_compact_flash:0000005c $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:380    .text.command_for_read:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:386    .text.command_for_read:00000000 command_for_read
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:541    .text.command_for_read:000000e0 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:549    .text.compact_flash_read:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:555    .text.compact_flash_read:00000000 compact_flash_read
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:639    .text.compact_flash_read:00000044 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:645    .text.pre_write_compact_flash:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:651    .text.pre_write_compact_flash:00000000 pre_write_compact_flash
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:724    .text.pre_write_compact_flash:0000005c $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:736    .text.compact_flash_ready:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:742    .text.compact_flash_ready:00000000 compact_flash_ready
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:912    .text.compact_flash_ready:000000b4 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:918    .text.command_for_write:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:924    .text.command_for_write:00000000 command_for_write
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1075   .text.command_for_write:000000dc $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1083   .text.check_stat_of_compact_flash:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1089   .text.check_stat_of_compact_flash:00000000 check_stat_of_compact_flash
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1351   .text.check_stat_of_compact_flash:00000110 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1358   .text.read_compact_flash:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1364   .text.read_compact_flash:00000000 read_compact_flash
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1412   .text.compact_flash_write:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1418   .text.compact_flash_write:00000000 compact_flash_write
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1543   .text.compact_flash_write:00000078 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1551   .text.write_compact_flash:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1557   .text.write_compact_flash:00000000 write_compact_flash
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1605   .text.Read_address_port:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1611   .text.Read_address_port:00000000 Read_address_port
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1670   .text.Read_address_port:00000044 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1680   .text.generic_CF_CMD:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1686   .text.generic_CF_CMD:00000000 generic_CF_CMD
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1846   .text.generic_CF_CMD:000000e0 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1852   .text.UpdateD3SlotStatus:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1858   .text.UpdateD3SlotStatus:00000000 UpdateD3SlotStatus
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1948   .text.UpdateD3SlotStatus:0000004c $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1954   .text.get_D3_Green_LedPins:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1960   .text.get_D3_Green_LedPins:00000000 get_D3_Green_LedPins
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1978   .text.get_D3_Green_LedPins:00000008 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1983   .text.get_D3_Red_LedPins:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:1989   .text.get_D3_Red_LedPins:00000000 get_D3_Red_LedPins
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2007   .text.get_D3_Red_LedPins:00000008 $d
+ARM GAS  C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s 			page 56
+
+
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2012   .text.get_D3_slt_status:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2018   .text.get_D3_slt_status:00000000 get_D3_slt_status
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2036   .text.get_D3_slt_status:00000008 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2041   .text.LedLoopBack:00000000 $t
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2047   .text.LedLoopBack:00000000 LedLoopBack
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2202   .text.LedLoopBack:000000a0 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2237   .bss.sector_number:00000000 sector_number
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2223   .bss.Address_Flash_Page1:00000000 Address_Flash_Page1
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2265   .data.A3:00000000 A3
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2258   .data.A2:00000000 A2
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2251   .data.A1:00000000 A1
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2244   .data.A0:00000000 A0
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2272   .data.CF_CE:00000000 CF_CE
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2279   .data.CF_OE:00000000 CF_OE
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2286   .data.CF_RST:00000000 CF_RST
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2293   .data.CF_WE:00000000 CF_WE
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2219   .bss.Address_Flash_Page1:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2226   .bss.SLT_STATUS2:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2230   .bss.SLT_STATUS2:00000000 SLT_STATUS2
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2233   .bss.sector_number:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2240   .data.A0:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2247   .data.A1:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2254   .data.A2:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2261   .data.A3:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2268   .data.CF_CE:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2275   .data.CF_OE:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2282   .data.CF_RST:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2289   .data.CF_WE:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2296   .rodata.GREEN_LED:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2300   .rodata.GREEN_LED:00000000 GREEN_LED
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2306   .rodata.RED_LED:00000000 $d
+C:\Users\HP-Admin\AppData\Local\Temp\ccz7YaBt.s:2310   .rodata.RED_LED:00000000 RED_LED
+
+UNDEFINED SYMBOLS
+HAL_GPIO_WritePin
+HAL_GPIO_Init
+HAL_GPIO_ReadPin
+Configure_GPIO_IO_D2
+short_delay_us
+write_port
+Read_port

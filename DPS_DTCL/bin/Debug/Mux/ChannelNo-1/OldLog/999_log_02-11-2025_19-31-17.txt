@@ -1,0 +1,93 @@
+                                               TEST REPORT
+----------------------------------------------------------------------------------------------------
+Date            : 02-11-2025
+Time            : 19-31-17
+Unit SI No      : 999
+DTC SI No       : 999
+Test No         : 999
+Inspector's Name: 999
+DTC             : Darin2
+Iteration Number: 10   Duration        : 0
+
+Test             Itrn No         PASS/FAIL          Date          Time
+LoopBack         1                 FAIL             02-11-2025    19:31:44
+Erase            1                 PASS             02-11-2025    19:31:44
+Write            1                 PASS             02-11-2025    19:31:44
+Read             1                 PASS             02-11-2025    19:31:44
+LoopBack         2                 FAIL             02-11-2025    19:32:06
+Erase            2                 PASS             02-11-2025    19:32:06
+Write            2                 PASS             02-11-2025    19:32:06
+Read             2                 PASS             02-11-2025    19:32:06
+
+
+Performance Check Stopped
+----------------------------------------------------------------------------------------------------
+
+Iteration Number: 0   Duration        : 310
+
+
+LoopBack         1                 FAIL             02-11-2025    19:32:58
+Erase            1                 PASS             02-11-2025    19:32:58
+Write            1                 PASS             02-11-2025    19:32:58
+Read             1                 PASS             02-11-2025    19:32:58
+LoopBack         2                 FAIL             02-11-2025    19:33:20
+Erase            2                 PASS             02-11-2025    19:33:20
+Write            2                 PASS             02-11-2025    19:33:20
+Read             2                 PASS             02-11-2025    19:33:20
+LoopBack         3                 FAIL             02-11-2025    19:33:42
+Erase            3                 PASS             02-11-2025    19:33:42
+Write            3                 PASS             02-11-2025    19:33:42
+Read             3                 PASS             02-11-2025    19:33:42
+LoopBack         4                 FAIL             02-11-2025    19:34:04
+Erase            4                 PASS             02-11-2025    19:34:04
+Write            4                 PASS             02-11-2025    19:34:04
+Read             4                 PASS             02-11-2025    19:34:04
+LoopBack         5                 FAIL             02-11-2025    19:34:26
+Erase            5                 PASS             02-11-2025    19:34:26
+Write            5                 PASS             02-11-2025    19:34:26
+Read             5                 PASS             02-11-2025    19:34:26
+LoopBack         6                 FAIL             02-11-2025    19:34:48
+Erase            6                 PASS             02-11-2025    19:34:48
+Write            6                 PASS             02-11-2025    19:34:48
+Read             6                 PASS             02-11-2025    19:34:48
+LoopBack         7                 FAIL             02-11-2025    19:35:10
+Erase            7                 PASS             02-11-2025    19:35:10
+Write            7                 PASS             02-11-2025    19:35:10
+Read             7                 PASS             02-11-2025    19:35:10
+LoopBack         8                 FAIL             02-11-2025    19:35:32
+Erase            8                 PASS             02-11-2025    19:35:32
+Write            8                 PASS             02-11-2025    19:35:32
+Read             8                 PASS             02-11-2025    19:35:32
+LoopBack         9                 FAIL             02-11-2025    19:35:54
+Erase            9                 PASS             02-11-2025    19:35:54
+Write            9                 PASS             02-11-2025    19:35:54
+Read             9                 PASS             02-11-2025    19:35:54
+LoopBack         10                 FAIL             02-11-2025    19:36:16
+Erase            10                 PASS             02-11-2025    19:36:16
+Write            10                 PASS             02-11-2025    19:36:16
+Read             10                 PASS             02-11-2025    19:36:16
+LoopBack         11                 FAIL             02-11-2025    19:36:37
+Erase            11                 PASS             02-11-2025    19:36:37
+Write            11                 PASS             02-11-2025    19:36:37
+Read             11                 PASS             02-11-2025    19:36:37
+LoopBack         12                 FAIL             02-11-2025    19:37:00
+Erase            12                 PASS             02-11-2025    19:37:00
+Write            12                 PASS             02-11-2025    19:37:00
+Read             12                 PASS             02-11-2025    19:37:00
+LoopBack         13                 FAIL             02-11-2025    19:37:22
+Erase            13                 PASS             02-11-2025    19:37:22
+Write            13                 PASS             02-11-2025    19:37:22
+Read             13                 PASS             02-11-2025    19:37:22
+LoopBack         14                 FAIL             02-11-2025    19:37:44
+Erase            14                 PASS             02-11-2025    19:37:44
+Write            14                 PASS             02-11-2025    19:37:44
+Read             14                 PASS             02-11-2025    19:37:44
+LoopBack         15                 FAIL             02-11-2025    19:38:07
+Erase            15                 PASS             02-11-2025    19:38:07
+Write            15                 PASS             02-11-2025    19:38:07
+Read             15                 PASS             02-11-2025    19:38:07
+
+
+Performance Check Completed
+----------------------------------------------------------------------------------------------------
+

@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 30
+/svn/DTS3/!svn/ver/3/trunk/FAT
+END
+ff.h
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/DTS3/!svn/ver/3/trunk/FAT/ff.h
+END
+diskio.c
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/DTS3/!svn/ver/3/trunk/FAT/diskio.c
+END
+integer.h
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/DTS3/!svn/ver/3/trunk/FAT/integer.h
+END
+ffconf.h
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/DTS3/!svn/ver/3/trunk/FAT/ffconf.h
+END
+diskio.h
+K 25
+svn:wc:ra_dav:version-url
+V 39
+/svn/DTS3/!svn/ver/3/trunk/FAT/diskio.h
+END
+ff.c
+K 25
+svn:wc:ra_dav:version-url
+V 35
+/svn/DTS3/!svn/ver/3/trunk/FAT/ff.c
+END

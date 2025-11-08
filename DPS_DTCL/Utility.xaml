@@ -1,0 +1,276 @@
+﻿<Window x:Name="utility" x:Class="DTCL.Utility"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DTCL"
+        mc:Ignorable="d"
+        Title="Utility" Height="761" Width="1000" Background="#005f73" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closed="utility_Closed">
+
+    <Window.Resources>
+        <!-- Updated Button Style with a new color theme -->
+        <Style TargetType="Button">
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="#005f73" Offset="0"/>
+                        <GradientStop Color="#0a9396" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="BorderBrush" Value="#005f73"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="5" 
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <!-- Define the trigger for the MouseOver state -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                <GradientStop Color="#0a9396" Offset="0"/>
+                                <GradientStop Color="#94d2bd" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="28"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#2D3142"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <!-- Updated DataGrid Style -->
+        <Style TargetType="DataGrid">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#2D3142"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="RowBackground" Value="#d3e0ea"/>
+            <Setter Property="AlternatingRowBackground" Value="#b8c5d6"/>
+            <Setter Property="HorizontalGridLinesBrush" Value="Transparent"/>
+            <Setter Property="VerticalGridLinesBrush" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Margin" Value="20"/>
+        </Style>
+
+        <!-- Updated DataGrid Column Header Style -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#005f73"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#005f73"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+        </Style>
+    </Window.Resources>
+
+    <TabControl Height="726" VerticalAlignment="Top">
+        <!-- First Tab: Data Entry -->
+        <TabItem Header="Data Entry">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="77*"/>
+                    <ColumnDefinition Width="117*"/>
+                    <ColumnDefinition Width="21*"/>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="13*"/>
+                    <ColumnDefinition Width="69*"/>
+                    <ColumnDefinition Width="685*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- Buttons at the top -->
+                <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="20,10,0,10" Width="954" Grid.ColumnSpan="7">
+                    <Button x:Name="ReadD2Block" Content="Read D2 Block" Height="74" Margin="10,0" Click="ReadD2Block_Click"/>
+                    <Button x:Name="WriteD2Block" Content="Write D2 Block" Height="75" Margin="10,0" Click="WriteD2Block_Click"/>
+                    <Button x:Name="Header" Content="Header" Height="75" Margin="10,0" Click="Header_Click"/>
+                    <Button x:Name="WriteDwnFiles" Content="Write Download Files" Height="75" Click="WriteDwnFiles_Click" Width="200"/>
+                    <Button x:Name="Exit" Content="Exit" Height="75" Click="Exit_Click"/>
+                </StackPanel>
+
+                <!-- Main Content -->
+                <StackPanel Grid.Row="1" Margin="20,0,20,41" Grid.ColumnSpan="7">
+                    <!-- Block Number Entry -->
+                    <TextBlock x:Name="BlockNoLabel" Text="Block Number" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                    <TextBox x:Name="BlockNumber" Width="150" Height="25" Margin="5" Padding="5" Background="#F7F7F7" BorderBrush="#D3D3D3" BorderThickness="1" 
+                             VerticalAlignment="Center" HorizontalAlignment="Left" InputScope="Number"/>
+
+                    <!-- Page Number Entry -->
+                    <TextBlock x:Name="NoOfPagesLabel" Text="No Of Pages" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                    <TextBox x:Name="PageNumber" Width="150" Height="25" Margin="5" Padding="5" Background="#F7F7F7" BorderBrush="#D3D3D3" BorderThickness="1" 
+                             VerticalAlignment="Center" HorizontalAlignment="Left" InputScope="Number"/>
+                    <TextBlock x:Name="DataToWrite" Text="Data To Write (Hex Only)" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                    <TextBox x:Name="WriteData" Width="150" Height="25" Margin="5" Padding="5" Background="#F7F7F7" BorderBrush="#D3D3D3" BorderThickness="1" 
+                             VerticalAlignment="Center" HorizontalAlignment="Left" InputScope="Number" TextChanged="WriteData_TextChanged"/>
+                    <ProgressBar x:Name="UpdateProgress" Height="23" Width="923" HorizontalAlignment="Left" Margin="5"/>
+
+                    <!-- Data Display Area (Hex Values in DataGrid for editing) -->
+                    <TextBlock x:Name="DataLabel" Text="Data Read (Hex)" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                    <DataGrid x:Name="HexDataGrid" Height="294" Margin="5" Background="#F7F7F7" BorderBrush="#D3D3D3" BorderThickness="1" 
+                              AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="True" CanUserResizeRows="False" ItemsSource="{Binding HexRows}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="0" Binding="{Binding Hex0}" Width="*" />
+                            <DataGridTextColumn Header="1" Binding="{Binding Hex1}" Width="*" />
+                            <DataGridTextColumn Header="2" Binding="{Binding Hex2}" Width="*" />
+                            <DataGridTextColumn Header="3" Binding="{Binding Hex3}" Width="*" />
+                            <DataGridTextColumn Header="4" Binding="{Binding Hex4}" Width="*" />
+                            <DataGridTextColumn Header="5" Binding="{Binding Hex5}" Width="*" />
+                            <DataGridTextColumn Header="6" Binding="{Binding Hex6}" Width="*" />
+                            <DataGridTextColumn Header="7" Binding="{Binding Hex7}" Width="*" />
+                            <DataGridTextColumn Header="8" Binding="{Binding Hex8}" Width="*" />
+                            <DataGridTextColumn Header="9" Binding="{Binding Hex9}" Width="*" />
+                            <DataGridTextColumn Header="A" Binding="{Binding HexA}" Width="*" />
+                            <DataGridTextColumn Header="B" Binding="{Binding HexB}" Width="*" />
+                            <DataGridTextColumn Header="C" Binding="{Binding HexC}" Width="*" />
+                            <DataGridTextColumn Header="D" Binding="{Binding HexD}" Width="*" />
+                            <DataGridTextColumn Header="E" Binding="{Binding HexE}" Width="*" />
+                            <DataGridTextColumn Header="F" Binding="{Binding HexF}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </Grid>
+        </TabItem>
+
+        <!-- Second Tab: File Creation -->
+        <TabItem Header="File Creation">
+            <StackPanel Margin="20">
+                <!-- File Type Selection -->
+                <StackPanel Orientation="Horizontal" Margin="5,0,5,10">
+                    <RadioButton x:Name="UploadRadioButton" Content="Upload" GroupName="FileType" Margin="0,0,20,0" Checked="FileType_Checked"/>
+                    <RadioButton x:Name="DownloadRadioButton" Content="Download" GroupName="FileType" Checked="FileType_Checked"/>
+                </StackPanel>
+
+                <!-- Upload File Selection -->
+                <TextBlock Text="Select Upload File to Create" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                <WrapPanel x:Name="UploadFileSelectionPanel" Orientation="Horizontal" Margin="5" ItemWidth="100" ItemHeight="30" IsEnabled="{Binding IsChecked, ElementName=UploadRadioButton}">
+                    <!-- Radio buttons for upload files will be dynamically added here -->
+                </WrapPanel>
+
+                <!-- Download File Selection -->
+                <TextBlock Text="Select Download File to Create" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                <WrapPanel x:Name="DownloadFileSelectionPanel" Orientation="Horizontal" Margin="5" ItemWidth="100" ItemHeight="30" IsEnabled="{Binding IsChecked, ElementName=DownloadRadioButton}">
+                    <!-- Radio buttons for download files will be dynamically added here -->
+                </WrapPanel>
+
+                <!-- NOB Entry -->
+                <TextBlock Text="NOB (Number of Blocks)" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                <TextBox x:Name="NOBValue" Width="150" Height="25" Margin="5" Padding="5" Background="#F7F7F7" BorderBrush="#D3D3D3" BorderThickness="1" 
+                         VerticalAlignment="Center" HorizontalAlignment="Left" IsReadOnly="False" />
+
+                <!-- Manual Data Entry -->
+                <TextBlock Text="Enter Data to be Repeated (Hex)" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                <DataGrid x:Name="ManualDataEntryGrid" Height="59" Margin="5" Background="#F7F7F7" BorderBrush="#D3D3D3" BorderThickness="1" 
+                          AutoGenerateColumns="False" CanUserAddRows="True" CanUserResizeColumns="True" CanUserResizeRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="0" Binding="{Binding Hex0}" Width="*" />
+                        <DataGridTextColumn Header="1" Binding="{Binding Hex1}" Width="*" />
+                        <DataGridTextColumn Header="2" Binding="{Binding Hex2}" Width="*" />
+                        <DataGridTextColumn Header="3" Binding="{Binding Hex3}" Width="*" />
+                        <DataGridTextColumn Header="4" Binding="{Binding Hex4}" Width="*" />
+                        <DataGridTextColumn Header="5" Binding="{Binding Hex5}" Width="*" />
+                        <DataGridTextColumn Header="6" Binding="{Binding Hex6}" Width="*" />
+                        <DataGridTextColumn Header="7" Binding="{Binding Hex7}" Width="*" />
+                        <DataGridTextColumn Header="8" Binding="{Binding Hex8}" Width="*" />
+                        <DataGridTextColumn Header="9" Binding="{Binding Hex9}" Width="*" />
+                        <DataGridTextColumn Header="A" Binding="{Binding HexA}" Width="*" />
+                        <DataGridTextColumn Header="B" Binding="{Binding HexB}" Width="*" />
+                        <DataGridTextColumn Header="C" Binding="{Binding HexC}" Width="*" />
+                        <DataGridTextColumn Header="D" Binding="{Binding HexD}" Width="*" />
+                        <DataGridTextColumn Header="E" Binding="{Binding HexE}" Width="*" />
+                        <DataGridTextColumn Header="F" Binding="{Binding HexF}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <!-- Repeated Data Preview -->
+                <TextBlock Text="Repeated Data (Preview)" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                <DataGrid x:Name="RepeatedHexDataGrid" Height="156" Margin="5" Background="#F7F7F7" BorderBrush="#D3D3D3" BorderThickness="1" 
+                          AutoGenerateColumns="False" CanUserAddRows="False" CanUserResizeColumns="True" CanUserResizeRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="0" Binding="{Binding Hex0}" Width="*" />
+                        <DataGridTextColumn Header="1" Binding="{Binding Hex1}" Width="*" />
+                        <DataGridTextColumn Header="2" Binding="{Binding Hex2}" Width="*" />
+                        <DataGridTextColumn Header="3" Binding="{Binding Hex3}" Width="*" />
+                        <DataGridTextColumn Header="4" Binding="{Binding Hex4}" Width="*" />
+                        <DataGridTextColumn Header="5" Binding="{Binding Hex5}" Width="*" />
+                        <DataGridTextColumn Header="6" Binding="{Binding Hex6}" Width="*" />
+                        <DataGridTextColumn Header="7" Binding="{Binding Hex7}" Width="*" />
+                        <DataGridTextColumn Header="8" Binding="{Binding Hex8}" Width="*" />
+                        <DataGridTextColumn Header="9" Binding="{Binding Hex9}" Width="*" />
+                        <DataGridTextColumn Header="A" Binding="{Binding HexA}" Width="*" />
+                        <DataGridTextColumn Header="B" Binding="{Binding HexB}" Width="*" />
+                        <DataGridTextColumn Header="C" Binding="{Binding HexC}" Width="*" />
+                        <DataGridTextColumn Header="D" Binding="{Binding HexD}" Width="*" />
+                        <DataGridTextColumn Header="E" Binding="{Binding HexE}" Width="*" />
+                        <DataGridTextColumn Header="F" Binding="{Binding HexF}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!-- Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                    <Button x:Name="CreateFileButton" Content="Create File" Width="100" Height="40" Margin="10,0" Background="#007ACC" Foreground="White" BorderThickness="0" Cursor="Hand"
+                    Click="CreateFileButton_Click"/>
+                    <Button x:Name="SaveFileButton" Content="Save File" Width="100" Height="40" Margin="10,0" Background="#007ACC" Foreground="White" BorderThickness="0" Cursor="Hand"
+                    Click="SaveFileButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+
+        <TabItem Header="Checksum Calculator">
+            <StackPanel Margin="20">
+                <!-- Title -->
+                <TextBlock Text="Checksum Calculator" FontWeight="Bold" FontSize="20" Foreground="#2D3142" Margin="5"/>
+
+                <!-- File Selection -->
+                <TextBlock Text="Select File for Checksum Calculation" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <TextBox x:Name="FilePathTextBox" Width="297" Height="30" Margin="0,0,10,0" Padding="5" Background="#F7F7F7" 
+                     BorderBrush="#D3D3D3" BorderThickness="1" IsReadOnly="True"/>
+                    <Button x:Name="BrowseFileButton" Content="Browse" Width="100" Height="30" Background="#007ACC" 
+                    Foreground="White" BorderThickness="0" Cursor="Hand" Click="BrowseFileButton_Click"/>
+                </StackPanel>
+
+                <!-- Checksum Result -->
+                <TextBlock Text="Checksum Result" FontWeight="Bold" Foreground="#333333" Margin="5"/>
+                <TextBox x:Name="ChecksumResultTextBox" Width="505" Height="30" Margin="5" Padding="5" Background="#F7F7F7" 
+                 BorderBrush="#D3D3D3" BorderThickness="1" HorizontalAlignment="Left" IsReadOnly="True"/>
+
+                <!-- Buttons -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0" Height="45" Width="808">
+                    <Button x:Name="CalculateChecksumButton" Content="Calculate Checksum" Width="198" Height="40" Margin="10,0" 
+                    Background="#007ACC" Foreground="White" BorderThickness="0" Cursor="Hand" Click="CalculateChecksumButton_Click"/>
+                    <Button x:Name="ClearChecksumInputButton" Content="Clear" Width="100" Height="40" Margin="10,0" 
+                    Background="#FF6B6B" Foreground="White" BorderThickness="0" Cursor="Hand" Click="ClearChecksumInputButton_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </TabItem>
+
+
+    </TabControl>
+</Window>

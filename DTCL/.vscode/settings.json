@@ -1,0 +1,20 @@
+{
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "*.cpp": "cpp",
+        "*.hpp": "cpp",
+        "*.inc": "asm"
+    },
+    "cortex-debug.enableTelemetry": false,
+    "cortex-debug.variableUseNaturalFormat": true,
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "C_Cpp.default.compilerPath": "arm-none-eabi-gcc",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "${workspaceFolder}",
+            "binaryPath": "${workspaceFolder}/build/DTCL_V3_6.elf",
+            "binaryArgs": []
+        }
+    ]
+}

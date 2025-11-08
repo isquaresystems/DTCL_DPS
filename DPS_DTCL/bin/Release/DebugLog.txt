@@ -1,0 +1,52 @@
+2025-11-08 21:03:57.319 [Info] Application started
+2025-11-08 21:03:57.324 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2025-11-08 21:03:57.324 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2025-11-08 21:03:57.324 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2025-11-08 21:03:57.325 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2025-11-08 21:03:57.450 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:57.691 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:57.921 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:59.172 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
+2025-11-08 21:03:59.214 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:03:59.252 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
+2025-11-08 21:03:59.253 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers.
+2025-11-08 21:03:59.257 [Info] [EVT0000] [OnHwConnected] Port Connected
+2025-11-08 21:03:59.269 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:03:59.323 [Info] [EVT3001] Registered handler for subcommand 0x00.
+2025-11-08 21:03:59.323 [Info] [EVT3001] Registered handler for subcommand 0x01.
+2025-11-08 21:03:59.323 [Info] [EVT3001] Registered handler for subcommand 0x02.
+2025-11-08 21:03:59.325 [Info] [EVT3001] Registered handler for subcommand 0x09.
+2025-11-08 21:03:59.479 [Error] MessageBoxResult exception : Cannot set Owner property to a Window that has not been shown previously.
+2025-11-08 21:04:00.268 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:04.222 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:05.234 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:06.234 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:07.234 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:08.251 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:09.266 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:10.266 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:11.290 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:12.301 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:13.313 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:14.325 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:15.340 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:16.350 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:17.351 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:18.368 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:19.369 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:20.380 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:21.396 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:22.413 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:23.175 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2025-11-08 21:04:23.416 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:24.431 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:25.443 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:26.453 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:27.465 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:28.465 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:29.477 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2025-11-08 21:04:30.345 [Error] Log file not found.
+2025-11-08 21:04:30.347 [Error] Log file not found.
+2025-11-08 21:04:30.677 [Info] Start FirmwareCtrlLed
+2025-11-08 21:04:30.679 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2025-11-08 21:04:30.681 [Error] UART transmit error: Port is not open.

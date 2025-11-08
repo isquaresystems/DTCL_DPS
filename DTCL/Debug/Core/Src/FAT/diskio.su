@@ -1,0 +1,13 @@
+../Core/Src/FAT/diskio.c:33:7:get_fattime	4	static
+../Core/Src/FAT/diskio.c:38:9:disk_initialize	24	static
+../Core/Src/FAT/diskio.c:63:9:disk_status	16	static
+../Core/Src/FAT/diskio.c:73:9:disk_read	40	static
+../Core/Src/FAT/diskio.c:105:9:disk_write	40	static
+../Core/Src/FAT/diskio.c:138:9:disk_ioctl	40	static
+../Core/Src/FAT/diskio.c:199:15:ChkCFRdyForCmd	16	static
+../Core/Src/FAT/diskio.c:236:15:ChkCFRdyForData	16	static
+../Core/Src/FAT/diskio.c:272:6:CfCmd	24	static
+../Core/Src/FAT/diskio.c:284:15:ChkCF	16	static
+../Core/Src/FAT/diskio.c:293:6:RstCf	8	static
+../Core/Src/FAT/diskio.c:305:6:Delay	24	static
+../Core/Src/FAT/diskio.c:317:6:SetCartNo	16	static

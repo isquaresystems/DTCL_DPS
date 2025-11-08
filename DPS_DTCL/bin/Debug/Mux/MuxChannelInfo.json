@@ -1,0 +1,84 @@
+{
+  "channelInfo": [
+    {
+      "Channel": 1,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    },
+    {
+      "Channel": 2,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    },
+    {
+      "Channel": 3,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    },
+    {
+      "Channel": 4,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    },
+    {
+      "Channel": 5,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    },
+    {
+      "Channel": 6,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    },
+    {
+      "Channel": 7,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    },
+    {
+      "Channel": 8,
+      "isDTCLConnected": false,
+      "PCStatus": "",
+      "isUserSelected": false,
+      "CartType": "",
+      "UnitSno": "",
+      "DtcSno": "",
+      "isInProgress": false
+    }
+  ]
+}

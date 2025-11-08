@@ -1,0 +1,10 @@
+../Core/Src/Protocol/VennaTransportInterface.h:19:25:virtual std::size_t VennaTransportInterface::receive(uint8_t*, std::size_t)	24	static
+../Core/Src/Protocol/VennaTransportInterface.h:22:34:virtual VennaTransportStatus VennaTransportInterface::status() const	16	static
+../Core/Src/Protocol/VennaTransportInterface.h:25:18:virtual void VennaTransportInterface::flush()	16	static
+../Core/Src/Protocol/VennaTransportInterface.h:28:25:virtual const char* VennaTransportInterface::name() const	16	static
+../Core/Src/Protocol/SerialTransport.h:18:17:virtual const char* UsbVennaTransport::name() const	16	static
+../Core/Src/Protocol/SerialTransport.cpp:4:6:virtual bool UsbVennaTransport::transmit(const volatile uint8_t*, std::size_t)	24	static
+../Core/Src/Protocol/VennaTransportInterface.h:30:13:VennaTransportInterface::~VennaTransportInterface()	16	static
+../Core/Src/Protocol/VennaTransportInterface.h:30:13:virtual VennaTransportInterface::~VennaTransportInterface()	16	static
+../Core/Src/Protocol/SerialTransport.h:15:7:UsbVennaTransport::~UsbVennaTransport()	16	static
+../Core/Src/Protocol/SerialTransport.h:15:7:virtual UsbVennaTransport::~UsbVennaTransport()	16	static
