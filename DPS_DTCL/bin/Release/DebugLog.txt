@@ -1,26 +1,7 @@
-2025-11-08 21:55:26.250 [Info] Application started
-2025-11-08 21:55:26.252 [Info] Directory already Exists:c:\mps\DARIN2\upload\
-2025-11-08 21:55:26.252 [Info] Directory already Exists:c:\mps\DARIN3\upload\
-2025-11-08 21:55:26.253 [Info] Directory already Exists:c:\mps\DARIN2\download\
-2025-11-08 21:55:26.253 [Info] Directory already Exists:c:\mps\DARIN3\download\
-2025-11-08 21:55:26.422 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:55:26.681 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:55:26.920 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:55:28.173 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
-2025-11-08 21:55:28.213 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:55:28.257 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
-2025-11-08 21:55:28.258 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers.
-2025-11-08 21:55:28.262 [Info] [EVT0000] [OnHwConnected] Port Connected
-2025-11-08 21:55:28.487 [Error] MessageBoxResult exception : Cannot set Owner property to a Window that has not been shown previously.
-2025-11-08 21:55:28.540 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:55:28.584 [Info] [EVT3001] Registered handler for subcommand 0x00.
-2025-11-08 21:55:28.584 [Info] [EVT3001] Registered handler for subcommand 0x01.
-2025-11-08 21:55:28.585 [Info] [EVT3001] Registered handler for subcommand 0x02.
-2025-11-08 21:55:28.586 [Info] [EVT3001] Registered handler for subcommand 0x09.
-2025-11-08 21:55:29.547 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:55:31.531 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:55:31.734 [Error] Log file not found.
-2025-11-08 21:55:31.736 [Error] Log file not found.
-2025-11-08 21:55:32.473 [Info] Start FirmwareCtrlLed
-2025-11-08 21:55:32.477 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
-2025-11-08 21:55:32.479 [Error] UART transmit error: Port is not open.
+2025-11-10 16:57:00.015 [Info] Application started
+2025-11-10 16:57:00.019 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2025-11-10 16:57:00.019 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2025-11-10 16:57:00.019 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2025-11-10 16:57:00.020 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2025-11-10 16:57:06.341 [Info] Start FirmwareCtrlLed
+2025-11-10 16:57:06.345 [Info] Start FirmwareCtrlLed Done

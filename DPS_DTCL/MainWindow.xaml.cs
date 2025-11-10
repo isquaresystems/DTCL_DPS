@@ -25,7 +25,7 @@ namespace DTCL
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        const string GUI_VERSION = "9.8";
+        const string GUI_VERSION = "9.9";
 
         StringBuilder _logMessages;
         public HardwareInfo hwInfo;
@@ -2714,6 +2714,9 @@ namespace DTCL
             DurationSel.IsEnabled = true;
             TimeElapsed.Text = "";
             CurrentIteration.Text = "";
+            DurationMin.Text = "0";
+            IterationCount.Text = "1";
+            DurationSec.Text = "10";
             disableLogEntries();
 
             PCResultDisplay.Text = "";

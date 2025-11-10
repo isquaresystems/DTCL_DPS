@@ -171,7 +171,7 @@ namespace DTCL.Mux
         /// Deactivate this channel with option to preserve discovered hardware/cart data
         /// </summary>
         /// <param name="clearDiscoveredData">If true, clears hardware info. If false, preserves it for GUI display</param>
-        public void DeactivateChannel(bool clearDiscoveredData)
+        public async void DeactivateChannel(bool clearDiscoveredData)
         {
             if (_disposed)
                 return;
@@ -189,6 +189,7 @@ namespace DTCL.Mux
             {
                 Log.Log.Info($"Deactivating channel {_channelNumber} (clearData: {clearDiscoveredData})");
 
+                
                 // Notify hardware of deactivation
                 _hardwareInfo.OnChannelDeactivated();
 

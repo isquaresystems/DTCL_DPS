@@ -850,6 +850,9 @@ namespace DTCL.Transport
             lock (_lockObject)
                 _isConnected = false;
 
+            var res = LedState.FirmwareCtrlLed();
+            Log.Log.Info($"Mux Channel Firmware Ctrl Led Executed and disposed");
+
             // Don't dispose transport - just disconnect
             _transport?.Close();
         }

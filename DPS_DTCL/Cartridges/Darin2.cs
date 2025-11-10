@@ -1231,14 +1231,15 @@ namespace DTCL.Cartridges
 
                         CustomMessageBox.MessageBoxResult shouldContinue;
 
-                        if (msg.isFileValid == false)
-                        {
-                            handleInvalidFile("Invalid_File_Msg", msg.FileName);
-                        }
-                        else if (msg.isFileExists == false)
+                        if (msg.isFileExists == false)
                         {
                             handleInvalidFile("Missing_File", msg.FileName);
                         }
+                        else if (msg.isFileValid == false)
+                        {
+                            handleInvalidFile("Invalid_File_Msg", msg.FileName);
+                        }
+                        
 
                         shouldContinue = handleInvalidFile("Header_Compliance_Msg", "");
 

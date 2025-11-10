@@ -314,6 +314,9 @@ namespace DTCL
 
         async void InitiatePC_Click(object sender, RoutedEventArgs e)
         {
+            // Clear any selected row to ensure proper yellow highlighting during PC execution
+            MuxChannelGrid.SelectedItem = null;
+            
             if ((IterationSel.IsChecked == false) && (DurationSel.IsChecked == false))
             {
                 CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("USBMux_Enter_Iter_Log"), this);
@@ -1035,8 +1038,8 @@ namespace DTCL
 
                 // Reset progress and input fields
                 PCProgressBar.Value = 0;
-                IterationCount.Text = "";
-                DurationMin.Text = "";
+                IterationCount.Text = "1";
+                DurationMin.Text = "0";
                 DurationSec.Text = "10";
                 TimeElapsed.Text = "0";
 
