@@ -20,7 +20,6 @@ namespace DTCL
         public IMessageInfoContainer uMessageContainerObj;
         public JsonParser<UploadMessageInfoContainer> uMessageParserObj;
         string selectedPath = "";
-        int[] headerWords;
         PopUpMessagesContainer PopUpMessagesContainerObj;
         CartType cartType;
         public HeaderInfoDisplay(CartType _cartType)

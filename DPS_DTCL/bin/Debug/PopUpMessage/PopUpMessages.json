@@ -113,6 +113,13 @@
       "FontSize": 18
     },
     {
+      "MessageId": "Read_Start_Msg",
+      "MessageText": "Read command will erase files in download folder, confirm Ok to progress or cancel",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
       "MessageId": "Write_Complete_Msg",
       "MessageText": "Write completed, exit command",
       "MessageBoxIcon": "Information",

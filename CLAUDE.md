@@ -1,8 +1,11 @@
-# CLAUDE.md - DTCL Development Guide
+# CLAUDE.md
 
-This file provides comprehensive guidance to Claude Code (claude.ai/code) when working with the DTCL codebase.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-**Project by ISquare Systems**
+# DTCL - Data Transfer Cartridge Loader System
+
+**Professional data programming system for cartridge-based storage devices**  
+**Developed by ISquare Systems**
 
 ---
 
@@ -129,11 +132,19 @@ cd DPS_DTCL
 msbuild DTCL.sln /p:Configuration=Debug
 # or open in Visual Studio 2022
 
-# Restore NuGet packages
+# Release build
+msbuild DTCL.sln /p:Configuration=Release
+
+# Restore NuGet packages (if missing)
 nuget restore DTCL.sln
 
 # Run the application
-bin\Debug\DTCL.exe
+bin\Debug\DTCL.exe        # Debug version
+bin\Release\DTCL.exe      # Release version
+
+# Clean build
+msbuild DTCL.sln /t:Clean /p:Configuration=Debug
+msbuild DTCL.sln /t:Rebuild /p:Configuration=Release
 ```
 
 ### STM32 Firmware Development

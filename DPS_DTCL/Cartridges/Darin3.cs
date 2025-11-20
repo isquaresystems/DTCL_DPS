@@ -269,12 +269,6 @@ namespace DTCL.Cartridges
 
                 Log.Log.Info($"Start Uploading File: {fileName}");
 
-                if (fileName == "FPL.bin")
-                {
-                    int k;
-                    Log.Log.Info($"Start Uploading File: {fileName}");
-                }
-
                 var msg = uMessageContainerObj.MessageInfoList.FirstOrDefault(m => m.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
 
                 if (msg != null && msg.isDefinedInHeader)
@@ -861,8 +855,6 @@ namespace DTCL.Cartridges
 
             displayUserStatus("Copy_Overwrite_Msg3");
 
-            var res = false;
-
             for (int itr = 0; itr < slaveSlot.Length; itr++)
             {
                 if (slaveSlot[itr] == 0)
@@ -1097,8 +1089,6 @@ namespace DTCL.Cartridges
 
             if (result != returnCodes.DTCL_SUCCESS)
                 return result;
-
-            var res = false;
 
             for (int itr = 0; itr < slaveSlot.Length; itr++)
             {

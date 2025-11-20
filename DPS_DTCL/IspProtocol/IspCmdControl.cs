@@ -8,7 +8,6 @@ namespace IspProtocol
 {
     public class IspCmdControl
     {
-        readonly IspCmdTransmitData tx;
         UartIspTransport transport;
         byte[] txBuffer;
         int txSize;

@@ -337,10 +337,10 @@ F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\bin\Debug\System.Text.Json.xml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\bin\Debug\System.Threading.Tasks.Extensions.xml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\bin\Debug\System.ValueTuple.xml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL.csproj.AssemblyReference.cache
-F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL.exe.config
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\CustomMessageBox.baml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\SplashScreenWindow.baml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\CustomMessageBox.g.cs
+F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\MainWindow.g.cs
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\HeaderInfoDisplay.g.cs
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\Mux\MuxWindow.g.cs
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\Mux\Mux_SelfTest.g.cs
@@ -350,6 +350,7 @@ F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\App.g.cs
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\GeneratedInternalTypeHelper.g.cs
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL_MarkupCompile.cache
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL_MarkupCompile.lref
+F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\MainWindow.baml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\HeaderInfoDisplay.baml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\Mux\MuxWindow.baml
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\Mux\Mux_SelfTest.baml
@@ -361,5 +362,4 @@ F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL.csproj.CoreCompileInputs.ca
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL.csproj.Up2Date
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL.exe
 F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL.pdb
-F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\MainWindow.g.cs
-F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\MainWindow.baml
+F:\Work\Swave\Refactor\DTCL4\DPS_DTCL\obj\Debug\DTCL.exe.config

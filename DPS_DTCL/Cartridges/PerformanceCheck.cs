@@ -14,8 +14,6 @@ namespace DTCL.Cartridges
     public class PerformanceCheck
     {
         ICart obj;
-        // Darin2 obj2;
-        // Darin1 obj1;
         public event EventHandler<CommandEventArgs> CommandInProgress2;
         public PerformanceCheck()
         {

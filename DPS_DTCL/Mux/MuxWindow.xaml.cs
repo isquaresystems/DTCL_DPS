@@ -84,9 +84,11 @@ namespace DTCL
             muxManager.PortConnected += OnMuxHwConnected;
 
             // Hide command buttons initially
+            CommandsLabel.Visibility = Visibility.Hidden;
             Erase.Visibility = Visibility.Hidden;
             Write.Visibility = Visibility.Hidden;
             Read.Visibility = Visibility.Hidden;
+            LoopBack.Visibility = Visibility.Hidden;
             KeyDown += PerformanceCheckBlock_KeyDown;
 
             for (int i = 0; i < 9; i++)
@@ -947,6 +949,11 @@ namespace DTCL
                         return;
                     }
                 }
+                else
+                {
+                    // disbale editing of DTC and Unit S/N if not selected
+                    // We'll handle this after the grid refresh
+                }
             }
 
             if (tmp == false)
@@ -961,9 +968,11 @@ namespace DTCL
             InspectorName.IsEnabled = true;
             TestNumber.IsEnabled = true;
             ConfirmLog.IsEnabled = true;
+            CommandsLabel.Visibility = Visibility.Visible;
             Erase.Visibility = Visibility.Visible;
             Write.Visibility = Visibility.Visible;
             Read.Visibility = Visibility.Visible;
+            LoopBack.Visibility = Visibility.Visible;
             CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("USBMux_Enter_Serial_Msg"), this);
         }
 
@@ -1009,9 +1018,11 @@ namespace DTCL
             InspectorName.IsEnabled = true;
             TestNumber.IsEnabled = true;
             ConfirmLog.IsEnabled = true;
+            CommandsLabel.Visibility = Visibility.Visible;
             Erase.Visibility = Visibility.Hidden;
             Write.Visibility = Visibility.Hidden;
             Read.Visibility = Visibility.Hidden;
+            LoopBack.Visibility = Visibility.Visible;
             CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("USBMux_Enter_Serial_Msg2"), this);
         }
 
@@ -1032,6 +1043,12 @@ namespace DTCL
                 withOutCart.IsChecked = false;
                 withCart.IsEnabled = false;
                 withOutCart.IsEnabled = false;
+
+                CommandsLabel.Visibility = Visibility.Hidden;
+                Erase.Visibility = Visibility.Hidden;
+                Write.Visibility = Visibility.Hidden;
+                Read.Visibility = Visibility.Hidden;
+                LoopBack.Visibility = Visibility.Hidden;
 
                 IterationSel.IsChecked = false;
                 DurationSel.IsChecked = false;
@@ -1117,6 +1134,34 @@ namespace DTCL
             {
                 Log.Log.Warning($"User chose to cancel exit");
                 return;
+            }
+
+            var selectedChannels = new List<int>();
+
+            for (int i = 1; i <= muxManager.channels.Count; i++)
+            {
+                if (muxManager.channels[i].isUserSelected)
+                {
+                    selectedChannels.Add(i);
+                }
+            }
+            // Results have already been logged in real-time during execution
+            // Log completion for all selected channels
+            foreach (int i in selectedChannels)
+            {
+                var channelInfo = muxManager.channels[i];
+
+                // Add safety check for channel_SlotInfo - same as initialization
+                if (channelInfo.channel_SlotInfo != null && channelInfo.cartNo >= 0 &&
+                    channelInfo.cartNo < channelInfo.channel_SlotInfo.Length)
+                {
+                    PCLog.Instance.AddEntry("Performance Check Exited", channelInfo.channel_SlotInfo[channelInfo.cartNo]);
+                }
+                else
+                {
+                    var defaultSlot = new SlotInfo(channelInfo.cartNo >= 0 ? channelInfo.cartNo : 1);
+                    PCLog.Instance.AddEntry("Performance Check Exited", defaultSlot);
+                }
             }
 
             // Set flag to indicate this is an application exit, not just window close
@@ -1371,5 +1416,6 @@ namespace DTCL
 
             return null;
         }
+
     }
 }

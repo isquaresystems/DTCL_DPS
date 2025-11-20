@@ -3,6 +3,7 @@ using DTCL.JsonParser;
 using DTCL.Log;
 using DTCL.Messages;
 using DTCL.Transport;
+using IspProtocol;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,14 +26,13 @@ namespace DTCL
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        const string GUI_VERSION = "9.9";
+        const string GUI_VERSION = "10.2";
 
         StringBuilder _logMessages;
         public HardwareInfo hwInfo;
         PopUpMessagesContainer PopUpMessagesContainerObj;
         bool stopPcFlag;
         DPSButtonManager buttonManager;
-        DPSButtonManager PCbuttonManager;
         Color defaultColor = Color.FromArgb(255, 39, 174, 96);
         bool isLogSelected;
         bool isLogTypeSelected;
@@ -762,6 +762,11 @@ namespace DTCL
 
         async void Read_Click(object sender, RoutedEventArgs e)
         {
+            var shouldContinue = CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("Read_Start_Msg"), this);
+
+            if (shouldContinue == CustomMessageBox.MessageBoxResult.Cancel)
+                return;
+
             uint noOfSelSlots = 0;
 
             for (int itr2 = 1; itr2 <= hwInfo.GetSlotCount(); itr2++)
@@ -1297,9 +1302,15 @@ namespace DTCL
 
             var targetSlots = GetTargetSlotsForOperation();
 
-            // Normal close - perform cleanup and shutdown
-            foreach (int slotNumber in targetSlots)
-                PCLog.Instance.AddEntry("Performance Test Exited", hwInfo.SlotInfo[slotNumber]);
+            if ((targetSlots.Count == 0) && (hwInfo.BoardId == IspBoardId.DTCL.ToString()))
+            {
+                targetSlots.Add(0); // Log for slot 0 if no specific slots are selected
+                PCLog.Instance.AddEntry("Performance Check Exited", hwInfo.SlotInfo[0]);
+            }
+            else
+            {
+                PCLog.Instance.AddEntry("Performance Check Exited", hwInfo.SlotInfo[targetSlots.Count]);
+            }
 
             this.Close();
             Environment.Exit(0);
@@ -1846,6 +1857,12 @@ namespace DTCL
 
         async void PerformanceCheck_Click(object sender, RoutedEventArgs e)
         {
+            if (hwInfo.IsConnected == false)
+            {
+                CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DTCL_Not_Detected_Msg"), this);
+                return;
+            }
+
             isLogSelected = false;
             isLogTypeSelected = false;
             isPcStarted = false;
@@ -1859,7 +1876,6 @@ namespace DTCL
 
             buttonManager.ShowOnlyButtons(new List<Button> { Exit, PerformanceCheck });
 
-            // PerformanceCheckBlock.Visibility = Visibility.Visible;
             SetPeformanceCheckBlockVisibility(Visibility.Visible);
             ConfirmLog.IsEnabled = false;
             IterationCount.IsEnabled = false;
@@ -2167,6 +2183,7 @@ namespace DTCL
 
             isLogSelected = true;
             IstRun = true;
+            await Task.Delay(1);
         }
 
         async Task CreatePerformanceLog(int slotNumber, string dtcSerialNumber, SlotInfo slotInfo)
@@ -2300,7 +2317,6 @@ namespace DTCL
 
             var iterationMode = IterationSel.IsChecked == true;
             var iterationCount = 0;
-            var durationSeconds = 0;
             var PCDurationTime = 0;
 
             if (withCart.IsChecked == true)
@@ -2896,12 +2912,9 @@ namespace DTCL
             buttonManager.SetButtonColorState(clickedButton, Colors.DodgerBlue);
 
             StatusTextBlock.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Render);
-            var sel = false;
 
             await hwInfo.StopScanningAsync();
             var res = await LedState.DTCLAppCtrlLed();
-
-            sel = true;
 
             if (await LedState.LoopBackTestAll() == false)
             {

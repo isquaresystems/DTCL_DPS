@@ -88,7 +88,6 @@ namespace DTCL.Mux
         public Dictionary<int, MuxChannelManager> channelManagers { get; private set; }
         public bool isMuxHwConnected;
         public UartTransportSync _muxTransport;
-        bool stopPcFlag;
         public bool IstRun;
         int _activeChannelNumber;
 

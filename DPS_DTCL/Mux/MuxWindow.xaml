@@ -140,14 +140,27 @@
               BeginningEdit="MuxChannelGrid_BeginningEdit"
               Margin="0,0,10,0"
               Grid.Column="0" Grid.ColumnSpan="3">
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="12"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.ColumnHeaderStyle>
+                            <Style TargetType="DataGridColumnHeader">
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="FontSize" Value="12"/>
+                                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                            </Style>
+                        </DataGrid.ColumnHeaderStyle>
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Port No" Binding="{Binding Channel}" Width="55" IsReadOnly="True"/>
-                            <DataGridCheckBoxColumn Header="DTCL Connection Status" Binding="{Binding isDTCLConnected}" Width="140" IsReadOnly="True"/>
+                            <DataGridCheckBoxColumn Header="DTCL Connection Status" Binding="{Binding isDTCLConnected}" Width="140" IsReadOnly="True" MinWidth="150"/>
                             <DataGridCheckBoxColumn
-    Width="85"
+    Width="105"
     Binding="{Binding isUserSelected,
                       Mode=TwoWay,
-                      UpdateSourceTrigger=PropertyChanged}">
+                      UpdateSourceTrigger=PropertyChanged}" MinWidth="100" DisplayIndex="2">
                                 <DataGridCheckBoxColumn.Header>
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                         <CheckBox x:Name="SelectAllCheckBox" 
@@ -158,7 +171,8 @@
                                                   Unchecked="SelectAllCheckBox_Unchecked"
                                                   Margin="1,0"/>
                                         <TextBlock Text="Select Port" 
-                                                   FontSize="9" 
+                                                   FontSize="12" 
+                                                   FontWeight="Bold"
                                                    HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    Margin="2,0"/>
@@ -193,33 +207,68 @@
 
                             <DataGridTextColumn Header="Unit S.No"
                     Binding="{Binding UnitSno}"
-                    Width="60">
+                    Width="60" MinWidth="65">
                                 <DataGridTextColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
-                                        <!-- default: enabled if either radio is checked -->
-                                        <Setter Property="IsEnabled"
-              Value="{Binding IsChecked, ElementName=withCart}"/>
+                                        <!-- default: disabled -->
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontSize" Value="12"/>
                                         <Style.Triggers>
-                                            <!-- if WITHOUT is checked, still enable Unit S.No -->
-                                            <DataTrigger Binding="{Binding IsChecked, ElementName=withOutCart}"
-                     Value="True">
+                                            <!-- Enable only if channel is selected AND withCart is checked -->
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding isUserSelected}" Value="True"/>
+                                                    <Condition Binding="{Binding IsChecked, ElementName=withCart}" Value="True"/>
+                                                </MultiDataTrigger.Conditions>
                                                 <Setter Property="IsEnabled" Value="True"/>
-                                            </DataTrigger>
+                                            </MultiDataTrigger>
+                                            <!-- Enable only if channel is selected AND withOutCart is checked -->
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding isUserSelected}" Value="True"/>
+                                                    <Condition Binding="{Binding IsChecked, ElementName=withOutCart}" Value="True"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </MultiDataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontSize" Value="12"/>
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
                             </DataGridTextColumn>
-                            <DataGridTextColumn Header="Cart Type" Binding="{Binding CartType}" Width="60" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Cart Type" Binding="{Binding CartType}" Width="60" IsReadOnly="True" MinWidth="65"/>
                             <DataGridTextColumn Header="DTC S.No"
                     Binding="{Binding DtcSno}"
-                    Width="60">
+                    Width="60" MinWidth="65">
                                 <DataGridTextColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
-                                        <!-- only enable when WITH is checked -->
-                                        <Setter Property="IsEnabled"
-              Value="{Binding IsChecked, ElementName=withCart}"/>
+                                        <!-- default: disabled -->
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontSize" Value="12"/>
+                                        <Style.Triggers>
+                                            <!-- Enable only if channel is selected AND withCart is checked -->
+                                            <MultiDataTrigger>
+                                                <MultiDataTrigger.Conditions>
+                                                    <Condition Binding="{Binding isUserSelected}" Value="True"/>
+                                                    <Condition Binding="{Binding IsChecked, ElementName=withCart}" Value="True"/>
+                                                </MultiDataTrigger.Conditions>
+                                                <Setter Property="IsEnabled" Value="True"/>
+                                            </MultiDataTrigger>
+                                        </Style.Triggers>
                                     </Style>
                                 </DataGridTextColumn.CellStyle>
+                                <DataGridTextColumn.EditingElementStyle>
+                                    <Style TargetType="TextBox">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                        <Setter Property="FontSize" Value="12"/>
+                                    </Style>
+                                </DataGridTextColumn.EditingElementStyle>
                             </DataGridTextColumn>
                             <DataGridTextColumn Header="Result" Binding="{Binding PCStatus}" Width="45" IsReadOnly="True"/>
                         </DataGrid.Columns>
@@ -255,7 +304,7 @@
 
                     <StackPanel Orientation="Vertical" Margin="10,10,81,5" Grid.ColumnSpan="3">
 
-                        <Label Content="COMMANDS" FontSize="18" FontWeight="Bold" HorizontalAlignment="left" Margin="150,0,0,10"/>
+                        <Label Content="COMMANDS" x:Name="CommandsLabel" FontSize="18" FontWeight="Bold" HorizontalAlignment="left" Margin="150,0,0,10"/>
                         <StackPanel Grid.Column="3" Orientation="Horizontal" Margin="0,0,0,10">
                             <Button x:Name="Erase" Content="Erase" Style="{StaticResource PCSharedButtonStyle}" Width="120" Margin="10,0"  Height="68"/>
                             <Button x:Name="Write" Content="Write" Style="{StaticResource PCSharedButtonStyle}" Width="120" Margin="10,0" />

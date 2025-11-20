@@ -1,67 +1,199 @@
-2025-11-08 21:03:08.238 [Info] Application started
-2025-11-08 21:03:13.122 [Info] Directory already Exists:c:\mps\DARIN2\upload\
-2025-11-08 21:03:13.531 [Info] Directory already Exists:c:\mps\DARIN3\upload\
-2025-11-08 21:03:13.947 [Info] Directory already Exists:c:\mps\DARIN2\download\
-2025-11-08 21:03:14.530 [Info] Directory already Exists:c:\mps\DARIN3\download\
-2025-11-08 21:03:31.003 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:03:31.005 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:31.260 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:03:31.261 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:31.510 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:03:31.511 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:32.763 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
-2025-11-08 21:03:32.764 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:32.795 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:03:32.796 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:32.834 [Debug] [RX-RESET] State reset to Idle
-2025-11-08 21:03:32.835 [Debug] [RX-INIT] IspCmdReceiveData initialized
-2025-11-08 21:03:32.838 [Debug] [TX-RESET] Transmission state reset to Idle
-2025-11-08 21:03:32.839 [Debug] [TX-INIT] IspCmdTransmitData initialized
-2025-11-08 21:03:32.839 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
-2025-11-08 21:03:32.840 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers.
-2025-11-08 21:03:32.844 [Info] [EVT0000] [OnHwConnected] Port Connected
-2025-11-08 21:03:33.132 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:03:33.133 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:33.136 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
-2025-11-08 21:03:33.174 [Debug] OnCartDetected isPCMode :False
-2025-11-08 21:03:33.185 [Info] [EVT3001] Registered handler for subcommand 0x00.
-2025-11-08 21:03:33.185 [Info] [EVT3001] Registered handler for subcommand 0x01.
-2025-11-08 21:03:33.185 [Info] [EVT3001] Registered handler for subcommand 0x02.
-2025-11-08 21:03:33.187 [Info] [EVT3001] Registered handler for subcommand 0x09.
-2025-11-08 21:03:33.187 [Debug] RegisterSubCommandHandlers :Darin2
-2025-11-08 21:03:33.198 [Debug] OnCartDetected isPCMode :False
-2025-11-08 21:03:34.138 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:03:34.139 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:34.140 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
-2025-11-08 21:03:34.177 [Debug] RegisterSubCommandHandlers :Darin2
-2025-11-08 21:03:34.180 [Debug] OnCartDetected isPCMode :False
-2025-11-08 21:03:35.138 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:03:35.139 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:35.140 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
-2025-11-08 21:03:35.176 [Debug] RegisterSubCommandHandlers :Darin2
-2025-11-08 21:03:35.178 [Debug] OnCartDetected isPCMode :False
-2025-11-08 21:03:35.616 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
-2025-11-08 21:03:35.617 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:35.620 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
-2025-11-08 21:03:36.139 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:03:36.140 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:36.142 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
-2025-11-08 21:03:36.179 [Debug] RegisterSubCommandHandlers :Darin2
-2025-11-08 21:03:36.185 [Debug] OnCartDetected isPCMode :False
-2025-11-08 21:03:37.139 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:03:37.140 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:37.142 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
-2025-11-08 21:03:37.171 [Debug] RegisterSubCommandHandlers :Darin2
-2025-11-08 21:03:37.183 [Debug] OnCartDetected isPCMode :False
-2025-11-08 21:03:38.140 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
-2025-11-08 21:03:38.140 [Debug] [EVT2014] Sending Command frame. Size = 0
-2025-11-08 21:03:38.141 [Debug] [TX-COMPLETE] Physical transmission completed - Success: True
-2025-11-08 21:03:38.178 [Debug] RegisterSubCommandHandlers :Darin2
-2025-11-08 21:03:38.209 [Debug] OnCartDetected isPCMode :False
-2025-11-08 21:03:38.967 [Error] Log file not found.
-2025-11-08 21:03:38.970 [Error] Log file not found.
-2025-11-08 21:03:39.069 [Info] Start FirmwareCtrlLed
-2025-11-08 21:03:39.070 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
-2025-11-08 21:03:39.070 [Debug] [EVT2014] Sending Command frame. Size = 1
-2025-11-08 21:03:39.071 [Debug] [TX-COMPLETE] Physical transmission completed - Success: False
-2025-11-08 21:03:39.072 [Error] UART transmit error: Port is not open.
+2025-11-20 17:52:38.501 [Info] Application started
+2025-11-20 17:52:38.504 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2025-11-20 17:52:38.505 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2025-11-20 17:52:38.505 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2025-11-20 17:52:38.506 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2025-11-20 17:52:44.059 [Info] Ctrl+M pressed - Creating MuxWindow
+2025-11-20 17:52:44.140 [Debug] Mux Hw port not connected initially
+2025-11-20 17:52:44.183 [Info] MuxWindow shown, hiding DPSMainWindow
+2025-11-20 17:52:45.795 [Debug] start scanning for Mux Port
+2025-11-20 17:52:45.903 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.010 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.123 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.231 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.339 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.446 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.559 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.666 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.774 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.888 [Debug] start scanning for Mux Port
+2025-11-20 17:52:46.995 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.103 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.216 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.323 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.430 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.544 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.652 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.759 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.873 [Debug] start scanning for Mux Port
+2025-11-20 17:52:47.981 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.088 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.201 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.308 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.415 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.531 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.638 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.745 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.852 [Debug] start scanning for Mux Port
+2025-11-20 17:52:48.966 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.073 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.180 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.294 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.402 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.509 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.622 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.730 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.838 [Debug] start scanning for Mux Port
+2025-11-20 17:52:49.952 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.059 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.165 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.281 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.388 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.495 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.603 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.717 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.824 [Debug] start scanning for Mux Port
+2025-11-20 17:52:50.932 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.046 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.153 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.261 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.368 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.484 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.591 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.699 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.806 [Debug] start scanning for Mux Port
+2025-11-20 17:52:51.919 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.028 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.135 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.243 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.358 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.466 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.573 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.680 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.793 [Debug] start scanning for Mux Port
+2025-11-20 17:52:52.901 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.014 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.122 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.230 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.337 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.451 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.558 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.665 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.781 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.888 [Debug] start scanning for Mux Port
+2025-11-20 17:52:53.996 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.104 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.217 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.324 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.432 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.545 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.653 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.760 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.873 [Debug] start scanning for Mux Port
+2025-11-20 17:52:54.982 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.089 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.196 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.310 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.417 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.525 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.639 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.746 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.854 [Debug] start scanning for Mux Port
+2025-11-20 17:52:55.968 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.075 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.182 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.296 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.404 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.512 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.619 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.727 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.841 [Debug] start scanning for Mux Port
+2025-11-20 17:52:56.949 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.056 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.170 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.278 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.385 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.499 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.607 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.714 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.821 [Debug] start scanning for Mux Port
+2025-11-20 17:52:57.935 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.042 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.150 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.264 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.371 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.480 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.587 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.701 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.808 [Debug] start scanning for Mux Port
+2025-11-20 17:52:58.915 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.031 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.138 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.245 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.353 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.467 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.574 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.681 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.795 [Debug] start scanning for Mux Port
+2025-11-20 17:52:59.903 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.010 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.123 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.231 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.338 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.452 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.559 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.666 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.774 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.888 [Debug] start scanning for Mux Port
+2025-11-20 17:53:00.996 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.104 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.217 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.325 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.432 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.539 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.655 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.762 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.869 [Debug] start scanning for Mux Port
+2025-11-20 17:53:01.978 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.092 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.199 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.306 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.419 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.528 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.635 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.742 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.858 [Debug] start scanning for Mux Port
+2025-11-20 17:53:02.965 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.072 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.186 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.293 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.401 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.514 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.622 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.730 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.837 [Debug] start scanning for Mux Port
+2025-11-20 17:53:03.951 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.058 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.165 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.274 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.388 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.495 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.603 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.717 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.824 [Debug] start scanning for Mux Port
+2025-11-20 17:53:04.931 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.045 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.153 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.261 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.368 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.483 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.590 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.697 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.810 [Debug] start scanning for Mux Port
+2025-11-20 17:53:05.917 [Debug] start scanning for Mux Port
+2025-11-20 17:53:06.026 [Debug] start scanning for Mux Port
+2025-11-20 17:53:06.053 [Info] Shutting down application from Mux window
+2025-11-20 17:53:06.092 [Info] Window closed via Exit button - application shutdown in progress
+2025-11-20 17:53:06.135 [Debug] start scanning for Mux Port
+2025-11-20 17:53:06.247 [Debug] start scanning for Mux Port
+2025-11-20 17:53:06.355 [Debug] start scanning for Mux Port

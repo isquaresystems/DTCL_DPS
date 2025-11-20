@@ -9,13 +9,12 @@ namespace DTCL.Cartridges
 {
     internal class Darin1
     {
-        public event EventHandler<CommandEventArgs> CommandInProgress;
+        
         public bool InitializeMessages() => false;
 
         public async Task<int> WriteUploadFiles(string path, Func<string, string, CustomMessageBox.MessageBoxResult> handleInvalidFile, IProgress<int> progress)
         {
-            bool status;
-
+            await Task.Delay(10);
             /*string uploadFileName = path + @"jmip.bin";
 
             DataHandler.Instance.ResetProgressValues();
@@ -59,6 +58,7 @@ namespace DTCL.Cartridges
         public async Task<int> EraseCartFiles(IProgress<int> progress, bool trueErase = false)
         {
             Log.Log.Info("start D1 Erase");
+            await Task.Delay(10);
             /* DataHandler.Instance.OnProgressChanged("Erase", 0, 2, progress);
 
              byte[] cmd = { DTCLInfo.D1_COMMAND_ERASE, 0 };
@@ -90,6 +90,7 @@ namespace DTCL.Cartridges
         public async Task<int> EraseCartPCFiles(IProgress<int> progress, bool trueErase = false)
         {
             Log.Log.Info("start D1 pc files Erase");
+            await Task.Delay(10);
             /* DataHandler.Instance.OnProgressChanged("Erase", 0, 2, progress);
 
              byte[] cmd = { DTCLInfo.D1_COMMAND_ERASE, 0 };
@@ -120,9 +121,8 @@ namespace DTCL.Cartridges
 
         public async Task<int> ReadDownloadFiles(string path, Func<string, string, CustomMessageBox.MessageBoxResult> handleInvalidFile, IProgress<int> progress, bool checkHeaderInfo = true)
         {
-            var offset = 0;
             var status = returnCodes.DTCL_SUCCESS;
-
+            await Task.Delay(10);
             /*  FileOperations.deleteAndCreateDir(path);
 
               string downloadFileName = path + @"jmip.bin";
@@ -175,7 +175,7 @@ namespace DTCL.Cartridges
         {
             Log.Log.Info("Starting copy operation");
             var ret = -1;
-
+            await Task.Delay(10);
             /*  displayUserStatus("Copy_Inprogess_Msg");
 
               DTCLInfo.Instance.isCartChanged = false;
@@ -240,7 +240,7 @@ namespace DTCL.Cartridges
         {
             Log.Log.Info("Starting compare operation");
             var ret = -1;
-
+            await Task.Delay(10);
             /*  DTCLInfo.Instance.isCartChanged = false;
 
               displayUserStatus("Compare_Reading_Ist_cart_Msg");
