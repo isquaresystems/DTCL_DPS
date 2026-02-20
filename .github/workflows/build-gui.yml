@@ -15,11 +15,6 @@ jobs:
   build:
     runs-on: windows-latest
 
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-        platform: [AnyCPU]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,30 +30,29 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore DPS_DTCL/DTCL.sln
 
-      - name: Build ${{ matrix.configuration }}
+      - name: Build Release
         run: |
           msbuild DPS_DTCL/DTCL.sln `
-            /p:Configuration=${{ matrix.configuration }} `
-            /p:Platform=${{ matrix.platform }} `
+            /p:Configuration=Release `
+            /p:Platform="Any CPU" `
             /p:DebugType=embedded `
             /p:DebugSymbols=true `
             /v:minimal `
             /m
 
       - name: Upload Release Artifacts
-        if: matrix.configuration == 'Release'
         uses: actions/upload-artifact@v4
         with:
-          name: DTCL-${{ matrix.configuration }}-${{ matrix.platform }}
+          name: DTCL-Release
           path: |
-            DPS_DTCL/bin/${{ matrix.configuration }}/DTCL.exe
-            DPS_DTCL/bin/${{ matrix.configuration }}/*.dll
-            DPS_DTCL/bin/${{ matrix.configuration }}/*.config
-            DPS_DTCL/bin/${{ matrix.configuration }}/Default.txt
-            DPS_DTCL/bin/${{ matrix.configuration }}/D1/**
-            DPS_DTCL/bin/${{ matrix.configuration }}/D2/**
-            DPS_DTCL/bin/${{ matrix.configuration }}/D3/**
-            DPS_DTCL/bin/${{ matrix.configuration }}/PopUpMessage/**
+            DPS_DTCL/bin/Release/DTCL.exe
+            DPS_DTCL/bin/Release/*.dll
+            DPS_DTCL/bin/Release/*.config
+            DPS_DTCL/bin/Release/Default.txt
+            DPS_DTCL/bin/Release/D1/**
+            DPS_DTCL/bin/Release/D2/**
+            DPS_DTCL/bin/Release/D3/**
+            DPS_DTCL/bin/Release/PopUpMessage/**
           retention-days: 30
 
   build-testconsole:
