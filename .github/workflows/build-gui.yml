@@ -1,0 +1,82 @@
+name: Build DTCL GUI
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'DPS_DTCL/**'
+      - 'TestConsole/**'
+      - '.github/workflows/build-gui.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        platform: [AnyCPU]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore DPS_DTCL/DTCL.sln
+
+      - name: Build ${{ matrix.configuration }}
+        run: |
+          msbuild DPS_DTCL/DTCL.sln `
+            /p:Configuration=${{ matrix.configuration }} `
+            /p:Platform=${{ matrix.platform }} `
+            /p:DebugType=embedded `
+            /p:DebugSymbols=true `
+            /v:minimal `
+            /m
+
+      - name: Upload Release Artifacts
+        if: matrix.configuration == 'Release'
+        uses: actions/upload-artifact@v4
+        with:
+          name: DTCL-${{ matrix.configuration }}-${{ matrix.platform }}
+          path: |
+            DPS_DTCL/bin/${{ matrix.configuration }}/DTCL.exe
+            DPS_DTCL/bin/${{ matrix.configuration }}/*.dll
+            DPS_DTCL/bin/${{ matrix.configuration }}/*.config
+            DPS_DTCL/bin/${{ matrix.configuration }}/Default.txt
+            DPS_DTCL/bin/${{ matrix.configuration }}/D1/**
+            DPS_DTCL/bin/${{ matrix.configuration }}/D2/**
+            DPS_DTCL/bin/${{ matrix.configuration }}/D3/**
+            DPS_DTCL/bin/${{ matrix.configuration }}/PopUpMessage/**
+          retention-days: 30
+
+  build-testconsole:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET Framework
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build TestConsole
+        run: dotnet build TestConsole/TestConsole.csproj --configuration Release
+
+      - name: Upload TestConsole Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: TestConsole-Release
+          path: TestConsole/bin/Release/net48/**
+          retention-days: 30

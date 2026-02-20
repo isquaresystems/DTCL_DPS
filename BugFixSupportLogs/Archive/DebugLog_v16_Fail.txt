@@ -1,0 +1,124 @@
+2026-02-15 10:13:37.111 [Info] Application started
+2026-02-15 10:13:37.112 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2026-02-15 10:13:37.112 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2026-02-15 10:13:37.112 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2026-02-15 10:13:37.112 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2026-02-15 10:13:37.291 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 10:13:37.522 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 10:13:37.770 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 10:13:39.035 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
+2026-02-15 10:13:39.071 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 10:13:39.102 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
+2026-02-15 10:13:39.103 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers.
+2026-02-15 10:13:39.104 [Info] [EVT0000] [OnHwConnected] Port Connected
+2026-02-15 10:13:39.130 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 10:13:39.173 [Info] [EVT3001] Registered handler for subcommand 0x0C.
+2026-02-15 10:13:39.173 [Info] [EVT3001] Registered handler for subcommand 0x0D.
+2026-02-15 10:13:39.173 [Info] [EVT3001] Registered handler for subcommand 0x0F.
+2026-02-15 10:13:39.173 [Info] [EVT3001] Registered handler for subcommand 0x0B.
+2026-02-15 10:13:39.173 [Info] [EVT3001] Registered handler for subcommand 0x0E.
+2026-02-15 10:13:39.309 [Error] MessageBoxResult exception : Cannot set Owner property to a Window that has not been shown previously.
+2026-02-15 10:13:40.129 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 10:13:42.242 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 10:13:43.254 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 10:13:43.784 [Info] Start DTCLAppCtrlLed
+2026-02-15 10:13:43.785 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-15 10:13:43.822 [Info] Start DTCLAppCtrlLed Done
+2026-02-15 10:13:43.823 [Info] [EVT200] Executing command: subCmd=0x06, dataLen=6
+2026-02-15 10:13:43.850 [Info] [EVT200] Executing command: subCmd=0x05, dataLen=6
+2026-02-15 10:13:43.890 [Info] Power Cycle Start
+2026-02-15 10:13:43.890 [Info] [EVT200] Executing command: subCmd=0x13, dataLen=4
+2026-02-15 10:13:44.128 [Info] Power Cycle Done
+2026-02-15 10:13:44.167 [Info] Upload Messages Initialized
+2026-02-15 10:13:44.168 [Info] Starting erase operation
+2026-02-15 10:13:44.168 [Info] [EVT200] Executing command: subCmd=0x0B, dataLen=5
+2026-02-15 10:13:44.403 [Info] Starting Copy of valid files to temp folder
+2026-02-15 10:13:44.405 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:44.406 [Info] Copied c:\mps\DARIN3\upload\DR.bin to c:\mps\DARIN3\upload\temp\DR.bin.
+2026-02-15 10:13:45.731 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:45.733 [Info] Copied c:\mps\DARIN3\upload\WP.bin to c:\mps\DARIN3\upload\temp\WP.bin.
+2026-02-15 10:13:46.594 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.596 [Info] Copied c:\mps\DARIN3\upload\SPJ.BIN to c:\mps\DARIN3\upload\temp\SPJ.BIN.
+2026-02-15 10:13:46.596 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.598 [Info] Copied c:\mps\DARIN3\upload\RWR.BIN to c:\mps\DARIN3\upload\temp\RWR.BIN.
+2026-02-15 10:13:46.598 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.600 [Info] Copied c:\mps\DARIN3\upload\FPL.bin to c:\mps\DARIN3\upload\temp\FPL.bin.
+2026-02-15 10:13:46.600 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.601 [Info] Copied c:\mps\DARIN3\upload\CMDS.BIN to c:\mps\DARIN3\upload\temp\CMDS.BIN.
+2026-02-15 10:13:46.602 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.604 [Info] Copied c:\mps\DARIN3\upload\IFFA_PRI.bin to c:\mps\DARIN3\upload\temp\IFFA_PRI.bin.
+2026-02-15 10:13:46.604 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.606 [Info] Copied c:\mps\DARIN3\upload\IFFA_SEC.bin to c:\mps\DARIN3\upload\temp\IFFA_SEC.bin.
+2026-02-15 10:13:46.607 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.607 [Info] Copied c:\mps\DARIN3\upload\IFFB_PRI.bin to c:\mps\DARIN3\upload\temp\IFFB_PRI.bin.
+2026-02-15 10:13:46.607 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.609 [Info] Copied c:\mps\DARIN3\upload\IFFB_SEC.bin to c:\mps\DARIN3\upload\temp\IFFB_SEC.bin.
+2026-02-15 10:13:46.609 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.611 [Info] Copied c:\mps\DARIN3\upload\INCOMKEY.bin to c:\mps\DARIN3\upload\temp\INCOMKEY.bin.
+2026-02-15 10:13:46.611 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.613 [Info] Copied c:\mps\DARIN3\upload\INCOMCRY.bin to c:\mps\DARIN3\upload\temp\INCOMCRY.bin.
+2026-02-15 10:13:46.613 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 10:13:46.614 [Info] Copied c:\mps\DARIN3\upload\INCOMMNE.bin to c:\mps\DARIN3\upload\temp\INCOMMNE.bin.
+2026-02-15 10:13:46.614 [Info] Copy of valid files to temp folder done
+2026-02-15 10:13:46.616 [Info] Start Uploading files to Cartridge
+2026-02-15 10:13:46.616 [Info] Start Uploading File: CMDS.BIN
+2026-02-15 10:13:46.617 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:192 MsgID:18 cart:3
+2026-02-15 10:13:46.619 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.619 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.619 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-15 10:13:46.619 [Info] [TX-SETUP] SetMode - Data size: 192 bytes, State: Idle -> WaitAck
+2026-02-15 10:13:46.620 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-15 10:13:46.621 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-15 10:13:46.621 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-15 10:13:46.623 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=192, FileName=CMDS.BIN
+2026-02-15 10:13:46.624 [Info] [TX-DATA] Data prepared - Size: 192 bytes, Starting transmission...
+2026-02-15 10:13:46.624 [Info] [TX-DATA] Data set for transmission - Size: 192 bytes
+2026-02-15 10:13:46.624 [Info] [TX-START] Starting transmission - 192 bytes, first packet seq 0
+2026-02-15 10:13:46.627 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x00) - Preparing data for transmission
+2026-02-15 10:13:46.628 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x00
+2026-02-15 10:13:46.628 [Warning] [EVT3007] No TX handler registered for subcommand 0x00. Returning empty.
+2026-02-15 10:13:46.644 [Info] Writing Done for cart:3 MsgID:18 resp:SUCESS
+2026-02-15 10:13:46.644 [Info] Successfully Uploaded File: CMDS.BIN
+2026-02-15 10:13:46.644 [Info] Start Uploading File: DR.bin
+2026-02-15 10:13:46.644 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:64 MsgID:3 cart:3
+2026-02-15 10:13:46.644 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.644 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.644 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-15 10:13:46.644 [Info] [TX-SETUP] SetMode - Data size: 64 bytes, State: Idle -> WaitAck
+2026-02-15 10:13:46.649 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-15 10:13:46.649 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-15 10:13:46.649 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-15 10:13:46.651 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=64, FileName=DR.bin
+2026-02-15 10:13:46.651 [Info] [TX-DATA] Data prepared - Size: 64 bytes, Starting transmission...
+2026-02-15 10:13:46.651 [Info] [TX-DATA] Data set for transmission - Size: 64 bytes
+2026-02-15 10:13:46.651 [Info] [TX-START] Starting transmission - 64 bytes, first packet seq 0
+2026-02-15 10:13:46.653 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/64 bytes (87%)
+2026-02-15 10:13:46.677 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-15 10:13:46.709 [Info] Writing Done for cart:3 MsgID:3 resp:SUCESS
+2026-02-15 10:13:46.710 [Info] Successfully Uploaded File: DR.bin
+2026-02-15 10:13:46.710 [Info] Start Uploading File: FPL.bin
+2026-02-15 10:13:46.710 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:34776 MsgID:6 cart:3
+2026-02-15 10:13:46.710 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.710 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.710 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-15 10:13:46.710 [Info] [TX-SETUP] SetMode - Data size: 34776 bytes, State: Idle -> WaitAck
+2026-02-15 10:13:46.711 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-15 10:13:46.711 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-15 10:13:46.712 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-15 10:13:46.719 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=34776, FileName=FPL.bin
+2026-02-15 10:13:46.720 [Info] [TX-DATA] Data prepared - Size: 34776 bytes, Starting transmission...
+2026-02-15 10:13:46.720 [Info] [TX-DATA] Data set for transmission - Size: 34776 bytes
+2026-02-15 10:13:46.720 [Info] [TX-START] Starting transmission - 34776 bytes, first packet seq 0
+2026-02-15 10:13:46.720 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x00) - Preparing data for transmission
+2026-02-15 10:13:46.720 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x00
+2026-02-15 10:13:46.720 [Warning] [EVT3007] No TX handler registered for subcommand 0x00. Returning empty.
+2026-02-15 10:13:46.742 [Info] Writing Done for cart:3 MsgID:6 resp:SUCESS
+2026-02-15 10:13:46.742 [Info] Successfully Uploaded File: FPL.bin
+2026-02-15 10:13:46.742 [Info] Start Uploading File: IFFA_PRI.bin
+2026-02-15 10:13:46.742 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:1024 MsgID:10 cart:3
+2026-02-15 10:13:46.743 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.743 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 10:13:46.743 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-15 10:13:46.743 [Info] [TX-SETUP] SetMode - Data size: 1024 bytes, State: Idle -> WaitAck
+2026-02-15 10:13:46.744 [Warning] [TX-FLOW] NACK received - Seq: 3072, Code: SUBCMD_SEQMISMATCH
+2026-02-15 10:13:46.744 [Warning] [TX-NACK] Ignoring NACK with out-of-range seq 3072 (max valid: 18, txSize: 1024)

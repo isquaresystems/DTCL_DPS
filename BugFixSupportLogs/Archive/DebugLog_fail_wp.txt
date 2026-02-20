@@ -1,0 +1,1428 @@
+2026-02-14 14:18:07.506 [Info] Application started
+2026-02-14 14:18:07.507 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2026-02-14 14:18:07.507 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2026-02-14 14:18:07.508 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2026-02-14 14:18:07.508 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2026-02-14 14:18:07.660 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 14:18:07.892 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 14:18:08.128 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 14:18:09.373 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
+2026-02-14 14:18:09.410 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 14:18:09.442 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
+2026-02-14 14:18:09.443 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers with frame buffer.
+2026-02-14 14:18:09.445 [Info] [EVT0000] [OnHwConnected] Port Connected
+2026-02-14 14:18:09.515 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 14:18:09.560 [Info] [EVT3001] Registered handler for subcommand 0x0C.
+2026-02-14 14:18:09.560 [Info] [EVT3001] Registered handler for subcommand 0x0D.
+2026-02-14 14:18:09.560 [Info] [EVT3001] Registered handler for subcommand 0x0F.
+2026-02-14 14:18:09.560 [Info] [EVT3001] Registered handler for subcommand 0x0B.
+2026-02-14 14:18:09.560 [Info] [EVT3001] Registered handler for subcommand 0x0E.
+2026-02-14 14:18:09.659 [Error] MessageBoxResult exception : Cannot set Owner property to a Window that has not been shown previously.
+2026-02-14 14:18:10.514 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 14:18:12.846 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 14:18:13.858 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 14:18:14.858 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 14:18:15.017 [Info] Start DTCLAppCtrlLed
+2026-02-14 14:18:15.019 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-14 14:18:15.046 [Info] Start DTCLAppCtrlLed Done
+2026-02-14 14:18:15.048 [Info] [EVT200] Executing command: subCmd=0x06, dataLen=6
+2026-02-14 14:18:15.086 [Info] [EVT200] Executing command: subCmd=0x05, dataLen=6
+2026-02-14 14:18:15.116 [Info] Power Cycle Start
+2026-02-14 14:18:15.117 [Info] [EVT200] Executing command: subCmd=0x13, dataLen=4
+2026-02-14 14:18:15.341 [Info] Power Cycle Done
+2026-02-14 14:18:15.390 [Info] Upload Messages Initialized
+2026-02-14 14:18:15.390 [Info] Starting erase operation
+2026-02-14 14:18:15.390 [Info] [EVT200] Executing command: subCmd=0x0B, dataLen=5
+2026-02-14 14:18:15.608 [Info] Starting Copy of valid files to temp folder
+2026-02-14 14:18:15.612 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:15.614 [Info] Copied c:\mps\DARIN3\upload\DR.bin to c:\mps\DARIN3\upload\temp\DR.bin.
+2026-02-14 14:18:17.037 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.037 [Info] Copied c:\mps\DARIN3\upload\WP.bin to c:\mps\DARIN3\upload\temp\WP.bin.
+2026-02-14 14:18:17.799 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.801 [Info] Copied c:\mps\DARIN3\upload\SPJ.BIN to c:\mps\DARIN3\upload\temp\SPJ.BIN.
+2026-02-14 14:18:17.801 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.803 [Info] Copied c:\mps\DARIN3\upload\RWR.BIN to c:\mps\DARIN3\upload\temp\RWR.BIN.
+2026-02-14 14:18:17.803 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.804 [Info] Copied c:\mps\DARIN3\upload\FPL.bin to c:\mps\DARIN3\upload\temp\FPL.bin.
+2026-02-14 14:18:17.804 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.805 [Info] Copied c:\mps\DARIN3\upload\CMDS.BIN to c:\mps\DARIN3\upload\temp\CMDS.BIN.
+2026-02-14 14:18:17.805 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.805 [Info] Copied c:\mps\DARIN3\upload\IFFA_PRI.bin to c:\mps\DARIN3\upload\temp\IFFA_PRI.bin.
+2026-02-14 14:18:17.806 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.806 [Info] Copied c:\mps\DARIN3\upload\IFFA_SEC.bin to c:\mps\DARIN3\upload\temp\IFFA_SEC.bin.
+2026-02-14 14:18:17.806 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.807 [Info] Copied c:\mps\DARIN3\upload\IFFB_PRI.bin to c:\mps\DARIN3\upload\temp\IFFB_PRI.bin.
+2026-02-14 14:18:17.807 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.807 [Info] Copied c:\mps\DARIN3\upload\IFFB_SEC.bin to c:\mps\DARIN3\upload\temp\IFFB_SEC.bin.
+2026-02-14 14:18:17.808 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.809 [Info] Copied c:\mps\DARIN3\upload\INCOMKEY.bin to c:\mps\DARIN3\upload\temp\INCOMKEY.bin.
+2026-02-14 14:18:17.809 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.810 [Info] Copied c:\mps\DARIN3\upload\INCOMCRY.bin to c:\mps\DARIN3\upload\temp\INCOMCRY.bin.
+2026-02-14 14:18:17.810 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 14:18:17.811 [Info] Copied c:\mps\DARIN3\upload\INCOMMNE.bin to c:\mps\DARIN3\upload\temp\INCOMMNE.bin.
+2026-02-14 14:18:17.811 [Info] Copy of valid files to temp folder done
+2026-02-14 14:18:17.812 [Info] Start Uploading files to Cartridge
+2026-02-14 14:18:17.812 [Info] Start Uploading File: CMDS.BIN
+2026-02-14 14:18:17.813 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:192 MsgID:18 cart:3
+2026-02-14 14:18:17.815 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:17.815 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:17.816 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:17.816 [Info] [TX-SETUP] SetMode - Data size: 192 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:17.821 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:17.821 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:17.822 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:17.825 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=192, FileName=CMDS.BIN
+2026-02-14 14:18:17.826 [Info] [TX-DATA] Data prepared - Size: 192 bytes, Starting transmission...
+2026-02-14 14:18:17.826 [Info] [TX-DATA] Data set for transmission - Size: 192 bytes
+2026-02-14 14:18:17.827 [Info] [TX-START] Starting transmission - 192 bytes, first packet seq 0
+2026-02-14 14:18:17.830 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/192 bytes (29%)
+2026-02-14 14:18:17.830 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/192 bytes (58%)
+2026-02-14 14:18:17.831 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/192 bytes (87%)
+2026-02-14 14:18:17.854 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:17.882 [Info] Writing Done for cart:3 MsgID:18 resp:SUCESS
+2026-02-14 14:18:17.883 [Info] Successfully Uploaded File: CMDS.BIN
+2026-02-14 14:18:17.883 [Info] Start Uploading File: DR.bin
+2026-02-14 14:18:17.883 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:64 MsgID:3 cart:3
+2026-02-14 14:18:17.883 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:17.883 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:17.883 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:17.884 [Info] [TX-SETUP] SetMode - Data size: 64 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:17.884 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:17.884 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:17.885 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:17.886 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=64, FileName=DR.bin
+2026-02-14 14:18:17.886 [Info] [TX-DATA] Data prepared - Size: 64 bytes, Starting transmission...
+2026-02-14 14:18:17.887 [Info] [TX-DATA] Data set for transmission - Size: 64 bytes
+2026-02-14 14:18:17.894 [Info] [TX-START] Starting transmission - 64 bytes, first packet seq 0
+2026-02-14 14:18:17.894 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/64 bytes (87%)
+2026-02-14 14:18:17.917 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:17.953 [Info] Writing Done for cart:3 MsgID:3 resp:SUCESS
+2026-02-14 14:18:17.953 [Info] Successfully Uploaded File: DR.bin
+2026-02-14 14:18:17.954 [Info] Start Uploading File: FPL.bin
+2026-02-14 14:18:17.954 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:34776 MsgID:6 cart:3
+2026-02-14 14:18:17.954 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:17.954 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:17.954 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:17.954 [Info] [TX-SETUP] SetMode - Data size: 34776 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:17.958 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:17.958 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:17.958 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:17.966 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=34776, FileName=FPL.bin
+2026-02-14 14:18:17.966 [Info] [TX-DATA] Data prepared - Size: 34776 bytes, Starting transmission...
+2026-02-14 14:18:17.966 [Info] [TX-DATA] Data set for transmission - Size: 34776 bytes
+2026-02-14 14:18:17.966 [Info] [TX-START] Starting transmission - 34776 bytes, first packet seq 0
+2026-02-14 14:18:17.967 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/34776 bytes (0%)
+2026-02-14 14:18:17.967 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/34776 bytes (0%)
+2026-02-14 14:18:17.968 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/34776 bytes (0%)
+2026-02-14 14:18:17.969 [Info] [TX-PROGRESS] ACK seq 3 - Progress: 224/34776 bytes (0%)
+2026-02-14 14:18:17.969 [Info] [TX-PROGRESS] ACK seq 4 - Progress: 280/34776 bytes (0%)
+2026-02-14 14:18:17.970 [Info] [TX-PROGRESS] ACK seq 5 - Progress: 336/34776 bytes (0%)
+2026-02-14 14:18:17.971 [Info] [TX-PROGRESS] ACK seq 6 - Progress: 392/34776 bytes (1%)
+2026-02-14 14:18:17.971 [Info] [TX-PROGRESS] ACK seq 7 - Progress: 448/34776 bytes (1%)
+2026-02-14 14:18:17.972 [Info] [TX-PROGRESS] ACK seq 8 - Progress: 504/34776 bytes (1%)
+2026-02-14 14:18:17.972 [Info] [TX-PROGRESS] ACK seq 9 - Progress: 560/34776 bytes (1%)
+2026-02-14 14:18:17.972 [Info] [TX-PROGRESS] ACK seq 10 - Progress: 616/34776 bytes (1%)
+2026-02-14 14:18:17.973 [Info] [TX-PROGRESS] ACK seq 11 - Progress: 672/34776 bytes (1%)
+2026-02-14 14:18:17.973 [Info] [TX-PROGRESS] ACK seq 12 - Progress: 728/34776 bytes (2%)
+2026-02-14 14:18:17.974 [Info] [TX-PROGRESS] ACK seq 13 - Progress: 784/34776 bytes (2%)
+2026-02-14 14:18:17.974 [Info] [TX-PROGRESS] ACK seq 14 - Progress: 840/34776 bytes (2%)
+2026-02-14 14:18:17.975 [Info] [TX-PROGRESS] ACK seq 15 - Progress: 896/34776 bytes (2%)
+2026-02-14 14:18:17.975 [Info] [TX-PROGRESS] ACK seq 16 - Progress: 952/34776 bytes (2%)
+2026-02-14 14:18:17.975 [Info] [TX-PROGRESS] ACK seq 17 - Progress: 1008/34776 bytes (2%)
+2026-02-14 14:18:17.976 [Info] [TX-PROGRESS] ACK seq 18 - Progress: 1064/34776 bytes (3%)
+2026-02-14 14:18:17.976 [Info] [TX-PROGRESS] ACK seq 19 - Progress: 1120/34776 bytes (3%)
+2026-02-14 14:18:17.976 [Info] [TX-PROGRESS] ACK seq 20 - Progress: 1176/34776 bytes (3%)
+2026-02-14 14:18:17.977 [Info] [TX-PROGRESS] ACK seq 21 - Progress: 1232/34776 bytes (3%)
+2026-02-14 14:18:17.977 [Info] [TX-PROGRESS] ACK seq 22 - Progress: 1288/34776 bytes (3%)
+2026-02-14 14:18:17.978 [Info] [TX-PROGRESS] ACK seq 23 - Progress: 1344/34776 bytes (3%)
+2026-02-14 14:18:17.978 [Info] [TX-PROGRESS] ACK seq 24 - Progress: 1400/34776 bytes (4%)
+2026-02-14 14:18:17.978 [Info] [TX-PROGRESS] ACK seq 25 - Progress: 1456/34776 bytes (4%)
+2026-02-14 14:18:17.979 [Info] [TX-PROGRESS] ACK seq 26 - Progress: 1512/34776 bytes (4%)
+2026-02-14 14:18:17.979 [Info] [TX-PROGRESS] ACK seq 27 - Progress: 1568/34776 bytes (4%)
+2026-02-14 14:18:17.980 [Info] [TX-PROGRESS] ACK seq 28 - Progress: 1624/34776 bytes (4%)
+2026-02-14 14:18:17.980 [Info] [TX-PROGRESS] ACK seq 29 - Progress: 1680/34776 bytes (4%)
+2026-02-14 14:18:17.980 [Info] [TX-PROGRESS] ACK seq 30 - Progress: 1736/34776 bytes (4%)
+2026-02-14 14:18:17.982 [Info] [TX-PROGRESS] ACK seq 31 - Progress: 1792/34776 bytes (5%)
+2026-02-14 14:18:17.982 [Info] [TX-PROGRESS] ACK seq 32 - Progress: 1848/34776 bytes (5%)
+2026-02-14 14:18:17.982 [Info] [TX-PROGRESS] ACK seq 33 - Progress: 1904/34776 bytes (5%)
+2026-02-14 14:18:17.983 [Info] [TX-PROGRESS] ACK seq 34 - Progress: 1960/34776 bytes (5%)
+2026-02-14 14:18:17.983 [Info] [TX-PROGRESS] ACK seq 35 - Progress: 2016/34776 bytes (5%)
+2026-02-14 14:18:17.983 [Info] [TX-PROGRESS] ACK seq 36 - Progress: 2072/34776 bytes (5%)
+2026-02-14 14:18:17.983 [Info] [TX-PROGRESS] ACK seq 37 - Progress: 2128/34776 bytes (6%)
+2026-02-14 14:18:17.984 [Info] [TX-PROGRESS] ACK seq 38 - Progress: 2184/34776 bytes (6%)
+2026-02-14 14:18:17.985 [Info] [TX-PROGRESS] ACK seq 39 - Progress: 2240/34776 bytes (6%)
+2026-02-14 14:18:17.985 [Info] [TX-PROGRESS] ACK seq 40 - Progress: 2296/34776 bytes (6%)
+2026-02-14 14:18:17.986 [Info] [TX-PROGRESS] ACK seq 41 - Progress: 2352/34776 bytes (6%)
+2026-02-14 14:18:17.986 [Info] [TX-PROGRESS] ACK seq 42 - Progress: 2408/34776 bytes (6%)
+2026-02-14 14:18:17.987 [Info] [TX-PROGRESS] ACK seq 43 - Progress: 2464/34776 bytes (7%)
+2026-02-14 14:18:17.987 [Info] [TX-PROGRESS] ACK seq 44 - Progress: 2520/34776 bytes (7%)
+2026-02-14 14:18:17.988 [Info] [TX-PROGRESS] ACK seq 45 - Progress: 2576/34776 bytes (7%)
+2026-02-14 14:18:17.988 [Info] [TX-PROGRESS] ACK seq 46 - Progress: 2632/34776 bytes (7%)
+2026-02-14 14:18:17.989 [Info] [TX-PROGRESS] ACK seq 47 - Progress: 2688/34776 bytes (7%)
+2026-02-14 14:18:17.989 [Info] [TX-PROGRESS] ACK seq 48 - Progress: 2744/34776 bytes (7%)
+2026-02-14 14:18:17.990 [Info] [TX-PROGRESS] ACK seq 49 - Progress: 2800/34776 bytes (8%)
+2026-02-14 14:18:17.990 [Info] [TX-PROGRESS] ACK seq 50 - Progress: 2856/34776 bytes (8%)
+2026-02-14 14:18:17.990 [Info] [TX-PROGRESS] ACK seq 51 - Progress: 2912/34776 bytes (8%)
+2026-02-14 14:18:17.991 [Info] [TX-PROGRESS] ACK seq 52 - Progress: 2968/34776 bytes (8%)
+2026-02-14 14:18:17.991 [Info] [TX-PROGRESS] ACK seq 53 - Progress: 3024/34776 bytes (8%)
+2026-02-14 14:18:17.991 [Info] [TX-PROGRESS] ACK seq 54 - Progress: 3080/34776 bytes (8%)
+2026-02-14 14:18:17.992 [Info] [TX-PROGRESS] ACK seq 55 - Progress: 3136/34776 bytes (9%)
+2026-02-14 14:18:17.992 [Info] [TX-PROGRESS] ACK seq 56 - Progress: 3192/34776 bytes (9%)
+2026-02-14 14:18:17.993 [Info] [TX-PROGRESS] ACK seq 57 - Progress: 3248/34776 bytes (9%)
+2026-02-14 14:18:17.993 [Info] [TX-PROGRESS] ACK seq 58 - Progress: 3304/34776 bytes (9%)
+2026-02-14 14:18:17.994 [Info] [TX-PROGRESS] ACK seq 59 - Progress: 3360/34776 bytes (9%)
+2026-02-14 14:18:17.994 [Info] [TX-PROGRESS] ACK seq 60 - Progress: 3416/34776 bytes (9%)
+2026-02-14 14:18:17.995 [Info] [TX-PROGRESS] ACK seq 61 - Progress: 3472/34776 bytes (9%)
+2026-02-14 14:18:17.995 [Info] [TX-PROGRESS] ACK seq 62 - Progress: 3528/34776 bytes (10%)
+2026-02-14 14:18:17.995 [Info] [TX-PROGRESS] ACK seq 63 - Progress: 3584/34776 bytes (10%)
+2026-02-14 14:18:17.996 [Info] [TX-PROGRESS] ACK seq 64 - Progress: 3640/34776 bytes (10%)
+2026-02-14 14:18:17.996 [Info] [TX-PROGRESS] ACK seq 65 - Progress: 3696/34776 bytes (10%)
+2026-02-14 14:18:17.997 [Info] [TX-PROGRESS] ACK seq 66 - Progress: 3752/34776 bytes (10%)
+2026-02-14 14:18:17.997 [Info] [TX-PROGRESS] ACK seq 67 - Progress: 3808/34776 bytes (10%)
+2026-02-14 14:18:17.998 [Info] [TX-PROGRESS] ACK seq 68 - Progress: 3864/34776 bytes (11%)
+2026-02-14 14:18:17.998 [Info] [TX-PROGRESS] ACK seq 69 - Progress: 3920/34776 bytes (11%)
+2026-02-14 14:18:17.998 [Info] [TX-PROGRESS] ACK seq 70 - Progress: 3976/34776 bytes (11%)
+2026-02-14 14:18:18.000 [Info] [TX-PROGRESS] ACK seq 71 - Progress: 4032/34776 bytes (11%)
+2026-02-14 14:18:18.000 [Info] [TX-PROGRESS] ACK seq 72 - Progress: 4088/34776 bytes (11%)
+2026-02-14 14:18:18.001 [Info] [TX-PROGRESS] ACK seq 73 - Progress: 4144/34776 bytes (11%)
+2026-02-14 14:18:18.001 [Info] [TX-PROGRESS] ACK seq 74 - Progress: 4200/34776 bytes (12%)
+2026-02-14 14:18:18.002 [Info] [TX-PROGRESS] ACK seq 75 - Progress: 4256/34776 bytes (12%)
+2026-02-14 14:18:18.002 [Info] [TX-PROGRESS] ACK seq 76 - Progress: 4312/34776 bytes (12%)
+2026-02-14 14:18:18.003 [Info] [TX-PROGRESS] ACK seq 77 - Progress: 4368/34776 bytes (12%)
+2026-02-14 14:18:18.003 [Info] [TX-PROGRESS] ACK seq 78 - Progress: 4424/34776 bytes (12%)
+2026-02-14 14:18:18.004 [Info] [TX-PROGRESS] ACK seq 79 - Progress: 4480/34776 bytes (12%)
+2026-02-14 14:18:18.004 [Info] [TX-PROGRESS] ACK seq 80 - Progress: 4536/34776 bytes (13%)
+2026-02-14 14:18:18.004 [Info] [TX-PROGRESS] ACK seq 81 - Progress: 4592/34776 bytes (13%)
+2026-02-14 14:18:18.005 [Info] [TX-PROGRESS] ACK seq 82 - Progress: 4648/34776 bytes (13%)
+2026-02-14 14:18:18.005 [Info] [TX-PROGRESS] ACK seq 83 - Progress: 4704/34776 bytes (13%)
+2026-02-14 14:18:18.006 [Info] [TX-PROGRESS] ACK seq 84 - Progress: 4760/34776 bytes (13%)
+2026-02-14 14:18:18.006 [Info] [TX-PROGRESS] ACK seq 85 - Progress: 4816/34776 bytes (13%)
+2026-02-14 14:18:18.007 [Info] [TX-PROGRESS] ACK seq 86 - Progress: 4872/34776 bytes (14%)
+2026-02-14 14:18:18.007 [Info] [TX-PROGRESS] ACK seq 87 - Progress: 4928/34776 bytes (14%)
+2026-02-14 14:18:18.008 [Info] [TX-PROGRESS] ACK seq 88 - Progress: 4984/34776 bytes (14%)
+2026-02-14 14:18:18.008 [Info] [TX-PROGRESS] ACK seq 89 - Progress: 5040/34776 bytes (14%)
+2026-02-14 14:18:18.008 [Info] [TX-PROGRESS] ACK seq 90 - Progress: 5096/34776 bytes (14%)
+2026-02-14 14:18:18.009 [Info] [TX-PROGRESS] ACK seq 91 - Progress: 5152/34776 bytes (14%)
+2026-02-14 14:18:18.009 [Info] [TX-PROGRESS] ACK seq 92 - Progress: 5208/34776 bytes (14%)
+2026-02-14 14:18:18.011 [Info] [TX-PROGRESS] ACK seq 93 - Progress: 5264/34776 bytes (15%)
+2026-02-14 14:18:18.011 [Info] [TX-PROGRESS] ACK seq 94 - Progress: 5320/34776 bytes (15%)
+2026-02-14 14:18:18.012 [Info] [TX-PROGRESS] ACK seq 95 - Progress: 5376/34776 bytes (15%)
+2026-02-14 14:18:18.012 [Info] [TX-PROGRESS] ACK seq 96 - Progress: 5432/34776 bytes (15%)
+2026-02-14 14:18:18.012 [Info] [TX-PROGRESS] ACK seq 97 - Progress: 5488/34776 bytes (15%)
+2026-02-14 14:18:18.013 [Info] [TX-PROGRESS] ACK seq 98 - Progress: 5544/34776 bytes (15%)
+2026-02-14 14:18:18.013 [Info] [TX-PROGRESS] ACK seq 99 - Progress: 5600/34776 bytes (16%)
+2026-02-14 14:18:18.013 [Info] [TX-PROGRESS] ACK seq 100 - Progress: 5656/34776 bytes (16%)
+2026-02-14 14:18:18.015 [Info] [TX-PROGRESS] ACK seq 101 - Progress: 5712/34776 bytes (16%)
+2026-02-14 14:18:18.015 [Info] [TX-PROGRESS] ACK seq 102 - Progress: 5768/34776 bytes (16%)
+2026-02-14 14:18:18.016 [Info] [TX-PROGRESS] ACK seq 103 - Progress: 5824/34776 bytes (16%)
+2026-02-14 14:18:18.016 [Info] [TX-PROGRESS] ACK seq 104 - Progress: 5880/34776 bytes (16%)
+2026-02-14 14:18:18.016 [Info] [TX-PROGRESS] ACK seq 105 - Progress: 5936/34776 bytes (17%)
+2026-02-14 14:18:18.016 [Info] [TX-PROGRESS] ACK seq 106 - Progress: 5992/34776 bytes (17%)
+2026-02-14 14:18:18.017 [Info] [TX-PROGRESS] ACK seq 107 - Progress: 6048/34776 bytes (17%)
+2026-02-14 14:18:18.017 [Info] [TX-PROGRESS] ACK seq 108 - Progress: 6104/34776 bytes (17%)
+2026-02-14 14:18:18.019 [Info] [TX-PROGRESS] ACK seq 109 - Progress: 6160/34776 bytes (17%)
+2026-02-14 14:18:18.019 [Info] [TX-PROGRESS] ACK seq 110 - Progress: 6216/34776 bytes (17%)
+2026-02-14 14:18:18.019 [Info] [TX-PROGRESS] ACK seq 111 - Progress: 6272/34776 bytes (18%)
+2026-02-14 14:18:18.020 [Info] [TX-PROGRESS] ACK seq 112 - Progress: 6328/34776 bytes (18%)
+2026-02-14 14:18:18.020 [Info] [TX-PROGRESS] ACK seq 113 - Progress: 6384/34776 bytes (18%)
+2026-02-14 14:18:18.021 [Info] [TX-PROGRESS] ACK seq 114 - Progress: 6440/34776 bytes (18%)
+2026-02-14 14:18:18.021 [Info] [TX-PROGRESS] ACK seq 115 - Progress: 6496/34776 bytes (18%)
+2026-02-14 14:18:18.022 [Info] [TX-PROGRESS] ACK seq 116 - Progress: 6552/34776 bytes (18%)
+2026-02-14 14:18:18.022 [Info] [TX-PROGRESS] ACK seq 117 - Progress: 6608/34776 bytes (19%)
+2026-02-14 14:18:18.022 [Info] [TX-PROGRESS] ACK seq 118 - Progress: 6664/34776 bytes (19%)
+2026-02-14 14:18:18.024 [Info] [TX-PROGRESS] ACK seq 119 - Progress: 6720/34776 bytes (19%)
+2026-02-14 14:18:18.024 [Info] [TX-PROGRESS] ACK seq 120 - Progress: 6776/34776 bytes (19%)
+2026-02-14 14:18:18.024 [Info] [TX-PROGRESS] ACK seq 121 - Progress: 6832/34776 bytes (19%)
+2026-02-14 14:18:18.025 [Info] [TX-PROGRESS] ACK seq 122 - Progress: 6888/34776 bytes (19%)
+2026-02-14 14:18:18.025 [Info] [TX-PROGRESS] ACK seq 123 - Progress: 6944/34776 bytes (19%)
+2026-02-14 14:18:18.025 [Info] [TX-PROGRESS] ACK seq 124 - Progress: 7000/34776 bytes (20%)
+2026-02-14 14:18:18.026 [Info] [TX-PROGRESS] ACK seq 125 - Progress: 7056/34776 bytes (20%)
+2026-02-14 14:18:18.026 [Info] [TX-PROGRESS] ACK seq 126 - Progress: 7112/34776 bytes (20%)
+2026-02-14 14:18:18.028 [Info] [TX-PROGRESS] ACK seq 127 - Progress: 7168/34776 bytes (20%)
+2026-02-14 14:18:18.028 [Info] [TX-PROGRESS] ACK seq 128 - Progress: 7224/34776 bytes (20%)
+2026-02-14 14:18:18.028 [Info] [TX-PROGRESS] ACK seq 129 - Progress: 7280/34776 bytes (20%)
+2026-02-14 14:18:18.029 [Info] [TX-PROGRESS] ACK seq 130 - Progress: 7336/34776 bytes (21%)
+2026-02-14 14:18:18.029 [Info] [TX-PROGRESS] ACK seq 131 - Progress: 7392/34776 bytes (21%)
+2026-02-14 14:18:18.029 [Info] [TX-PROGRESS] ACK seq 132 - Progress: 7448/34776 bytes (21%)
+2026-02-14 14:18:18.030 [Info] [TX-PROGRESS] ACK seq 133 - Progress: 7504/34776 bytes (21%)
+2026-02-14 14:18:18.030 [Info] [TX-PROGRESS] ACK seq 134 - Progress: 7560/34776 bytes (21%)
+2026-02-14 14:18:18.030 [Info] [TX-PROGRESS] ACK seq 135 - Progress: 7616/34776 bytes (21%)
+2026-02-14 14:18:18.032 [Info] [TX-PROGRESS] ACK seq 136 - Progress: 7672/34776 bytes (22%)
+2026-02-14 14:18:18.032 [Info] [TX-PROGRESS] ACK seq 137 - Progress: 7728/34776 bytes (22%)
+2026-02-14 14:18:18.033 [Info] [TX-PROGRESS] ACK seq 138 - Progress: 7784/34776 bytes (22%)
+2026-02-14 14:18:18.033 [Info] [TX-PROGRESS] ACK seq 139 - Progress: 7840/34776 bytes (22%)
+2026-02-14 14:18:18.033 [Info] [TX-PROGRESS] ACK seq 140 - Progress: 7896/34776 bytes (22%)
+2026-02-14 14:18:18.034 [Info] [TX-PROGRESS] ACK seq 141 - Progress: 7952/34776 bytes (22%)
+2026-02-14 14:18:18.034 [Info] [TX-PROGRESS] ACK seq 142 - Progress: 8008/34776 bytes (23%)
+2026-02-14 14:18:18.034 [Info] [TX-PROGRESS] ACK seq 143 - Progress: 8064/34776 bytes (23%)
+2026-02-14 14:18:18.036 [Info] [TX-PROGRESS] ACK seq 144 - Progress: 8120/34776 bytes (23%)
+2026-02-14 14:18:18.036 [Info] [TX-PROGRESS] ACK seq 145 - Progress: 8176/34776 bytes (23%)
+2026-02-14 14:18:18.037 [Info] [TX-PROGRESS] ACK seq 146 - Progress: 8232/34776 bytes (23%)
+2026-02-14 14:18:18.037 [Info] [TX-PROGRESS] ACK seq 147 - Progress: 8288/34776 bytes (23%)
+2026-02-14 14:18:18.038 [Info] [TX-PROGRESS] ACK seq 148 - Progress: 8344/34776 bytes (23%)
+2026-02-14 14:18:18.038 [Info] [TX-PROGRESS] ACK seq 149 - Progress: 8400/34776 bytes (24%)
+2026-02-14 14:18:18.039 [Info] [TX-PROGRESS] ACK seq 150 - Progress: 8456/34776 bytes (24%)
+2026-02-14 14:18:18.039 [Info] [TX-PROGRESS] ACK seq 151 - Progress: 8512/34776 bytes (24%)
+2026-02-14 14:18:18.039 [Info] [TX-PROGRESS] ACK seq 152 - Progress: 8568/34776 bytes (24%)
+2026-02-14 14:18:18.040 [Info] [TX-PROGRESS] ACK seq 153 - Progress: 8624/34776 bytes (24%)
+2026-02-14 14:18:18.040 [Info] [TX-PROGRESS] ACK seq 154 - Progress: 8680/34776 bytes (24%)
+2026-02-14 14:18:18.042 [Info] [TX-PROGRESS] ACK seq 155 - Progress: 8736/34776 bytes (25%)
+2026-02-14 14:18:18.042 [Info] [TX-PROGRESS] ACK seq 156 - Progress: 8792/34776 bytes (25%)
+2026-02-14 14:18:18.042 [Info] [TX-PROGRESS] ACK seq 157 - Progress: 8848/34776 bytes (25%)
+2026-02-14 14:18:18.043 [Info] [TX-PROGRESS] ACK seq 158 - Progress: 8904/34776 bytes (25%)
+2026-02-14 14:18:18.043 [Info] [TX-PROGRESS] ACK seq 159 - Progress: 8960/34776 bytes (25%)
+2026-02-14 14:18:18.044 [Info] [TX-PROGRESS] ACK seq 160 - Progress: 9016/34776 bytes (25%)
+2026-02-14 14:18:18.044 [Info] [TX-PROGRESS] ACK seq 161 - Progress: 9072/34776 bytes (26%)
+2026-02-14 14:18:18.044 [Info] [TX-PROGRESS] ACK seq 162 - Progress: 9128/34776 bytes (26%)
+2026-02-14 14:18:18.046 [Info] [TX-PROGRESS] ACK seq 163 - Progress: 9184/34776 bytes (26%)
+2026-02-14 14:18:18.046 [Info] [TX-PROGRESS] ACK seq 164 - Progress: 9240/34776 bytes (26%)
+2026-02-14 14:18:18.046 [Info] [TX-PROGRESS] ACK seq 165 - Progress: 9296/34776 bytes (26%)
+2026-02-14 14:18:18.047 [Info] [TX-PROGRESS] ACK seq 166 - Progress: 9352/34776 bytes (26%)
+2026-02-14 14:18:18.047 [Info] [TX-PROGRESS] ACK seq 167 - Progress: 9408/34776 bytes (27%)
+2026-02-14 14:18:18.048 [Info] [TX-PROGRESS] ACK seq 168 - Progress: 9464/34776 bytes (27%)
+2026-02-14 14:18:18.048 [Info] [TX-PROGRESS] ACK seq 169 - Progress: 9520/34776 bytes (27%)
+2026-02-14 14:18:18.049 [Info] [TX-PROGRESS] ACK seq 170 - Progress: 9576/34776 bytes (27%)
+2026-02-14 14:18:18.049 [Info] [TX-PROGRESS] ACK seq 171 - Progress: 9632/34776 bytes (27%)
+2026-02-14 14:18:18.049 [Info] [TX-PROGRESS] ACK seq 172 - Progress: 9688/34776 bytes (27%)
+2026-02-14 14:18:18.050 [Info] [TX-PROGRESS] ACK seq 173 - Progress: 9744/34776 bytes (28%)
+2026-02-14 14:18:18.050 [Info] [TX-PROGRESS] ACK seq 174 - Progress: 9800/34776 bytes (28%)
+2026-02-14 14:18:18.051 [Info] [TX-PROGRESS] ACK seq 175 - Progress: 9856/34776 bytes (28%)
+2026-02-14 14:18:18.051 [Info] [TX-PROGRESS] ACK seq 176 - Progress: 9912/34776 bytes (28%)
+2026-02-14 14:18:18.053 [Info] [TX-PROGRESS] ACK seq 177 - Progress: 9968/34776 bytes (28%)
+2026-02-14 14:18:18.053 [Info] [TX-PROGRESS] ACK seq 178 - Progress: 10024/34776 bytes (28%)
+2026-02-14 14:18:18.054 [Info] [TX-PROGRESS] ACK seq 179 - Progress: 10080/34776 bytes (28%)
+2026-02-14 14:18:18.054 [Info] [TX-PROGRESS] ACK seq 180 - Progress: 10136/34776 bytes (29%)
+2026-02-14 14:18:18.054 [Info] [TX-PROGRESS] ACK seq 181 - Progress: 10192/34776 bytes (29%)
+2026-02-14 14:18:18.055 [Info] [TX-PROGRESS] ACK seq 182 - Progress: 10248/34776 bytes (29%)
+2026-02-14 14:18:18.055 [Info] [TX-PROGRESS] ACK seq 183 - Progress: 10304/34776 bytes (29%)
+2026-02-14 14:18:18.056 [Info] [TX-PROGRESS] ACK seq 184 - Progress: 10360/34776 bytes (29%)
+2026-02-14 14:18:18.056 [Info] [TX-PROGRESS] ACK seq 185 - Progress: 10416/34776 bytes (29%)
+2026-02-14 14:18:18.056 [Info] [TX-PROGRESS] ACK seq 186 - Progress: 10472/34776 bytes (30%)
+2026-02-14 14:18:18.058 [Info] [TX-PROGRESS] ACK seq 187 - Progress: 10528/34776 bytes (30%)
+2026-02-14 14:18:18.058 [Info] [TX-PROGRESS] ACK seq 188 - Progress: 10584/34776 bytes (30%)
+2026-02-14 14:18:18.059 [Info] [TX-PROGRESS] ACK seq 189 - Progress: 10640/34776 bytes (30%)
+2026-02-14 14:18:18.059 [Info] [TX-PROGRESS] ACK seq 190 - Progress: 10696/34776 bytes (30%)
+2026-02-14 14:18:18.059 [Info] [TX-PROGRESS] ACK seq 191 - Progress: 10752/34776 bytes (30%)
+2026-02-14 14:18:18.060 [Info] [TX-PROGRESS] ACK seq 192 - Progress: 10808/34776 bytes (31%)
+2026-02-14 14:18:18.060 [Info] [TX-PROGRESS] ACK seq 193 - Progress: 10864/34776 bytes (31%)
+2026-02-14 14:18:18.061 [Info] [TX-PROGRESS] ACK seq 194 - Progress: 10920/34776 bytes (31%)
+2026-02-14 14:18:18.061 [Info] [TX-PROGRESS] ACK seq 195 - Progress: 10976/34776 bytes (31%)
+2026-02-14 14:18:18.061 [Info] [TX-PROGRESS] ACK seq 196 - Progress: 11032/34776 bytes (31%)
+2026-02-14 14:18:18.063 [Info] [TX-PROGRESS] ACK seq 197 - Progress: 11088/34776 bytes (31%)
+2026-02-14 14:18:18.063 [Info] [TX-PROGRESS] ACK seq 198 - Progress: 11144/34776 bytes (32%)
+2026-02-14 14:18:18.064 [Info] [TX-PROGRESS] ACK seq 199 - Progress: 11200/34776 bytes (32%)
+2026-02-14 14:18:18.064 [Info] [TX-PROGRESS] ACK seq 200 - Progress: 11256/34776 bytes (32%)
+2026-02-14 14:18:18.064 [Info] [TX-PROGRESS] ACK seq 201 - Progress: 11312/34776 bytes (32%)
+2026-02-14 14:18:18.065 [Info] [TX-PROGRESS] ACK seq 202 - Progress: 11368/34776 bytes (32%)
+2026-02-14 14:18:18.066 [Info] [TX-PROGRESS] ACK seq 203 - Progress: 11424/34776 bytes (32%)
+2026-02-14 14:18:18.066 [Info] [TX-PROGRESS] ACK seq 204 - Progress: 11480/34776 bytes (33%)
+2026-02-14 14:18:18.067 [Info] [TX-PROGRESS] ACK seq 205 - Progress: 11536/34776 bytes (33%)
+2026-02-14 14:18:18.067 [Info] [TX-PROGRESS] ACK seq 206 - Progress: 11592/34776 bytes (33%)
+2026-02-14 14:18:18.068 [Info] [TX-PROGRESS] ACK seq 207 - Progress: 11648/34776 bytes (33%)
+2026-02-14 14:18:18.068 [Info] [TX-PROGRESS] ACK seq 208 - Progress: 11704/34776 bytes (33%)
+2026-02-14 14:18:18.069 [Info] [TX-PROGRESS] ACK seq 209 - Progress: 11760/34776 bytes (33%)
+2026-02-14 14:18:18.069 [Info] [TX-PROGRESS] ACK seq 210 - Progress: 11816/34776 bytes (33%)
+2026-02-14 14:18:18.069 [Info] [TX-PROGRESS] ACK seq 211 - Progress: 11872/34776 bytes (34%)
+2026-02-14 14:18:18.070 [Info] [TX-PROGRESS] ACK seq 212 - Progress: 11928/34776 bytes (34%)
+2026-02-14 14:18:18.070 [Info] [TX-PROGRESS] ACK seq 213 - Progress: 11984/34776 bytes (34%)
+2026-02-14 14:18:18.071 [Info] [TX-PROGRESS] ACK seq 214 - Progress: 12040/34776 bytes (34%)
+2026-02-14 14:18:18.071 [Info] [TX-PROGRESS] ACK seq 215 - Progress: 12096/34776 bytes (34%)
+2026-02-14 14:18:18.072 [Info] [TX-PROGRESS] ACK seq 216 - Progress: 12152/34776 bytes (34%)
+2026-02-14 14:18:18.072 [Info] [TX-PROGRESS] ACK seq 217 - Progress: 12208/34776 bytes (35%)
+2026-02-14 14:18:18.073 [Info] [TX-PROGRESS] ACK seq 218 - Progress: 12264/34776 bytes (35%)
+2026-02-14 14:18:18.073 [Info] [TX-PROGRESS] ACK seq 219 - Progress: 12320/34776 bytes (35%)
+2026-02-14 14:18:18.074 [Info] [TX-PROGRESS] ACK seq 220 - Progress: 12376/34776 bytes (35%)
+2026-02-14 14:18:18.074 [Info] [TX-PROGRESS] ACK seq 221 - Progress: 12432/34776 bytes (35%)
+2026-02-14 14:18:18.075 [Info] [TX-PROGRESS] ACK seq 222 - Progress: 12488/34776 bytes (35%)
+2026-02-14 14:18:18.075 [Info] [TX-PROGRESS] ACK seq 223 - Progress: 12544/34776 bytes (36%)
+2026-02-14 14:18:18.076 [Info] [TX-PROGRESS] ACK seq 224 - Progress: 12600/34776 bytes (36%)
+2026-02-14 14:18:18.076 [Info] [TX-PROGRESS] ACK seq 225 - Progress: 12656/34776 bytes (36%)
+2026-02-14 14:18:18.077 [Info] [TX-PROGRESS] ACK seq 226 - Progress: 12712/34776 bytes (36%)
+2026-02-14 14:18:18.077 [Info] [TX-PROGRESS] ACK seq 227 - Progress: 12768/34776 bytes (36%)
+2026-02-14 14:18:18.078 [Info] [TX-PROGRESS] ACK seq 228 - Progress: 12824/34776 bytes (36%)
+2026-02-14 14:18:18.078 [Info] [TX-PROGRESS] ACK seq 229 - Progress: 12880/34776 bytes (37%)
+2026-02-14 14:18:18.079 [Info] [TX-PROGRESS] ACK seq 230 - Progress: 12936/34776 bytes (37%)
+2026-02-14 14:18:18.079 [Info] [TX-PROGRESS] ACK seq 231 - Progress: 12992/34776 bytes (37%)
+2026-02-14 14:18:18.080 [Info] [TX-PROGRESS] ACK seq 232 - Progress: 13048/34776 bytes (37%)
+2026-02-14 14:18:18.080 [Info] [TX-PROGRESS] ACK seq 233 - Progress: 13104/34776 bytes (37%)
+2026-02-14 14:18:18.081 [Info] [TX-PROGRESS] ACK seq 234 - Progress: 13160/34776 bytes (37%)
+2026-02-14 14:18:18.081 [Info] [TX-PROGRESS] ACK seq 235 - Progress: 13216/34776 bytes (38%)
+2026-02-14 14:18:18.082 [Info] [TX-PROGRESS] ACK seq 236 - Progress: 13272/34776 bytes (38%)
+2026-02-14 14:18:18.082 [Info] [TX-PROGRESS] ACK seq 237 - Progress: 13328/34776 bytes (38%)
+2026-02-14 14:18:18.083 [Info] [TX-PROGRESS] ACK seq 238 - Progress: 13384/34776 bytes (38%)
+2026-02-14 14:18:18.083 [Info] [TX-PROGRESS] ACK seq 239 - Progress: 13440/34776 bytes (38%)
+2026-02-14 14:18:18.084 [Info] [TX-PROGRESS] ACK seq 240 - Progress: 13496/34776 bytes (38%)
+2026-02-14 14:18:18.084 [Info] [TX-PROGRESS] ACK seq 241 - Progress: 13552/34776 bytes (38%)
+2026-02-14 14:18:18.085 [Info] [TX-PROGRESS] ACK seq 242 - Progress: 13608/34776 bytes (39%)
+2026-02-14 14:18:18.085 [Info] [TX-PROGRESS] ACK seq 243 - Progress: 13664/34776 bytes (39%)
+2026-02-14 14:18:18.086 [Info] [TX-PROGRESS] ACK seq 244 - Progress: 13720/34776 bytes (39%)
+2026-02-14 14:18:18.086 [Info] [TX-PROGRESS] ACK seq 245 - Progress: 13776/34776 bytes (39%)
+2026-02-14 14:18:18.087 [Info] [TX-PROGRESS] ACK seq 246 - Progress: 13832/34776 bytes (39%)
+2026-02-14 14:18:18.087 [Info] [TX-PROGRESS] ACK seq 247 - Progress: 13888/34776 bytes (39%)
+2026-02-14 14:18:18.088 [Info] [TX-PROGRESS] ACK seq 248 - Progress: 13944/34776 bytes (40%)
+2026-02-14 14:18:18.088 [Info] [TX-PROGRESS] ACK seq 249 - Progress: 14000/34776 bytes (40%)
+2026-02-14 14:18:18.089 [Info] [TX-PROGRESS] ACK seq 250 - Progress: 14056/34776 bytes (40%)
+2026-02-14 14:18:18.089 [Info] [TX-PROGRESS] ACK seq 251 - Progress: 14112/34776 bytes (40%)
+2026-02-14 14:18:18.090 [Info] [TX-PROGRESS] ACK seq 252 - Progress: 14168/34776 bytes (40%)
+2026-02-14 14:18:18.090 [Info] [TX-PROGRESS] ACK seq 253 - Progress: 14224/34776 bytes (40%)
+2026-02-14 14:18:18.091 [Info] [TX-PROGRESS] ACK seq 254 - Progress: 14280/34776 bytes (41%)
+2026-02-14 14:18:18.091 [Info] [TX-PROGRESS] ACK seq 255 - Progress: 14336/34776 bytes (41%)
+2026-02-14 14:18:18.092 [Info] [TX-PROGRESS] ACK seq 256 - Progress: 14392/34776 bytes (41%)
+2026-02-14 14:18:18.092 [Info] [TX-PROGRESS] ACK seq 257 - Progress: 14448/34776 bytes (41%)
+2026-02-14 14:18:18.092 [Info] [TX-PROGRESS] ACK seq 258 - Progress: 14504/34776 bytes (41%)
+2026-02-14 14:18:18.093 [Info] [TX-PROGRESS] ACK seq 259 - Progress: 14560/34776 bytes (41%)
+2026-02-14 14:18:18.093 [Info] [TX-PROGRESS] ACK seq 260 - Progress: 14616/34776 bytes (42%)
+2026-02-14 14:18:18.094 [Info] [TX-PROGRESS] ACK seq 261 - Progress: 14672/34776 bytes (42%)
+2026-02-14 14:18:18.094 [Info] [TX-PROGRESS] ACK seq 262 - Progress: 14728/34776 bytes (42%)
+2026-02-14 14:18:18.095 [Info] [TX-PROGRESS] ACK seq 263 - Progress: 14784/34776 bytes (42%)
+2026-02-14 14:18:18.095 [Info] [TX-PROGRESS] ACK seq 264 - Progress: 14840/34776 bytes (42%)
+2026-02-14 14:18:18.096 [Info] [TX-PROGRESS] ACK seq 265 - Progress: 14896/34776 bytes (42%)
+2026-02-14 14:18:18.096 [Info] [TX-PROGRESS] ACK seq 266 - Progress: 14952/34776 bytes (42%)
+2026-02-14 14:18:18.097 [Info] [TX-PROGRESS] ACK seq 267 - Progress: 15008/34776 bytes (43%)
+2026-02-14 14:18:18.097 [Info] [TX-PROGRESS] ACK seq 268 - Progress: 15064/34776 bytes (43%)
+2026-02-14 14:18:18.098 [Info] [TX-PROGRESS] ACK seq 269 - Progress: 15120/34776 bytes (43%)
+2026-02-14 14:18:18.098 [Info] [TX-PROGRESS] ACK seq 270 - Progress: 15176/34776 bytes (43%)
+2026-02-14 14:18:18.099 [Info] [TX-PROGRESS] ACK seq 271 - Progress: 15232/34776 bytes (43%)
+2026-02-14 14:18:18.099 [Info] [TX-PROGRESS] ACK seq 272 - Progress: 15288/34776 bytes (43%)
+2026-02-14 14:18:18.100 [Info] [TX-PROGRESS] ACK seq 273 - Progress: 15344/34776 bytes (44%)
+2026-02-14 14:18:18.100 [Info] [TX-PROGRESS] ACK seq 274 - Progress: 15400/34776 bytes (44%)
+2026-02-14 14:18:18.101 [Info] [TX-PROGRESS] ACK seq 275 - Progress: 15456/34776 bytes (44%)
+2026-02-14 14:18:18.101 [Info] [TX-PROGRESS] ACK seq 276 - Progress: 15512/34776 bytes (44%)
+2026-02-14 14:18:18.101 [Info] [TX-PROGRESS] ACK seq 277 - Progress: 15568/34776 bytes (44%)
+2026-02-14 14:18:18.102 [Info] [TX-PROGRESS] ACK seq 278 - Progress: 15624/34776 bytes (44%)
+2026-02-14 14:18:18.103 [Info] [TX-PROGRESS] ACK seq 279 - Progress: 15680/34776 bytes (45%)
+2026-02-14 14:18:18.103 [Info] [TX-PROGRESS] ACK seq 280 - Progress: 15736/34776 bytes (45%)
+2026-02-14 14:18:18.104 [Info] [TX-PROGRESS] ACK seq 281 - Progress: 15792/34776 bytes (45%)
+2026-02-14 14:18:18.104 [Info] [TX-PROGRESS] ACK seq 282 - Progress: 15848/34776 bytes (45%)
+2026-02-14 14:18:18.105 [Info] [TX-PROGRESS] ACK seq 283 - Progress: 15904/34776 bytes (45%)
+2026-02-14 14:18:18.105 [Info] [TX-PROGRESS] ACK seq 284 - Progress: 15960/34776 bytes (45%)
+2026-02-14 14:18:18.106 [Info] [TX-PROGRESS] ACK seq 285 - Progress: 16016/34776 bytes (46%)
+2026-02-14 14:18:18.106 [Info] [TX-PROGRESS] ACK seq 286 - Progress: 16072/34776 bytes (46%)
+2026-02-14 14:18:18.107 [Info] [TX-PROGRESS] ACK seq 287 - Progress: 16128/34776 bytes (46%)
+2026-02-14 14:18:18.107 [Info] [TX-PROGRESS] ACK seq 288 - Progress: 16184/34776 bytes (46%)
+2026-02-14 14:18:18.107 [Info] [TX-PROGRESS] ACK seq 289 - Progress: 16240/34776 bytes (46%)
+2026-02-14 14:18:18.108 [Info] [TX-PROGRESS] ACK seq 290 - Progress: 16296/34776 bytes (46%)
+2026-02-14 14:18:18.108 [Info] [TX-PROGRESS] ACK seq 291 - Progress: 16352/34776 bytes (47%)
+2026-02-14 14:18:18.109 [Info] [TX-PROGRESS] ACK seq 292 - Progress: 16408/34776 bytes (47%)
+2026-02-14 14:18:18.109 [Info] [TX-PROGRESS] ACK seq 293 - Progress: 16464/34776 bytes (47%)
+2026-02-14 14:18:18.110 [Info] [TX-PROGRESS] ACK seq 294 - Progress: 16520/34776 bytes (47%)
+2026-02-14 14:18:18.110 [Info] [TX-PROGRESS] ACK seq 295 - Progress: 16576/34776 bytes (47%)
+2026-02-14 14:18:18.111 [Info] [TX-PROGRESS] ACK seq 296 - Progress: 16632/34776 bytes (47%)
+2026-02-14 14:18:18.112 [Info] [TX-PROGRESS] ACK seq 297 - Progress: 16688/34776 bytes (47%)
+2026-02-14 14:18:18.112 [Info] [TX-PROGRESS] ACK seq 298 - Progress: 16744/34776 bytes (48%)
+2026-02-14 14:18:18.113 [Info] [TX-PROGRESS] ACK seq 299 - Progress: 16800/34776 bytes (48%)
+2026-02-14 14:18:18.113 [Info] [TX-PROGRESS] ACK seq 300 - Progress: 16856/34776 bytes (48%)
+2026-02-14 14:18:18.114 [Info] [TX-PROGRESS] ACK seq 301 - Progress: 16912/34776 bytes (48%)
+2026-02-14 14:18:18.114 [Info] [TX-PROGRESS] ACK seq 302 - Progress: 16968/34776 bytes (48%)
+2026-02-14 14:18:18.115 [Info] [TX-PROGRESS] ACK seq 303 - Progress: 17024/34776 bytes (48%)
+2026-02-14 14:18:18.115 [Info] [TX-PROGRESS] ACK seq 304 - Progress: 17080/34776 bytes (49%)
+2026-02-14 14:18:18.115 [Info] [TX-PROGRESS] ACK seq 305 - Progress: 17136/34776 bytes (49%)
+2026-02-14 14:18:18.116 [Info] [TX-PROGRESS] ACK seq 306 - Progress: 17192/34776 bytes (49%)
+2026-02-14 14:18:18.116 [Info] [TX-PROGRESS] ACK seq 307 - Progress: 17248/34776 bytes (49%)
+2026-02-14 14:18:18.117 [Info] [TX-PROGRESS] ACK seq 308 - Progress: 17304/34776 bytes (49%)
+2026-02-14 14:18:18.117 [Info] [TX-PROGRESS] ACK seq 309 - Progress: 17360/34776 bytes (49%)
+2026-02-14 14:18:18.118 [Info] [TX-PROGRESS] ACK seq 310 - Progress: 17416/34776 bytes (50%)
+2026-02-14 14:18:18.118 [Info] [TX-PROGRESS] ACK seq 311 - Progress: 17472/34776 bytes (50%)
+2026-02-14 14:18:18.119 [Info] [TX-PROGRESS] ACK seq 312 - Progress: 17528/34776 bytes (50%)
+2026-02-14 14:18:18.119 [Info] [TX-PROGRESS] ACK seq 313 - Progress: 17584/34776 bytes (50%)
+2026-02-14 14:18:18.120 [Info] [TX-PROGRESS] ACK seq 314 - Progress: 17640/34776 bytes (50%)
+2026-02-14 14:18:18.121 [Info] [TX-PROGRESS] ACK seq 315 - Progress: 17696/34776 bytes (50%)
+2026-02-14 14:18:18.121 [Info] [TX-PROGRESS] ACK seq 316 - Progress: 17752/34776 bytes (51%)
+2026-02-14 14:18:18.122 [Info] [TX-PROGRESS] ACK seq 317 - Progress: 17808/34776 bytes (51%)
+2026-02-14 14:18:18.122 [Info] [TX-PROGRESS] ACK seq 318 - Progress: 17864/34776 bytes (51%)
+2026-02-14 14:18:18.123 [Info] [TX-PROGRESS] ACK seq 319 - Progress: 17920/34776 bytes (51%)
+2026-02-14 14:18:18.123 [Info] [TX-PROGRESS] ACK seq 320 - Progress: 17976/34776 bytes (51%)
+2026-02-14 14:18:18.124 [Info] [TX-PROGRESS] ACK seq 321 - Progress: 18032/34776 bytes (51%)
+2026-02-14 14:18:18.124 [Info] [TX-PROGRESS] ACK seq 322 - Progress: 18088/34776 bytes (52%)
+2026-02-14 14:18:18.124 [Info] [TX-PROGRESS] ACK seq 323 - Progress: 18144/34776 bytes (52%)
+2026-02-14 14:18:18.125 [Info] [TX-PROGRESS] ACK seq 324 - Progress: 18200/34776 bytes (52%)
+2026-02-14 14:18:18.126 [Info] [TX-PROGRESS] ACK seq 325 - Progress: 18256/34776 bytes (52%)
+2026-02-14 14:18:18.126 [Info] [TX-PROGRESS] ACK seq 326 - Progress: 18312/34776 bytes (52%)
+2026-02-14 14:18:18.127 [Info] [TX-PROGRESS] ACK seq 327 - Progress: 18368/34776 bytes (52%)
+2026-02-14 14:18:18.127 [Info] [TX-PROGRESS] ACK seq 328 - Progress: 18424/34776 bytes (52%)
+2026-02-14 14:18:18.128 [Info] [TX-PROGRESS] ACK seq 329 - Progress: 18480/34776 bytes (53%)
+2026-02-14 14:18:18.128 [Info] [TX-PROGRESS] ACK seq 330 - Progress: 18536/34776 bytes (53%)
+2026-02-14 14:18:18.129 [Info] [TX-PROGRESS] ACK seq 331 - Progress: 18592/34776 bytes (53%)
+2026-02-14 14:18:18.129 [Info] [TX-PROGRESS] ACK seq 332 - Progress: 18648/34776 bytes (53%)
+2026-02-14 14:18:18.130 [Info] [TX-PROGRESS] ACK seq 333 - Progress: 18704/34776 bytes (53%)
+2026-02-14 14:18:18.130 [Info] [TX-PROGRESS] ACK seq 334 - Progress: 18760/34776 bytes (53%)
+2026-02-14 14:18:18.131 [Info] [TX-PROGRESS] ACK seq 335 - Progress: 18816/34776 bytes (54%)
+2026-02-14 14:18:18.131 [Info] [TX-PROGRESS] ACK seq 336 - Progress: 18872/34776 bytes (54%)
+2026-02-14 14:18:18.132 [Info] [TX-PROGRESS] ACK seq 337 - Progress: 18928/34776 bytes (54%)
+2026-02-14 14:18:18.132 [Info] [TX-PROGRESS] ACK seq 338 - Progress: 18984/34776 bytes (54%)
+2026-02-14 14:18:18.133 [Info] [TX-PROGRESS] ACK seq 339 - Progress: 19040/34776 bytes (54%)
+2026-02-14 14:18:18.133 [Info] [TX-PROGRESS] ACK seq 340 - Progress: 19096/34776 bytes (54%)
+2026-02-14 14:18:18.134 [Info] [TX-PROGRESS] ACK seq 341 - Progress: 19152/34776 bytes (55%)
+2026-02-14 14:18:18.134 [Info] [TX-PROGRESS] ACK seq 342 - Progress: 19208/34776 bytes (55%)
+2026-02-14 14:18:18.135 [Info] [TX-PROGRESS] ACK seq 343 - Progress: 19264/34776 bytes (55%)
+2026-02-14 14:18:18.136 [Info] [TX-PROGRESS] ACK seq 344 - Progress: 19320/34776 bytes (55%)
+2026-02-14 14:18:18.136 [Info] [TX-PROGRESS] ACK seq 345 - Progress: 19376/34776 bytes (55%)
+2026-02-14 14:18:18.137 [Info] [TX-PROGRESS] ACK seq 346 - Progress: 19432/34776 bytes (55%)
+2026-02-14 14:18:18.137 [Info] [TX-PROGRESS] ACK seq 347 - Progress: 19488/34776 bytes (56%)
+2026-02-14 14:18:18.138 [Info] [TX-PROGRESS] ACK seq 348 - Progress: 19544/34776 bytes (56%)
+2026-02-14 14:18:18.138 [Info] [TX-PROGRESS] ACK seq 349 - Progress: 19600/34776 bytes (56%)
+2026-02-14 14:18:18.139 [Info] [TX-PROGRESS] ACK seq 350 - Progress: 19656/34776 bytes (56%)
+2026-02-14 14:18:18.139 [Info] [TX-PROGRESS] ACK seq 351 - Progress: 19712/34776 bytes (56%)
+2026-02-14 14:18:18.140 [Info] [TX-PROGRESS] ACK seq 352 - Progress: 19768/34776 bytes (56%)
+2026-02-14 14:18:18.140 [Info] [TX-PROGRESS] ACK seq 353 - Progress: 19824/34776 bytes (57%)
+2026-02-14 14:18:18.141 [Info] [TX-PROGRESS] ACK seq 354 - Progress: 19880/34776 bytes (57%)
+2026-02-14 14:18:18.142 [Info] [TX-PROGRESS] ACK seq 355 - Progress: 19936/34776 bytes (57%)
+2026-02-14 14:18:18.142 [Info] [TX-PROGRESS] ACK seq 356 - Progress: 19992/34776 bytes (57%)
+2026-02-14 14:18:18.143 [Info] [TX-PROGRESS] ACK seq 357 - Progress: 20048/34776 bytes (57%)
+2026-02-14 14:18:18.143 [Info] [TX-PROGRESS] ACK seq 358 - Progress: 20104/34776 bytes (57%)
+2026-02-14 14:18:18.143 [Info] [TX-PROGRESS] ACK seq 359 - Progress: 20160/34776 bytes (57%)
+2026-02-14 14:18:18.144 [Info] [TX-PROGRESS] ACK seq 360 - Progress: 20216/34776 bytes (58%)
+2026-02-14 14:18:18.144 [Info] [TX-PROGRESS] ACK seq 361 - Progress: 20272/34776 bytes (58%)
+2026-02-14 14:18:18.145 [Info] [TX-PROGRESS] ACK seq 362 - Progress: 20328/34776 bytes (58%)
+2026-02-14 14:18:18.145 [Info] [TX-PROGRESS] ACK seq 363 - Progress: 20384/34776 bytes (58%)
+2026-02-14 14:18:18.146 [Info] [TX-PROGRESS] ACK seq 364 - Progress: 20440/34776 bytes (58%)
+2026-02-14 14:18:18.146 [Info] [TX-PROGRESS] ACK seq 365 - Progress: 20496/34776 bytes (58%)
+2026-02-14 14:18:18.147 [Info] [TX-PROGRESS] ACK seq 366 - Progress: 20552/34776 bytes (59%)
+2026-02-14 14:18:18.147 [Info] [TX-PROGRESS] ACK seq 367 - Progress: 20608/34776 bytes (59%)
+2026-02-14 14:18:18.148 [Info] [TX-PROGRESS] ACK seq 368 - Progress: 20664/34776 bytes (59%)
+2026-02-14 14:18:18.148 [Info] [TX-PROGRESS] ACK seq 369 - Progress: 20720/34776 bytes (59%)
+2026-02-14 14:18:18.149 [Info] [TX-PROGRESS] ACK seq 370 - Progress: 20776/34776 bytes (59%)
+2026-02-14 14:18:18.149 [Info] [TX-PROGRESS] ACK seq 371 - Progress: 20832/34776 bytes (59%)
+2026-02-14 14:18:18.150 [Info] [TX-PROGRESS] ACK seq 372 - Progress: 20888/34776 bytes (60%)
+2026-02-14 14:18:18.150 [Info] [TX-PROGRESS] ACK seq 373 - Progress: 20944/34776 bytes (60%)
+2026-02-14 14:18:18.150 [Info] [TX-PROGRESS] ACK seq 374 - Progress: 21000/34776 bytes (60%)
+2026-02-14 14:18:18.151 [Info] [TX-PROGRESS] ACK seq 375 - Progress: 21056/34776 bytes (60%)
+2026-02-14 14:18:18.152 [Info] [TX-PROGRESS] ACK seq 376 - Progress: 21112/34776 bytes (60%)
+2026-02-14 14:18:18.152 [Info] [TX-PROGRESS] ACK seq 377 - Progress: 21168/34776 bytes (60%)
+2026-02-14 14:18:18.153 [Info] [TX-PROGRESS] ACK seq 378 - Progress: 21224/34776 bytes (61%)
+2026-02-14 14:18:18.154 [Info] [TX-PROGRESS] ACK seq 379 - Progress: 21280/34776 bytes (61%)
+2026-02-14 14:18:18.154 [Info] [TX-PROGRESS] ACK seq 380 - Progress: 21336/34776 bytes (61%)
+2026-02-14 14:18:18.155 [Info] [TX-PROGRESS] ACK seq 381 - Progress: 21392/34776 bytes (61%)
+2026-02-14 14:18:18.155 [Info] [TX-PROGRESS] ACK seq 382 - Progress: 21448/34776 bytes (61%)
+2026-02-14 14:18:18.155 [Info] [TX-PROGRESS] ACK seq 383 - Progress: 21504/34776 bytes (61%)
+2026-02-14 14:18:18.156 [Info] [TX-PROGRESS] ACK seq 384 - Progress: 21560/34776 bytes (61%)
+2026-02-14 14:18:18.156 [Info] [TX-PROGRESS] ACK seq 385 - Progress: 21616/34776 bytes (62%)
+2026-02-14 14:18:18.157 [Info] [TX-PROGRESS] ACK seq 386 - Progress: 21672/34776 bytes (62%)
+2026-02-14 14:18:18.158 [Info] [TX-PROGRESS] ACK seq 387 - Progress: 21728/34776 bytes (62%)
+2026-02-14 14:18:18.158 [Info] [TX-PROGRESS] ACK seq 388 - Progress: 21784/34776 bytes (62%)
+2026-02-14 14:18:18.159 [Info] [TX-PROGRESS] ACK seq 389 - Progress: 21840/34776 bytes (62%)
+2026-02-14 14:18:18.159 [Info] [TX-PROGRESS] ACK seq 390 - Progress: 21896/34776 bytes (62%)
+2026-02-14 14:18:18.160 [Info] [TX-PROGRESS] ACK seq 391 - Progress: 21952/34776 bytes (63%)
+2026-02-14 14:18:18.163 [Info] [TX-PROGRESS] ACK seq 392 - Progress: 22008/34776 bytes (63%)
+2026-02-14 14:18:18.164 [Info] [TX-PROGRESS] ACK seq 393 - Progress: 22064/34776 bytes (63%)
+2026-02-14 14:18:18.164 [Info] [TX-PROGRESS] ACK seq 394 - Progress: 22120/34776 bytes (63%)
+2026-02-14 14:18:18.165 [Info] [TX-PROGRESS] ACK seq 395 - Progress: 22176/34776 bytes (63%)
+2026-02-14 14:18:18.166 [Info] [TX-PROGRESS] ACK seq 396 - Progress: 22232/34776 bytes (63%)
+2026-02-14 14:18:18.166 [Info] [TX-PROGRESS] ACK seq 397 - Progress: 22288/34776 bytes (64%)
+2026-02-14 14:18:18.166 [Info] [TX-PROGRESS] ACK seq 398 - Progress: 22344/34776 bytes (64%)
+2026-02-14 14:18:18.183 [Info] [TX-PROGRESS] ACK seq 399 - Progress: 22400/34776 bytes (64%)
+2026-02-14 14:18:18.183 [Info] [TX-PROGRESS] ACK seq 400 - Progress: 22456/34776 bytes (64%)
+2026-02-14 14:18:18.184 [Info] [TX-PROGRESS] ACK seq 401 - Progress: 22512/34776 bytes (64%)
+2026-02-14 14:18:18.184 [Info] [TX-PROGRESS] ACK seq 402 - Progress: 22568/34776 bytes (64%)
+2026-02-14 14:18:18.185 [Info] [TX-PROGRESS] ACK seq 403 - Progress: 22624/34776 bytes (65%)
+2026-02-14 14:18:18.186 [Info] [TX-PROGRESS] ACK seq 404 - Progress: 22680/34776 bytes (65%)
+2026-02-14 14:18:18.186 [Info] [TX-PROGRESS] ACK seq 405 - Progress: 22736/34776 bytes (65%)
+2026-02-14 14:18:18.187 [Info] [TX-PROGRESS] ACK seq 406 - Progress: 22792/34776 bytes (65%)
+2026-02-14 14:18:18.187 [Info] [TX-PROGRESS] ACK seq 407 - Progress: 22848/34776 bytes (65%)
+2026-02-14 14:18:18.188 [Info] [TX-PROGRESS] ACK seq 408 - Progress: 22904/34776 bytes (65%)
+2026-02-14 14:18:18.189 [Info] [TX-PROGRESS] ACK seq 409 - Progress: 22960/34776 bytes (66%)
+2026-02-14 14:18:18.189 [Info] [TX-PROGRESS] ACK seq 410 - Progress: 23016/34776 bytes (66%)
+2026-02-14 14:18:18.190 [Info] [TX-PROGRESS] ACK seq 411 - Progress: 23072/34776 bytes (66%)
+2026-02-14 14:18:18.190 [Info] [TX-PROGRESS] ACK seq 412 - Progress: 23128/34776 bytes (66%)
+2026-02-14 14:18:18.190 [Info] [TX-PROGRESS] ACK seq 413 - Progress: 23184/34776 bytes (66%)
+2026-02-14 14:18:18.191 [Info] [TX-PROGRESS] ACK seq 414 - Progress: 23240/34776 bytes (66%)
+2026-02-14 14:18:18.191 [Info] [TX-PROGRESS] ACK seq 415 - Progress: 23296/34776 bytes (66%)
+2026-02-14 14:18:18.192 [Info] [TX-PROGRESS] ACK seq 416 - Progress: 23352/34776 bytes (67%)
+2026-02-14 14:18:18.192 [Info] [TX-PROGRESS] ACK seq 417 - Progress: 23408/34776 bytes (67%)
+2026-02-14 14:18:18.193 [Info] [TX-PROGRESS] ACK seq 418 - Progress: 23464/34776 bytes (67%)
+2026-02-14 14:18:18.193 [Info] [TX-PROGRESS] ACK seq 419 - Progress: 23520/34776 bytes (67%)
+2026-02-14 14:18:18.194 [Info] [TX-PROGRESS] ACK seq 420 - Progress: 23576/34776 bytes (67%)
+2026-02-14 14:18:18.194 [Info] [TX-PROGRESS] ACK seq 421 - Progress: 23632/34776 bytes (67%)
+2026-02-14 14:18:18.195 [Info] [TX-PROGRESS] ACK seq 422 - Progress: 23688/34776 bytes (68%)
+2026-02-14 14:18:18.195 [Info] [TX-PROGRESS] ACK seq 423 - Progress: 23744/34776 bytes (68%)
+2026-02-14 14:18:18.196 [Info] [TX-PROGRESS] ACK seq 424 - Progress: 23800/34776 bytes (68%)
+2026-02-14 14:18:18.196 [Info] [TX-PROGRESS] ACK seq 425 - Progress: 23856/34776 bytes (68%)
+2026-02-14 14:18:18.196 [Info] [TX-PROGRESS] ACK seq 426 - Progress: 23912/34776 bytes (68%)
+2026-02-14 14:18:18.197 [Info] [TX-PROGRESS] ACK seq 427 - Progress: 23968/34776 bytes (68%)
+2026-02-14 14:18:18.197 [Info] [TX-PROGRESS] ACK seq 428 - Progress: 24024/34776 bytes (69%)
+2026-02-14 14:18:18.198 [Info] [TX-PROGRESS] ACK seq 429 - Progress: 24080/34776 bytes (69%)
+2026-02-14 14:18:18.198 [Info] [TX-PROGRESS] ACK seq 430 - Progress: 24136/34776 bytes (69%)
+2026-02-14 14:18:18.199 [Info] [TX-PROGRESS] ACK seq 431 - Progress: 24192/34776 bytes (69%)
+2026-02-14 14:18:18.199 [Info] [TX-PROGRESS] ACK seq 432 - Progress: 24248/34776 bytes (69%)
+2026-02-14 14:18:18.200 [Info] [TX-PROGRESS] ACK seq 433 - Progress: 24304/34776 bytes (69%)
+2026-02-14 14:18:18.200 [Info] [TX-PROGRESS] ACK seq 434 - Progress: 24360/34776 bytes (70%)
+2026-02-14 14:18:18.201 [Info] [TX-PROGRESS] ACK seq 435 - Progress: 24416/34776 bytes (70%)
+2026-02-14 14:18:18.201 [Info] [TX-PROGRESS] ACK seq 436 - Progress: 24472/34776 bytes (70%)
+2026-02-14 14:18:18.202 [Info] [TX-PROGRESS] ACK seq 437 - Progress: 24528/34776 bytes (70%)
+2026-02-14 14:18:18.202 [Info] [TX-PROGRESS] ACK seq 438 - Progress: 24584/34776 bytes (70%)
+2026-02-14 14:18:18.203 [Info] [TX-PROGRESS] ACK seq 439 - Progress: 24640/34776 bytes (70%)
+2026-02-14 14:18:18.204 [Info] [TX-PROGRESS] ACK seq 440 - Progress: 24696/34776 bytes (71%)
+2026-02-14 14:18:18.205 [Info] [TX-PROGRESS] ACK seq 441 - Progress: 24752/34776 bytes (71%)
+2026-02-14 14:18:18.205 [Info] [TX-PROGRESS] ACK seq 442 - Progress: 24808/34776 bytes (71%)
+2026-02-14 14:18:18.206 [Info] [TX-PROGRESS] ACK seq 443 - Progress: 24864/34776 bytes (71%)
+2026-02-14 14:18:18.206 [Info] [TX-PROGRESS] ACK seq 444 - Progress: 24920/34776 bytes (71%)
+2026-02-14 14:18:18.206 [Info] [TX-PROGRESS] ACK seq 445 - Progress: 24976/34776 bytes (71%)
+2026-02-14 14:18:18.207 [Info] [TX-PROGRESS] ACK seq 446 - Progress: 25032/34776 bytes (71%)
+2026-02-14 14:18:18.207 [Info] [TX-PROGRESS] ACK seq 447 - Progress: 25088/34776 bytes (72%)
+2026-02-14 14:18:18.208 [Info] [TX-PROGRESS] ACK seq 448 - Progress: 25144/34776 bytes (72%)
+2026-02-14 14:18:18.208 [Info] [TX-PROGRESS] ACK seq 449 - Progress: 25200/34776 bytes (72%)
+2026-02-14 14:18:18.209 [Info] [TX-PROGRESS] ACK seq 450 - Progress: 25256/34776 bytes (72%)
+2026-02-14 14:18:18.209 [Info] [TX-PROGRESS] ACK seq 451 - Progress: 25312/34776 bytes (72%)
+2026-02-14 14:18:18.210 [Info] [TX-PROGRESS] ACK seq 452 - Progress: 25368/34776 bytes (72%)
+2026-02-14 14:18:18.210 [Info] [TX-PROGRESS] ACK seq 453 - Progress: 25424/34776 bytes (73%)
+2026-02-14 14:18:18.211 [Info] [TX-PROGRESS] ACK seq 454 - Progress: 25480/34776 bytes (73%)
+2026-02-14 14:18:18.212 [Info] [TX-PROGRESS] ACK seq 455 - Progress: 25536/34776 bytes (73%)
+2026-02-14 14:18:18.212 [Info] [TX-PROGRESS] ACK seq 456 - Progress: 25592/34776 bytes (73%)
+2026-02-14 14:18:18.213 [Info] [TX-PROGRESS] ACK seq 457 - Progress: 25648/34776 bytes (73%)
+2026-02-14 14:18:18.213 [Info] [TX-PROGRESS] ACK seq 458 - Progress: 25704/34776 bytes (73%)
+2026-02-14 14:18:18.213 [Info] [TX-PROGRESS] ACK seq 459 - Progress: 25760/34776 bytes (74%)
+2026-02-14 14:18:18.214 [Info] [TX-PROGRESS] ACK seq 460 - Progress: 25816/34776 bytes (74%)
+2026-02-14 14:18:18.214 [Info] [TX-PROGRESS] ACK seq 461 - Progress: 25872/34776 bytes (74%)
+2026-02-14 14:18:18.215 [Info] [TX-PROGRESS] ACK seq 462 - Progress: 25928/34776 bytes (74%)
+2026-02-14 14:18:18.215 [Info] [TX-PROGRESS] ACK seq 463 - Progress: 25984/34776 bytes (74%)
+2026-02-14 14:18:18.216 [Info] [TX-PROGRESS] ACK seq 464 - Progress: 26040/34776 bytes (74%)
+2026-02-14 14:18:18.216 [Info] [TX-PROGRESS] ACK seq 465 - Progress: 26096/34776 bytes (75%)
+2026-02-14 14:18:18.217 [Info] [TX-PROGRESS] ACK seq 466 - Progress: 26152/34776 bytes (75%)
+2026-02-14 14:18:18.217 [Info] [TX-PROGRESS] ACK seq 467 - Progress: 26208/34776 bytes (75%)
+2026-02-14 14:18:18.218 [Info] [TX-PROGRESS] ACK seq 468 - Progress: 26264/34776 bytes (75%)
+2026-02-14 14:18:18.219 [Info] [TX-PROGRESS] ACK seq 469 - Progress: 26320/34776 bytes (75%)
+2026-02-14 14:18:18.219 [Info] [TX-PROGRESS] ACK seq 470 - Progress: 26376/34776 bytes (75%)
+2026-02-14 14:18:18.220 [Info] [TX-PROGRESS] ACK seq 471 - Progress: 26432/34776 bytes (76%)
+2026-02-14 14:18:18.220 [Info] [TX-PROGRESS] ACK seq 472 - Progress: 26488/34776 bytes (76%)
+2026-02-14 14:18:18.221 [Info] [TX-PROGRESS] ACK seq 473 - Progress: 26544/34776 bytes (76%)
+2026-02-14 14:18:18.221 [Info] [TX-PROGRESS] ACK seq 474 - Progress: 26600/34776 bytes (76%)
+2026-02-14 14:18:18.222 [Info] [TX-PROGRESS] ACK seq 475 - Progress: 26656/34776 bytes (76%)
+2026-02-14 14:18:18.222 [Info] [TX-PROGRESS] ACK seq 476 - Progress: 26712/34776 bytes (76%)
+2026-02-14 14:18:18.223 [Info] [TX-PROGRESS] ACK seq 477 - Progress: 26768/34776 bytes (76%)
+2026-02-14 14:18:18.223 [Info] [TX-PROGRESS] ACK seq 478 - Progress: 26824/34776 bytes (77%)
+2026-02-14 14:18:18.224 [Info] [TX-PROGRESS] ACK seq 479 - Progress: 26880/34776 bytes (77%)
+2026-02-14 14:18:18.224 [Info] [TX-PROGRESS] ACK seq 480 - Progress: 26936/34776 bytes (77%)
+2026-02-14 14:18:18.225 [Info] [TX-PROGRESS] ACK seq 481 - Progress: 26992/34776 bytes (77%)
+2026-02-14 14:18:18.225 [Info] [TX-PROGRESS] ACK seq 482 - Progress: 27048/34776 bytes (77%)
+2026-02-14 14:18:18.226 [Info] [TX-PROGRESS] ACK seq 483 - Progress: 27104/34776 bytes (77%)
+2026-02-14 14:18:18.226 [Info] [TX-PROGRESS] ACK seq 484 - Progress: 27160/34776 bytes (78%)
+2026-02-14 14:18:18.227 [Info] [TX-PROGRESS] ACK seq 485 - Progress: 27216/34776 bytes (78%)
+2026-02-14 14:18:18.227 [Info] [TX-PROGRESS] ACK seq 486 - Progress: 27272/34776 bytes (78%)
+2026-02-14 14:18:18.228 [Info] [TX-PROGRESS] ACK seq 487 - Progress: 27328/34776 bytes (78%)
+2026-02-14 14:18:18.228 [Info] [TX-PROGRESS] ACK seq 488 - Progress: 27384/34776 bytes (78%)
+2026-02-14 14:18:18.228 [Info] [TX-PROGRESS] ACK seq 489 - Progress: 27440/34776 bytes (78%)
+2026-02-14 14:18:18.229 [Info] [TX-PROGRESS] ACK seq 490 - Progress: 27496/34776 bytes (79%)
+2026-02-14 14:18:18.229 [Info] [TX-PROGRESS] ACK seq 491 - Progress: 27552/34776 bytes (79%)
+2026-02-14 14:18:18.230 [Info] [TX-PROGRESS] ACK seq 492 - Progress: 27608/34776 bytes (79%)
+2026-02-14 14:18:18.230 [Info] [TX-PROGRESS] ACK seq 493 - Progress: 27664/34776 bytes (79%)
+2026-02-14 14:18:18.231 [Info] [TX-PROGRESS] ACK seq 494 - Progress: 27720/34776 bytes (79%)
+2026-02-14 14:18:18.231 [Info] [TX-PROGRESS] ACK seq 495 - Progress: 27776/34776 bytes (79%)
+2026-02-14 14:18:18.232 [Info] [TX-PROGRESS] ACK seq 496 - Progress: 27832/34776 bytes (80%)
+2026-02-14 14:18:18.232 [Info] [TX-PROGRESS] ACK seq 497 - Progress: 27888/34776 bytes (80%)
+2026-02-14 14:18:18.233 [Info] [TX-PROGRESS] ACK seq 498 - Progress: 27944/34776 bytes (80%)
+2026-02-14 14:18:18.233 [Info] [TX-PROGRESS] ACK seq 499 - Progress: 28000/34776 bytes (80%)
+2026-02-14 14:18:18.233 [Info] [TX-PROGRESS] ACK seq 500 - Progress: 28056/34776 bytes (80%)
+2026-02-14 14:18:18.234 [Info] [TX-PROGRESS] ACK seq 501 - Progress: 28112/34776 bytes (80%)
+2026-02-14 14:18:18.234 [Info] [TX-PROGRESS] ACK seq 502 - Progress: 28168/34776 bytes (80%)
+2026-02-14 14:18:18.235 [Info] [TX-PROGRESS] ACK seq 503 - Progress: 28224/34776 bytes (81%)
+2026-02-14 14:18:18.236 [Info] [TX-PROGRESS] ACK seq 504 - Progress: 28280/34776 bytes (81%)
+2026-02-14 14:18:18.236 [Info] [TX-PROGRESS] ACK seq 505 - Progress: 28336/34776 bytes (81%)
+2026-02-14 14:18:18.237 [Info] [TX-PROGRESS] ACK seq 506 - Progress: 28392/34776 bytes (81%)
+2026-02-14 14:18:18.237 [Info] [TX-PROGRESS] ACK seq 507 - Progress: 28448/34776 bytes (81%)
+2026-02-14 14:18:18.238 [Info] [TX-PROGRESS] ACK seq 508 - Progress: 28504/34776 bytes (81%)
+2026-02-14 14:18:18.238 [Info] [TX-PROGRESS] ACK seq 509 - Progress: 28560/34776 bytes (82%)
+2026-02-14 14:18:18.239 [Info] [TX-PROGRESS] ACK seq 510 - Progress: 28616/34776 bytes (82%)
+2026-02-14 14:18:18.239 [Info] [TX-PROGRESS] ACK seq 511 - Progress: 28672/34776 bytes (82%)
+2026-02-14 14:18:18.240 [Info] [TX-PROGRESS] ACK seq 512 - Progress: 28728/34776 bytes (82%)
+2026-02-14 14:18:18.240 [Info] [TX-PROGRESS] ACK seq 513 - Progress: 28784/34776 bytes (82%)
+2026-02-14 14:18:18.241 [Info] [TX-PROGRESS] ACK seq 514 - Progress: 28840/34776 bytes (82%)
+2026-02-14 14:18:18.241 [Info] [TX-PROGRESS] ACK seq 515 - Progress: 28896/34776 bytes (83%)
+2026-02-14 14:18:18.242 [Info] [TX-PROGRESS] ACK seq 516 - Progress: 28952/34776 bytes (83%)
+2026-02-14 14:18:18.242 [Info] [TX-PROGRESS] ACK seq 517 - Progress: 29008/34776 bytes (83%)
+2026-02-14 14:18:18.243 [Info] [TX-PROGRESS] ACK seq 518 - Progress: 29064/34776 bytes (83%)
+2026-02-14 14:18:18.243 [Info] [TX-PROGRESS] ACK seq 519 - Progress: 29120/34776 bytes (83%)
+2026-02-14 14:18:18.244 [Info] [TX-PROGRESS] ACK seq 520 - Progress: 29176/34776 bytes (83%)
+2026-02-14 14:18:18.244 [Info] [TX-PROGRESS] ACK seq 521 - Progress: 29232/34776 bytes (84%)
+2026-02-14 14:18:18.245 [Info] [TX-PROGRESS] ACK seq 522 - Progress: 29288/34776 bytes (84%)
+2026-02-14 14:18:18.245 [Info] [TX-PROGRESS] ACK seq 523 - Progress: 29344/34776 bytes (84%)
+2026-02-14 14:18:18.246 [Info] [TX-PROGRESS] ACK seq 524 - Progress: 29400/34776 bytes (84%)
+2026-02-14 14:18:18.246 [Info] [TX-PROGRESS] ACK seq 525 - Progress: 29456/34776 bytes (84%)
+2026-02-14 14:18:18.247 [Info] [TX-PROGRESS] ACK seq 526 - Progress: 29512/34776 bytes (84%)
+2026-02-14 14:18:18.247 [Info] [TX-PROGRESS] ACK seq 527 - Progress: 29568/34776 bytes (85%)
+2026-02-14 14:18:18.248 [Info] [TX-PROGRESS] ACK seq 528 - Progress: 29624/34776 bytes (85%)
+2026-02-14 14:18:18.248 [Info] [TX-PROGRESS] ACK seq 529 - Progress: 29680/34776 bytes (85%)
+2026-02-14 14:18:18.249 [Info] [TX-PROGRESS] ACK seq 530 - Progress: 29736/34776 bytes (85%)
+2026-02-14 14:18:18.249 [Info] [TX-PROGRESS] ACK seq 531 - Progress: 29792/34776 bytes (85%)
+2026-02-14 14:18:18.249 [Info] [TX-PROGRESS] ACK seq 532 - Progress: 29848/34776 bytes (85%)
+2026-02-14 14:18:18.250 [Info] [TX-PROGRESS] ACK seq 533 - Progress: 29904/34776 bytes (85%)
+2026-02-14 14:18:18.251 [Info] [TX-PROGRESS] ACK seq 534 - Progress: 29960/34776 bytes (86%)
+2026-02-14 14:18:18.251 [Info] [TX-PROGRESS] ACK seq 535 - Progress: 30016/34776 bytes (86%)
+2026-02-14 14:18:18.252 [Info] [TX-PROGRESS] ACK seq 536 - Progress: 30072/34776 bytes (86%)
+2026-02-14 14:18:18.252 [Info] [TX-PROGRESS] ACK seq 537 - Progress: 30128/34776 bytes (86%)
+2026-02-14 14:18:18.253 [Info] [TX-PROGRESS] ACK seq 538 - Progress: 30184/34776 bytes (86%)
+2026-02-14 14:18:18.254 [Info] [TX-PROGRESS] ACK seq 539 - Progress: 30240/34776 bytes (86%)
+2026-02-14 14:18:18.254 [Info] [TX-PROGRESS] ACK seq 540 - Progress: 30296/34776 bytes (87%)
+2026-02-14 14:18:18.255 [Info] [TX-PROGRESS] ACK seq 541 - Progress: 30352/34776 bytes (87%)
+2026-02-14 14:18:18.255 [Info] [TX-PROGRESS] ACK seq 542 - Progress: 30408/34776 bytes (87%)
+2026-02-14 14:18:18.256 [Info] [TX-PROGRESS] ACK seq 543 - Progress: 30464/34776 bytes (87%)
+2026-02-14 14:18:18.256 [Info] [TX-PROGRESS] ACK seq 544 - Progress: 30520/34776 bytes (87%)
+2026-02-14 14:18:18.257 [Info] [TX-PROGRESS] ACK seq 545 - Progress: 30576/34776 bytes (87%)
+2026-02-14 14:18:18.257 [Info] [TX-PROGRESS] ACK seq 546 - Progress: 30632/34776 bytes (88%)
+2026-02-14 14:18:18.258 [Info] [TX-PROGRESS] ACK seq 547 - Progress: 30688/34776 bytes (88%)
+2026-02-14 14:18:18.258 [Info] [TX-PROGRESS] ACK seq 548 - Progress: 30744/34776 bytes (88%)
+2026-02-14 14:18:18.258 [Info] [TX-PROGRESS] ACK seq 549 - Progress: 30800/34776 bytes (88%)
+2026-02-14 14:18:18.259 [Info] [TX-PROGRESS] ACK seq 550 - Progress: 30856/34776 bytes (88%)
+2026-02-14 14:18:18.259 [Info] [TX-PROGRESS] ACK seq 551 - Progress: 30912/34776 bytes (88%)
+2026-02-14 14:18:18.260 [Info] [TX-PROGRESS] ACK seq 552 - Progress: 30968/34776 bytes (89%)
+2026-02-14 14:18:18.260 [Info] [TX-PROGRESS] ACK seq 553 - Progress: 31024/34776 bytes (89%)
+2026-02-14 14:18:18.261 [Info] [TX-PROGRESS] ACK seq 554 - Progress: 31080/34776 bytes (89%)
+2026-02-14 14:18:18.261 [Info] [TX-PROGRESS] ACK seq 555 - Progress: 31136/34776 bytes (89%)
+2026-02-14 14:18:18.262 [Info] [TX-PROGRESS] ACK seq 556 - Progress: 31192/34776 bytes (89%)
+2026-02-14 14:18:18.262 [Info] [TX-PROGRESS] ACK seq 557 - Progress: 31248/34776 bytes (89%)
+2026-02-14 14:18:18.263 [Info] [TX-PROGRESS] ACK seq 558 - Progress: 31304/34776 bytes (90%)
+2026-02-14 14:18:18.263 [Info] [TX-PROGRESS] ACK seq 559 - Progress: 31360/34776 bytes (90%)
+2026-02-14 14:18:18.264 [Info] [TX-PROGRESS] ACK seq 560 - Progress: 31416/34776 bytes (90%)
+2026-02-14 14:18:18.264 [Info] [TX-PROGRESS] ACK seq 561 - Progress: 31472/34776 bytes (90%)
+2026-02-14 14:18:18.265 [Info] [TX-PROGRESS] ACK seq 562 - Progress: 31528/34776 bytes (90%)
+2026-02-14 14:18:18.265 [Info] [TX-PROGRESS] ACK seq 563 - Progress: 31584/34776 bytes (90%)
+2026-02-14 14:18:18.265 [Info] [TX-PROGRESS] ACK seq 564 - Progress: 31640/34776 bytes (90%)
+2026-02-14 14:18:18.266 [Info] [TX-PROGRESS] ACK seq 565 - Progress: 31696/34776 bytes (91%)
+2026-02-14 14:18:18.266 [Info] [TX-PROGRESS] ACK seq 566 - Progress: 31752/34776 bytes (91%)
+2026-02-14 14:18:18.267 [Info] [TX-PROGRESS] ACK seq 567 - Progress: 31808/34776 bytes (91%)
+2026-02-14 14:18:18.268 [Info] [TX-PROGRESS] ACK seq 568 - Progress: 31864/34776 bytes (91%)
+2026-02-14 14:18:18.268 [Info] [TX-PROGRESS] ACK seq 569 - Progress: 31920/34776 bytes (91%)
+2026-02-14 14:18:18.269 [Info] [TX-PROGRESS] ACK seq 570 - Progress: 31976/34776 bytes (91%)
+2026-02-14 14:18:18.269 [Info] [TX-PROGRESS] ACK seq 571 - Progress: 32032/34776 bytes (92%)
+2026-02-14 14:18:18.269 [Info] [TX-PROGRESS] ACK seq 572 - Progress: 32088/34776 bytes (92%)
+2026-02-14 14:18:18.270 [Info] [TX-PROGRESS] ACK seq 573 - Progress: 32144/34776 bytes (92%)
+2026-02-14 14:18:18.271 [Info] [TX-PROGRESS] ACK seq 574 - Progress: 32200/34776 bytes (92%)
+2026-02-14 14:18:18.271 [Info] [TX-PROGRESS] ACK seq 575 - Progress: 32256/34776 bytes (92%)
+2026-02-14 14:18:18.272 [Info] [TX-PROGRESS] ACK seq 576 - Progress: 32312/34776 bytes (92%)
+2026-02-14 14:18:18.272 [Info] [TX-PROGRESS] ACK seq 577 - Progress: 32368/34776 bytes (93%)
+2026-02-14 14:18:18.272 [Info] [TX-PROGRESS] ACK seq 578 - Progress: 32424/34776 bytes (93%)
+2026-02-14 14:18:18.273 [Info] [TX-PROGRESS] ACK seq 579 - Progress: 32480/34776 bytes (93%)
+2026-02-14 14:18:18.273 [Info] [TX-PROGRESS] ACK seq 580 - Progress: 32536/34776 bytes (93%)
+2026-02-14 14:18:18.274 [Info] [TX-PROGRESS] ACK seq 581 - Progress: 32592/34776 bytes (93%)
+2026-02-14 14:18:18.274 [Info] [TX-PROGRESS] ACK seq 582 - Progress: 32648/34776 bytes (93%)
+2026-02-14 14:18:18.275 [Info] [TX-PROGRESS] ACK seq 583 - Progress: 32704/34776 bytes (94%)
+2026-02-14 14:18:18.275 [Info] [TX-PROGRESS] ACK seq 584 - Progress: 32760/34776 bytes (94%)
+2026-02-14 14:18:18.275 [Info] [TX-PROGRESS] ACK seq 585 - Progress: 32816/34776 bytes (94%)
+2026-02-14 14:18:18.276 [Info] [TX-PROGRESS] ACK seq 586 - Progress: 32872/34776 bytes (94%)
+2026-02-14 14:18:18.276 [Info] [TX-PROGRESS] ACK seq 587 - Progress: 32928/34776 bytes (94%)
+2026-02-14 14:18:18.277 [Info] [TX-PROGRESS] ACK seq 588 - Progress: 32984/34776 bytes (94%)
+2026-02-14 14:18:18.277 [Info] [TX-PROGRESS] ACK seq 589 - Progress: 33040/34776 bytes (95%)
+2026-02-14 14:18:18.278 [Info] [TX-PROGRESS] ACK seq 590 - Progress: 33096/34776 bytes (95%)
+2026-02-14 14:18:18.278 [Info] [TX-PROGRESS] ACK seq 591 - Progress: 33152/34776 bytes (95%)
+2026-02-14 14:18:18.279 [Info] [TX-PROGRESS] ACK seq 592 - Progress: 33208/34776 bytes (95%)
+2026-02-14 14:18:18.279 [Info] [TX-PROGRESS] ACK seq 593 - Progress: 33264/34776 bytes (95%)
+2026-02-14 14:18:18.280 [Info] [TX-PROGRESS] ACK seq 594 - Progress: 33320/34776 bytes (95%)
+2026-02-14 14:18:18.280 [Info] [TX-PROGRESS] ACK seq 595 - Progress: 33376/34776 bytes (95%)
+2026-02-14 14:18:18.281 [Info] [TX-PROGRESS] ACK seq 596 - Progress: 33432/34776 bytes (96%)
+2026-02-14 14:18:18.281 [Info] [TX-PROGRESS] ACK seq 597 - Progress: 33488/34776 bytes (96%)
+2026-02-14 14:18:18.282 [Info] [TX-PROGRESS] ACK seq 598 - Progress: 33544/34776 bytes (96%)
+2026-02-14 14:18:18.282 [Info] [TX-PROGRESS] ACK seq 599 - Progress: 33600/34776 bytes (96%)
+2026-02-14 14:18:18.283 [Info] [TX-PROGRESS] ACK seq 600 - Progress: 33656/34776 bytes (96%)
+2026-02-14 14:18:18.283 [Info] [TX-PROGRESS] ACK seq 601 - Progress: 33712/34776 bytes (96%)
+2026-02-14 14:18:18.284 [Info] [TX-PROGRESS] ACK seq 602 - Progress: 33768/34776 bytes (97%)
+2026-02-14 14:18:18.284 [Info] [TX-PROGRESS] ACK seq 603 - Progress: 33824/34776 bytes (97%)
+2026-02-14 14:18:18.285 [Info] [TX-PROGRESS] ACK seq 604 - Progress: 33880/34776 bytes (97%)
+2026-02-14 14:18:18.285 [Info] [TX-PROGRESS] ACK seq 605 - Progress: 33936/34776 bytes (97%)
+2026-02-14 14:18:18.286 [Info] [TX-PROGRESS] ACK seq 606 - Progress: 33992/34776 bytes (97%)
+2026-02-14 14:18:18.287 [Info] [TX-PROGRESS] ACK seq 607 - Progress: 34048/34776 bytes (97%)
+2026-02-14 14:18:18.287 [Info] [TX-PROGRESS] ACK seq 608 - Progress: 34104/34776 bytes (98%)
+2026-02-14 14:18:18.288 [Info] [TX-PROGRESS] ACK seq 609 - Progress: 34160/34776 bytes (98%)
+2026-02-14 14:18:18.288 [Info] [TX-PROGRESS] ACK seq 610 - Progress: 34216/34776 bytes (98%)
+2026-02-14 14:18:18.289 [Info] [TX-PROGRESS] ACK seq 611 - Progress: 34272/34776 bytes (98%)
+2026-02-14 14:18:18.289 [Info] [TX-PROGRESS] ACK seq 612 - Progress: 34328/34776 bytes (98%)
+2026-02-14 14:18:18.289 [Info] [TX-PROGRESS] ACK seq 613 - Progress: 34384/34776 bytes (98%)
+2026-02-14 14:18:18.290 [Info] [TX-PROGRESS] ACK seq 614 - Progress: 34440/34776 bytes (99%)
+2026-02-14 14:18:18.290 [Info] [TX-PROGRESS] ACK seq 615 - Progress: 34496/34776 bytes (99%)
+2026-02-14 14:18:18.291 [Info] [TX-PROGRESS] ACK seq 616 - Progress: 34552/34776 bytes (99%)
+2026-02-14 14:18:18.291 [Info] [TX-PROGRESS] ACK seq 617 - Progress: 34608/34776 bytes (99%)
+2026-02-14 14:18:18.292 [Info] [TX-PROGRESS] ACK seq 618 - Progress: 34664/34776 bytes (99%)
+2026-02-14 14:18:18.292 [Info] [TX-PROGRESS] ACK seq 619 - Progress: 34720/34776 bytes (99%)
+2026-02-14 14:18:18.320 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:18.343 [Info] Writing Done for cart:3 MsgID:6 resp:SUCESS
+2026-02-14 14:18:18.343 [Info] Successfully Uploaded File: FPL.bin
+2026-02-14 14:18:18.343 [Info] Start Uploading File: IFFA_PRI.bin
+2026-02-14 14:18:18.345 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:1024 MsgID:10 cart:3
+2026-02-14 14:18:18.345 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.345 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.345 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:18.345 [Info] [TX-SETUP] SetMode - Data size: 1024 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:18.350 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:18.351 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:18.351 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:18.352 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=1024, FileName=IFFA_PRI.bin
+2026-02-14 14:18:18.352 [Info] [TX-DATA] Data prepared - Size: 1024 bytes, Starting transmission...
+2026-02-14 14:18:18.352 [Info] [TX-DATA] Data set for transmission - Size: 1024 bytes
+2026-02-14 14:18:18.352 [Info] [TX-START] Starting transmission - 1024 bytes, first packet seq 0
+2026-02-14 14:18:18.353 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/1024 bytes (5%)
+2026-02-14 14:18:18.353 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/1024 bytes (10%)
+2026-02-14 14:18:18.354 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/1024 bytes (16%)
+2026-02-14 14:18:18.354 [Info] [TX-PROGRESS] ACK seq 3 - Progress: 224/1024 bytes (21%)
+2026-02-14 14:18:18.355 [Info] [TX-PROGRESS] ACK seq 4 - Progress: 280/1024 bytes (27%)
+2026-02-14 14:18:18.355 [Info] [TX-PROGRESS] ACK seq 5 - Progress: 336/1024 bytes (32%)
+2026-02-14 14:18:18.355 [Info] [TX-PROGRESS] ACK seq 6 - Progress: 392/1024 bytes (38%)
+2026-02-14 14:18:18.356 [Info] [TX-PROGRESS] ACK seq 7 - Progress: 448/1024 bytes (43%)
+2026-02-14 14:18:18.356 [Info] [TX-PROGRESS] ACK seq 8 - Progress: 504/1024 bytes (49%)
+2026-02-14 14:18:18.357 [Info] [TX-PROGRESS] ACK seq 9 - Progress: 560/1024 bytes (54%)
+2026-02-14 14:18:18.357 [Info] [TX-PROGRESS] ACK seq 10 - Progress: 616/1024 bytes (60%)
+2026-02-14 14:18:18.358 [Info] [TX-PROGRESS] ACK seq 11 - Progress: 672/1024 bytes (65%)
+2026-02-14 14:18:18.358 [Info] [TX-PROGRESS] ACK seq 12 - Progress: 728/1024 bytes (71%)
+2026-02-14 14:18:18.358 [Info] [TX-PROGRESS] ACK seq 13 - Progress: 784/1024 bytes (76%)
+2026-02-14 14:18:18.359 [Info] [TX-PROGRESS] ACK seq 14 - Progress: 840/1024 bytes (82%)
+2026-02-14 14:18:18.360 [Info] [TX-PROGRESS] ACK seq 15 - Progress: 896/1024 bytes (87%)
+2026-02-14 14:18:18.360 [Info] [TX-PROGRESS] ACK seq 16 - Progress: 952/1024 bytes (92%)
+2026-02-14 14:18:18.361 [Info] [TX-PROGRESS] ACK seq 17 - Progress: 1008/1024 bytes (98%)
+2026-02-14 14:18:18.535 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:18.574 [Info] Writing Done for cart:3 MsgID:10 resp:SUCESS
+2026-02-14 14:18:18.574 [Info] Successfully Uploaded File: IFFA_PRI.bin
+2026-02-14 14:18:18.575 [Info] Start Uploading File: IFFA_SEC.bin
+2026-02-14 14:18:18.575 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:1024 MsgID:11 cart:3
+2026-02-14 14:18:18.575 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.575 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.575 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:18.576 [Info] [TX-SETUP] SetMode - Data size: 1024 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:18.587 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:18.587 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:18.587 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:18.588 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=1024, FileName=IFFA_SEC.bin
+2026-02-14 14:18:18.588 [Info] [TX-DATA] Data prepared - Size: 1024 bytes, Starting transmission...
+2026-02-14 14:18:18.588 [Info] [TX-DATA] Data set for transmission - Size: 1024 bytes
+2026-02-14 14:18:18.589 [Info] [TX-START] Starting transmission - 1024 bytes, first packet seq 0
+2026-02-14 14:18:18.589 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/1024 bytes (5%)
+2026-02-14 14:18:18.590 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/1024 bytes (10%)
+2026-02-14 14:18:18.590 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/1024 bytes (16%)
+2026-02-14 14:18:18.591 [Info] [TX-PROGRESS] ACK seq 3 - Progress: 224/1024 bytes (21%)
+2026-02-14 14:18:18.591 [Info] [TX-PROGRESS] ACK seq 4 - Progress: 280/1024 bytes (27%)
+2026-02-14 14:18:18.592 [Info] [TX-PROGRESS] ACK seq 5 - Progress: 336/1024 bytes (32%)
+2026-02-14 14:18:18.592 [Info] [TX-PROGRESS] ACK seq 6 - Progress: 392/1024 bytes (38%)
+2026-02-14 14:18:18.593 [Info] [TX-PROGRESS] ACK seq 7 - Progress: 448/1024 bytes (43%)
+2026-02-14 14:18:18.593 [Info] [TX-PROGRESS] ACK seq 8 - Progress: 504/1024 bytes (49%)
+2026-02-14 14:18:18.594 [Info] [TX-PROGRESS] ACK seq 9 - Progress: 560/1024 bytes (54%)
+2026-02-14 14:18:18.594 [Info] [TX-PROGRESS] ACK seq 10 - Progress: 616/1024 bytes (60%)
+2026-02-14 14:18:18.595 [Info] [TX-PROGRESS] ACK seq 11 - Progress: 672/1024 bytes (65%)
+2026-02-14 14:18:18.595 [Info] [TX-PROGRESS] ACK seq 12 - Progress: 728/1024 bytes (71%)
+2026-02-14 14:18:18.596 [Info] [TX-PROGRESS] ACK seq 13 - Progress: 784/1024 bytes (76%)
+2026-02-14 14:18:18.596 [Info] [TX-PROGRESS] ACK seq 14 - Progress: 840/1024 bytes (82%)
+2026-02-14 14:18:18.597 [Info] [TX-PROGRESS] ACK seq 15 - Progress: 896/1024 bytes (87%)
+2026-02-14 14:18:18.597 [Info] [TX-PROGRESS] ACK seq 16 - Progress: 952/1024 bytes (92%)
+2026-02-14 14:18:18.598 [Info] [TX-PROGRESS] ACK seq 17 - Progress: 1008/1024 bytes (98%)
+2026-02-14 14:18:18.621 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:18.653 [Info] Writing Done for cart:3 MsgID:11 resp:SUCESS
+2026-02-14 14:18:18.653 [Info] Successfully Uploaded File: IFFA_SEC.bin
+2026-02-14 14:18:18.654 [Info] Start Uploading File: IFFB_PRI.bin
+2026-02-14 14:18:18.654 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:1024 MsgID:12 cart:3
+2026-02-14 14:18:18.654 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.654 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.654 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:18.654 [Info] [TX-SETUP] SetMode - Data size: 1024 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:18.659 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:18.659 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:18.659 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:18.660 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=1024, FileName=IFFB_PRI.bin
+2026-02-14 14:18:18.660 [Info] [TX-DATA] Data prepared - Size: 1024 bytes, Starting transmission...
+2026-02-14 14:18:18.660 [Info] [TX-DATA] Data set for transmission - Size: 1024 bytes
+2026-02-14 14:18:18.660 [Info] [TX-START] Starting transmission - 1024 bytes, first packet seq 0
+2026-02-14 14:18:18.661 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/1024 bytes (5%)
+2026-02-14 14:18:18.661 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/1024 bytes (10%)
+2026-02-14 14:18:18.662 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/1024 bytes (16%)
+2026-02-14 14:18:18.662 [Info] [TX-PROGRESS] ACK seq 3 - Progress: 224/1024 bytes (21%)
+2026-02-14 14:18:18.663 [Info] [TX-PROGRESS] ACK seq 4 - Progress: 280/1024 bytes (27%)
+2026-02-14 14:18:18.663 [Info] [TX-PROGRESS] ACK seq 5 - Progress: 336/1024 bytes (32%)
+2026-02-14 14:18:18.664 [Info] [TX-PROGRESS] ACK seq 6 - Progress: 392/1024 bytes (38%)
+2026-02-14 14:18:18.664 [Info] [TX-PROGRESS] ACK seq 7 - Progress: 448/1024 bytes (43%)
+2026-02-14 14:18:18.665 [Info] [TX-PROGRESS] ACK seq 8 - Progress: 504/1024 bytes (49%)
+2026-02-14 14:18:18.665 [Info] [TX-PROGRESS] ACK seq 9 - Progress: 560/1024 bytes (54%)
+2026-02-14 14:18:18.665 [Info] [TX-PROGRESS] ACK seq 10 - Progress: 616/1024 bytes (60%)
+2026-02-14 14:18:18.666 [Info] [TX-PROGRESS] ACK seq 11 - Progress: 672/1024 bytes (65%)
+2026-02-14 14:18:18.666 [Info] [TX-PROGRESS] ACK seq 12 - Progress: 728/1024 bytes (71%)
+2026-02-14 14:18:18.667 [Info] [TX-PROGRESS] ACK seq 13 - Progress: 784/1024 bytes (76%)
+2026-02-14 14:18:18.667 [Info] [TX-PROGRESS] ACK seq 14 - Progress: 840/1024 bytes (82%)
+2026-02-14 14:18:18.667 [Info] [TX-PROGRESS] ACK seq 15 - Progress: 896/1024 bytes (87%)
+2026-02-14 14:18:18.668 [Info] [TX-PROGRESS] ACK seq 16 - Progress: 952/1024 bytes (92%)
+2026-02-14 14:18:18.668 [Info] [TX-PROGRESS] ACK seq 17 - Progress: 1008/1024 bytes (98%)
+2026-02-14 14:18:18.691 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:18.716 [Info] Writing Done for cart:3 MsgID:12 resp:SUCESS
+2026-02-14 14:18:18.716 [Info] Successfully Uploaded File: IFFB_PRI.bin
+2026-02-14 14:18:18.716 [Info] Start Uploading File: IFFB_SEC.bin
+2026-02-14 14:18:18.716 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:1024 MsgID:13 cart:3
+2026-02-14 14:18:18.716 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.716 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.716 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:18.716 [Info] [TX-SETUP] SetMode - Data size: 1024 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:18.720 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:18.720 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:18.720 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:18.722 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=1024, FileName=IFFB_SEC.bin
+2026-02-14 14:18:18.722 [Info] [TX-DATA] Data prepared - Size: 1024 bytes, Starting transmission...
+2026-02-14 14:18:18.722 [Info] [TX-DATA] Data set for transmission - Size: 1024 bytes
+2026-02-14 14:18:18.722 [Info] [TX-START] Starting transmission - 1024 bytes, first packet seq 0
+2026-02-14 14:18:18.723 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x00) - Preparing data for transmission
+2026-02-14 14:18:18.724 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x00
+2026-02-14 14:18:18.724 [Warning] [EVT3007] No TX handler registered for subcommand 0x00. Returning empty.
+2026-02-14 14:18:18.747 [Info] Writing Done for cart:3 MsgID:13 resp:SUCESS
+2026-02-14 14:18:18.747 [Info] Successfully Uploaded File: IFFB_SEC.bin
+2026-02-14 14:18:18.747 [Info] Start Uploading File: INCOMCRY.bin
+2026-02-14 14:18:18.747 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:560 MsgID:15 cart:3
+2026-02-14 14:18:18.747 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.747 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:18.747 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:18.749 [Info] [TX-SETUP] SetMode - Data size: 560 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:18.749 [Warning] [TX-FLOW] NACK received - Seq: 3072, Code: SUBCMD_SEQMISMATCH
+2026-02-14 14:18:18.749 [Warning] [TX-NACK] NACK for seq 3072, code: SUBCMD_SEQMISMATCH, retries left: 4
+2026-02-14 14:18:18.750 [Info] [TX-RETRY] Resending seq 3072 (attempt 2/4)
+2026-02-14 14:18:21.761 [Warning] [TX-TIMEOUT] ACK timeout for seq 0 - Retrying (2 attempts left)
+2026-02-14 14:18:21.761 [Error] [TX-SEND] Buffer overflow detected for seq 0! Required: 56 bytes, Available: 8 bytes. txSize=560, startPos=0, chunkLen=56
+2026-02-14 14:18:21.762 [Warning] [TX-SEND] Reduced chunkLen to 8 bytes to fit buffer
+2026-02-14 14:18:21.762 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x00) - Preparing data for transmission
+2026-02-14 14:18:21.762 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x00
+2026-02-14 14:18:21.762 [Warning] [EVT3007] No TX handler registered for subcommand 0x00. Returning empty.
+2026-02-14 14:18:21.793 [Info] Writing Done for cart:3 MsgID:15 resp:SUCESS
+2026-02-14 14:18:21.793 [Info] Successfully Uploaded File: INCOMCRY.bin
+2026-02-14 14:18:21.794 [Info] Start Uploading File: INCOMKEY.bin
+2026-02-14 14:18:21.794 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:1288 MsgID:14 cart:3
+2026-02-14 14:18:21.794 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:21.794 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:21.794 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:21.794 [Info] [TX-SETUP] SetMode - Data size: 1288 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:21.799 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:21.799 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:21.799 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:21.801 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=1288, FileName=INCOMKEY.bin
+2026-02-14 14:18:21.801 [Info] [TX-DATA] Data prepared - Size: 1288 bytes, Starting transmission...
+2026-02-14 14:18:21.801 [Info] [TX-DATA] Data set for transmission - Size: 1288 bytes
+2026-02-14 14:18:21.801 [Info] [TX-START] Starting transmission - 1288 bytes, first packet seq 0
+2026-02-14 14:18:21.801 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/1288 bytes (4%)
+2026-02-14 14:18:21.802 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/1288 bytes (8%)
+2026-02-14 14:18:21.802 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/1288 bytes (13%)
+2026-02-14 14:18:21.803 [Info] [TX-PROGRESS] ACK seq 3 - Progress: 224/1288 bytes (17%)
+2026-02-14 14:18:21.803 [Info] [TX-PROGRESS] ACK seq 4 - Progress: 280/1288 bytes (21%)
+2026-02-14 14:18:21.805 [Info] [TX-PROGRESS] ACK seq 5 - Progress: 336/1288 bytes (26%)
+2026-02-14 14:18:21.805 [Info] [TX-PROGRESS] ACK seq 6 - Progress: 392/1288 bytes (30%)
+2026-02-14 14:18:21.805 [Info] [TX-PROGRESS] ACK seq 7 - Progress: 448/1288 bytes (34%)
+2026-02-14 14:18:21.806 [Info] [TX-PROGRESS] ACK seq 8 - Progress: 504/1288 bytes (39%)
+2026-02-14 14:18:21.806 [Info] [TX-PROGRESS] ACK seq 9 - Progress: 560/1288 bytes (43%)
+2026-02-14 14:18:21.807 [Info] [TX-PROGRESS] ACK seq 10 - Progress: 616/1288 bytes (47%)
+2026-02-14 14:18:21.807 [Info] [TX-PROGRESS] ACK seq 11 - Progress: 672/1288 bytes (52%)
+2026-02-14 14:18:21.808 [Info] [TX-PROGRESS] ACK seq 12 - Progress: 728/1288 bytes (56%)
+2026-02-14 14:18:21.808 [Info] [TX-PROGRESS] ACK seq 13 - Progress: 784/1288 bytes (60%)
+2026-02-14 14:18:21.809 [Info] [TX-PROGRESS] ACK seq 14 - Progress: 840/1288 bytes (65%)
+2026-02-14 14:18:21.809 [Info] [TX-PROGRESS] ACK seq 15 - Progress: 896/1288 bytes (69%)
+2026-02-14 14:18:21.810 [Info] [TX-PROGRESS] ACK seq 16 - Progress: 952/1288 bytes (73%)
+2026-02-14 14:18:21.810 [Info] [TX-PROGRESS] ACK seq 17 - Progress: 1008/1288 bytes (78%)
+2026-02-14 14:18:21.810 [Info] [TX-PROGRESS] ACK seq 18 - Progress: 1064/1288 bytes (82%)
+2026-02-14 14:18:21.811 [Info] [TX-PROGRESS] ACK seq 19 - Progress: 1120/1288 bytes (86%)
+2026-02-14 14:18:21.811 [Info] [TX-PROGRESS] ACK seq 20 - Progress: 1176/1288 bytes (91%)
+2026-02-14 14:18:21.813 [Info] [TX-PROGRESS] ACK seq 21 - Progress: 1232/1288 bytes (95%)
+2026-02-14 14:18:21.840 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:21.902 [Info] Writing Done for cart:3 MsgID:14 resp:SUCESS
+2026-02-14 14:18:21.903 [Info] Successfully Uploaded File: INCOMKEY.bin
+2026-02-14 14:18:21.903 [Info] Start Uploading File: INCOMMNE.bin
+2026-02-14 14:18:21.903 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:336 MsgID:16 cart:3
+2026-02-14 14:18:21.903 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:21.904 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:21.904 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:21.904 [Info] [TX-SETUP] SetMode - Data size: 336 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:21.918 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:21.918 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:21.918 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:21.920 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=336, FileName=INCOMMNE.bin
+2026-02-14 14:18:21.920 [Info] [TX-DATA] Data prepared - Size: 336 bytes, Starting transmission...
+2026-02-14 14:18:21.920 [Info] [TX-DATA] Data set for transmission - Size: 336 bytes
+2026-02-14 14:18:21.920 [Info] [TX-START] Starting transmission - 336 bytes, first packet seq 0
+2026-02-14 14:18:21.921 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x00) - Preparing data for transmission
+2026-02-14 14:18:21.921 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x00
+2026-02-14 14:18:21.921 [Warning] [EVT3007] No TX handler registered for subcommand 0x00. Returning empty.
+2026-02-14 14:18:21.964 [Info] Writing Done for cart:3 MsgID:16 resp:SUCESS
+2026-02-14 14:18:21.965 [Info] Successfully Uploaded File: INCOMMNE.bin
+2026-02-14 14:18:21.965 [Info] Start Uploading File: RWR.BIN
+2026-02-14 14:18:21.965 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:6400 MsgID:9 cart:3
+2026-02-14 14:18:21.965 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:21.965 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:21.965 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:21.965 [Info] [TX-SETUP] SetMode - Data size: 6400 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:21.970 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:21.971 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:21.971 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:21.971 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=6400, FileName=RWR.BIN
+2026-02-14 14:18:21.979 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=6400, FileName=RWR.BIN
+2026-02-14 14:18:21.979 [Info] [TX-DATA] Data prepared - Size: 6400 bytes, Starting transmission...
+2026-02-14 14:18:21.979 [Info] [TX-DATA] Data set for transmission - Size: 6400 bytes
+2026-02-14 14:18:21.979 [Info] [TX-START] Starting transmission - 6400 bytes, first packet seq 0
+2026-02-14 14:18:21.980 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/6400 bytes (0%)
+2026-02-14 14:18:21.980 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/6400 bytes (1%)
+2026-02-14 14:18:21.980 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/6400 bytes (2%)
+2026-02-14 14:18:21.981 [Info] [TX-PROGRESS] ACK seq 3 - Progress: 224/6400 bytes (3%)
+2026-02-14 14:18:21.982 [Info] [TX-PROGRESS] ACK seq 4 - Progress: 280/6400 bytes (4%)
+2026-02-14 14:18:21.982 [Info] [TX-PROGRESS] ACK seq 5 - Progress: 336/6400 bytes (5%)
+2026-02-14 14:18:21.983 [Info] [TX-PROGRESS] ACK seq 6 - Progress: 392/6400 bytes (6%)
+2026-02-14 14:18:21.983 [Info] [TX-PROGRESS] ACK seq 7 - Progress: 448/6400 bytes (7%)
+2026-02-14 14:18:21.984 [Info] [TX-PROGRESS] ACK seq 8 - Progress: 504/6400 bytes (7%)
+2026-02-14 14:18:21.984 [Info] [TX-PROGRESS] ACK seq 9 - Progress: 560/6400 bytes (8%)
+2026-02-14 14:18:21.984 [Info] [TX-PROGRESS] ACK seq 10 - Progress: 616/6400 bytes (9%)
+2026-02-14 14:18:21.985 [Info] [TX-PROGRESS] ACK seq 11 - Progress: 672/6400 bytes (10%)
+2026-02-14 14:18:21.985 [Info] [TX-PROGRESS] ACK seq 12 - Progress: 728/6400 bytes (11%)
+2026-02-14 14:18:21.986 [Info] [TX-PROGRESS] ACK seq 13 - Progress: 784/6400 bytes (12%)
+2026-02-14 14:18:21.986 [Info] [TX-PROGRESS] ACK seq 14 - Progress: 840/6400 bytes (13%)
+2026-02-14 14:18:21.986 [Info] [TX-PROGRESS] ACK seq 15 - Progress: 896/6400 bytes (14%)
+2026-02-14 14:18:21.988 [Info] [TX-PROGRESS] ACK seq 16 - Progress: 952/6400 bytes (14%)
+2026-02-14 14:18:21.988 [Info] [TX-PROGRESS] ACK seq 17 - Progress: 1008/6400 bytes (15%)
+2026-02-14 14:18:21.989 [Info] [TX-PROGRESS] ACK seq 18 - Progress: 1064/6400 bytes (16%)
+2026-02-14 14:18:21.989 [Info] [TX-PROGRESS] ACK seq 19 - Progress: 1120/6400 bytes (17%)
+2026-02-14 14:18:21.990 [Info] [TX-PROGRESS] ACK seq 20 - Progress: 1176/6400 bytes (18%)
+2026-02-14 14:18:21.990 [Info] [TX-PROGRESS] ACK seq 21 - Progress: 1232/6400 bytes (19%)
+2026-02-14 14:18:21.990 [Info] [TX-PROGRESS] ACK seq 22 - Progress: 1288/6400 bytes (20%)
+2026-02-14 14:18:21.991 [Info] [TX-PROGRESS] ACK seq 23 - Progress: 1344/6400 bytes (21%)
+2026-02-14 14:18:21.991 [Info] [TX-PROGRESS] ACK seq 24 - Progress: 1400/6400 bytes (21%)
+2026-02-14 14:18:21.992 [Info] [TX-PROGRESS] ACK seq 25 - Progress: 1456/6400 bytes (22%)
+2026-02-14 14:18:21.992 [Info] [TX-PROGRESS] ACK seq 26 - Progress: 1512/6400 bytes (23%)
+2026-02-14 14:18:21.993 [Info] [TX-PROGRESS] ACK seq 27 - Progress: 1568/6400 bytes (24%)
+2026-02-14 14:18:21.993 [Info] [TX-PROGRESS] ACK seq 28 - Progress: 1624/6400 bytes (25%)
+2026-02-14 14:18:21.994 [Info] [TX-PROGRESS] ACK seq 29 - Progress: 1680/6400 bytes (26%)
+2026-02-14 14:18:21.994 [Info] [TX-PROGRESS] ACK seq 30 - Progress: 1736/6400 bytes (27%)
+2026-02-14 14:18:21.994 [Info] [TX-PROGRESS] ACK seq 31 - Progress: 1792/6400 bytes (28%)
+2026-02-14 14:18:21.995 [Info] [TX-PROGRESS] ACK seq 32 - Progress: 1848/6400 bytes (28%)
+2026-02-14 14:18:21.995 [Info] [TX-PROGRESS] ACK seq 33 - Progress: 1904/6400 bytes (29%)
+2026-02-14 14:18:21.995 [Info] [TX-PROGRESS] ACK seq 34 - Progress: 1960/6400 bytes (30%)
+2026-02-14 14:18:21.997 [Info] [TX-PROGRESS] ACK seq 35 - Progress: 2016/6400 bytes (31%)
+2026-02-14 14:18:21.997 [Info] [TX-PROGRESS] ACK seq 36 - Progress: 2072/6400 bytes (32%)
+2026-02-14 14:18:21.997 [Info] [TX-PROGRESS] ACK seq 37 - Progress: 2128/6400 bytes (33%)
+2026-02-14 14:18:21.998 [Info] [TX-PROGRESS] ACK seq 38 - Progress: 2184/6400 bytes (34%)
+2026-02-14 14:18:21.998 [Info] [TX-PROGRESS] ACK seq 39 - Progress: 2240/6400 bytes (35%)
+2026-02-14 14:18:21.999 [Info] [TX-PROGRESS] ACK seq 40 - Progress: 2296/6400 bytes (35%)
+2026-02-14 14:18:21.999 [Info] [TX-PROGRESS] ACK seq 41 - Progress: 2352/6400 bytes (36%)
+2026-02-14 14:18:22.001 [Info] [TX-PROGRESS] ACK seq 42 - Progress: 2408/6400 bytes (37%)
+2026-02-14 14:18:22.001 [Info] [TX-PROGRESS] ACK seq 43 - Progress: 2464/6400 bytes (38%)
+2026-02-14 14:18:22.001 [Info] [TX-PROGRESS] ACK seq 44 - Progress: 2520/6400 bytes (39%)
+2026-02-14 14:18:22.002 [Info] [TX-PROGRESS] ACK seq 45 - Progress: 2576/6400 bytes (40%)
+2026-02-14 14:18:22.002 [Info] [TX-PROGRESS] ACK seq 46 - Progress: 2632/6400 bytes (41%)
+2026-02-14 14:18:22.003 [Info] [TX-PROGRESS] ACK seq 47 - Progress: 2688/6400 bytes (42%)
+2026-02-14 14:18:22.003 [Info] [TX-PROGRESS] ACK seq 48 - Progress: 2744/6400 bytes (42%)
+2026-02-14 14:18:22.003 [Info] [TX-PROGRESS] ACK seq 49 - Progress: 2800/6400 bytes (43%)
+2026-02-14 14:18:22.004 [Info] [TX-PROGRESS] ACK seq 50 - Progress: 2856/6400 bytes (44%)
+2026-02-14 14:18:22.004 [Info] [TX-PROGRESS] ACK seq 51 - Progress: 2912/6400 bytes (45%)
+2026-02-14 14:18:22.005 [Info] [TX-PROGRESS] ACK seq 52 - Progress: 2968/6400 bytes (46%)
+2026-02-14 14:18:22.005 [Info] [TX-PROGRESS] ACK seq 53 - Progress: 3024/6400 bytes (47%)
+2026-02-14 14:18:22.006 [Info] [TX-PROGRESS] ACK seq 54 - Progress: 3080/6400 bytes (48%)
+2026-02-14 14:18:22.006 [Info] [TX-PROGRESS] ACK seq 55 - Progress: 3136/6400 bytes (49%)
+2026-02-14 14:18:22.007 [Info] [TX-PROGRESS] ACK seq 56 - Progress: 3192/6400 bytes (49%)
+2026-02-14 14:18:22.007 [Info] [TX-PROGRESS] ACK seq 57 - Progress: 3248/6400 bytes (50%)
+2026-02-14 14:18:22.008 [Info] [TX-PROGRESS] ACK seq 58 - Progress: 3304/6400 bytes (51%)
+2026-02-14 14:18:22.008 [Info] [TX-PROGRESS] ACK seq 59 - Progress: 3360/6400 bytes (52%)
+2026-02-14 14:18:22.008 [Info] [TX-PROGRESS] ACK seq 60 - Progress: 3416/6400 bytes (53%)
+2026-02-14 14:18:22.009 [Info] [TX-PROGRESS] ACK seq 61 - Progress: 3472/6400 bytes (54%)
+2026-02-14 14:18:22.009 [Info] [TX-PROGRESS] ACK seq 62 - Progress: 3528/6400 bytes (55%)
+2026-02-14 14:18:22.010 [Info] [TX-PROGRESS] ACK seq 63 - Progress: 3584/6400 bytes (56%)
+2026-02-14 14:18:22.010 [Info] [TX-PROGRESS] ACK seq 64 - Progress: 3640/6400 bytes (56%)
+2026-02-14 14:18:22.011 [Info] [TX-PROGRESS] ACK seq 65 - Progress: 3696/6400 bytes (57%)
+2026-02-14 14:18:22.011 [Info] [TX-PROGRESS] ACK seq 66 - Progress: 3752/6400 bytes (58%)
+2026-02-14 14:18:22.012 [Info] [TX-PROGRESS] ACK seq 67 - Progress: 3808/6400 bytes (59%)
+2026-02-14 14:18:22.012 [Info] [TX-PROGRESS] ACK seq 68 - Progress: 3864/6400 bytes (60%)
+2026-02-14 14:18:22.013 [Info] [TX-PROGRESS] ACK seq 69 - Progress: 3920/6400 bytes (61%)
+2026-02-14 14:18:22.014 [Info] [TX-PROGRESS] ACK seq 70 - Progress: 3976/6400 bytes (62%)
+2026-02-14 14:18:22.015 [Info] [TX-PROGRESS] ACK seq 71 - Progress: 4032/6400 bytes (63%)
+2026-02-14 14:18:22.015 [Info] [TX-PROGRESS] ACK seq 72 - Progress: 4088/6400 bytes (63%)
+2026-02-14 14:18:22.016 [Info] [TX-PROGRESS] ACK seq 73 - Progress: 4144/6400 bytes (64%)
+2026-02-14 14:18:22.017 [Info] [TX-PROGRESS] ACK seq 74 - Progress: 4200/6400 bytes (65%)
+2026-02-14 14:18:22.017 [Info] [TX-PROGRESS] ACK seq 75 - Progress: 4256/6400 bytes (66%)
+2026-02-14 14:18:22.018 [Info] [TX-PROGRESS] ACK seq 76 - Progress: 4312/6400 bytes (67%)
+2026-02-14 14:18:22.018 [Info] [TX-PROGRESS] ACK seq 77 - Progress: 4368/6400 bytes (68%)
+2026-02-14 14:18:22.019 [Info] [TX-PROGRESS] ACK seq 78 - Progress: 4424/6400 bytes (69%)
+2026-02-14 14:18:22.019 [Info] [TX-PROGRESS] ACK seq 79 - Progress: 4480/6400 bytes (70%)
+2026-02-14 14:18:22.020 [Info] [TX-PROGRESS] ACK seq 80 - Progress: 4536/6400 bytes (70%)
+2026-02-14 14:18:22.020 [Info] [TX-PROGRESS] ACK seq 81 - Progress: 4592/6400 bytes (71%)
+2026-02-14 14:18:22.021 [Info] [TX-PROGRESS] ACK seq 82 - Progress: 4648/6400 bytes (72%)
+2026-02-14 14:18:22.021 [Info] [TX-PROGRESS] ACK seq 83 - Progress: 4704/6400 bytes (73%)
+2026-02-14 14:18:22.022 [Info] [TX-PROGRESS] ACK seq 84 - Progress: 4760/6400 bytes (74%)
+2026-02-14 14:18:22.022 [Info] [TX-PROGRESS] ACK seq 85 - Progress: 4816/6400 bytes (75%)
+2026-02-14 14:18:22.022 [Info] [TX-PROGRESS] ACK seq 86 - Progress: 4872/6400 bytes (76%)
+2026-02-14 14:18:22.024 [Info] [TX-PROGRESS] ACK seq 87 - Progress: 4928/6400 bytes (77%)
+2026-02-14 14:18:22.024 [Info] [TX-PROGRESS] ACK seq 88 - Progress: 4984/6400 bytes (77%)
+2026-02-14 14:18:22.025 [Info] [TX-PROGRESS] ACK seq 89 - Progress: 5040/6400 bytes (78%)
+2026-02-14 14:18:22.025 [Info] [TX-PROGRESS] ACK seq 90 - Progress: 5096/6400 bytes (79%)
+2026-02-14 14:18:22.026 [Info] [TX-PROGRESS] ACK seq 91 - Progress: 5152/6400 bytes (80%)
+2026-02-14 14:18:22.026 [Info] [TX-PROGRESS] ACK seq 92 - Progress: 5208/6400 bytes (81%)
+2026-02-14 14:18:22.026 [Info] [TX-PROGRESS] ACK seq 93 - Progress: 5264/6400 bytes (82%)
+2026-02-14 14:18:22.028 [Info] [TX-PROGRESS] ACK seq 94 - Progress: 5320/6400 bytes (83%)
+2026-02-14 14:18:22.028 [Info] [TX-PROGRESS] ACK seq 95 - Progress: 5376/6400 bytes (84%)
+2026-02-14 14:18:22.028 [Info] [TX-PROGRESS] ACK seq 96 - Progress: 5432/6400 bytes (84%)
+2026-02-14 14:18:22.029 [Info] [TX-PROGRESS] ACK seq 97 - Progress: 5488/6400 bytes (85%)
+2026-02-14 14:18:22.029 [Info] [TX-PROGRESS] ACK seq 98 - Progress: 5544/6400 bytes (86%)
+2026-02-14 14:18:22.030 [Info] [TX-PROGRESS] ACK seq 99 - Progress: 5600/6400 bytes (87%)
+2026-02-14 14:18:22.030 [Info] [TX-PROGRESS] ACK seq 100 - Progress: 5656/6400 bytes (88%)
+2026-02-14 14:18:22.031 [Info] [TX-PROGRESS] ACK seq 101 - Progress: 5712/6400 bytes (89%)
+2026-02-14 14:18:22.031 [Info] [TX-PROGRESS] ACK seq 102 - Progress: 5768/6400 bytes (90%)
+2026-02-14 14:18:22.031 [Info] [TX-PROGRESS] ACK seq 103 - Progress: 5824/6400 bytes (91%)
+2026-02-14 14:18:22.033 [Info] [TX-PROGRESS] ACK seq 104 - Progress: 5880/6400 bytes (91%)
+2026-02-14 14:18:22.033 [Info] [TX-PROGRESS] ACK seq 105 - Progress: 5936/6400 bytes (92%)
+2026-02-14 14:18:22.033 [Info] [TX-PROGRESS] ACK seq 106 - Progress: 5992/6400 bytes (93%)
+2026-02-14 14:18:22.034 [Info] [TX-PROGRESS] ACK seq 107 - Progress: 6048/6400 bytes (94%)
+2026-02-14 14:18:22.034 [Info] [TX-PROGRESS] ACK seq 108 - Progress: 6104/6400 bytes (95%)
+2026-02-14 14:18:22.035 [Info] [TX-PROGRESS] ACK seq 109 - Progress: 6160/6400 bytes (96%)
+2026-02-14 14:18:22.035 [Info] [TX-PROGRESS] ACK seq 110 - Progress: 6216/6400 bytes (97%)
+2026-02-14 14:18:22.036 [Info] [TX-PROGRESS] ACK seq 111 - Progress: 6272/6400 bytes (98%)
+2026-02-14 14:18:22.036 [Info] [TX-PROGRESS] ACK seq 112 - Progress: 6328/6400 bytes (98%)
+2026-02-14 14:18:22.038 [Info] [TX-PROGRESS] ACK seq 113 - Progress: 6384/6400 bytes (99%)
+2026-02-14 14:18:22.066 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:22.089 [Info] Writing Done for cart:3 MsgID:9 resp:SUCESS
+2026-02-14 14:18:22.089 [Info] Successfully Uploaded File: RWR.BIN
+2026-02-14 14:18:22.090 [Info] Start Uploading File: SPJ.BIN
+2026-02-14 14:18:22.090 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:6400 MsgID:8 cart:3
+2026-02-14 14:18:22.090 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.090 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.090 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:22.090 [Info] [TX-SETUP] SetMode - Data size: 6400 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:22.090 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:22.091 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:22.091 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:22.092 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=6400, FileName=SPJ.BIN
+2026-02-14 14:18:22.092 [Info] [TX-DATA] Data prepared - Size: 6400 bytes, Starting transmission...
+2026-02-14 14:18:22.092 [Info] [TX-DATA] Data set for transmission - Size: 6400 bytes
+2026-02-14 14:18:22.092 [Info] [TX-START] Starting transmission - 6400 bytes, first packet seq 0
+2026-02-14 14:18:22.093 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/6400 bytes (0%)
+2026-02-14 14:18:22.093 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/6400 bytes (1%)
+2026-02-14 14:18:22.095 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/6400 bytes (2%)
+2026-02-14 14:18:22.095 [Info] [TX-PROGRESS] ACK seq 3 - Progress: 224/6400 bytes (3%)
+2026-02-14 14:18:22.095 [Info] [TX-PROGRESS] ACK seq 4 - Progress: 280/6400 bytes (4%)
+2026-02-14 14:18:22.096 [Info] [TX-PROGRESS] ACK seq 5 - Progress: 336/6400 bytes (5%)
+2026-02-14 14:18:22.096 [Info] [TX-PROGRESS] ACK seq 6 - Progress: 392/6400 bytes (6%)
+2026-02-14 14:18:22.096 [Info] [TX-PROGRESS] ACK seq 7 - Progress: 448/6400 bytes (7%)
+2026-02-14 14:18:22.097 [Info] [TX-PROGRESS] ACK seq 8 - Progress: 504/6400 bytes (7%)
+2026-02-14 14:18:22.097 [Info] [TX-PROGRESS] ACK seq 9 - Progress: 560/6400 bytes (8%)
+2026-02-14 14:18:22.098 [Info] [TX-PROGRESS] ACK seq 10 - Progress: 616/6400 bytes (9%)
+2026-02-14 14:18:22.098 [Info] [TX-PROGRESS] ACK seq 11 - Progress: 672/6400 bytes (10%)
+2026-02-14 14:18:22.100 [Info] [TX-PROGRESS] ACK seq 12 - Progress: 728/6400 bytes (11%)
+2026-02-14 14:18:22.100 [Info] [TX-PROGRESS] ACK seq 13 - Progress: 784/6400 bytes (12%)
+2026-02-14 14:18:22.101 [Info] [TX-PROGRESS] ACK seq 14 - Progress: 840/6400 bytes (13%)
+2026-02-14 14:18:22.101 [Info] [TX-PROGRESS] ACK seq 15 - Progress: 896/6400 bytes (14%)
+2026-02-14 14:18:22.102 [Info] [TX-PROGRESS] ACK seq 16 - Progress: 952/6400 bytes (14%)
+2026-02-14 14:18:22.102 [Info] [TX-PROGRESS] ACK seq 17 - Progress: 1008/6400 bytes (15%)
+2026-02-14 14:18:22.103 [Info] [TX-PROGRESS] ACK seq 18 - Progress: 1064/6400 bytes (16%)
+2026-02-14 14:18:22.103 [Info] [TX-PROGRESS] ACK seq 19 - Progress: 1120/6400 bytes (17%)
+2026-02-14 14:18:22.103 [Info] [TX-PROGRESS] ACK seq 20 - Progress: 1176/6400 bytes (18%)
+2026-02-14 14:18:22.104 [Info] [TX-PROGRESS] ACK seq 21 - Progress: 1232/6400 bytes (19%)
+2026-02-14 14:18:22.104 [Info] [TX-PROGRESS] ACK seq 22 - Progress: 1288/6400 bytes (20%)
+2026-02-14 14:18:22.105 [Info] [TX-PROGRESS] ACK seq 23 - Progress: 1344/6400 bytes (21%)
+2026-02-14 14:18:22.105 [Info] [TX-PROGRESS] ACK seq 24 - Progress: 1400/6400 bytes (21%)
+2026-02-14 14:18:22.106 [Info] [TX-PROGRESS] ACK seq 25 - Progress: 1456/6400 bytes (22%)
+2026-02-14 14:18:22.106 [Info] [TX-PROGRESS] ACK seq 26 - Progress: 1512/6400 bytes (23%)
+2026-02-14 14:18:22.107 [Info] [TX-PROGRESS] ACK seq 27 - Progress: 1568/6400 bytes (24%)
+2026-02-14 14:18:22.107 [Info] [TX-PROGRESS] ACK seq 28 - Progress: 1624/6400 bytes (25%)
+2026-02-14 14:18:22.108 [Info] [TX-PROGRESS] ACK seq 29 - Progress: 1680/6400 bytes (26%)
+2026-02-14 14:18:22.108 [Info] [TX-PROGRESS] ACK seq 30 - Progress: 1736/6400 bytes (27%)
+2026-02-14 14:18:22.109 [Info] [TX-PROGRESS] ACK seq 31 - Progress: 1792/6400 bytes (28%)
+2026-02-14 14:18:22.109 [Info] [TX-PROGRESS] ACK seq 32 - Progress: 1848/6400 bytes (28%)
+2026-02-14 14:18:22.110 [Info] [TX-PROGRESS] ACK seq 33 - Progress: 1904/6400 bytes (29%)
+2026-02-14 14:18:22.110 [Info] [TX-PROGRESS] ACK seq 34 - Progress: 1960/6400 bytes (30%)
+2026-02-14 14:18:22.112 [Info] [TX-PROGRESS] ACK seq 35 - Progress: 2016/6400 bytes (31%)
+2026-02-14 14:18:22.112 [Info] [TX-PROGRESS] ACK seq 36 - Progress: 2072/6400 bytes (32%)
+2026-02-14 14:18:22.112 [Info] [TX-PROGRESS] ACK seq 37 - Progress: 2128/6400 bytes (33%)
+2026-02-14 14:18:22.113 [Info] [TX-PROGRESS] ACK seq 38 - Progress: 2184/6400 bytes (34%)
+2026-02-14 14:18:22.113 [Info] [TX-PROGRESS] ACK seq 39 - Progress: 2240/6400 bytes (35%)
+2026-02-14 14:18:22.114 [Info] [TX-PROGRESS] ACK seq 40 - Progress: 2296/6400 bytes (35%)
+2026-02-14 14:18:22.114 [Info] [TX-PROGRESS] ACK seq 41 - Progress: 2352/6400 bytes (36%)
+2026-02-14 14:18:22.115 [Info] [TX-PROGRESS] ACK seq 42 - Progress: 2408/6400 bytes (37%)
+2026-02-14 14:18:22.115 [Info] [TX-PROGRESS] ACK seq 43 - Progress: 2464/6400 bytes (38%)
+2026-02-14 14:18:22.115 [Info] [TX-PROGRESS] ACK seq 44 - Progress: 2520/6400 bytes (39%)
+2026-02-14 14:18:22.117 [Info] [TX-PROGRESS] ACK seq 45 - Progress: 2576/6400 bytes (40%)
+2026-02-14 14:18:22.117 [Info] [TX-PROGRESS] ACK seq 46 - Progress: 2632/6400 bytes (41%)
+2026-02-14 14:18:22.118 [Info] [TX-PROGRESS] ACK seq 47 - Progress: 2688/6400 bytes (42%)
+2026-02-14 14:18:22.118 [Info] [TX-PROGRESS] ACK seq 48 - Progress: 2744/6400 bytes (42%)
+2026-02-14 14:18:22.119 [Info] [TX-PROGRESS] ACK seq 49 - Progress: 2800/6400 bytes (43%)
+2026-02-14 14:18:22.119 [Info] [TX-PROGRESS] ACK seq 50 - Progress: 2856/6400 bytes (44%)
+2026-02-14 14:18:22.120 [Info] [TX-PROGRESS] ACK seq 51 - Progress: 2912/6400 bytes (45%)
+2026-02-14 14:18:22.120 [Info] [TX-PROGRESS] ACK seq 52 - Progress: 2968/6400 bytes (46%)
+2026-02-14 14:18:22.121 [Info] [TX-PROGRESS] ACK seq 53 - Progress: 3024/6400 bytes (47%)
+2026-02-14 14:18:22.121 [Info] [TX-PROGRESS] ACK seq 54 - Progress: 3080/6400 bytes (48%)
+2026-02-14 14:18:22.122 [Info] [TX-PROGRESS] ACK seq 55 - Progress: 3136/6400 bytes (49%)
+2026-02-14 14:18:22.122 [Info] [TX-PROGRESS] ACK seq 56 - Progress: 3192/6400 bytes (49%)
+2026-02-14 14:18:22.123 [Info] [TX-PROGRESS] ACK seq 57 - Progress: 3248/6400 bytes (50%)
+2026-02-14 14:18:22.123 [Info] [TX-PROGRESS] ACK seq 58 - Progress: 3304/6400 bytes (51%)
+2026-02-14 14:18:22.124 [Info] [TX-PROGRESS] ACK seq 59 - Progress: 3360/6400 bytes (52%)
+2026-02-14 14:18:22.124 [Info] [TX-PROGRESS] ACK seq 60 - Progress: 3416/6400 bytes (53%)
+2026-02-14 14:18:22.125 [Info] [TX-PROGRESS] ACK seq 61 - Progress: 3472/6400 bytes (54%)
+2026-02-14 14:18:22.125 [Info] [TX-PROGRESS] ACK seq 62 - Progress: 3528/6400 bytes (55%)
+2026-02-14 14:18:22.127 [Info] [TX-PROGRESS] ACK seq 63 - Progress: 3584/6400 bytes (56%)
+2026-02-14 14:18:22.127 [Info] [TX-PROGRESS] ACK seq 64 - Progress: 3640/6400 bytes (56%)
+2026-02-14 14:18:22.127 [Info] [TX-PROGRESS] ACK seq 65 - Progress: 3696/6400 bytes (57%)
+2026-02-14 14:18:22.128 [Info] [TX-PROGRESS] ACK seq 66 - Progress: 3752/6400 bytes (58%)
+2026-02-14 14:18:22.128 [Info] [TX-PROGRESS] ACK seq 67 - Progress: 3808/6400 bytes (59%)
+2026-02-14 14:18:22.129 [Info] [TX-PROGRESS] ACK seq 68 - Progress: 3864/6400 bytes (60%)
+2026-02-14 14:18:22.129 [Info] [TX-PROGRESS] ACK seq 69 - Progress: 3920/6400 bytes (61%)
+2026-02-14 14:18:22.129 [Info] [TX-PROGRESS] ACK seq 70 - Progress: 3976/6400 bytes (62%)
+2026-02-14 14:18:22.130 [Info] [TX-PROGRESS] ACK seq 71 - Progress: 4032/6400 bytes (63%)
+2026-02-14 14:18:22.131 [Info] [TX-PROGRESS] ACK seq 72 - Progress: 4088/6400 bytes (63%)
+2026-02-14 14:18:22.131 [Info] [TX-PROGRESS] ACK seq 73 - Progress: 4144/6400 bytes (64%)
+2026-02-14 14:18:22.132 [Info] [TX-PROGRESS] ACK seq 74 - Progress: 4200/6400 bytes (65%)
+2026-02-14 14:18:22.132 [Info] [TX-PROGRESS] ACK seq 75 - Progress: 4256/6400 bytes (66%)
+2026-02-14 14:18:22.134 [Info] [TX-PROGRESS] ACK seq 76 - Progress: 4312/6400 bytes (67%)
+2026-02-14 14:18:22.134 [Info] [TX-PROGRESS] ACK seq 77 - Progress: 4368/6400 bytes (68%)
+2026-02-14 14:18:22.134 [Info] [TX-PROGRESS] ACK seq 78 - Progress: 4424/6400 bytes (69%)
+2026-02-14 14:18:22.135 [Info] [TX-PROGRESS] ACK seq 79 - Progress: 4480/6400 bytes (70%)
+2026-02-14 14:18:22.135 [Info] [TX-PROGRESS] ACK seq 80 - Progress: 4536/6400 bytes (70%)
+2026-02-14 14:18:22.136 [Info] [TX-PROGRESS] ACK seq 81 - Progress: 4592/6400 bytes (71%)
+2026-02-14 14:18:22.136 [Info] [TX-PROGRESS] ACK seq 82 - Progress: 4648/6400 bytes (72%)
+2026-02-14 14:18:22.137 [Info] [TX-PROGRESS] ACK seq 83 - Progress: 4704/6400 bytes (73%)
+2026-02-14 14:18:22.137 [Info] [TX-PROGRESS] ACK seq 84 - Progress: 4760/6400 bytes (74%)
+2026-02-14 14:18:22.138 [Info] [TX-PROGRESS] ACK seq 85 - Progress: 4816/6400 bytes (75%)
+2026-02-14 14:18:22.139 [Info] [TX-PROGRESS] ACK seq 86 - Progress: 4872/6400 bytes (76%)
+2026-02-14 14:18:22.139 [Info] [TX-PROGRESS] ACK seq 87 - Progress: 4928/6400 bytes (77%)
+2026-02-14 14:18:22.139 [Info] [TX-PROGRESS] ACK seq 88 - Progress: 4984/6400 bytes (77%)
+2026-02-14 14:18:22.140 [Info] [TX-PROGRESS] ACK seq 89 - Progress: 5040/6400 bytes (78%)
+2026-02-14 14:18:22.141 [Info] [TX-PROGRESS] ACK seq 90 - Progress: 5096/6400 bytes (79%)
+2026-02-14 14:18:22.141 [Info] [TX-PROGRESS] ACK seq 91 - Progress: 5152/6400 bytes (80%)
+2026-02-14 14:18:22.142 [Info] [TX-PROGRESS] ACK seq 92 - Progress: 5208/6400 bytes (81%)
+2026-02-14 14:18:22.142 [Info] [TX-PROGRESS] ACK seq 93 - Progress: 5264/6400 bytes (82%)
+2026-02-14 14:18:22.142 [Info] [TX-PROGRESS] ACK seq 94 - Progress: 5320/6400 bytes (83%)
+2026-02-14 14:18:22.144 [Info] [TX-PROGRESS] ACK seq 95 - Progress: 5376/6400 bytes (84%)
+2026-02-14 14:18:22.144 [Info] [TX-PROGRESS] ACK seq 96 - Progress: 5432/6400 bytes (84%)
+2026-02-14 14:18:22.144 [Info] [TX-PROGRESS] ACK seq 97 - Progress: 5488/6400 bytes (85%)
+2026-02-14 14:18:22.145 [Info] [TX-PROGRESS] ACK seq 98 - Progress: 5544/6400 bytes (86%)
+2026-02-14 14:18:22.145 [Info] [TX-PROGRESS] ACK seq 99 - Progress: 5600/6400 bytes (87%)
+2026-02-14 14:18:22.147 [Info] [TX-PROGRESS] ACK seq 100 - Progress: 5656/6400 bytes (88%)
+2026-02-14 14:18:22.147 [Info] [TX-PROGRESS] ACK seq 101 - Progress: 5712/6400 bytes (89%)
+2026-02-14 14:18:22.147 [Info] [TX-PROGRESS] ACK seq 102 - Progress: 5768/6400 bytes (90%)
+2026-02-14 14:18:22.148 [Info] [TX-PROGRESS] ACK seq 103 - Progress: 5824/6400 bytes (91%)
+2026-02-14 14:18:22.148 [Info] [TX-PROGRESS] ACK seq 104 - Progress: 5880/6400 bytes (91%)
+2026-02-14 14:18:22.149 [Info] [TX-PROGRESS] ACK seq 105 - Progress: 5936/6400 bytes (92%)
+2026-02-14 14:18:22.149 [Info] [TX-PROGRESS] ACK seq 106 - Progress: 5992/6400 bytes (93%)
+2026-02-14 14:18:22.149 [Info] [TX-PROGRESS] ACK seq 107 - Progress: 6048/6400 bytes (94%)
+2026-02-14 14:18:22.151 [Info] [TX-PROGRESS] ACK seq 108 - Progress: 6104/6400 bytes (95%)
+2026-02-14 14:18:22.151 [Info] [TX-PROGRESS] ACK seq 109 - Progress: 6160/6400 bytes (96%)
+2026-02-14 14:18:22.152 [Info] [TX-PROGRESS] ACK seq 110 - Progress: 6216/6400 bytes (97%)
+2026-02-14 14:18:22.153 [Info] [TX-PROGRESS] ACK seq 111 - Progress: 6272/6400 bytes (98%)
+2026-02-14 14:18:22.153 [Info] [TX-PROGRESS] ACK seq 112 - Progress: 6328/6400 bytes (98%)
+2026-02-14 14:18:22.154 [Info] [TX-PROGRESS] ACK seq 113 - Progress: 6384/6400 bytes (99%)
+2026-02-14 14:18:22.181 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:22.197 [Info] Writing Done for cart:3 MsgID:8 resp:SUCESS
+2026-02-14 14:18:22.197 [Info] Successfully Uploaded File: SPJ.BIN
+2026-02-14 14:18:22.198 [Info] Start Uploading File: STR.bin
+2026-02-14 14:18:22.198 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:0 MsgID:4 cart:3
+2026-02-14 14:18:22.198 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.198 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.198 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:22.198 [Info] [TX-SETUP] SetMode - Data size: 0 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:22.203 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:22.229 [Info] Writing Done for cart:3 MsgID:4 resp:SUCESS
+2026-02-14 14:18:22.230 [Info] Successfully Uploaded File: STR.bin
+2026-02-14 14:18:22.230 [Info] Start Uploading File: THT.BIN
+2026-02-14 14:18:22.231 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:0 MsgID:7 cart:3
+2026-02-14 14:18:22.231 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.231 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.231 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:22.231 [Info] [TX-SETUP] SetMode - Data size: 0 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:22.235 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-14 14:18:22.276 [Info] Writing Done for cart:3 MsgID:7 resp:SUCESS
+2026-02-14 14:18:22.276 [Info] Successfully Uploaded File: THT.BIN
+2026-02-14 14:18:22.276 [Info] Start Uploading File: WP.bin
+2026-02-14 14:18:22.277 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:5888 MsgID:5 cart:3
+2026-02-14 14:18:22.277 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.277 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.277 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 14:18:22.277 [Info] [TX-SETUP] SetMode - Data size: 5888 bytes, State: Idle -> WaitAck
+2026-02-14 14:18:22.278 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-14 14:18:22.278 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-14 14:18:22.278 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-14 14:18:22.279 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=5888, FileName=WP.bin
+2026-02-14 14:18:22.279 [Info] [TX-DATA] Data prepared - Size: 5888 bytes, Starting transmission...
+2026-02-14 14:18:22.279 [Info] [TX-DATA] Data set for transmission - Size: 5888 bytes
+2026-02-14 14:18:22.279 [Info] [TX-START] Starting transmission - 5888 bytes, first packet seq 0
+2026-02-14 14:18:22.280 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x00) - Preparing data for transmission
+2026-02-14 14:18:22.280 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x00
+2026-02-14 14:18:22.280 [Warning] [EVT3007] No TX handler registered for subcommand 0x00. Returning empty.
+2026-02-14 14:18:22.322 [Info] Writing Done for cart:3 MsgID:5 resp:SUCESS
+2026-02-14 14:18:22.322 [Info] Successfully Uploaded File: WP.bin
+2026-02-14 14:18:22.323 [Info] Uploading Done
+2026-02-14 14:18:22.326 [Info] Power Cycle Start
+2026-02-14 14:18:22.326 [Info] [EVT200] Executing command: subCmd=0x13, dataLen=4
+2026-02-14 14:18:22.570 [Info] Power Cycle Done
+2026-02-14 14:18:22.570 [Info] Starting download operation
+2026-02-14 14:18:22.579 [Info] Download Messages Initialized
+2026-02-14 14:18:22.580 [Info] [EVT4001] Initiating Read FileDetails from cart 3
+2026-02-14 14:18:22.580 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.580 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.581 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:22.581 [Info] [RX-START] Transfer initiated - SubCmd: 0x0F, Total size: 1024 bytes
+2026-02-14 14:18:22.581 [Info] [RX-CHUNK] Starting chunk 1 - Size: 1024 bytes, State: Idle -> Receiving
+2026-02-14 14:18:22.599 [Info] [RX-CHUNK] Chunk complete - 1024 bytes received, Total progress: 1024/1024 bytes
+2026-02-14 14:18:22.600 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 18, Code: SUBCMD_SUCESS
+2026-02-14 14:18:22.600 [Info] [RX-COMPLETE] Full transfer complete - 1024 bytes received, Processing data...
+2026-02-14 14:18:22.600 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0F, Size: 1024 bytes
+2026-02-14 14:18:22.601 [Info] [EVT3002] Processing RX data for subcommand 0x0F, Size=1024 bytes.
+2026-02-14 14:18:22.602 [Info] Decoded 13 files:
+2026-02-14 14:18:22.602 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0F
+2026-02-14 14:18:22.634 [Info] Start Downloading File: CMDS.BIN Size: 192
+2026-02-14 14:18:22.634 [Info] Directory Created:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:22.635 [Info] [EVT4001] Initiating Read: File=CMDS.BIN, Size=192
+2026-02-14 14:18:22.635 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.635 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.635 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:22.635 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 192 bytes
+2026-02-14 14:18:22.635 [Info] [RX-CHUNK] Starting chunk 1 - Size: 192 bytes, State: Idle -> Receiving
+2026-02-14 14:18:22.655 [Info] [RX-CHUNK] Chunk complete - 192 bytes received, Total progress: 192/192 bytes
+2026-02-14 14:18:22.655 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 3, Code: SUBCMD_SUCESS
+2026-02-14 14:18:22.656 [Info] [RX-COMPLETE] Full transfer complete - 192 bytes received, Processing data...
+2026-02-14 14:18:22.656 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 192 bytes
+2026-02-14 14:18:22.656 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=192 bytes.
+2026-02-14 14:18:22.656 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=192
+2026-02-14 14:18:22.657 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\CMDS.BIN of size:192
+2026-02-14 14:18:22.657 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:22.680 [Info] File: CMDS.BIN Done
+2026-02-14 14:18:22.681 [Info] Start Downloading File: DR.bin Size: 64
+2026-02-14 14:18:22.681 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:22.681 [Info] [EVT4001] Initiating Read: File=DR.bin, Size=64
+2026-02-14 14:18:22.681 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.682 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.682 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:22.684 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 64 bytes
+2026-02-14 14:18:22.684 [Info] [RX-CHUNK] Starting chunk 1 - Size: 64 bytes, State: Idle -> Receiving
+2026-02-14 14:18:22.696 [Info] [RX-CHUNK] Chunk complete - 64 bytes received, Total progress: 64/64 bytes
+2026-02-14 14:18:22.696 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 1, Code: SUBCMD_SUCESS
+2026-02-14 14:18:22.696 [Info] [RX-COMPLETE] Full transfer complete - 64 bytes received, Processing data...
+2026-02-14 14:18:22.697 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 64 bytes
+2026-02-14 14:18:22.697 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=64 bytes.
+2026-02-14 14:18:22.697 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=64
+2026-02-14 14:18:22.697 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\DR.bin of size:64
+2026-02-14 14:18:22.697 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:22.726 [Info] File: DR.bin Done
+2026-02-14 14:18:22.726 [Info] Start Downloading File: FPL.bin Size: 34776
+2026-02-14 14:18:22.726 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:22.726 [Info] [EVT4001] Initiating Read: File=FPL.bin, Size=34776
+2026-02-14 14:18:22.726 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.726 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:22.726 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:22.726 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 34776 bytes
+2026-02-14 14:18:22.727 [Info] [RX-CHUNK] Starting chunk 1 - Size: 22400 bytes, State: Idle -> Receiving
+2026-02-14 14:18:22.906 [Info] [RX-CHUNK] Chunk complete - 22400 bytes received, Total progress: 22400/34776 bytes
+2026-02-14 14:18:22.906 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 399, Code: SUBCMD_SUCESS
+2026-02-14 14:18:22.906 [Info] [RX-CHUNK] Requesting next chunk - Remaining: 12376 bytes
+2026-02-14 14:18:22.906 [Info] [RX-REQUEST] Requesting next chunk - Size: 12376 bytes
+2026-02-14 14:18:23.021 [Info] [RX-CHUNK] Chunk complete - 12376 bytes received, Total progress: 34776/34776 bytes
+2026-02-14 14:18:23.021 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 220, Code: SUBCMD_SUCESS
+2026-02-14 14:18:23.022 [Info] [RX-COMPLETE] Full transfer complete - 34776 bytes received, Processing data...
+2026-02-14 14:18:23.022 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 34776 bytes
+2026-02-14 14:18:23.022 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=34776 bytes.
+2026-02-14 14:18:23.022 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=34776
+2026-02-14 14:18:23.022 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\FPL.bin of size:34776
+2026-02-14 14:18:23.023 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:23.038 [Info] File: FPL.bin Done
+2026-02-14 14:18:23.038 [Info] Start Downloading File: IFFA_PRI.bin Size: 1024
+2026-02-14 14:18:23.038 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.039 [Info] [EVT4001] Initiating Read: File=IFFA_PRI.bin, Size=1024
+2026-02-14 14:18:23.039 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.039 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.039 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:23.039 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 1024 bytes
+2026-02-14 14:18:23.039 [Info] [RX-CHUNK] Starting chunk 1 - Size: 1024 bytes, State: Idle -> Receiving
+2026-02-14 14:18:23.055 [Info] [RX-CHUNK] Chunk complete - 1024 bytes received, Total progress: 1024/1024 bytes
+2026-02-14 14:18:23.055 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 18, Code: SUBCMD_SUCESS
+2026-02-14 14:18:23.056 [Info] [RX-COMPLETE] Full transfer complete - 1024 bytes received, Processing data...
+2026-02-14 14:18:23.056 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 1024 bytes
+2026-02-14 14:18:23.056 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=1024 bytes.
+2026-02-14 14:18:23.056 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=1024
+2026-02-14 14:18:23.057 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\IFFA_PRI.bin of size:1024
+2026-02-14 14:18:23.057 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:23.084 [Info] File: IFFA_PRI.bin Done
+2026-02-14 14:18:23.084 [Info] Start Downloading File: IFFA_SEC.bin Size: 1024
+2026-02-14 14:18:23.084 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.085 [Info] [EVT4001] Initiating Read: File=IFFA_SEC.bin, Size=1024
+2026-02-14 14:18:23.085 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.085 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.085 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:23.085 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 1024 bytes
+2026-02-14 14:18:23.085 [Info] [RX-CHUNK] Starting chunk 1 - Size: 1024 bytes, State: Idle -> Receiving
+2026-02-14 14:18:23.096 [Info] [RX-CHUNK] Chunk complete - 1024 bytes received, Total progress: 1024/1024 bytes
+2026-02-14 14:18:23.098 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 18, Code: SUBCMD_SUCESS
+2026-02-14 14:18:23.098 [Info] [RX-COMPLETE] Full transfer complete - 1024 bytes received, Processing data...
+2026-02-14 14:18:23.098 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 1024 bytes
+2026-02-14 14:18:23.098 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=1024 bytes.
+2026-02-14 14:18:23.098 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=1024
+2026-02-14 14:18:23.099 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\IFFA_SEC.bin of size:1024
+2026-02-14 14:18:23.099 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:23.116 [Info] File: IFFA_SEC.bin Done
+2026-02-14 14:18:23.116 [Info] Start Downloading File: IFFB_PRI.bin Size: 1024
+2026-02-14 14:18:23.116 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.117 [Info] [EVT4001] Initiating Read: File=IFFB_PRI.bin, Size=1024
+2026-02-14 14:18:23.117 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.117 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.117 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:23.117 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 1024 bytes
+2026-02-14 14:18:23.117 [Info] [RX-CHUNK] Starting chunk 1 - Size: 1024 bytes, State: Idle -> Receiving
+2026-02-14 14:18:23.129 [Info] [RX-CHUNK] Chunk complete - 1024 bytes received, Total progress: 1024/1024 bytes
+2026-02-14 14:18:23.129 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 18, Code: SUBCMD_SUCESS
+2026-02-14 14:18:23.129 [Info] [RX-COMPLETE] Full transfer complete - 1024 bytes received, Processing data...
+2026-02-14 14:18:23.129 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 1024 bytes
+2026-02-14 14:18:23.129 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=1024 bytes.
+2026-02-14 14:18:23.129 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=1024
+2026-02-14 14:18:23.130 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\IFFB_PRI.bin of size:1024
+2026-02-14 14:18:23.130 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:23.148 [Info] File: IFFB_PRI.bin Done
+2026-02-14 14:18:23.148 [Info] Start Downloading File: IFFB_SEC.bin Size: 0
+2026-02-14 14:18:23.148 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.150 [Info] File: IFFB_SEC.bin Done
+2026-02-14 14:18:23.150 [Info] Start Downloading File: INCOMKEY.bin Size: 1288
+2026-02-14 14:18:23.150 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.150 [Info] [EVT4001] Initiating Read: File=INCOMKEY.bin, Size=1288
+2026-02-14 14:18:23.150 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.150 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.151 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:23.151 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 1288 bytes
+2026-02-14 14:18:23.151 [Info] [RX-CHUNK] Starting chunk 1 - Size: 1288 bytes, State: Idle -> Receiving
+2026-02-14 14:18:23.167 [Info] [RX-CHUNK] Chunk complete - 1288 bytes received, Total progress: 1288/1288 bytes
+2026-02-14 14:18:23.167 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 22, Code: SUBCMD_SUCESS
+2026-02-14 14:18:23.169 [Info] [RX-COMPLETE] Full transfer complete - 1288 bytes received, Processing data...
+2026-02-14 14:18:23.169 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 1288 bytes
+2026-02-14 14:18:23.169 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=1288 bytes.
+2026-02-14 14:18:23.169 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=1288
+2026-02-14 14:18:23.169 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\INCOMKEY.bin of size:1288
+2026-02-14 14:18:23.170 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:23.195 [Info] File: INCOMKEY.bin Done
+2026-02-14 14:18:23.195 [Info] Start Downloading File: INCOMMNE.bin Size: 0
+2026-02-14 14:18:23.196 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.196 [Info] File: INCOMMNE.bin Done
+2026-02-14 14:18:23.196 [Info] Start Downloading File: RWR.BIN Size: 6400
+2026-02-14 14:18:23.196 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.197 [Info] [EVT4001] Initiating Read: File=RWR.BIN, Size=6400
+2026-02-14 14:18:23.197 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.197 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.197 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:23.197 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 6400 bytes
+2026-02-14 14:18:23.197 [Info] [RX-CHUNK] Starting chunk 1 - Size: 6400 bytes, State: Idle -> Receiving
+2026-02-14 14:18:23.252 [Info] [RX-CHUNK] Chunk complete - 6400 bytes received, Total progress: 6400/6400 bytes
+2026-02-14 14:18:23.252 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 114, Code: SUBCMD_SUCESS
+2026-02-14 14:18:23.252 [Info] [RX-COMPLETE] Full transfer complete - 6400 bytes received, Processing data...
+2026-02-14 14:18:23.252 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 6400 bytes
+2026-02-14 14:18:23.253 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=6400 bytes.
+2026-02-14 14:18:23.253 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=6400
+2026-02-14 14:18:23.253 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\RWR.BIN of size:6400
+2026-02-14 14:18:23.253 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:23.273 [Info] File: RWR.BIN Done
+2026-02-14 14:18:23.274 [Info] Start Downloading File: SPJ.BIN Size: 6400
+2026-02-14 14:18:23.274 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.274 [Info] [EVT4001] Initiating Read: File=SPJ.BIN, Size=6400
+2026-02-14 14:18:23.274 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.274 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 14:18:23.274 [Info] [RX-FLOW] New transfer starting - Command: 0x55, Data length: 8
+2026-02-14 14:18:23.274 [Info] [RX-START] Transfer initiated - SubCmd: 0x0D, Total size: 6400 bytes
+2026-02-14 14:18:23.274 [Info] [RX-CHUNK] Starting chunk 1 - Size: 6400 bytes, State: Idle -> Receiving
+2026-02-14 14:18:23.328 [Info] [RX-CHUNK] Chunk complete - 6400 bytes received, Total progress: 6400/6400 bytes
+2026-02-14 14:18:23.328 [Info] [RX-ACK] Sending ACK_DONE - Last seq: 114, Code: SUBCMD_SUCESS
+2026-02-14 14:18:23.328 [Info] [RX-COMPLETE] Full transfer complete - 6400 bytes received, Processing data...
+2026-02-14 14:18:23.328 [Info] [RX-PROCESS] Processing complete data - SubCmd: 0x0D, Size: 6400 bytes
+2026-02-14 14:18:23.328 [Info] [EVT3002] Processing RX data for subcommand 0x0D, Size=6400 bytes.
+2026-02-14 14:18:23.330 [Info] [EVT4006] Processing RX data: SubCmd=0x0D, TotalBytes=6400
+2026-02-14 14:18:23.330 [Info] [EVT4007] RX data processed and stored in file c:\mps\DARIN3\download\temp\SPJ.BIN of size:6400
+2026-02-14 14:18:23.330 [Info] [RX-SUCCESS] Data processing completed successfully - SubCmd: 0x0D
+2026-02-14 14:18:23.351 [Info] File: SPJ.BIN Done
+2026-02-14 14:18:23.351 [Info] Start Downloading File: STR.bin Size: 0
+2026-02-14 14:18:23.351 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.352 [Info] File: STR.bin Done
+2026-02-14 14:18:23.352 [Info] Start Downloading File: THT.bin Size: 0
+2026-02-14 14:18:23.352 [Info] Directory already Exists:c:\mps\DARIN3\download\temp\
+2026-02-14 14:18:23.353 [Info] File: THT.bin Done
+2026-02-14 14:18:23.354 [Info] Start Comparing
+2026-02-14 14:18:23.355 [Error] Compare failed as number of files are different
+2026-02-14 14:18:23.355 [Info] Comparing Done
+2026-02-14 14:18:24.157 [Info] Start FirmwareCtrlLed
+2026-02-14 14:18:24.157 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-14 14:18:24.190 [Info] Start FirmwareCtrlLed Done
+2026-02-14 14:18:24.192 [Info] [EVT200] Executing command: subCmd=0x05, dataLen=6
+2026-02-14 14:18:24.222 [Info] [EVT200] Executing command: subCmd=0x06, dataLen=6
+2026-02-14 14:18:25.283 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 14:18:25.608 [Error] Log file not found.
+2026-02-14 14:18:25.608 [Error] Log file not found.
+2026-02-14 14:18:25.738 [Info] Start FirmwareCtrlLed
+2026-02-14 14:18:25.740 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-14 14:18:25.740 [Error] UART transmit error: Port is not open.

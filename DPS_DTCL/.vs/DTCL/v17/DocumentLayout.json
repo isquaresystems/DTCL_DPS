@@ -1,69 +1,120 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\",
+  "WorkspaceRootPath": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\mux\\muxwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{4957DCBA-C850-4DBD-B0CE-64F431639EDF}|..\\TestConsole\\TestConsole.csproj|f:\\work\\swave\\refactor\\dtcl4_dps\\testconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\mux\\muxwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\log\\log.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:log\\log.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\mux\\muxmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\ispprotocol\\ispcmdtransmitdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:ispprotocol\\ispcmdtransmitdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\mux\\muxchannelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxchannelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\cartridges\\performancecheck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:cartridges\\performancecheck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\cartridges\\darin1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:cartridges\\darin1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\headerinfodisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:headerinfodisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\ispprotocol\\ispcmdcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:ispprotocol\\ispcmdcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\datahandler\\datahandlerisp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:datahandler\\datahandlerisp.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\log\\pclog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:log\\pclog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\cartridges\\darin3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:cartridges\\darin3.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\transport\\channelhardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\channelhardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\transport\\hardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\transport\\hardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\hardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|f:\\work\\swave\\refactor\\dtcl4\\dps_dtcl\\mux\\mux_selftest.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\transport\\hardwaretypes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\hardwaretypes.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\transport\\ihardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\ihardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\ispprotocol\\ispprotocoldefs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:ispprotocol\\ispprotocoldefs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\dpsmuxwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\dpsmuxwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\custommessagebox.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:custommessagebox.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\dpsmuxwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\dpsmuxwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\muxwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\muxwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\log\\pclog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:log\\pclog.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\transport\\slotinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\slotinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\transport\\channelhardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\channelhardwareinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\transport\\itransport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\itransport.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\muxchannelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxchannelmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\muxmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\ispprotocol\\iispcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:ispprotocol\\iispcommandhandler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\transport\\uarttransportsync.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:transport\\uarttransportsync.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\cartridges\\performancecheck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:cartridges\\performancecheck.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\headerinfodisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:headerinfodisplay.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\cartridges\\darin1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:cartridges\\darin1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\ispprotocol\\ispcmdcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:ispprotocol\\ispcmdcontrol.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\mux_selftest.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\mux_selftest.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\mux\\muxtestverification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\mux\\muxtestverification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B50BF7EE-0BCD-4455-88EC-DAA08765EB33}|DTCL.csproj|solutionrelative:mux\\muxtestverification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -79,165 +130,334 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MuxWindow.xaml",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxWindow.xaml",
-              "RelativeDocumentMoniker": "Mux\\MuxWindow.xaml",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxWindow.xaml",
-              "RelativeToolTip": "Mux\\MuxWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-11-20T03:45:22.747Z",
+              "Title": "Program.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\TestConsole\\Program.cs",
+              "RelativeDocumentMoniker": "..\\TestConsole\\Program.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\TestConsole\\Program.cs",
+              "RelativeToolTip": "..\\TestConsole\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-15T12:19:44.305Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "HeaderInfoDisplay.xaml.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\HeaderInfoDisplay.xaml.cs",
-              "RelativeDocumentMoniker": "HeaderInfoDisplay.xaml.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\HeaderInfoDisplay.xaml.cs",
-              "RelativeToolTip": "HeaderInfoDisplay.xaml.cs",
-              "ViewState": "AgIAAAQAAAAAAAAAAAAYwBUAAAAhAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Log.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Log\\Log.cs",
+              "RelativeDocumentMoniker": "Log\\Log.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Log\\Log.cs",
+              "RelativeToolTip": "Log\\Log.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:48:53.116Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "IspCmdControl.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\IspProtocol\\IspCmdControl.cs",
-              "RelativeDocumentMoniker": "IspProtocol\\IspCmdControl.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\IspProtocol\\IspCmdControl.cs",
-              "RelativeToolTip": "IspProtocol\\IspCmdControl.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:46:38.14Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DataHandlerIsp.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\DataHandler\\DataHandlerIsp.cs",
-              "RelativeDocumentMoniker": "DataHandler\\DataHandlerIsp.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\DataHandler\\DataHandlerIsp.cs",
-              "RelativeToolTip": "DataHandler\\DataHandlerIsp.cs",
-              "ViewState": "AgIAAAgAAAAAAAAAAAAYwBcAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:45:14.624Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "PCLog.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Log\\PCLog.cs",
-              "RelativeDocumentMoniker": "Log\\PCLog.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Log\\PCLog.cs",
-              "RelativeToolTip": "Log\\PCLog.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:44:31.752Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "ChannelHardwareInfo.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Transport\\ChannelHardwareInfo.cs",
-              "RelativeDocumentMoniker": "Transport\\ChannelHardwareInfo.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Transport\\ChannelHardwareInfo.cs",
-              "RelativeToolTip": "Transport\\ChannelHardwareInfo.cs",
-              "ViewState": "AgIAAGgDAAAAAAAAAAAzwHoDAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:44:20.506Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Darin1.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Cartridges\\Darin1.cs",
-              "RelativeDocumentMoniker": "Cartridges\\Darin1.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Cartridges\\Darin1.cs",
-              "RelativeToolTip": "Cartridges\\Darin1.cs",
-              "ViewState": "AgIAACUBAAAAAAAAAAAAwPIAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:43:32.916Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "HardwareInfo.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Transport\\HardwareInfo.cs",
-              "RelativeDocumentMoniker": "Transport\\HardwareInfo.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Transport\\HardwareInfo.cs",
-              "RelativeToolTip": "Transport\\HardwareInfo.cs",
-              "ViewState": "AgIAABkCAAAAAAAAAAAtwCECAAATAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:42:20.59Z",
+              "WhenOpened": "2025-12-24T08:37:46.213Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 11,
-              "Title": "Darin3.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Cartridges\\Darin3.cs",
-              "RelativeDocumentMoniker": "Cartridges\\Darin3.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Cartridges\\Darin3.cs",
-              "RelativeToolTip": "Cartridges\\Darin3.cs",
-              "ViewState": "AgIAACIBAAAAAAAAAAAlwA0BAABCAAAAAAAAAA==",
+              "Title": "DPSMuxWindow.xaml.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\DPSMuxWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Mux\\DPSMuxWindow.xaml.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\DPSMuxWindow.xaml.cs",
+              "RelativeToolTip": "Mux\\DPSMuxWindow.xaml.cs",
+              "ViewState": "AgIAAH4AAAAAAAAAAAAjwIgAAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-18T12:42:13.479Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-01T13:54:58.627Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "Mux_SelfTest.xaml.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\Mux_SelfTest.xaml.cs",
-              "RelativeDocumentMoniker": "Mux\\Mux_SelfTest.xaml.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\Mux_SelfTest.xaml.cs",
-              "RelativeToolTip": "Mux\\Mux_SelfTest.xaml.cs",
-              "ViewState": "AgIAACAAAAAAAAAAAAAAwD0AAAAlAAAAAAAAAA==",
+              "DocumentIndex": 10,
+              "Title": "CustomMessageBox.xaml.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\CustomMessageBox.xaml.cs",
+              "RelativeDocumentMoniker": "CustomMessageBox.xaml.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\CustomMessageBox.xaml.cs",
+              "RelativeToolTip": "CustomMessageBox.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T14:06:04.938Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-15T06:21:36.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IspProtocolDefs.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IspProtocolDefs.cs",
+              "RelativeDocumentMoniker": "IspProtocol\\IspProtocolDefs.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IspProtocolDefs.cs",
+              "RelativeToolTip": "IspProtocol\\IspProtocolDefs.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAA5wEMAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T05:03:12.966Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "HardwareTypes.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\HardwareTypes.cs",
+              "RelativeDocumentMoniker": "Transport\\HardwareTypes.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\HardwareTypes.cs",
+              "RelativeToolTip": "Transport\\HardwareTypes.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T05:27:38.878Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAAJsAAAAAAAAAAAAwwK4AAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T01:36:47.346Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "MuxChannelManager.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxChannelManager.cs",
-              "RelativeDocumentMoniker": "Mux\\MuxChannelManager.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxChannelManager.cs",
-              "RelativeToolTip": "Mux\\MuxChannelManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEgAAAASAAAAAAAAAA==",
+              "Title": "HardwareInfo.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\HardwareInfo.cs",
+              "RelativeDocumentMoniker": "Transport\\HardwareInfo.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\HardwareInfo.cs",
+              "RelativeToolTip": "Transport\\HardwareInfo.cs",
+              "ViewState": "AgIAAMgBAAAAAAAAAAA9wBEDAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T14:05:55.995Z",
+              "WhenOpened": "2026-01-26T13:50:34.232Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MuxWindow.xaml.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Mux\\MuxWindow.xaml.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxWindow.xaml.cs",
+              "RelativeToolTip": "Mux\\MuxWindow.xaml.cs",
+              "ViewState": "AgIAAJcDAAAAAAAAAAAqwJ8DAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-13T01:34:32.894Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAACwAAAAAAAAAAAArwEoAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-29T03:50:40.806Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "MuxManager.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxManager.cs",
-              "RelativeDocumentMoniker": "Mux\\MuxManager.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxManager.cs",
-              "RelativeToolTip": "Mux\\MuxManager.cs",
-              "ViewState": "AgIAAIIAAAAAAAAAAAAcwCMAAAAUAAAAAAAAAA==",
+              "Title": "IspCmdTransmitData.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IspCmdTransmitData.cs",
+              "RelativeDocumentMoniker": "IspProtocol\\IspCmdTransmitData.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IspCmdTransmitData.cs",
+              "RelativeToolTip": "IspProtocol\\IspCmdTransmitData.cs",
+              "ViewState": "AgIAAKcAAAAAAAAAAAAkwNEAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T14:05:49.359Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-24T09:45:39.337Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "IHardwareInfo.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\IHardwareInfo.cs",
+              "RelativeDocumentMoniker": "Transport\\IHardwareInfo.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\IHardwareInfo.cs",
+              "RelativeToolTip": "Transport\\IHardwareInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T05:57:42.615Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DPSMuxWindow.xaml",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\DPSMuxWindow.xaml",
+              "RelativeDocumentMoniker": "Mux\\DPSMuxWindow.xaml",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\DPSMuxWindow.xaml",
+              "RelativeToolTip": "Mux\\DPSMuxWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-01T13:48:59.571Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "MuxWindow.xaml",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxWindow.xaml",
+              "RelativeDocumentMoniker": "Mux\\MuxWindow.xaml",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxWindow.xaml",
+              "RelativeToolTip": "Mux\\MuxWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-02-01T13:49:11.031Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "PCLog.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Log\\PCLog.cs",
+              "RelativeDocumentMoniker": "Log\\PCLog.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Log\\PCLog.cs",
+              "RelativeToolTip": "Log\\PCLog.cs",
+              "ViewState": "AgIAADoAAAAAAAAAAADwv08AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T12:44:31.752Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ChannelHardwareInfo.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\ChannelHardwareInfo.cs",
+              "RelativeDocumentMoniker": "Transport\\ChannelHardwareInfo.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\ChannelHardwareInfo.cs",
+              "RelativeToolTip": "Transport\\ChannelHardwareInfo.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAA7wGEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T12:44:20.506Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
+              "Title": "SlotInfo.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\SlotInfo.cs",
+              "RelativeDocumentMoniker": "Transport\\SlotInfo.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\SlotInfo.cs",
+              "RelativeToolTip": "Transport\\SlotInfo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-26T13:50:42.399Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "IIspCommandHandler.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IIspCommandHandler.cs",
+              "RelativeDocumentMoniker": "IspProtocol\\IIspCommandHandler.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IIspCommandHandler.cs",
+              "RelativeToolTip": "IspProtocol\\IIspCommandHandler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T05:03:01.65Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ITransport.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\ITransport.cs",
+              "RelativeDocumentMoniker": "Transport\\ITransport.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\ITransport.cs",
+              "RelativeToolTip": "Transport\\ITransport.cs",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAYwAkAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-28T05:58:19.245Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "MainWindow.xaml",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\MainWindow.xaml",
+              "RelativeToolTip": "MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-01-20T01:59:17.915Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "UartTransportSync.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\UartTransportSync.cs",
+              "RelativeDocumentMoniker": "Transport\\UartTransportSync.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Transport\\UartTransportSync.cs",
+              "RelativeToolTip": "Transport\\UartTransportSync.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwBAAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-24T08:20:48.941Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "HeaderInfoDisplay.xaml.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\HeaderInfoDisplay.xaml.cs",
+              "RelativeDocumentMoniker": "HeaderInfoDisplay.xaml.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\HeaderInfoDisplay.xaml.cs",
+              "RelativeToolTip": "HeaderInfoDisplay.xaml.cs",
+              "ViewState": "AgIAAC8AAAAAAAAAAAAwwEYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T12:48:53.116Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "IspCmdControl.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IspCmdControl.cs",
+              "RelativeDocumentMoniker": "IspProtocol\\IspCmdControl.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\IspProtocol\\IspCmdControl.cs",
+              "RelativeToolTip": "IspProtocol\\IspCmdControl.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAQwAkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T12:46:38.14Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Darin1.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Cartridges\\Darin1.cs",
+              "RelativeDocumentMoniker": "Cartridges\\Darin1.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Cartridges\\Darin1.cs",
+              "RelativeToolTip": "Cartridges\\Darin1.cs",
+              "ViewState": "AgIAACUBAAAAAAAAAAAAwPIAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-18T12:43:32.916Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "Mux_SelfTest.xaml.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\Mux_SelfTest.xaml.cs",
+              "RelativeDocumentMoniker": "Mux\\Mux_SelfTest.xaml.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\Mux_SelfTest.xaml.cs",
+              "RelativeToolTip": "Mux\\Mux_SelfTest.xaml.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAwD0AAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-14T14:06:04.938Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "MuxChannelManager.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxChannelManager.cs",
+              "RelativeDocumentMoniker": "Mux\\MuxChannelManager.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxChannelManager.cs",
+              "RelativeToolTip": "Mux\\MuxChannelManager.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAcwAQBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-14T14:05:55.995Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "MuxManager.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxManager.cs",
+              "RelativeDocumentMoniker": "Mux\\MuxManager.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxManager.cs",
+              "RelativeToolTip": "Mux\\MuxManager.cs",
+              "ViewState": "AgIAAIwBAAAAAAAAAAAuwJgBAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-14T14:05:49.359Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
               "Title": "MuxTestVerification.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxTestVerification.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxTestVerification.cs",
               "RelativeDocumentMoniker": "Mux\\MuxTestVerification.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxTestVerification.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Mux\\MuxTestVerification.cs",
               "RelativeToolTip": "Mux\\MuxTestVerification.cs",
               "ViewState": "AgIAAHUAAAAAAAAAAAAAABUAAABHAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -245,42 +465,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAAG8GAAAAAAAAAAAiwK4GAABMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T01:36:47.346Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 23,
               "Title": "PerformanceCheck.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Cartridges\\PerformanceCheck.cs",
+              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Cartridges\\PerformanceCheck.cs",
               "RelativeDocumentMoniker": "Cartridges\\PerformanceCheck.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Cartridges\\PerformanceCheck.cs",
+              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4_DPS\\DPS_DTCL\\Cartridges\\PerformanceCheck.cs",
               "RelativeToolTip": "Cartridges\\PerformanceCheck.cs",
-              "ViewState": "AgIAADoAAAAAAAAAAAAgwFYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADcAAAAAAAAAAAAgwEYAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T01:35:54.297Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MuxWindow.xaml.cs",
-              "DocumentMoniker": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Mux\\MuxWindow.xaml.cs",
-              "ToolTip": "F:\\Work\\Swave\\Refactor\\DTCL4\\DPS_DTCL\\Mux\\MuxWindow.xaml.cs",
-              "RelativeToolTip": "Mux\\MuxWindow.xaml.cs",
-              "ViewState": "AgIAAFUFAAAAAAAAAAAuwIMFAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T01:34:32.894Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-11-13T01:35:54.297Z"
             }
           ]
         }

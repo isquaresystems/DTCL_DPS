@@ -1125,6 +1125,9 @@ namespace DTCL.Cartridges
 
                 var blocks_written = 0;
 
+                Log.Log
+                 .Info($"Writing MessageID-{messageInfo.MsgID} MessageName-{messageInfo.FileName}, Block Address: {startBlock}, Actual size: {messageInfo.ActualFileSize} Total Blocks: {messageInfo.NoOfBlocks}");
+
                 while (blocks_written < messageInfo.NoOfBlocks)
                 {
                     var no_of_pages = (blocks_written + 1 == messageInfo.NoOfBlocks) ?
@@ -1452,22 +1455,54 @@ namespace DTCL.Cartridges
             var cmdPayload = FrameInternalPayload((byte)IspCommand.TX_DATA, (byte)IspSubCommand.D2_ERASE, 0,
                new ushort[] { (ushort)0, 1, (ushort)1, 0, cartNo });
 
-            DataHandlerIsp.Instance.Execute(cmdPayload, null);
+            // CRITICAL FIX: Properly await Execute() with retry logic + progress updates
+            // Previous bug: Execute() was not awaited, causing "fire-and-forget" behavior
+            // This led to LED commands being sent while firmware was still processing erase,
+            // resulting in "semaphore timeout" error
+            const int MAX_RETRIES = 3;
+            IspSubCmdResponse res = IspSubCmdResponse.FAILED;
 
-            var i = 0;
-
-            while (DataHandlerIsp.Instance._tx.SubCmdResponse == IspSubCmdResponse.IN_PROGRESS)
+            for (int attempt = 1; attempt <= MAX_RETRIES; attempt++)
             {
-                await Task.Delay(100);
-                DataHandlerIsp.Instance.OnProgressChanged("Erase", i, 1024, progress);
-                i += 10;
+                // Create fresh copy of cmdPayload for each attempt
+                byte[] payloadCopy = new byte[cmdPayload.Length];
+                Array.Copy(cmdPayload, payloadCopy, cmdPayload.Length);
+
+                Log.Log.Info($"[D2-ERASE] Attempt {attempt}/{MAX_RETRIES}");
+
+                // Start Execute() as a task (don't await immediately - we need to show progress)
+                // Pass null for progress to Execute() - only our loop should update progress to avoid flicker
+                var executeTask = DataHandlerIsp.Instance.Execute(payloadCopy, null);
+
+                // Update progress bar while waiting for erase to complete
+                int progressValue = 0;
+                while (!executeTask.IsCompleted)
+                {
+                    await Task.Delay(500); // Update every 500ms for smooth appearance
+                    progressValue = Math.Min(progressValue + 50, 1000); // Cap at 1000, leave last bit for completion
+                    DataHandlerIsp.Instance.OnProgressChanged("Erase", progressValue, 1024, progress);
+                }
+
+                // Get the result (task already completed, this returns immediately)
+                res = await executeTask;
+
+                if (res == IspSubCmdResponse.SPURIOUS_RESPONSE)
+                {
+                    Log.Log.Warning($"[D2-ERASE-RETRY] Spurious firmware response - retrying (attempt {attempt}/{MAX_RETRIES})");
+                    if (attempt < MAX_RETRIES)
+                    {
+                        await Task.Delay(500);
+                        continue;
+                    }
+                }
+                break; // Success or non-spurious failure
             }
 
             Log.Log.Info("Erasing D2 full Done");
 
             DataHandlerIsp.Instance.OnProgressChanged("Erase", 1024, 1024, progress);
 
-            return DataHandlerIsp.Instance._tx.SubCmdResponse == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
+            return res == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
         }
 
         public async Task<int> EraseCartPCFiles(IProgress<int> progress, byte cartNo, bool trueErase = false)
@@ -1493,7 +1528,29 @@ namespace DTCL.Cartridges
 
             Log.Log.Info($"[EVT4002] Initiating Erase: Block={blockNo}");
 
-            var res = await DataHandlerIsp.Instance.Execute(cmdPayload, null);
+            // Add retry logic for robustness
+            const int MAX_RETRIES = 3;
+            IspSubCmdResponse res = IspSubCmdResponse.FAILED;
+
+            for (int attempt = 1; attempt <= MAX_RETRIES; attempt++)
+            {
+                // Create fresh copy of cmdPayload for each attempt
+                byte[] payloadCopy = new byte[cmdPayload.Length];
+                Array.Copy(cmdPayload, payloadCopy, cmdPayload.Length);
+
+                res = await DataHandlerIsp.Instance.Execute(payloadCopy, null);
+
+                if (res == IspSubCmdResponse.SPURIOUS_RESPONSE)
+                {
+                    Log.Log.Warning($"[D2-ERASE-BLOCK-RETRY] Spurious firmware response - retrying (attempt {attempt}/{MAX_RETRIES})");
+                    if (attempt < MAX_RETRIES)
+                    {
+                        await Task.Delay(500);
+                        continue;
+                    }
+                }
+                break; // Success or non-spurious failure
+            }
 
             Log.Log.Info("Erasing D2 Block Done");
 
@@ -2443,6 +2500,8 @@ namespace DTCL.Cartridges
 
         public async Task<int> ReadD2BlockData(int blockNo, int noOfPages, int lastPageSize, byte cartNo, IProgress<int> progress = null)
         {
+            const int MAX_RETRIES = 3;
+
             m_NoOfPages = (uint)noOfPages;
             m_LastPageSize = (uint)lastPageSize;
 
@@ -2454,13 +2513,51 @@ namespace DTCL.Cartridges
             Log.Log
                 .Info($"[EVT4001] Initiating Read: Block={blockNo}, Pages={m_NoOfPages}, LastPageSize={m_LastPageSize}, TotalSize={totalSize}");
 
-            var res = await DataHandlerIsp.Instance.Execute(cmdPayload, progress);
+            // Retry loop for spurious firmware responses
+            for (int attempt = 1; attempt <= MAX_RETRIES; attempt++)
+            {
+                // CRITICAL FIX: Create fresh copy of cmdPayload for each attempt!
+                // SetMode() in IspCmdTransmitData modifies data[0], so must use fresh copy for each retry
+                byte[] payloadCopy = new byte[cmdPayload.Length];
+                Array.Copy(cmdPayload, payloadCopy, cmdPayload.Length);
 
-            return res == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
+                // DEBUG: Log cmdPayload details before each attempt
+                Log.Log.Info($"[D2-READ-RETRY-DEBUG] Attempt {attempt}/{MAX_RETRIES}: cmdPayload length={payloadCopy.Length}");
+                Log.Log.Info($"[D2-READ-RETRY-DEBUG] cmdPayload bytes: {BitConverter.ToString(payloadCopy)}");
+                Log.Log.Info($"[D2-READ-RETRY-DEBUG] Command byte: 0x{payloadCopy[0]:X2} (0x55=RX_DATA, 0x56=TX_DATA)");
+                Log.Log.Info($"[D2-READ-RETRY-DEBUG] SubCommand: 0x{payloadCopy[1]:X2}, BlockNo: {blockNo}, CartNo: {cartNo}");
+
+                var res = await DataHandlerIsp.Instance.Execute(payloadCopy, progress);
+
+                // Check for spurious response (firmware in wrong state)
+                if (res == IspSubCmdResponse.SPURIOUS_RESPONSE)
+                {
+                    Log.Log.Warning($"[D2-RETRY] Spurious firmware response detected - retrying entire operation (attempt {attempt}/{MAX_RETRIES})");
+
+                    if (attempt < MAX_RETRIES)
+                    {
+                        await Task.Delay(500);  // Give firmware time to stabilize
+                        continue;  // Retry from beginning (Execute() will send RX_DATA_RESET again)
+                    }
+                    else
+                    {
+                        Log.Log.Error($"[D2-RETRY] All {MAX_RETRIES} retry attempts failed due to spurious responses");
+                        return returnCodes.DTCL_NO_RESPONSE;
+                    }
+                }
+
+                // Success or other error - return result
+                return res == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
+            }
+
+            // Should never reach here, but just in case
+            return returnCodes.DTCL_NO_RESPONSE;
         }
 
         public async Task<int> WriteD2BlockData(int blockNo, int noOfPages, int lastPageSize, byte cartNo, IProgress<int> progress)
         {
+            const int MAX_RETRIES = 3;
+
             m_NoOfPages = (uint)noOfPages;
             m_LastPageSize = (uint)lastPageSize;
 
@@ -2472,9 +2569,45 @@ namespace DTCL.Cartridges
             Log.Log
                 .Info($"[EVT4002] Initiating Write: Block={blockNo}, Pages={m_NoOfPages}, LastPageSize={m_LastPageSize}, TotalSize={totalSize}, cartNo={cartNo}");
 
-            var res = await DataHandlerIsp.Instance.Execute(cmdPayload, progress);
+            // Retry loop for spurious firmware responses
+            for (int attempt = 1; attempt <= MAX_RETRIES; attempt++)
+            {
+                // CRITICAL FIX: Create fresh copy of cmdPayload for each attempt!
+                // SetMode() in IspCmdTransmitData modifies data[0], so must use fresh copy for each retry
+                byte[] payloadCopy = new byte[cmdPayload.Length];
+                Array.Copy(cmdPayload, payloadCopy, cmdPayload.Length);
 
-            return res == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
+                // DEBUG: Log cmdPayload details before each attempt
+                Log.Log.Info($"[D2-WRITE-RETRY-DEBUG] Attempt {attempt}/{MAX_RETRIES}: cmdPayload length={payloadCopy.Length}");
+                Log.Log.Info($"[D2-WRITE-RETRY-DEBUG] cmdPayload bytes: {BitConverter.ToString(payloadCopy)}");
+                Log.Log.Info($"[D2-WRITE-RETRY-DEBUG] Command byte: 0x{payloadCopy[0]:X2} (0x55=RX_DATA, 0x56=TX_DATA)");
+                Log.Log.Info($"[D2-WRITE-RETRY-DEBUG] SubCommand: 0x{payloadCopy[1]:X2}, BlockNo: {blockNo}, CartNo: {cartNo}");
+
+                var res = await DataHandlerIsp.Instance.Execute(payloadCopy, progress);
+
+                // Check for spurious response (firmware in wrong state)
+                if (res == IspSubCmdResponse.SPURIOUS_RESPONSE)
+                {
+                    Log.Log.Warning($"[D2-RETRY] Spurious firmware response detected - retrying entire operation (attempt {attempt}/{MAX_RETRIES})");
+
+                    if (attempt < MAX_RETRIES)
+                    {
+                        await Task.Delay(500);  // Give firmware time to stabilize
+                        continue;  // Retry from beginning (Execute() will send TX_DATA_RESET again)
+                    }
+                    else
+                    {
+                        Log.Log.Error($"[D2-RETRY] All {MAX_RETRIES} retry attempts failed due to spurious responses");
+                        return returnCodes.DTCL_NO_RESPONSE;
+                    }
+                }
+
+                // Success or other error - return result
+                return res == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
+            }
+
+            // Should never reach here, but just in case
+            return returnCodes.DTCL_NO_RESPONSE;
         }
 
         public byte[] FrameInternalPayload(byte cmd, byte subCmd, int totalSize, ushort[] parameters)

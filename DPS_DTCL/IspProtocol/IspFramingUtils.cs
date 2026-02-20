@@ -22,12 +22,18 @@ namespace IspProtocol
         {
             payload = null;
 
-            if (frame.Length < 4 || frame[0] != StartByte || frame[frame.Length - 1] != EndByte)
+            // Basic validation: minimum size and START byte
+            if (frame.Length < 4 || frame[0] != StartByte)
                 return false;
 
             var len = frame[1];
 
-            if (len + 4 != frame.Length)
+            // Check if we have enough bytes for this frame (allow buffer to be longer - multi-frame scenario)
+            if (len + 4 > frame.Length)
+                return false;
+
+            // Check END byte at correct position (not at buffer end, but at frame end)
+            if (frame[3 + len] != EndByte)
                 return false;
 
             var data = new byte[len];

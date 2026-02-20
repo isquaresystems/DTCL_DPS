@@ -759,7 +759,7 @@ namespace DTCL.Transport
                 FireCartDetectedEvent(new CartDetectionEventArgs
                 {
                     SlotNumber = _activeSlot,
-                    CartType = detectedCount == 1 ? currentDetectedTypes.First() : CartType.Unknown,
+                    CartType = detectedCount > 0 ? currentDetectedTypes.First() : CartType.Unknown,
                     Status = detectedCount > 0 ? DetectionStatus.Detected : DetectionStatus.NotDetected,
                     Message = message
                 });
@@ -783,7 +783,7 @@ namespace DTCL.Transport
         #endregion
 
         #region Utility Methods
-        byte[] CreateIspCommand(IspSubCommand subCommand, byte[] data)
+        public byte[] CreateIspCommand(IspSubCommand subCommand, byte[] data)
         {
             var payload = new byte[4 + data.Length];
             payload[0] = (byte)IspCommand.COMMAND_REQUEST;

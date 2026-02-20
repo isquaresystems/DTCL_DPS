@@ -158,7 +158,7 @@
                           Checked="MasterCheck_Checked" Unchecked="MasterCheck_Unchecked"
                           IsChecked="{Binding Slot1.isMaster, Mode=TwoWay}"
                           IsEnabled="{Binding Slot1.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <CheckBox x:Name="Slot1CheckSlv"
                           Grid.Row="1" Grid.Column="3"
                           Tag="{Binding Slot1}"
@@ -166,7 +166,7 @@
                           Checked="SlaveCheck_Checked" Unchecked="SlaveCheck_Unchecked"
                           IsChecked="{Binding Slot1.isSlave, Mode=TwoWay}"
                           IsEnabled="{Binding Slot1.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBox x:Name="Slot1_UnitSlNo"
                          Grid.Row="1" Grid.Column="4"
                          Width="60" Margin="5,0"
@@ -192,7 +192,7 @@
                           Checked="MasterCheck_Checked" Unchecked="MasterCheck_Unchecked"
                           IsChecked="{Binding Slot2.isMaster, Mode=TwoWay}"
                           IsEnabled="{Binding Slot2.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <CheckBox x:Name="Slot2CheckSlv"
                           Grid.Row="2" Grid.Column="3"
                           Tag="{Binding Slot2}"
@@ -200,7 +200,7 @@
                           Checked="SlaveCheck_Checked" Unchecked="SlaveCheck_Unchecked"
                           IsChecked="{Binding Slot2.isSlave, Mode=TwoWay}"
                           IsEnabled="{Binding Slot2.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBox x:Name="Slot2_UnitSlNo"
                          Grid.Row="2" Grid.Column="4"
                          Width="60" Margin="5,0"
@@ -226,7 +226,7 @@
                           Checked="MasterCheck_Checked" Unchecked="MasterCheck_Unchecked"
                           IsChecked="{Binding Slot3.isMaster, Mode=TwoWay}"
                           IsEnabled="{Binding Slot3.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <CheckBox x:Name="Slot3CheckSlv"
                           Grid.Row="3" Grid.Column="3"
                           Tag="{Binding Slot3}"
@@ -234,7 +234,7 @@
                           Checked="SlaveCheck_Checked" Unchecked="SlaveCheck_Unchecked"
                           IsChecked="{Binding Slot3.isSlave, Mode=TwoWay}"
                           IsEnabled="{Binding Slot3.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBox x:Name="Slot3_UnitSlNo"
                          Grid.Row="3" Grid.Column="4"
                          Width="60" Margin="5,0"
@@ -260,7 +260,7 @@
                           Checked="MasterCheck_Checked" Unchecked="MasterCheck_Unchecked"
                           IsChecked="{Binding Slot4.isMaster, Mode=TwoWay}"
                           IsEnabled="{Binding Slot4.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <CheckBox x:Name="Slot4CheckSlv"
                           Grid.Row="4" Grid.Column="3"
                           Tag="{Binding Slot4}"
@@ -268,7 +268,7 @@
                           Checked="SlaveCheck_Checked" Unchecked="SlaveCheck_Unchecked"
                           IsChecked="{Binding Slot4.isSlave, Mode=TwoWay}"
                           IsEnabled="{Binding Slot4.IsMasterSlaveEnabled}"
-                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                          Width="20" Height="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBox x:Name="Slot4_UnitSlNo"
                          Grid.Row="4" Grid.Column="4"
                          Width="60" Margin="5,0"
@@ -336,7 +336,7 @@
                 <Button x:Name="DPSNewLog" Content="New Log" Width="194" Height="40" Style="{StaticResource PCSharedButtonStyle}" Click="NewLog_Click" />
                 <Button x:Name="DPSOldLog" Content="Old Log" Width="197" Height="40" Style="{StaticResource PCSharedButtonStyle}" Click="OldLog_Click"/>
             </StackPanel>
-            <Grid Height="262" Width="397">
+            <Grid Height="250" Width="397">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -362,32 +362,32 @@
                 <Label x:Name="L_DPSDTCSINo1" Content="DTC Sl.No Slot-1" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Margin="0,0,5,0">
                     
                 </Label>
-                <TextBox x:Name="DPSDTCSINo1" Text="999" Grid.Row="3" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,5,0,5" VerticalAlignment="Center">
+                <TextBox x:Name="DPSDTCSINo1" Text="999" Grid.Row="3" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,0,0,5" VerticalAlignment="Center">
                
                 </TextBox>
 
-                <Label x:Name="L_DPSDTCSINo2" Content="DTC Sl.No Slot-2" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Margin="0,0,5,0">
+                <Label x:Name="L_DPSDTCSINo2" Content="DTC Sl.No Slot-2" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Margin="0,-5,5,0">
                    
                 </Label>
-                <TextBox x:Name="DPSDTCSINo2" Text="999" Grid.Row="4" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,5,0,5" VerticalAlignment="Center">
+                <TextBox x:Name="DPSDTCSINo2" Text="999" Grid.Row="4" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,-5,0,5" VerticalAlignment="Center">
           
                 </TextBox>
 
-                <Label x:Name="L_DPSDTCSINo3" Content="DTC Sl.No Slot-3" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Margin="0,0,5,0">
+                <Label x:Name="L_DPSDTCSINo3" Content="DTC Sl.No Slot-3" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Margin="0,-5,5,0">
 
                 </Label>
-                <TextBox x:Name="DPSDTCSINo3" Text="999" Grid.Row="5" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,5,0,5" VerticalAlignment="Center">
+                <TextBox x:Name="DPSDTCSINo3" Text="999" Grid.Row="5" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,-5,0,5" VerticalAlignment="Center">
 
                 </TextBox>
 
-                <Label x:Name="L_DPSDTCSINo4" Content="DTC Sl.No Slot-4" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Margin="0,0,5,0">
+                <Label x:Name="L_DPSDTCSINo4" Content="DTC Sl.No Slot-4" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" FontSize="14" HorizontalAlignment="Right" Margin="0,-5,5,0">
 
                 </Label>
 
-                <TextBox x:Name="DPSDTCSINo4" Text="999" Grid.Row="6" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,5,0,5" VerticalAlignment="Center">
+                <TextBox x:Name="DPSDTCSINo4" Text="999" Grid.Row="6" Grid.Column="1" FontSize="15" FontWeight="Bold" Margin="0,-5,0,5" VerticalAlignment="Center">
                 </TextBox>
 
-                <Button x:Name="DPSConfirmLog" Content="Confirm Log" Style="{StaticResource PCSharedButtonStyle}" Grid.Row="7" Click="ConfirmLog_Click" Margin="0,3,0,0" Grid.Column="1" Height="33" VerticalAlignment="Top"/>
+                <Button x:Name="DPSConfirmLog" Content="Confirm Log" Style="{StaticResource PCSharedButtonStyle}" Grid.Row="7" Click="ConfirmLog_Click" Margin="0,0,0,0" Grid.Column="1" Height="33" VerticalAlignment="Top"/>
             </Grid>
             <Grid Margin="10" Height="61">
                 <Grid.RowDefinitions>

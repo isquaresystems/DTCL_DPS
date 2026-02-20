@@ -1,8 +1,8 @@
 # DTCL GUI Architecture Documentation
 ## Data Transfer and Control Link - WPF Application
 
-**Version:** 1.0  
-**Date:** November 2025  
+**Version:** 1.1
+**Date:** February 2026
 **Author:** ISquare Systems
 
 ---
@@ -1285,7 +1285,339 @@ class NewOperation_SubCmdProcess : IIspSubCommandHandler
 
 ---
 
+## 11. DPS MUX Implementation (February 2026)
+
+### 11.1 DPS MUX Overview
+
+The DPS MUX Window was implemented in February 2026 to support DPS2_4_IN_1 and DPS3_4_IN_1 hardware with 4 identical slots per channel (8 channels × 4 slots = 32 total slots).
+
+**Key Architectural Differences from DTCL MUX:**
+
+| Aspect | DTCL MUX (Old) | DPS MUX (New) |
+|--------|----------------|---------------|
+| **Slots per channel** | 2 (fixed: 1 D2 + 1 D3) | 4 (all D2 OR all D3) |
+| **Hardware types** | Mixed (D2/D3 hybrid) | Uniform (DPS2_4_IN_1 or DPS3_4_IN_1) |
+| **Data structure** | Fixed properties | Array-based indices [1-4] |
+| **UI binding** | Dictionary values | ObservableCollection |
+| **Total slots** | 8 channels × 2 = 16 | 8 channels × 4 = 32 |
+
+### 11.2 DPS MUX Architecture Diagram
+
+```
+┌────────────────────────────────────────────────────────────────┐
+│                    DPS MUX System Architecture                  │
+├────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│  ┌──────────────┐         ┌───────────────────┐               │
+│  │ DPSMuxWindow │◄───────►│  DPSMuxManager    │               │
+│  │  (XAML/UI)   │         │  (8 Channels)     │               │
+│  └──────┬───────┘         └─────────┬─────────┘               │
+│         │                           │                          │
+│         │ ObservableCollection      │ Dictionary<int, Info>   │
+│         │                           │                          │
+│  ┌──────▼───────────────────────────▼─────────────┐           │
+│  │       DPSMuxChannelInfo (x8)                    │           │
+│  │  ┌──────────────────────────────────────────┐  │           │
+│  │  │ Channel Properties:                       │  │           │
+│  │  │  • isDPSConnected: bool                  │  │           │
+│  │  │  • HardwareType: string (DPS2/DPS3)      │  │           │
+│  │  │  • CartType: string (D2/D3)              │  │           │
+│  │  │  • UnitSno: string                       │  │           │
+│  │  │  • isUserSelected: bool                  │  │           │
+│  │  └──────────────────────────────────────────┘  │           │
+│  │  ┌──────────────────────────────────────────┐  │           │
+│  │  │ 4-Slot Arrays [1-4]:                     │  │           │
+│  │  │  • IsSlotSelected[1-4]: bool[]           │  │           │
+│  │  │  • IsCartDetected[1-4]: bool[]           │  │           │
+│  │  │  • DTCSerialNumbers[1-4]: string[]       │  │           │
+│  │  │  • DetectedCartTypes[1-4]: CartType[]    │  │           │
+│  │  │  • PCStatus[1-4]: string[] (PASS/FAIL)   │  │           │
+│  │  └──────────────────────────────────────────┘  │           │
+│  │  ┌──────────────────────────────────────────┐  │           │
+│  │  │ Channel Management:                       │  │           │
+│  │  │  • channel_SlotInfo[1-4]: SlotInfo[]     │  │           │
+│  │  │  • SlotLogPaths: Dictionary<int,string>  │  │           │
+│  │  │  • OverallPCStatus: string (computed)    │  │           │
+│  │  └──────────────────────────────────────────┘  │           │
+│  └─────────────────────────────────────────────────┘           │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────┐           │
+│  │    MUX Protocol (UartTransportSync @ 9600)      │           │
+│  │  • switch_Mux((char)0)  = All OFF (0x30)        │           │
+│  │  • switch_Mux((char)1-8) = Channel 1-8          │           │
+│  │  • Response validation: byte[3] or byte[1]      │           │
+│  └─────────────────────────────────────────────────┘           │
+│                                                                 │
+│  ┌─────────────────────────────────────────────────┐           │
+│  │    ISP Protocol (Per-Channel via MuxChannelMgr) │           │
+│  │  • HardwareInfo/DpsInfo singleton (reused)      │           │
+│  │  • 115200 baud USB CDC communication            │           │
+│  │  • Standard cart operations (scan, erase, etc.) │           │
+│  └─────────────────────────────────────────────────┘           │
+│                                                                 │
+└────────────────────────────────────────────────────────────────┘
+```
+
+### 11.3 Key Implementation Details
+
+#### A. Data Model - DPSMuxChannelInfo
+
+**File:** `DPS_DTCL/Mux/DPSMuxChannelInfo.cs`
+
+```csharp
+public class DPSMuxChannelInfo : INotifyPropertyChanged {
+    // Channel identification
+    public int Channel { get; set; }  // 1-8
+
+    // Connection state
+    public bool isDPSConnected { get; set; }
+    public string HardwareType { get; set; }  // "DPS2_4_IN_1" or "DPS3_4_IN_1"
+    public string CartType { get; set; }      // "Darin2" or "Darin3"
+
+    // User selection
+    public bool isUserSelected { get; set; }
+
+    // 4-slot arrays (1-based indexing: indices 0-4, use 1-4)
+    public bool[] IsSlotSelected { get; set; } = new bool[5];
+    public bool[] IsCartDetected { get; set; } = new bool[5];
+    public string[] DTCSerialNumbers { get; set; } = new string[5];
+    public CartType[] DetectedCartTypes { get; set; } = new CartType[5];
+    public string[] PCStatus { get; set; } = new string[5];
+
+    // Hardware management
+    public Dictionary<int, SlotInfo> channel_SlotInfo;
+    public Dictionary<int, string> SlotLogPaths = new Dictionary<int, string>();
+
+    // Performance check state
+    public string OverallPCStatus { get; set; }
+    public bool isInProgress { get; set; }
+
+    // INotifyPropertyChanged implementation
+    public event PropertyChangedEventHandler PropertyChanged;
+    protected void OnPropertyChanged(string propertyName) {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+}
+```
+
+#### B. MUX Manager - DPSMuxManager
+
+**File:** `DPS_DTCL/Mux/DPSMuxManager.cs`
+
+**Key Responsibilities:**
+1. **MUX Hardware Detection** - Scans COM ports for MUX hardware
+2. **Channel Switching** - `switch_Mux(char channelNumber)` protocol
+3. **DPS Hardware Scanning** - Scans all 8 channels for connected DPS units
+4. **Channel Management** - Maintains Dictionary of channels and managers
+
+```csharp
+public class DPSMuxManager : IDisposable {
+    // MUX transport (separate from ISP protocol)
+    private UartTransportSync _muxTransport;
+    private string _muxComPort;
+    private int _activeChannelNumber = 0;
+
+    // Channel management
+    public Dictionary<int, DPSMuxChannelInfo> channels;          // Data model (1-8)
+    public Dictionary<int, MuxChannelManager> channelManagers;   // Hardware isolation (1-8)
+
+    // Events
+    public event EventHandler<int> PortConnected;
+    public event EventHandler PortDisconnected;
+
+    // Core methods
+    public async Task<bool> ScanMuxHw();                        // Detect MUX hardware
+    public async Task<bool> switch_Mux(char channelNumber);     // Switch channel (0-8)
+    public async Task ScanAllChannels();                        // Scan 8 channels for DPS
+    public bool IsMuxConnected();                               // Check MUX connection status
+}
+```
+
+#### C. Window UI - DPSMuxWindow
+
+**File:** `DPS_DTCL/Mux/DPSMuxWindow.xaml.cs`
+
+**Key Features:**
+1. **Timer-Based MUX Detection** - `_dpsMuxScanTimer` at 2000ms intervals
+2. **ObservableCollection Binding** - Real-time UI updates with INotifyPropertyChanged
+3. **Select All Functionality** - Two-state checkbox with recursion prevention
+4. **Cart Validation** - Validates cart presence before log creation
+5. **Performance Check** - Iteration/duration-based with per-slot execution
+
+**Critical Patterns:**
+
+```csharp
+// ObservableCollection for DataGrid binding
+private ObservableCollection<DPSMuxChannelInfo> channelDataSource;
+
+// Initialize from manager
+channelDataSource = new ObservableCollection<DPSMuxChannelInfo>();
+for (int i = 1; i <= 8; i++) {
+    var channel = dpsMuxManager.channels[i];
+    channelDataSource.Add(channel);
+
+    // Subscribe to PropertyChanged for Select All tracking
+    channel.PropertyChanged += Channel_PropertyChanged;
+}
+
+// Bind to DataGrid
+DPSMuxChannelGrid.ItemsSource = channelDataSource;
+```
+
+#### D. XAML Array Binding (Critical Pattern)
+
+**File:** `DPS_DTCL/Mux/DPSMuxWindow.xaml`
+
+```xaml
+<!-- CRITICAL: Array indexer bindings require explicit mode and trigger -->
+<DataGridCheckBoxColumn Header="S1"
+    Binding="{Binding IsSlotSelected[1], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+    Width="30"/>
+
+<DataGridCheckBoxColumn Header="S2"
+    Binding="{Binding IsSlotSelected[2], Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+    Width="30"/>
+
+<!-- Without UpdateSourceTrigger=PropertyChanged, binding won't update source array -->
+```
+
+**Why This Matters:**
+- Array elements don't trigger `PropertyChanged` events automatically
+- `UpdateSourceTrigger=PropertyChanged` forces immediate binding updates
+- Without it, checkbox state changes don't persist to backing array
+
+#### E. Select All Checkbox Implementation
+
+**Pattern:** Event-driven with recursion prevention
+
+```csharp
+private bool _isUpdatingSelectAllState = false;
+
+// Subscribe to each channel's PropertyChanged
+foreach (int i = 1; i <= 8; i++) {
+    dpsMuxManager.channels[i].PropertyChanged += Channel_PropertyChanged;
+}
+
+// When individual checkbox changes, update SelectAll state
+private void Channel_PropertyChanged(object sender, PropertyChangedEventArgs e) {
+    if (e.PropertyName != nameof(DPSMuxChannelInfo.isUserSelected)) return;
+    if (_isUpdatingSelectAllState) return;  // Prevent recursion
+    UpdateSelectAllCheckBoxState();
+}
+
+// Update SelectAll based on all connected channels
+private void UpdateSelectAllCheckBoxState() {
+    _isUpdatingSelectAllState = true;  // Lock
+    var connectedChannels = channelDataSource.Where(c => c.isDPSConnected).ToList();
+    bool allSelected = connectedChannels.All(c => c.isUserSelected);
+    SelectAllCheckBox.IsChecked = allSelected;
+    _isUpdatingSelectAllState = false;  // Unlock
+}
+```
+
+### 11.4 DPS MUX Logging Structure
+
+**File:** `DPS_DTCL/Log/PCLog.cs` (Extended with backward compatibility)
+
+**Folder Hierarchy:**
+
+```
+DPSMux/
+  Channel-1/
+    Slot-1/
+      999_log.txt
+      TestLog/
+        999_log_DD-MM-YYYY_HH-MM-SS.txt
+    Slot-2/
+      ...
+    Slot-3/
+      ...
+    Slot-4/
+      ...
+  Channel-2/
+    ...
+  Channel-8/
+    ...
+```
+
+**Log Key Management:**
+- Unique key: `(ChNo * 10) + SlotNumber`
+- Example: Channel 3, Slot 2 = key 32
+- Allows persistent log file paths across operations
+
+**Backward Compatibility:**
+```csharp
+public void CreateNewLog(
+    string testNumber,
+    string inspectorName,
+    string dtcSerialNumber,
+    string unitSerialNumber,
+    bool withCart,
+    SlotInfo slotInfo,
+    int ChNo = 0,           // Optional: Channel number (0 = standalone)
+    bool isDPSMux = false   // Optional: DPS MUX mode (false = DTCL MUX)
+)
+```
+
+### 11.5 Critical Fixes and Lessons (February 2026)
+
+#### Fix 1: Missing Component Namespace
+**Problem:** Compilation error - `No overload for 'Channel_PropertyChanged' matches delegate 'PropertyChangedEventHandler'`
+**Solution:** Added `using System.ComponentModel;` to DPSMuxWindow.xaml.cs
+
+#### Fix 2: Select All Checkbox Unable to Uncheck
+**Problem:** Three-state checkbox (`IsThreeState="True"`) prevented unchecking due to indeterminate state transition
+**Solution:** Changed to two-state checkbox, removed Click handler that forced checked state
+
+#### Fix 3: MUX Reconnection Failures
+**Problem:** Hardware re-detection working only 1 out of 10 times
+**Solutions:**
+- Increased timer interval: 100ms → 2000ms
+- Added `_isScanningMux` flag to prevent overlapping scans
+- Transport cleanup before each scan (disconnect, dispose, null)
+- Added 100ms delays between COM port attempts
+- Added 500ms delay after disconnect before timer restart
+
+#### Fix 4: Cart Validation Only for Selected Slots
+**Problem:** "Without Cart" mode validated ALL slots instead of SELECTED slots
+**Solution:** Modified validation loop to only check `channel.IsSlotSelected[slot]` slots
+
+#### Fix 5: Exit Popup During Application Close
+**Problem:** Disconnect popup shown when Exit button clicked (due to Dispose triggering OnPortClosed)
+**Solution:** Added `_isExitingApplication` flag to skip popup in `OnDPSMuxHwDisconnected`
+
+### 11.6 Dynamic Window Loading
+
+**File:** `DPS_DTCL/MainWindow.xaml.cs` lines 3914-3960
+
+**Implementation:** Reads `Default.txt` to determine window type
+
+```csharp
+// Read Default.txt
+var layoutMode = LayoutMode.DTCLLayout; // Default
+if (File.Exists(@"Default.txt")) {
+    var data = FileOperations.ReadFileData(@"Default.txt", ...);
+    var configContent = Encoding.ASCII.GetString(data);
+    var configLines = configContent.Split('\r', '\n');
+
+    switch (configLines[0].ToLower()) {
+        case "dps": layoutMode = LayoutMode.DPSLayout; break;
+        case "dtcl": layoutMode = LayoutMode.DTCLLayout; break;
+    }
+}
+
+// Create appropriate window
+if (layoutMode == LayoutMode.DPSLayout) {
+    _muxWindow = new DPSMuxWindow();  // 4 slots per channel
+} else {
+    _muxWindow = new MuxWindow();     // 2 slots per channel
+}
+```
+
+---
+
 **Document Version History:**
-- v1.0 - Initial architecture documentation
-- Created by: Professional Development Team  
-- Last Updated: November 2025
+- v1.1 - Added DPS MUX implementation details, Select All functionality, GUI version 1.3 (February 2026)
+- v1.0 - Initial architecture documentation (November 2025)
+- Created by: Professional Development Team
+- Last Updated: February 8, 2026

@@ -89,7 +89,7 @@ namespace DTCL.Log
             }
         }
 
-        public void CreateNewLog(string testNumber, string inspectorName, string dtcSiNo, string unitSiNo, bool withCart, SlotInfo slotInfo, int ChNo = 0)
+        public void CreateNewLog(string testNumber, string inspectorName, string dtcSiNo, string unitSiNo, bool withCart, SlotInfo slotInfo, int ChNo = 0, bool isDPSMux = false)
         {
             var currentPath = Directory.GetCurrentDirectory();
             string logDirectory;
@@ -108,7 +108,16 @@ namespace DTCL.Log
 
             var OldLogDirectory = Path.Combine(logDirectory, "TestLog");
 
-            if (ChNo != 0)
+            // DPS MUX: DPSMux/Channel-X/Slot-Y/TestLog/
+            if (isDPSMux && ChNo != 0)
+            {
+                logDirectory = Path.Combine(currentPath, "DPSMux");
+                logDirectory = Path.Combine(logDirectory, "Channel-" + ChNo.ToString());
+                logDirectory = Path.Combine(logDirectory, "Slot-" + slotInfo.SlotNumber.ToString());
+                OldLogDirectory = Path.Combine(logDirectory, "TestLog");
+            }
+            // DTCL MUX: Mux/ChannelNo-X/OldLog/
+            else if (ChNo != 0)
             {
                 logDirectory = Path.Combine(currentPath, "Mux");
                 logDirectory = Path.Combine(logDirectory, "ChannelNo-" + ChNo.ToString());
@@ -142,11 +151,25 @@ namespace DTCL.Log
             Log.Info($"New Log Created with Name {slotInfo.SlotPCLogName}");
 
             if (ChNo != 0)
-                LogFileNameList.Add(ChNo, slotInfo.SlotPCLogName);
+            {
+                // For DPS MUX, use unique key: (ChNo * 10) + SlotNumber to support multiple slots per channel
+                int logKey = isDPSMux ? (ChNo * 10) + slotInfo.SlotNumber : ChNo;
+
+                if (!LogFileNameList.ContainsKey(logKey))
+                    LogFileNameList.Add(logKey, slotInfo.SlotPCLogName);
+                else
+                    LogFileNameList[logKey] = slotInfo.SlotPCLogName; // Update if already exists
+            }
         }
 
         public void EditLogHeaderDateTime(SlotInfo slotInfo)
         {
+            if (string.IsNullOrEmpty(slotInfo.SlotPCLogName))
+            {
+                Log.Error($"Cannot edit log header: SlotPCLogName is empty for slot {slotInfo.SlotNumber}");
+                return;
+            }
+
             var logLines = System.IO.File.ReadAllLines(slotInfo.SlotPCLogName);
 
             // Find the lines with "Date" and "Time" and modify them
@@ -167,6 +190,12 @@ namespace DTCL.Log
 
         public void EditIterationDurationType(int iteration, int duration, SlotInfo slotInfo)
         {
+            if (string.IsNullOrEmpty(slotInfo.SlotPCLogName))
+            {
+                Log.Error($"Cannot edit iteration/duration: SlotPCLogName is empty for slot {slotInfo.SlotNumber}");
+                return;
+            }
+
             var logLines = System.IO.File.ReadAllLines(slotInfo.SlotPCLogName);
             // Find the lines with "Date" and "Time" and modify them
             for (int i = 0; i < logLines.Length; i++)
@@ -283,9 +312,31 @@ namespace DTCL.Log
                     var newFileName = $"{testNumber}_log_" + date + "_" + time + ".txt";
                     var destinationPath = Path.Combine(destinationFolder, newFileName);
 
-                    // Move and rename the file
-                    File.Move(logFile, destinationPath);
-                    Log.Info($"Moved and renamed {logFile} to {destinationPath}");
+                    // FIX: Retry logic for file move - handles file locks from concurrent MUX operations
+                    const int maxRetries = 3;
+                    bool moved = false;
+
+                    for (int attempt = 1; attempt <= maxRetries; attempt++)
+                    {
+                        try
+                        {
+                            File.Move(logFile, destinationPath);
+                            Log.Info($"Moved and renamed {logFile} to {destinationPath}");
+                            moved = true;
+                            break;
+                        }
+                        catch (IOException ioEx) when (attempt < maxRetries)
+                        {
+                            // File locked - wait and retry (common when multiple MUX channels create logs simultaneously)
+                            Log.Warning($"File locked (attempt {attempt}/{maxRetries}), retrying in 100ms: {logFile}");
+                            System.Threading.Thread.Sleep(100);
+                        }
+                    }
+
+                    if (!moved)
+                    {
+                        Log.Error($"Failed to move {logFile} after {maxRetries} attempts - file may still be in use");
+                    }
                 }
                 catch (Exception ex)
                 {

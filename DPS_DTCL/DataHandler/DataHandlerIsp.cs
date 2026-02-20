@@ -103,6 +103,11 @@ public sealed class DataHandlerIsp
         reset[0] = (byte)IspCommand.RX_DATA_RESET;
         _cmdManager.HandleData(reset);
 
+        // CRITICAL: Give firmware time to process RESET commands and clear its state
+        // Without this delay, firmware's sequence counter may not reset, causing NACK on retry
+        await Task.Delay(50);
+        Log.Info("[EXECUTE-RESET] 50ms delay after RESET commands for firmware state stabilization");
+
         _tx.SubCmdResponse = IspSubCmdResponse.NO_RESPONSE;
         _rx.SubCmdResponse = IspSubCmdResponse.NO_RESPONSE;
         _ctrl.currentState = IspCMDState.IDLE;
@@ -131,19 +136,32 @@ public sealed class DataHandlerIsp
             await Task.Delay(10);
         }
 
+        // Return TX response if it's SUCCESS
         if (_tx.SubCmdResponse == IspSubCmdResponse.SUCESS)
         {
             return _tx.SubCmdResponse;
         }
 
+        // Return RX response if it's SUCCESS
         if (_rx.SubCmdResponse == IspSubCmdResponse.SUCESS)
         {
             return _rx.SubCmdResponse;
         }
-        else
+
+        // CRITICAL FIX: Return actual response value (SPURIOUS_RESPONSE, FAILED, etc.)
+        // Don't convert SPURIOUS_RESPONSE to FAILED - caller needs to know!
+        if (_tx.SubCmdResponse != IspSubCmdResponse.NO_RESPONSE)
         {
-            return IspSubCmdResponse.FAILED;
+            return _tx.SubCmdResponse;  // Could be SPURIOUS_RESPONSE, TX_FAILED, etc.
         }
+
+        if (_rx.SubCmdResponse != IspSubCmdResponse.NO_RESPONSE)
+        {
+            return _rx.SubCmdResponse;  // Could be FAILED, etc.
+        }
+
+        // Both are NO_RESPONSE - return FAILED as fallback
+        return IspSubCmdResponse.FAILED;
     }
 
     public async Task<byte[]> ExecuteCMD(byte[] payload, int expectedRespLength, int timeOut = 1000, IProgress<int> progress = null)
@@ -158,18 +176,127 @@ public sealed class DataHandlerIsp
         return null;
     }
 
+    // Helper class for frame buffering
+    class DecodedFrame
+    {
+        public byte[] Payload { get; set; }
+        public byte[] FullFrame { get; set; }
+        public int FrameNumber { get; set; }
+        public byte Command { get; set; }
+    }
+
     void OnDataReceived(byte[] rawData)
     {
         try
         {
-            if (IspFramingUtils.TryDecodeFrame(rawData, out byte[] payload))
+            // CRITICAL DEBUG: Log raw buffer with ALL bytes - no data loss
+            Log.Info($"[ISP-RX-RAW] Received {rawData.Length} bytes: {BitConverter.ToString(rawData)}");
+
+            // OPTION 2: Collect ALL frames FIRST, then intelligently process
+            // This prevents processing spurious frames before seeing expected responses
+            var decodedFrames = new System.Collections.Generic.List<DecodedFrame>();
+            int offset = 0;
+            int framesDecoded = 0;
+            int bytesConsumed = 0;
+
+            // ====== STEP 1: COLLECT all valid frames from buffer ======
+            while (offset < rawData.Length)
             {
-                _cmdManager.HandleData(payload);
+                int remainingLen = rawData.Length - offset;
+                byte[] segment = new byte[remainingLen];
+                Array.Copy(rawData, offset, segment, 0, remainingLen);
+
+                if (IspFramingUtils.TryDecodeFrame(segment, out byte[] payload))
+                {
+                    // Valid frame decoded - extract full frame bytes
+                    int frameSize = 4 + payload.Length;  // START + LEN + PAYLOAD + CRC + END
+                    framesDecoded++;
+                    bytesConsumed += frameSize;
+
+                    byte[] fullFrame = new byte[frameSize];
+                    Array.Copy(rawData, offset, fullFrame, 0, frameSize);
+
+                    var frame = new DecodedFrame
+                    {
+                        Payload = payload,
+                        FullFrame = fullFrame,
+                        FrameNumber = framesDecoded,
+                        Command = payload.Length > 0 ? payload[0] : (byte)0
+                    };
+
+                    decodedFrames.Add(frame);
+
+                    // DETAILED LOGGING: Show frame structure
+                    Log.Info($"[ISP-RX-COLLECT] Frame {framesDecoded}: Cmd=0x{frame.Command:X2}, " +
+                             $"PayloadLen={payload.Length}, FullFrame={BitConverter.ToString(fullFrame)}");
+
+                    offset += frameSize;
+                }
+                else
+                {
+                    // Decode FAILED - log exact bytes that failed
+                    Log.Warning($"[ISP-RX-DECODE] FAILED at offset {offset}/{rawData.Length}, " +
+                                $"remaining={remainingLen}B: {BitConverter.ToString(segment, 0, Math.Min(20, remainingLen))}");
+
+                    // Search for next START byte to skip garbage
+                    int nextStartOffset = -1;
+                    for (int i = 1; i < remainingLen; i++)
+                    {
+                        if (segment[i] == IspFramingUtils.StartByte)
+                        {
+                            nextStartOffset = i;
+                            break;
+                        }
+                    }
+
+                    if (nextStartOffset >= 0)
+                    {
+                        Log.Warning($"[ISP-RX] Skipped {nextStartOffset} garbage bytes, found START at offset {offset + nextStartOffset}");
+                        offset += nextStartOffset;
+                    }
+                    else
+                    {
+                        // No more START bytes - log remaining data
+                        int bytesLeft = rawData.Length - offset;
+                        if (bytesLeft > 0)
+                        {
+                            Log.Warning($"[ISP-RX] Discarding {bytesLeft}B at end (no valid frame): " +
+                                        $"{BitConverter.ToString(rawData, offset, Math.Min(bytesLeft, 20))}");
+                        }
+                        break;
+                    }
+                }
+            }
+
+            // ====== STEP 2: ANALYZE what we collected ======
+            int totalBytes = rawData.Length;
+            int lostBytes = totalBytes - bytesConsumed;
+
+            Log.Info($"[ISP-RX-ANALYZE] Collected {decodedFrames.Count} frames from {totalBytes}B buffer. " +
+                     $"Consumed={bytesConsumed}B, Lost={lostBytes}B");
+
+            if (lostBytes > 0)
+            {
+                Log.Warning($"[ISP-RX-ANALYZE] WARNING: {lostBytes} bytes were NOT decoded into valid frames!");
+            }
+
+            // ====== STEP 3: PROCESS collected frames ======
+            foreach (var frame in decodedFrames)
+            {
+                Log.Info($"[ISP-RX-PROCESS] Processing Frame#{frame.FrameNumber}: Cmd=0x{frame.Command:X2}");
+                _cmdManager.HandleData(frame.Payload);
+            }
+
+            // Log multi-frame behavior
+            if (decodedFrames.Count > 1)
+            {
+                Log.Info($"[ISP-RX] Multi-frame event: {decodedFrames.Count} frames in single USB CDC buffer");
             }
         }
         catch (Exception ex)
         {
-            Console.Error.WriteLine($"[Isp RX] Error decoding or dispatching: {ex.Message}");
+            Log.Error($"[Isp RX] Error decoding frames: {ex.Message}");
+            Log.Error($"[Isp RX] Stack trace: {ex.StackTrace}");
         }
     }
 

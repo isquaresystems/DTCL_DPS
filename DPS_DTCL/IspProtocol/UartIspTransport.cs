@@ -25,21 +25,54 @@ namespace IspProtocol
 
         public UartIspTransport(string portName, int baudRate = 115200)
         {
+            // Windows 11 Pro compatibility: Try higher baud rate for USB CDC
+            if (IsWindows11Pro())
+            {
+                baudRate = 921600;  // Much higher baud rate for Windows 11 Pro USB CDC
+                Log.Info($"Windows 11 Pro detected - using enhanced baud rate: {baudRate}");
+            }
+            
             serialPort = new SerialPort(portName, baudRate, Parity.None, 8, StopBits.One);
+            
+            // Windows 11 Pro USB CDC optimizations
+            if (IsWindows11Pro())
+            {
+                serialPort.ReadBufferSize = 16384;   // Larger read buffer for bulk transfers
+                serialPort.WriteBufferSize = 16384;  // Larger write buffer  
+                serialPort.ReceivedBytesThreshold = 1; // More responsive
+                serialPort.ReadTimeout = 5000;   // 5 seconds - more generous for Windows 11
+                serialPort.WriteTimeout = 5000;  // 5 seconds - prevents indefinite blocking
+                Log.Info("Windows 11 Pro - Applied USB CDC buffer optimizations");
+            }
+            else
+            {
+                // Standard timeouts for other Windows versions
+                serialPort.ReadTimeout = 1000;   // 1 second
+                serialPort.WriteTimeout = 1000;  // 1 second
+            }
+            
             serialPort.DataReceived += OnDataReceived;
-            serialPort.ReadTimeout = 1000;
-            serialPort.WriteTimeout = 1000;
         }
 
         public void Open()
         {
             if (!serialPort.IsOpen)
             {
+                // Windows 11 Pro compatibility: Add small delay before opening
+                if (IsWindows11Pro())
+                {
+                    System.Threading.Thread.Sleep(200);
+                }
+                
                 serialPort.Open();
                 PortOpened?.Invoke();
-
+                
                 _isMonitoring = true;
-                _portMonitorThread = new Thread(MonitorPortStatus);
+                _portMonitorThread = new Thread(MonitorPortStatus)
+                {
+                    IsBackground = true,
+                    Name = "UartPortMonitor"
+                };
                 _portMonitorThread.Start();
             }
         }
@@ -65,6 +98,9 @@ namespace IspProtocol
 
         public async Task TransmitAsync(byte[] data)
         {
+            // CRITICAL DEBUG: Log all transmitted bytes
+            Log.Info($"[ISP-TX-RAW] Transmitting {data.Length} bytes: {BitConverter.ToString(data)}");
+
             if (!serialPort.IsOpen)
             {
                 TransmissionCompleted?.Invoke(false);
@@ -164,6 +200,17 @@ namespace IspProtocol
             }
         }
 
+        /// <summary>Flush/discard any pending bytes in the receive buffer.</summary>
+        public void FlushReceiveBuffer()
+        {
+            if (serialPort.IsOpen && serialPort.BytesToRead > 0)
+            {
+                var discarded = serialPort.BytesToRead;
+                serialPort.DiscardInBuffer();
+                Log.Info($"[UART-FLUSH] Discarded {discarded} bytes from receive buffer");
+            }
+        }
+
         void MonitorPortStatus()
         {
             while (_isMonitoring)
@@ -231,6 +278,24 @@ namespace IspProtocol
 
                 disposed = true;
                 GC.SuppressFinalize(this);
+            }
+        }
+
+        /// <summary>
+        /// Safe Windows 11 detection - applies delay to all Windows 11 systems
+        /// This helps with both Pro and Home editions that may have timing issues
+        /// </summary>
+        private bool IsWindows11Pro()
+        {
+            try
+            {
+                var osVersion = Environment.OSVersion.Version;
+                // Apply to all Windows 11 systems for safety
+                return osVersion.Major >= 10 && osVersion.Build >= 22000;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

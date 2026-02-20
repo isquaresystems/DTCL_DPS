@@ -84,6 +84,7 @@ namespace IspProtocol
     {
         IN_PROGRESS = 0xC1,
         TX_FAILED = 0xC2,
+        SPURIOUS_RESPONSE = 0xC3,  // Firmware sent wrong response type - full operation retry needed
         NO_RESPONSE = 0xFF,
         SUCESS = 0x00,
         FAILED = 0x01

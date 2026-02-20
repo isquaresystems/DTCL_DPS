@@ -1,0 +1,93 @@
+2026-02-14 17:31:49.730 [Info] Application started
+2026-02-14 17:31:49.733 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2026-02-14 17:31:49.733 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2026-02-14 17:31:49.733 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2026-02-14 17:31:49.733 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2026-02-14 17:31:49.828 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 17:31:50.088 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 17:31:50.336 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 17:31:51.575 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
+2026-02-14 17:31:51.614 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-14 17:31:51.681 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
+2026-02-14 17:31:51.683 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers.
+2026-02-14 17:31:51.685 [Info] [EVT0000] [OnHwConnected] Port Connected
+2026-02-14 17:31:51.896 [Error] MessageBoxResult exception : Cannot set Owner property to a Window that has not been shown previously.
+2026-02-14 17:31:51.953 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 17:31:52.009 [Info] [EVT3001] Registered handler for subcommand 0x0C.
+2026-02-14 17:31:52.010 [Info] [EVT3001] Registered handler for subcommand 0x0D.
+2026-02-14 17:31:52.010 [Info] [EVT3001] Registered handler for subcommand 0x0F.
+2026-02-14 17:31:52.010 [Info] [EVT3001] Registered handler for subcommand 0x0B.
+2026-02-14 17:31:52.010 [Info] [EVT3001] Registered handler for subcommand 0x0E.
+2026-02-14 17:31:52.951 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 17:31:55.061 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 17:31:56.076 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 17:31:57.078 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 17:31:57.373 [Info] Start DTCLAppCtrlLed
+2026-02-14 17:31:57.375 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-14 17:31:57.412 [Info] Start DTCLAppCtrlLed Done
+2026-02-14 17:31:57.415 [Info] [EVT200] Executing command: subCmd=0x06, dataLen=6
+2026-02-14 17:31:57.458 [Info] [EVT200] Executing command: subCmd=0x05, dataLen=6
+2026-02-14 17:31:57.489 [Info] Power Cycle Start
+2026-02-14 17:31:57.489 [Info] [EVT200] Executing command: subCmd=0x13, dataLen=4
+2026-02-14 17:31:57.718 [Info] Power Cycle Done
+2026-02-14 17:31:57.801 [Info] Upload Messages Initialized
+2026-02-14 17:31:57.802 [Info] Starting erase operation
+2026-02-14 17:31:57.802 [Info] [EVT200] Executing command: subCmd=0x0B, dataLen=5
+2026-02-14 17:31:57.844 [Info] Starting Copy of valid files to temp folder
+2026-02-14 17:31:57.850 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:31:57.853 [Info] Copied c:\mps\DARIN3\upload\DR.bin to c:\mps\DARIN3\upload\temp\DR.bin.
+2026-02-14 17:31:59.608 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:31:59.609 [Info] Copied c:\mps\DARIN3\upload\WP.bin to c:\mps\DARIN3\upload\temp\WP.bin.
+2026-02-14 17:32:00.602 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.605 [Info] Copied c:\mps\DARIN3\upload\SPJ.BIN to c:\mps\DARIN3\upload\temp\SPJ.BIN.
+2026-02-14 17:32:00.606 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.609 [Info] Copied c:\mps\DARIN3\upload\RWR.BIN to c:\mps\DARIN3\upload\temp\RWR.BIN.
+2026-02-14 17:32:00.610 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.611 [Info] Copied c:\mps\DARIN3\upload\FPL.bin to c:\mps\DARIN3\upload\temp\FPL.bin.
+2026-02-14 17:32:00.611 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.632 [Info] Copied c:\mps\DARIN3\upload\CMDS.BIN to c:\mps\DARIN3\upload\temp\CMDS.BIN.
+2026-02-14 17:32:00.632 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.634 [Info] Copied c:\mps\DARIN3\upload\IFFA_PRI.bin to c:\mps\DARIN3\upload\temp\IFFA_PRI.bin.
+2026-02-14 17:32:00.635 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.637 [Info] Copied c:\mps\DARIN3\upload\IFFA_SEC.bin to c:\mps\DARIN3\upload\temp\IFFA_SEC.bin.
+2026-02-14 17:32:00.637 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.638 [Info] Copied c:\mps\DARIN3\upload\IFFB_PRI.bin to c:\mps\DARIN3\upload\temp\IFFB_PRI.bin.
+2026-02-14 17:32:00.639 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.641 [Info] Copied c:\mps\DARIN3\upload\IFFB_SEC.bin to c:\mps\DARIN3\upload\temp\IFFB_SEC.bin.
+2026-02-14 17:32:00.641 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.642 [Info] Copied c:\mps\DARIN3\upload\INCOMKEY.bin to c:\mps\DARIN3\upload\temp\INCOMKEY.bin.
+2026-02-14 17:32:00.642 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.643 [Info] Copied c:\mps\DARIN3\upload\INCOMCRY.bin to c:\mps\DARIN3\upload\temp\INCOMCRY.bin.
+2026-02-14 17:32:00.644 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-14 17:32:00.645 [Info] Copied c:\mps\DARIN3\upload\INCOMMNE.bin to c:\mps\DARIN3\upload\temp\INCOMMNE.bin.
+2026-02-14 17:32:00.646 [Info] Copy of valid files to temp folder done
+2026-02-14 17:32:00.648 [Info] Start Uploading files to Cartridge
+2026-02-14 17:32:00.649 [Info] Start Uploading File: CMDS.BIN
+2026-02-14 17:32:00.652 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:192 MsgID:18 cart:3
+2026-02-14 17:32:00.655 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 17:32:00.656 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-14 17:32:00.657 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-14 17:32:00.657 [Info] [TX-SETUP] SetMode - Data size: 192 bytes, State: Idle -> WaitAck
+2026-02-14 17:32:00.666 [Warning] [TX-FLOW] NACK received - Seq: 3072, Code: SUBCMD_SEQMISMATCH
+2026-02-14 17:32:00.667 [Warning] [TX-NACK] NACK for seq 3072, code: SUBCMD_SEQMISMATCH, retries left: 4
+2026-02-14 17:32:00.668 [Info] [TX-RETRY] Resending seq 3072 (attempt 2/4)
+2026-02-14 17:32:03.684 [Warning] [TX-TIMEOUT] ACK timeout for seq 0 - Retrying (2 attempts left)
+2026-02-14 17:32:03.686 [Error] [TX-SEND] Error sending packet seq 0: Source array was not long enough. Check srcIndex and length, and the array's lower bounds.
+2026-02-14 17:32:06.696 [Warning] [TX-TIMEOUT] ACK timeout for seq 0 - Retrying (1 attempts left)
+2026-02-14 17:32:06.697 [Error] [TX-SEND] Error sending packet seq 0: Source array was not long enough. Check srcIndex and length, and the array's lower bounds.
+2026-02-14 17:32:09.706 [Error] [TX-TIMEOUT] Max retries exceeded for seq 0 - TRANSMISSION FAILED
+2026-02-14 17:32:09.729 [Info] Writing Done for cart:3 MsgID:18 resp:FAILED
+2026-02-14 17:32:09.739 [Error] Write operation result: 2
+2026-02-14 17:32:09.740 [Error] Uploading Error
+2026-02-14 17:32:20.146 [Info] Start FirmwareCtrlLed
+2026-02-14 17:32:20.146 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-14 17:32:20.212 [Info] Start FirmwareCtrlLed Done
+2026-02-14 17:32:20.242 [Info] [EVT200] Executing command: subCmd=0x05, dataLen=6
+2026-02-14 17:32:20.332 [Info] [EVT200] Executing command: subCmd=0x06, dataLen=6
+2026-02-14 17:32:21.492 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 17:32:22.502 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-14 17:32:23.158 [Error] Log file not found.
+2026-02-14 17:32:23.159 [Error] Log file not found.
+2026-02-14 17:32:24.092 [Info] Start FirmwareCtrlLed
+2026-02-14 17:32:24.093 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-14 17:32:24.093 [Error] UART transmit error: Port is not open.

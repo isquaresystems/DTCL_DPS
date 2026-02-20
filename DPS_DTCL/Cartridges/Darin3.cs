@@ -1170,6 +1170,8 @@ namespace DTCL.Cartridges
 
         public async Task<int> ExecuteWriteOperationAsync(string uploadPath, IMessageInfo msg, byte cartNo, IProgress<int> progress)
         {
+            const int MAX_RETRIES = 3;
+
             try
             {
                 mPath = uploadPath;
@@ -1188,11 +1190,47 @@ namespace DTCL.Cartridges
                 Log.Log
                     .Info($"[EVT4002] Initiating Write for cart:{cartNo}  ActualFileSize:{msg.ActualFileSize} MsgID:{msg.MsgID} cart:{cartNo}");
 
-                var res = await DataHandlerIsp.Instance.Execute(cmdPayload, progress);
+                // Retry loop for spurious firmware responses
+                for (int attempt = 1; attempt <= MAX_RETRIES; attempt++)
+                {
+                    // CRITICAL FIX: Create fresh copy of cmdPayload for each attempt!
+                    // SetMode() in IspCmdTransmitData modifies data[0] from TX_DATA to RX_DATA,
+                    // so reusing the same array causes retry to route to wrong handler (RX instead of TX)
+                    byte[] payloadCopy = new byte[cmdPayload.Length];
+                    Array.Copy(cmdPayload, payloadCopy, cmdPayload.Length);
 
-                Log.Log.Info($"Writing Done for cart:{cartNo} MsgID:{msg.MsgID} resp:{res}");
+                    // DEBUG: Log cmdPayload details before each attempt
+                    Log.Log.Info($"[D3-RETRY-DEBUG] Attempt {attempt}/{MAX_RETRIES}: cmdPayload length={payloadCopy.Length}");
+                    Log.Log.Info($"[D3-RETRY-DEBUG] cmdPayload bytes: {BitConverter.ToString(payloadCopy)}");
+                    Log.Log.Info($"[D3-RETRY-DEBUG] Command byte: 0x{payloadCopy[0]:X2} (0x55=RX_DATA, 0x56=TX_DATA)");
+                    Log.Log.Info($"[D3-RETRY-DEBUG] SubCommand: 0x{payloadCopy[1]:X2}, MsgID: {msg.MsgID}, CartNo: {cartNo}");
 
-                return res == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
+                    var res = await DataHandlerIsp.Instance.Execute(payloadCopy, progress);
+
+                    // Check for spurious response (firmware in wrong state)
+                    if (res == IspSubCmdResponse.SPURIOUS_RESPONSE)
+                    {
+                        Log.Log.Warning($"[D3-RETRY] Spurious firmware response detected - retrying entire operation (attempt {attempt}/{MAX_RETRIES})");
+
+                        if (attempt < MAX_RETRIES)
+                        {
+                            await Task.Delay(500);  // Give firmware time to stabilize
+                            continue;  // Retry from beginning (Execute() will send TX_DATA_RESET again)
+                        }
+                        else
+                        {
+                            Log.Log.Error($"[D3-RETRY] All {MAX_RETRIES} retry attempts failed due to spurious responses");
+                            return returnCodes.DTCL_NO_RESPONSE;
+                        }
+                    }
+
+                    // Success or other error - return result
+                    Log.Log.Info($"Writing Done for cart:{cartNo} MsgID:{msg.MsgID} resp:{res}");
+                    return res == IspSubCmdResponse.SUCESS ? returnCodes.DTCL_SUCCESS : returnCodes.DTCL_NO_RESPONSE;
+                }
+
+                // Should never reach here, but just in case
+                return returnCodes.DTCL_NO_RESPONSE;
             }
             catch (Exception ex)
             {

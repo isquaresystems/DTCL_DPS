@@ -1,0 +1,64 @@
+# ======================
+# BUILD ARTIFACTS
+# ======================
+bin/
+obj/
+*.exe
+*.dll
+*.pdb
+!DPS_DTCL/D1/*.bin
+!DPS_DTCL/D2/*.bin
+!DPS_DTCL/D3/*.bin
+
+# ======================
+# VISUAL STUDIO
+# ======================
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.csproj.user
+*.DotSettings
+*.DotSettings.user
+*.sln.iml
+
+# ======================
+# NUGET
+# ======================
+packages/
+!packages/repositories.config
+*.nupkg
+*.snupkg
+
+# ======================
+# RUNTIME LOGS & TEMP
+# ======================
+bin/Debug/DebugLog.txt
+bin/Debug/PC_Log/
+bin/Debug/Mux/
+bin/Debug/DPSMux/
+bin/Release/PC_Log/
+bin/Release/Mux/
+bin/Release/DPSMux/
+
+# ======================
+# OS FILES
+# ======================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# ======================
+# IDE
+# ======================
+*.orig
+*.rej
+
+# ======================
+# TEMP & TEST FILES
+# ======================
+*.tmp
+*.temp
+~*

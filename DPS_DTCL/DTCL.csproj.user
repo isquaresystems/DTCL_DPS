@@ -6,4 +6,7 @@
   <PropertyGroup>
     <ProjectView>ShowAllFiles</ProjectView>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <StartWorkingDirectory>F:\Work\Swave\DPSFinalSolution\DPSFinalSolution\DPS_DTCL\bin\Release\</StartWorkingDirectory>
+  </PropertyGroup>
 </Project>

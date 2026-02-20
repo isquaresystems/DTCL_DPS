@@ -1,2 +1,23 @@
-# Auto detect text files and perform LF normalization
+# Auto normalize line endings
 * text=auto
+
+# Windows source files (CRLF)
+*.cs text eol=crlf
+*.xaml text eol=crlf
+*.csproj text eol=crlf
+*.sln text eol=crlf
+*.json text eol=crlf
+*.config text eol=crlf
+*.md text eol=crlf
+*.txt text eol=crlf
+
+# Binary files
+*.dll binary
+*.exe binary
+*.bin binary
+*.pdb binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary

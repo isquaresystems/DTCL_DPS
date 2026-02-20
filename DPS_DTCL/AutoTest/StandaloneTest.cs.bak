@@ -1,0 +1,298 @@
+using System;
+using System.IO;
+using System.IO.Ports;
+using System.Diagnostics;
+using System.Threading;
+using System.Text;
+
+namespace StandaloneWriteTest
+{
+    /// <summary>
+    /// Completely standalone write test with no dependencies
+    /// Run this as: csc StandaloneTest.cs && StandaloneTest.exe COM3 1000
+    /// </summary>
+    class Program
+    {
+        static SerialPort port;
+        static int successCount = 0;
+        static int failureCount = 0;
+        static StreamWriter logger;
+
+        // Protocol constants
+        const byte FRAME_START = 0x7E;
+        const byte FRAME_END = 0x7F;
+        const byte CMD_REQ = 0x52;    // Command request
+        const byte RX_DATA = 0x55;    // Receive data (write to device)
+        const byte TX_DATA = 0x56;    // Transmit data (read from device)
+        
+        // Subcommands
+        const byte SUBCMD_BOARD_ID = 0x00;
+        const byte SUBCMD_WRITE_DARIN2 = 0x01;  // Adjust based on your protocol
+        
+        static void Main(string[] args)
+        {
+            Console.WriteLine("=== Standalone DTCL Write Test ===");
+            Console.WriteLine("No dependencies - direct serial port testing\n");
+
+            string portName = args.Length > 0 ? args[0] : "COM3";
+            int iterations = args.Length > 1 ? int.Parse(args[1]) : 1000;
+            
+            // Setup logging
+            Directory.CreateDirectory("TestLogs");
+            string logFile = $"TestLogs\\WriteTest_{DateTime.Now:yyyyMMdd_HHmmss}.log";
+            logger = new StreamWriter(logFile) { AutoFlush = true };
+            
+            try
+            {
+                // Open port
+                port = new SerialPort(portName, 115200);
+                port.ReadTimeout = 5000;
+                port.WriteTimeout = 5000;
+                port.DataBits = 8;
+                port.Parity = Parity.None;
+                port.StopBits = StopBits.One;
+                port.Handshake = Handshake.None;
+                
+                Console.WriteLine($"Opening {portName}...");
+                port.Open();
+                
+                // Clear buffers
+                port.DiscardInBuffer();
+                port.DiscardOutBuffer();
+                
+                // Test connection with Board ID
+                Console.Write("Testing connection... ");
+                if (TestBoardId())
+                {
+                    Console.WriteLine("SUCCESS!\n");
+                    
+                    // Run write tests
+                    Console.WriteLine($"Starting {iterations} write tests...\n");
+                    var sw = Stopwatch.StartNew();
+                    
+                    for (int i = 0; i < iterations; i++)
+                    {
+                        if (TestWrite(i))
+                            successCount++;
+                        else
+                            failureCount++;
+                        
+                        // Progress
+                        if ((i + 1) % 10 == 0)
+                        {
+                            double rate = (double)successCount / (i + 1) * 100;
+                            Console.Write($"\rProgress: {i + 1}/{iterations} | Success: {rate:F1}% | Failures: {failureCount}");
+                        }
+                        
+                        // Small delay to avoid overwhelming the device
+                        if (i % 100 == 0 && i > 0)
+                            Thread.Sleep(10);
+                    }
+                    
+                    sw.Stop();
+                    
+                    // Results
+                    Console.WriteLine("\n\n=== TEST RESULTS ===");
+                    Console.WriteLine($"Total iterations: {iterations}");
+                    Console.WriteLine($"Successful writes: {successCount} ({(double)successCount/iterations*100:F1}%)");
+                    Console.WriteLine($"Failed writes: {failureCount} ({(double)failureCount/iterations*100:F1}%)");
+                    Console.WriteLine($"Total time: {sw.Elapsed}");
+                    Console.WriteLine($"Average time per write: {sw.ElapsedMilliseconds / iterations} ms");
+                    Console.WriteLine($"Log file: {logFile}");
+                }
+                else
+                {
+                    Console.WriteLine("FAILED!");
+                    Console.WriteLine("Could not communicate with device.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"\nERROR: {ex.Message}");
+                Log($"FATAL ERROR: {ex}");
+            }
+            finally
+            {
+                port?.Close();
+                logger?.Close();
+                
+                Console.WriteLine("\nPress any key to exit...");
+                Console.ReadKey();
+            }
+        }
+
+        static bool TestBoardId()
+        {
+            try
+            {
+                // Build frame: CMD_REQ with SUBCMD_BOARD_ID
+                byte[] payload = new byte[] { SUBCMD_BOARD_ID };
+                SendFrame(CMD_REQ, payload);
+                
+                // Read response
+                var response = ReadFrame();
+                if (response != null && response.Length > 0)
+                {
+                    Log($"Board ID: {BitConverter.ToString(response)}");
+                    return true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log($"TestBoardId error: {ex.Message}");
+            }
+            return false;
+        }
+
+        static bool TestWrite(int iteration)
+        {
+            try
+            {
+                // Generate test data (56 bytes - typical chunk size)
+                byte[] testData = new byte[56];
+                Random rnd = new Random(iteration);
+                rnd.NextBytes(testData);
+                
+                // Log the write attempt
+                var timestamp = Stopwatch.GetTimestamp();
+                Log($"[{iteration}] Writing {testData.Length} bytes...");
+                
+                // Send RX_DATA command with test data
+                SendFrame(RX_DATA, testData);
+                
+                // Read response
+                var response = ReadFrame();
+                
+                // Check for ACK (0x06) or success response
+                if (response != null && response.Length > 0)
+                {
+                    if (response[0] == 0x06 || response[0] == RX_DATA)
+                    {
+                        var elapsed = Stopwatch.GetTimestamp() - timestamp;
+                        var ms = elapsed * 1000.0 / Stopwatch.Frequency;
+                        Log($"[{iteration}] Success in {ms:F2}ms");
+                        return true;
+                    }
+                }
+                
+                Log($"[{iteration}] Failed - Response: {(response != null ? BitConverter.ToString(response) : "null")}");
+                return false;
+            }
+            catch (TimeoutException)
+            {
+                Log($"[{iteration}] TIMEOUT!");
+                // Clear buffers after timeout
+                try 
+                { 
+                    port.DiscardInBuffer();
+                    port.DiscardOutBuffer();
+                }
+                catch { }
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Log($"[{iteration}] ERROR: {ex.Message}");
+                return false;
+            }
+        }
+
+        static void SendFrame(byte command, byte[] data)
+        {
+            // Frame structure: START + LENGTH + COMMAND + DATA + CRC + END
+            int frameLength = 5 + data.Length; // START(1) + LEN(1) + CMD(1) + DATA(n) + CRC(1) + END(1)
+            byte[] frame = new byte[frameLength];
+            
+            frame[0] = FRAME_START;
+            frame[1] = (byte)(data.Length + 1); // Length includes command byte
+            frame[2] = command;
+            Array.Copy(data, 0, frame, 3, data.Length);
+            frame[frameLength - 2] = CalcCRC8(frame, 1, data.Length + 2); // CRC over LEN+CMD+DATA
+            frame[frameLength - 1] = FRAME_END;
+            
+            // Send frame
+            port.Write(frame, 0, frame.Length);
+            
+            // Log in debug mode
+            if (failureCount > 0 && failureCount < 10)
+            {
+                Log($"TX: {BitConverter.ToString(frame)}");
+            }
+        }
+
+        static byte[] ReadFrame()
+        {
+            // Wait for start byte
+            while (true)
+            {
+                int b = port.ReadByte();
+                if (b == FRAME_START)
+                    break;
+                if (b == -1)
+                    return null;
+            }
+            
+            // Read length
+            int length = port.ReadByte();
+            if (length < 1 || length > 60) // Sanity check
+            {
+                Log($"Invalid length: {length}");
+                return null;
+            }
+            
+            // Read rest of frame
+            byte[] buffer = new byte[length + 2]; // data + CRC + END
+            int bytesRead = 0;
+            while (bytesRead < buffer.Length)
+            {
+                int read = port.Read(buffer, bytesRead, buffer.Length - bytesRead);
+                bytesRead += read;
+            }
+            
+            // Verify end byte
+            if (buffer[buffer.Length - 1] != FRAME_END)
+            {
+                Log($"Invalid end byte: {buffer[buffer.Length - 1]:X2}");
+                return null;
+            }
+            
+            // TODO: Verify CRC
+            
+            // Return data portion
+            byte[] data = new byte[length];
+            Array.Copy(buffer, 0, data, 0, length);
+            return data;
+        }
+
+        static byte CalcCRC8(byte[] data, int start, int length)
+        {
+            byte crc = 0;
+            for (int i = start; i < start + length; i++)
+            {
+                crc ^= data[i];
+                for (int j = 0; j < 8; j++)
+                {
+                    if ((crc & 0x80) != 0)
+                        crc = (byte)((crc << 1) ^ 0x07);
+                    else
+                        crc <<= 1;
+                }
+            }
+            return crc;
+        }
+
+        static void Log(string message)
+        {
+            string line = $"[{DateTime.Now:HH:mm:ss.fff}] {message}";
+            logger?.WriteLine(line);
+            
+            // Also print errors to console
+            if (message.Contains("ERROR") || message.Contains("TIMEOUT") || message.Contains("Failed"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine($"\n{line}");
+                Console.ResetColor();
+            }
+        }
+    }
+}

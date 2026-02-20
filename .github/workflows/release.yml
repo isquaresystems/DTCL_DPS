@@ -1,0 +1,53 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  create-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore DPS_DTCL/DTCL.sln
+
+      - name: Build Release
+        run: |
+          msbuild DPS_DTCL/DTCL.sln `
+            /p:Configuration=Release `
+            /p:Platform=AnyCPU `
+            /v:minimal
+
+      - name: Create Release Archive
+        run: |
+          cd DPS_DTCL/bin/Release
+          7z a ../../../DTCL-${{ github.ref_name }}.zip DTCL.exe *.dll *.config Default.txt D1/ D2/ D3/ PopUpMessage/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: DTCL-${{ github.ref_name }}.zip
+          body: |
+            ## DTCL GUI ${{ github.ref_name }}
+
+            **Changes:** See commit history
+
+            **Installation:**
+            1. Extract DTCL-${{ github.ref_name }}.zip
+            2. Ensure .NET Framework 4.8 is installed
+            3. Run DTCL.exe
+
+            🤖 Generated with GitHub Actions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

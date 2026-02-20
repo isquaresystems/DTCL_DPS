@@ -1,0 +1,146 @@
+2026-02-15 11:06:09.505 [Info] Application started
+2026-02-15 11:06:09.506 [Info] Directory already Exists:c:\mps\DARIN2\upload\
+2026-02-15 11:06:09.506 [Info] Directory already Exists:c:\mps\DARIN3\upload\
+2026-02-15 11:06:09.507 [Info] Directory already Exists:c:\mps\DARIN2\download\
+2026-02-15 11:06:09.507 [Info] Directory already Exists:c:\mps\DARIN3\download\
+2026-02-15 11:06:09.681 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 11:06:09.682 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-0A-00-00-57-7F
+2026-02-15 11:06:09.911 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 11:06:09.911 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-0A-00-00-57-7F
+2026-02-15 11:06:10.159 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 11:06:10.161 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-0A-00-00-57-7F
+2026-02-15 11:06:11.411 [Info] [EVT200] Executing command: subCmd=0x03, dataLen=4
+2026-02-15 11:06:11.411 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-03-00-00-6D-7F
+2026-02-15 11:06:11.447 [Info] [EVT200] Executing command: subCmd=0x0A, dataLen=4
+2026-02-15 11:06:11.448 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-0A-00-00-57-7F
+2026-02-15 11:06:11.481 [Info] [RX-CONFIG] Max chunk size set to 22400 bytes
+2026-02-15 11:06:11.482 [Info] [EVT1000] [DataHandlerIsp] Initialized transport and command handlers.
+2026-02-15 11:06:11.483 [Info] [EVT0000] [OnHwConnected] Port Connected
+2026-02-15 11:06:11.521 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 11:06:11.522 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-04-00-00-7B-7F
+2026-02-15 11:06:11.564 [Info] [EVT3001] Registered handler for subcommand 0x0C.
+2026-02-15 11:06:11.564 [Info] [EVT3001] Registered handler for subcommand 0x0D.
+2026-02-15 11:06:11.564 [Info] [EVT3001] Registered handler for subcommand 0x0F.
+2026-02-15 11:06:11.564 [Info] [EVT3001] Registered handler for subcommand 0x0B.
+2026-02-15 11:06:11.564 [Info] [EVT3001] Registered handler for subcommand 0x0E.
+2026-02-15 11:06:11.694 [Error] MessageBoxResult exception : Cannot set Owner property to a Window that has not been shown previously.
+2026-02-15 11:06:12.534 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 11:06:12.534 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-04-00-00-7B-7F
+2026-02-15 11:06:14.803 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 11:06:14.803 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-04-00-00-7B-7F
+2026-02-15 11:06:15.804 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 11:06:15.805 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-04-00-00-7B-7F
+2026-02-15 11:06:16.817 [Info] [EVT200] Executing command: subCmd=0x04, dataLen=4
+2026-02-15 11:06:16.817 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-04-00-00-7B-7F
+2026-02-15 11:06:16.953 [Info] Start DTCLAppCtrlLed
+2026-02-15 11:06:16.954 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-15 11:06:16.954 [Info] [ISP-TX-RAW] Transmitting 9 bytes: 7E-05-52-07-00-01-01-4E-7F
+2026-02-15 11:06:16.982 [Info] Start DTCLAppCtrlLed Done
+2026-02-15 11:06:16.983 [Info] [EVT200] Executing command: subCmd=0x06, dataLen=6
+2026-02-15 11:06:16.983 [Info] [ISP-TX-RAW] Transmitting 10 bytes: 7E-06-52-06-00-02-03-01-1F-7F
+2026-02-15 11:06:17.011 [Info] [EVT200] Executing command: subCmd=0x05, dataLen=6
+2026-02-15 11:06:17.011 [Info] [ISP-TX-RAW] Transmitting 10 bytes: 7E-06-52-05-00-02-03-00-BE-7F
+2026-02-15 11:06:17.040 [Info] Power Cycle Start
+2026-02-15 11:06:17.040 [Info] [EVT200] Executing command: subCmd=0x13, dataLen=4
+2026-02-15 11:06:17.040 [Info] [ISP-TX-RAW] Transmitting 8 bytes: 7E-04-52-13-00-00-CF-7F
+2026-02-15 11:06:17.272 [Info] Power Cycle Done
+2026-02-15 11:06:17.313 [Info] Upload Messages Initialized
+2026-02-15 11:06:17.314 [Info] Starting erase operation
+2026-02-15 11:06:17.314 [Info] [EVT200] Executing command: subCmd=0x0B, dataLen=5
+2026-02-15 11:06:17.314 [Info] [ISP-TX-RAW] Transmitting 9 bytes: 7E-05-52-0B-00-01-03-A8-7F
+2026-02-15 11:06:17.536 [Info] Starting Copy of valid files to temp folder
+2026-02-15 11:06:17.540 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:17.541 [Info] Copied c:\mps\DARIN3\upload\DR.bin to c:\mps\DARIN3\upload\temp\DR.bin.
+2026-02-15 11:06:19.011 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:19.011 [Info] Copied c:\mps\DARIN3\upload\WP.bin to c:\mps\DARIN3\upload\temp\WP.bin.
+2026-02-15 11:06:20.167 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.168 [Info] Copied c:\mps\DARIN3\upload\SPJ.BIN to c:\mps\DARIN3\upload\temp\SPJ.BIN.
+2026-02-15 11:06:20.169 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.169 [Info] Copied c:\mps\DARIN3\upload\RWR.BIN to c:\mps\DARIN3\upload\temp\RWR.BIN.
+2026-02-15 11:06:20.170 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.170 [Info] Copied c:\mps\DARIN3\upload\FPL.bin to c:\mps\DARIN3\upload\temp\FPL.bin.
+2026-02-15 11:06:20.171 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.175 [Info] Copied c:\mps\DARIN3\upload\CMDS.BIN to c:\mps\DARIN3\upload\temp\CMDS.BIN.
+2026-02-15 11:06:20.175 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.176 [Info] Copied c:\mps\DARIN3\upload\IFFA_PRI.bin to c:\mps\DARIN3\upload\temp\IFFA_PRI.bin.
+2026-02-15 11:06:20.176 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.177 [Info] Copied c:\mps\DARIN3\upload\IFFA_SEC.bin to c:\mps\DARIN3\upload\temp\IFFA_SEC.bin.
+2026-02-15 11:06:20.177 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.177 [Info] Copied c:\mps\DARIN3\upload\IFFB_PRI.bin to c:\mps\DARIN3\upload\temp\IFFB_PRI.bin.
+2026-02-15 11:06:20.177 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.178 [Info] Copied c:\mps\DARIN3\upload\IFFB_SEC.bin to c:\mps\DARIN3\upload\temp\IFFB_SEC.bin.
+2026-02-15 11:06:20.178 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.178 [Info] Copied c:\mps\DARIN3\upload\INCOMKEY.bin to c:\mps\DARIN3\upload\temp\INCOMKEY.bin.
+2026-02-15 11:06:20.178 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.179 [Info] Copied c:\mps\DARIN3\upload\INCOMCRY.bin to c:\mps\DARIN3\upload\temp\INCOMCRY.bin.
+2026-02-15 11:06:20.179 [Info] Directory already Exists:c:\mps\DARIN3\upload\temp
+2026-02-15 11:06:20.179 [Info] Copied c:\mps\DARIN3\upload\INCOMMNE.bin to c:\mps\DARIN3\upload\temp\INCOMMNE.bin.
+2026-02-15 11:06:20.179 [Info] Copy of valid files to temp folder done
+2026-02-15 11:06:20.180 [Info] Start Uploading files to Cartridge
+2026-02-15 11:06:20.181 [Info] Start Uploading File: CMDS.BIN
+2026-02-15 11:06:20.185 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:192 MsgID:18 cart:3
+2026-02-15 11:06:20.187 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 11:06:20.187 [Info] [ISP-TX-RAW] Transmitting 5 bytes: 7E-01-54-AB-7F
+2026-02-15 11:06:20.188 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 11:06:20.188 [Info] [ISP-TX-RAW] Transmitting 5 bytes: 7E-01-53-BE-7F
+2026-02-15 11:06:20.188 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-15 11:06:20.188 [Info] [TX-SETUP] SetMode - Data size: 192 bytes, State: Idle -> WaitAck
+2026-02-15 11:06:20.188 [Info] [ISP-TX-RAW] Transmitting 12 bytes: 7E-08-55-0C-00-00-00-C0-12-03-D2-7F
+2026-02-15 11:06:20.193 [Info] [ISP-RX-RAW] Received 6 bytes: 7E-02-A4-0C-68-7F
+2026-02-15 11:06:20.193 [Info] [ISP-RX-DECODE] Frame 1: Payload 2 bytes: A4-0C
+2026-02-15 11:06:20.193 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-15 11:06:20.193 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-15 11:06:20.194 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-15 11:06:20.195 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=192, FileName=CMDS.BIN
+2026-02-15 11:06:20.195 [Info] [TX-DATA] Data prepared - Size: 192 bytes, Starting transmission...
+2026-02-15 11:06:20.196 [Info] [TX-DATA] Data set for transmission - Size: 192 bytes
+2026-02-15 11:06:20.247 [Info] [TX-FIX] 50ms delay to drain spurious firmware responses
+2026-02-15 11:06:20.247 [Info] [TX-START] Starting transmission - 192 bytes, first packet seq 0
+2026-02-15 11:06:20.249 [Info] [ISP-TX-RAW] Transmitting 64 bytes: 7E-3C-55-00-00-38-09-10-0A-10-0B-10-04-10-05-10-06-10-07-10-08-10-09-10-0A-10-0B-10-0C-10-0D-10-0E-10-0F-10-10-10-11-10-12-10-13-10-14-10-15-10-16-10-17-10-18-10-19-10-1A-10-1B-10-1C-10-3B-7F
+2026-02-15 11:06:20.249 [Info] [ISP-RX-RAW] Received 8 bytes: 7E-04-A1-00-00-B3-F9-7F
+2026-02-15 11:06:20.249 [Info] [ISP-RX-DECODE] Frame 1: Payload 4 bytes: A1-00-00-B3
+2026-02-15 11:06:20.251 [Info] [TX-PROGRESS] ACK seq 0 - Progress: 56/192 bytes (29%)
+2026-02-15 11:06:20.251 [Info] [ISP-TX-RAW] Transmitting 64 bytes: 7E-3C-55-00-01-38-02-00-02-10-03-10-04-10-05-10-06-10-07-10-08-10-09-10-0A-10-0B-10-0C-10-0D-10-0E-10-0F-10-10-10-11-10-12-10-13-10-14-10-15-10-16-10-17-10-18-10-19-10-1A-10-1B-10-1C-10-66-7F
+2026-02-15 11:06:20.252 [Info] [ISP-RX-RAW] Received 8 bytes: 7E-04-A1-00-01-B3-EC-7F
+2026-02-15 11:06:20.252 [Info] [ISP-RX-DECODE] Frame 1: Payload 4 bytes: A1-00-01-B3
+2026-02-15 11:06:20.252 [Info] [TX-PROGRESS] ACK seq 1 - Progress: 112/192 bytes (58%)
+2026-02-15 11:06:20.252 [Info] [ISP-TX-RAW] Transmitting 64 bytes: 7E-3C-55-00-02-38-03-00-02-10-03-10-04-10-05-10-06-10-07-10-08-10-09-10-0A-10-0B-10-0C-10-0D-10-0E-10-0F-10-10-10-11-10-12-10-13-10-14-10-15-10-16-10-17-10-18-10-19-10-1A-10-1B-10-1C-10-25-7F
+2026-02-15 11:06:20.253 [Info] [ISP-RX-RAW] Received 8 bytes: 7E-04-A1-00-02-B3-D3-7F
+2026-02-15 11:06:20.259 [Info] [ISP-RX-DECODE] Frame 1: Payload 4 bytes: A1-00-02-B3
+2026-02-15 11:06:20.259 [Info] [TX-PROGRESS] ACK seq 2 - Progress: 168/192 bytes (87%)
+2026-02-15 11:06:20.260 [Info] [ISP-TX-RAW] Transmitting 32 bytes: 7E-1C-55-00-03-18-04-00-02-10-03-10-04-10-05-10-06-10-07-10-08-10-09-10-0A-10-0B-10-0C-10-67-7F
+2026-02-15 11:06:20.284 [Info] [ISP-RX-RAW] Received 8 bytes: 7E-04-A3-00-03-B0-E3-7F
+2026-02-15 11:06:20.284 [Info] [ISP-RX-DECODE] Frame 1: Payload 4 bytes: A3-00-03-B0
+2026-02-15 11:06:20.285 [Info] [TX-FLOW] ACK_DONE received - Result: SUBCMD_SUCESS, Transmission COMPLETE
+2026-02-15 11:06:20.310 [Info] Writing Done for cart:3 MsgID:18 resp:SUCESS
+2026-02-15 11:06:20.310 [Info] Successfully Uploaded File: CMDS.BIN
+2026-02-15 11:06:20.310 [Info] Start Uploading File: DR.bin
+2026-02-15 11:06:20.310 [Info] [EVT4002] Initiating Write for cart:3  ActualFileSize:64 MsgID:3 cart:3
+2026-02-15 11:06:20.311 [Info] [TX-FLOW] TX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 11:06:20.311 [Info] [ISP-TX-RAW] Transmitting 5 bytes: 7E-01-54-AB-7F
+2026-02-15 11:06:20.311 [Info] [TX-FLOW] RX_DATA_RESET received - Setting slave to reset mode
+2026-02-15 11:06:20.311 [Info] [ISP-TX-RAW] Transmitting 5 bytes: 7E-01-53-BE-7F
+2026-02-15 11:06:20.311 [Info] [TX-FLOW] TX_DATA received (SubCmd: 0x0C) - Starting transmission setup
+2026-02-15 11:06:20.311 [Info] [TX-SETUP] SetMode - Data size: 64 bytes, State: Idle -> WaitAck
+2026-02-15 11:06:20.311 [Info] [ISP-TX-RAW] Transmitting 12 bytes: 7E-08-55-0C-00-00-00-40-03-03-9B-7F
+2026-02-15 11:06:20.312 [Info] [ISP-RX-RAW] Received 6 bytes: 7E-02-A4-0C-68-7F
+2026-02-15 11:06:20.313 [Info] [ISP-RX-DECODE] Frame 1: Payload 2 bytes: A4-0C
+2026-02-15 11:06:20.313 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x0C) - Preparing data for transmission
+2026-02-15 11:06:20.313 [Info] [TX-FLOW] Processing RX_MODE_ACK for SubCmd: 0x0C
+2026-02-15 11:06:20.313 [Info] [EVT3006] Preparing TX data for subcommand 0x0C, InputSize=0.
+2026-02-15 11:06:20.314 [Info] [EVT4003] TX data prepared: SubCmd=0x0C, TotalSize=64, FileName=DR.bin
+2026-02-15 11:06:20.315 [Info] [TX-DATA] Data prepared - Size: 64 bytes, Starting transmission...
+2026-02-15 11:06:20.315 [Info] [TX-DATA] Data set for transmission - Size: 64 bytes
+2026-02-15 11:06:20.371 [Info] [TX-FIX] 50ms delay to drain spurious firmware responses
+2026-02-15 11:06:20.372 [Info] [TX-START] Starting transmission - 64 bytes, first packet seq 0
+2026-02-15 11:06:20.372 [Info] [ISP-TX-RAW] Transmitting 64 bytes: 7E-3C-55-00-00-38-4A-53-30-30-31-2D-54-45-53-54-7C-FF-90-5C-18-5C-28-5C-38-5C-48-5C-58-5C-68-5C-78-5C-88-5C-98-5C-5C-00-64-00-31-30-35-20-10-00-00-64-00-64-12-12-12-12-00-00-00-00-01-84-84-7F
+2026-02-15 11:06:20.373 [Info] [ISP-RX-RAW] Received 6 bytes: 7E-02-A4-00-4C-7F
+2026-02-15 11:06:20.374 [Info] [ISP-RX-DECODE] Frame 1: Payload 2 bytes: A4-00
+2026-02-15 11:06:20.374 [Info] [TX-FLOW] RX_MODE_ACK received (SubCmd: 0x00) - Preparing data for transmission
+2026-02-15 11:06:20.374 [Warning] [TX-FIX] Ignoring spurious RX_MODE_ACK with invalid SubCmd 0x00 (firmware bug)
+2026-02-15 11:06:30.551 [Error] Log file not found.
+2026-02-15 11:06:30.552 [Error] Log file not found.
+2026-02-15 11:06:30.798 [Info] Start FirmwareCtrlLed
+2026-02-15 11:06:30.798 [Info] [EVT200] Executing command: subCmd=0x07, dataLen=5
+2026-02-15 11:06:30.798 [Info] [ISP-TX-RAW] Transmitting 9 bytes: 7E-05-52-07-00-01-00-49-7F
+2026-02-15 11:06:30.801 [Error] UART transmit error: Port is not open.

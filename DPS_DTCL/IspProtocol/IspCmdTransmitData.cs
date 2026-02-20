@@ -108,6 +108,14 @@ namespace IspProtocol
                     break;
 
                 case (byte)IspResponse.RX_MODE_ACK when data.Length >= 2:
+                    // Defensive check: Only process RX_MODE_ACK when in WaitAck state
+                    // Prevents out-of-order frame processing if USB timing issues occur
+                    if (currentState != TxState.WaitAck)
+                    {
+                        Log.Warning($"[TX-FLOW] Rejecting RX_MODE_ACK in wrong state (current: {currentState}, SubCmd: 0x{data[1]:X2})");
+                        break;
+                    }
+
                     Log.Info($"[TX-FLOW] {cmdName} received (SubCmd: 0x{data[1]:X2}) - Preparing data for transmission");
                     HandleRxModeAck(data);
                     break;
@@ -161,10 +169,40 @@ namespace IspProtocol
             {
                 Log.Info($"[TX-DATA] Data prepared - Size: {result.Length} bytes, Starting transmission...");
                 SetDataToSend(result);
+
+                // CRITICAL FIX: Add delay for firmware state machine stabilization
+                // Intel PC timing issue: If we send data too quickly, firmware hasn't completed
+                // RX_MODE transition and sends wrong response (RX_MODE_ACK instead of ACK)
+                // DEBUG mode works (slow logging adds natural delays), INFO mode fails (too fast)
+                // Need sufficient delay for firmware to complete state transition
+                System.Threading.Thread.Sleep(200);
+                Log.Info("[TX-FIX] 200ms delay for firmware state stabilization");
+
+                // Flush receive buffer to discard any spurious responses that arrived during delay
+                transport.FlushReceiveBuffer();
+
                 StartTransmission();
             }
             else
             {
+                // CRITICAL FIX: Spurious RX_MODE_ACK (SubCmd 0x00) during active transmission
+                // Firmware bug: When firmware sends RX_MODE_ACK instead of ACK, it means firmware
+                // is in WRONG STATE and did NOT accept the data. Continuing causes data corruption!
+                // SOLUTION: ABORT current transmission, return SPURIOUS_RESPONSE, let caller retry
+                // entire operation cleanly (with TX_DATA_RESET to clear firmware state)
+                if (txBuffer != null && txSize > 0)
+                {
+                    Log.Warning($"[TX-FIX] SPURIOUS RX_MODE_ACK (SubCmd: 0x{subCommand:X2}) during active transmission!");
+                    Log.Warning($"[TX-FIX] Firmware in wrong state - ABORTING transmission to prevent data corruption");
+                    Log.Info($"[TX-FIX] Will retry entire operation cleanly from caller");
+
+                    // ABORT transmission - firmware state is corrupted
+                    SubCmdResponse = IspSubCmdResponse.SPURIOUS_RESPONSE;
+                    currentState = TxState.Idle;
+                    Reset();
+                    return;  // Caller will retry entire operation
+                }
+
                 if (result != null && result.Length == 0)
                 {
                     Log.Debug("[TX-DATA] OKB File");
@@ -185,6 +223,15 @@ namespace IspProtocol
         {
             lock (stateLock)
             {
+                // Validate sequence number is within transmission range
+                int maxValidSeq = txSize > 0 ? ((txSize + MaxPacketDataSize - 1) / MaxPacketDataSize - 1) : 0;
+
+                if (seq > maxValidSeq)
+                {
+                    Log.Warning($"[TX-ACK] Ignoring ACK with out-of-range seq {seq} (max valid: {maxValidSeq}, txSize: {txSize})");
+                    return;
+                }
+
                 // Check for duplicate ACK
                 if (ackedSequences.Contains(seq))
                 {
@@ -258,9 +305,18 @@ namespace IspProtocol
         {
             lock (stateLock)
             {
+                // Validate sequence number is within transmission range
+                int maxValidSeq = txSize > 0 ? ((txSize + MaxPacketDataSize - 1) / MaxPacketDataSize - 1) : 0;
+
+                if (seq > maxValidSeq)
+                {
+                    Log.Warning($"[TX-NACK] Ignoring NACK with out-of-range seq {seq} (max valid: {maxValidSeq}, txSize: {txSize})");
+                    return;
+                }
+
                 Log.Warning($"[TX-NACK] NACK for seq {seq}, code: {code}, retries left: {retryCount}");
 
-                if (retryCount > 0 && code == IspReturnCodes.SUBCMD_SEQMATCH)
+                if (retryCount > 0 && code == IspReturnCodes.SUBCMD_SEQMISMATCH)
                 {
                     retryCount--;
                     Log.Info($"[TX-RETRY] Resending seq {seq} (attempt {MaxRetries - retryCount + 1}/{MaxRetries})");

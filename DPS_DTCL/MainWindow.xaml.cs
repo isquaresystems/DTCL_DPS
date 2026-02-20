@@ -2,6 +2,7 @@
 using DTCL.JsonParser;
 using DTCL.Log;
 using DTCL.Messages;
+using DTCL.Mux;
 using DTCL.Transport;
 using IspProtocol;
 using System;
@@ -26,7 +27,7 @@ namespace DTCL
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        const string GUI_VERSION = "10.2";
+        const string GUI_VERSION = "1.3";
 
         StringBuilder _logMessages;
         public HardwareInfo hwInfo;
@@ -67,11 +68,13 @@ namespace DTCL
         Button OldLog;
         Button NewLog;
         Button ClosePC;
-        public MuxWindow _muxWindow;
+        // MUX window - can be either MuxWindow (DTCL) or DPSMuxWindow (DPS2_4_IN_1/DPS3_4_IN_1)
+        public Window _muxWindow;
         public bool isTransitioning;
         public bool isCreatingMuxWindow;
         bool isWindowLoaded;
         bool _hardwareDetectionPopupDismissed;
+        bool _isMstSelected = false;
         public string LogMessages
         {
             get { return _logMessages.ToString(); }
@@ -88,7 +91,7 @@ namespace DTCL
             DTCLLayout = 2
         }
 
-        LayoutMode _currentLayout = LayoutMode.DTCLLayout;
+        public LayoutMode _currentLayout = LayoutMode.DTCLLayout;
         public MainWindow(LayoutMode _currentLayout = LayoutMode.DTCLLayout)
         {
             InitializeComponent();
@@ -129,6 +132,31 @@ namespace DTCL
 
             DataContext = hwInfo;
             CollapseAllDtcSIFields();
+
+            // Initialize Master and Slave checkbox Tags with SlotInfo objects
+            if (hwInfo.SlotInfo != null)
+            {
+                if (hwInfo.SlotInfo.Length > 1)
+                {
+                    if (Slot1CheckMst != null) Slot1CheckMst.Tag = hwInfo.SlotInfo[1];
+                    if (Slot1CheckSlv != null) Slot1CheckSlv.Tag = hwInfo.SlotInfo[1];
+                }
+                if (hwInfo.SlotInfo.Length > 2)
+                {
+                    if (Slot2CheckMst != null) Slot2CheckMst.Tag = hwInfo.SlotInfo[2];
+                    if (Slot2CheckSlv != null) Slot2CheckSlv.Tag = hwInfo.SlotInfo[2];
+                }
+                if (hwInfo.SlotInfo.Length > 3)
+                {
+                    if (Slot3CheckMst != null) Slot3CheckMst.Tag = hwInfo.SlotInfo[3];
+                    if (Slot3CheckSlv != null) Slot3CheckSlv.Tag = hwInfo.SlotInfo[3];
+                }
+                if (hwInfo.SlotInfo.Length > 4)
+                {
+                    if (Slot4CheckMst != null) Slot4CheckMst.Tag = hwInfo.SlotInfo[4];
+                    if (Slot4CheckSlv != null) Slot4CheckSlv.Tag = hwInfo.SlotInfo[4];
+                }
+            }
 
             CollapseMasterSlave(Visibility.Collapsed);
 
@@ -283,6 +311,14 @@ namespace DTCL
             Title = "Main Window";
             HeaderTitle.Content = "DPS 4 IN 1 Cartridge Loader";
             additionalMsgForDPS = " for slot-";
+            Slot1Ellipse.Fill = new SolidColorBrush(Colors.ForestGreen);
+            Slot2Ellipse.Fill = new SolidColorBrush(Colors.ForestGreen);
+            Slot3Ellipse.Fill = new SolidColorBrush(Colors.ForestGreen);
+            Slot4Ellipse.Fill = new SolidColorBrush(Colors.ForestGreen);
+            Slot1CheckSel.IsEnabled = false;
+            Slot2CheckSel.IsEnabled = false;
+            Slot3CheckSel.IsEnabled = false;
+            Slot4CheckSel.IsEnabled = false;
         }
 
         /// <summary>
@@ -329,14 +365,14 @@ namespace DTCL
                 isWindowLoaded = true;
             }
             else
-                UpdateUserStatus("DTCL_Not_Detected_Msg");
+                UpdateUserStatus("DPS_Not_Detected_Msg");
 
             if (!isPCMode)
             {
                 if (hwInfo.BoardId == "DTCL")
                     CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DTCL_Not_Detected_Msg"), this);
                 else
-                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DTCL_Not_Detected_Msg"), this);
+                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DPS_Not_Detected_Msg"), this);
 
                 buttonManager.ShowOnlyButtons(new List<Button> { Exit, LoopBack, AppButton });
             }
@@ -353,6 +389,11 @@ namespace DTCL
             Slot2CheckSlv.IsChecked = false;
             Slot3CheckSlv.IsChecked = false;
             Slot4CheckSlv.IsChecked = false;
+
+            Slot1CheckSel.IsEnabled = false;
+            Slot2CheckSel.IsEnabled = false;
+            Slot3CheckSel.IsEnabled = false;
+            Slot4CheckSel.IsEnabled = false;
         }
 
         public void OnHwConnected(object sender, EventArgs e)
@@ -951,7 +992,7 @@ namespace DTCL
             finally
             {
                 copyCompareOperation = false;
-                CollapseMasterSlave(Visibility.Collapsed);
+                //CollapseMasterSlave(Visibility.Collapsed);
             }
         }
 
@@ -1039,6 +1080,7 @@ namespace DTCL
             if (userChoice != CustomMessageBox.MessageBoxResult.Ok)
             {
                 CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("Copy_Failed_Msg"), this);
+                CollapseMasterSlave(Visibility.Collapsed);
                 return;
             }
 
@@ -1076,6 +1118,7 @@ namespace DTCL
             }
 
             await postCommandExeOper(sender, masterSlot);
+            CollapseMasterSlave(Visibility.Collapsed);
         }
 
         int GetMasterSlot()
@@ -1144,7 +1187,7 @@ namespace DTCL
             finally
             {
                 copyCompareOperation = false;
-                CollapseMasterSlave(Visibility.Collapsed);
+                //CollapseMasterSlave(Visibility.Collapsed);
             }
         }
 
@@ -1258,6 +1301,7 @@ namespace DTCL
             {
                 CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("SecondCart_Blank_Msg"), this);
             }
+            CollapseMasterSlave(Visibility.Collapsed);
             // Success and other messages handled by cart operation itself
         }
 
@@ -1300,17 +1344,8 @@ namespace DTCL
                 return;
             }
 
-            var targetSlots = GetTargetSlotsForOperation();
-
-            if ((targetSlots.Count == 0) && (hwInfo.BoardId == IspBoardId.DTCL.ToString()))
-            {
-                targetSlots.Add(0); // Log for slot 0 if no specific slots are selected
-                PCLog.Instance.AddEntry("Performance Check Exited", hwInfo.SlotInfo[0]);
-            }
-            else
-            {
-                PCLog.Instance.AddEntry("Performance Check Exited", hwInfo.SlotInfo[targetSlots.Count]);
-            }
+            // Exit message will be added in OnClosing method
+            // to avoid duplicate messages
 
             this.Close();
             Environment.Exit(0);
@@ -1333,8 +1368,19 @@ namespace DTCL
             var targetSlots = GetTargetSlotsForOperation();
 
             // Normal close - perform cleanup and shutdown
-            foreach (int slotNumber in targetSlots)
-                PCLog.Instance.AddEntry("Performance Test Exited", hwInfo.SlotInfo[slotNumber]);
+            // For DPS + OldLog mode: Only add exit message once (all slots share same log file)
+            // For DTCL or NewLog: Add exit message for each slot (separate log files)
+            if (hwInfo.BoardId != "DTCL" && PCLog.Instance.LogType == "Old" && targetSlots.Count > 0)
+            {
+                // Add exit message only once for the last slot
+                PCLog.Instance.AddEntry("Performance Test Exited", hwInfo.SlotInfo[targetSlots[targetSlots.Count - 1]]);
+            }
+            else
+            {
+                // Original behavior: Add exit message for each slot
+                foreach (int slotNumber in targetSlots)
+                    PCLog.Instance.AddEntry("Performance Test Exited", hwInfo.SlotInfo[slotNumber]);
+            }
 
             // Proper cleanup to ensure process termination
             PerformApplicationCleanup();
@@ -1412,10 +1458,15 @@ namespace DTCL
             }
             else
             {
-                if ("DTCL" == hwInfo.BoardId)
+                if ("DTCL" == hwInfo.BoardId || (_currentLayout == LayoutMode.DTCLLayout))
                 {
                     UpdateUserStatus("DTCL_Not_Detected_Msg");
                     var result = CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DTCL_Not_Detected_Msg"), this);
+                }
+                else if (("DPS2_4_IN_1" == hwInfo.BoardId) || ("DPS3_4_IN_1" == hwInfo.BoardId) || (_currentLayout == LayoutMode.DPSLayout))
+                {
+                    UpdateUserStatus("DPS_Not_Detected_Msg");
+                    var result = CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DPS_Not_Detected_Msg"), this);
                 }
                 else
                 {
@@ -1423,7 +1474,7 @@ namespace DTCL
                     var result = CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DTCL_Not_Detected_Msg"), this);
                 }
 
-                buttonManager.ShowOnlyButtons(new List<Button> { Exit, LoopBack, AppButton });
+                    buttonManager.ShowOnlyButtons(new List<Button> { Exit, LoopBack, AppButton });
             }
 
             disableLogEntries();
@@ -1448,20 +1499,27 @@ namespace DTCL
         {
             OnCartChanged(sender, e);
 
+            string tempDisplayMsg = "DTCL_Detected_Msg";
+
+
+                if (hwInfo.BoardId != "DTCL")
+                tempDisplayMsg = "DPS_Detected_Msg";
+
+
             if (e.CartType != CartType.MultiCart)
             {
                 if (!copyCompareOperation && e.CartType != CartType.Unknown)
-                    UpdateUserStatus("DTCL_Detected_Msg");
+                    UpdateUserStatus(tempDisplayMsg);
 
                 Log.Log.Debug($"OnCartDetected isPCMode :{isPCMode}");
 
                 if ((isPCMode) && (!isPcStarted) && e.CartType != CartType.Unknown)
                 {
-                    UpdateUserStatus("DTCL_Detected_Msg");
+                    UpdateUserStatus(tempDisplayMsg);
                 }
                 else if ((isPCMode) && (!isPcStarted) && e.CartType == CartType.Unknown)
                 {
-                    UpdateUserStatus("DTCL_Detected_Msg");
+                    UpdateUserStatus(tempDisplayMsg);
                 }
 
                 if ((isPCMode) && (isPcStarted))
@@ -1512,7 +1570,7 @@ namespace DTCL
                         }
                         else
                         {
-                            UpdateUserStatus("DTCL_Detected_Msg");
+                            UpdateUserStatus(tempDisplayMsg);
                         }
                     }
                 }
@@ -1769,29 +1827,14 @@ namespace DTCL
                 Slot2CheckSlv.IsEnabled = false;
                 Slot3CheckSlv.IsEnabled = false;
                 Slot4CheckSlv.IsEnabled = false;
-                /*switch(cartNo)
-                {
-                    case 1:
-                        Slot1Ellipse.Fill = new SolidColorBrush(Colors.Red);
-                        break;
-                    case 2:
-                        Slot2Ellipse.Fill = new SolidColorBrush(Colors.Red);
-                        break;
-                    case 3:
-                        Slot3Ellipse.Fill = new SolidColorBrush(Colors.Red);
-                        break;
-                    case 4:
-                        Slot4Ellipse.Fill = new SolidColorBrush(Colors.Red);
-                        break;
-
-                }*/
+                
             }
         }
 
         public async Task postCommandExeOper(object sender, int cartNo)
         {
             if (hwInfo.BoardId != "DTCL")
-            {
+            {/*
                 switch (cartNo)
                 {
                     case 1:
@@ -1807,8 +1850,23 @@ namespace DTCL
                         Slot4Ellipse.Fill = new SolidColorBrush(Colors.DodgerBlue);
                         break;
 
-                }
+                }*/
 
+                
+            }
+
+            commandInProgress = false;
+            var res = await LedState.FirmwareCtrlLed();
+            await LedState.LedIdleSate(cartNo);
+
+            OperationProgressBar.Value = 0;
+            UpdateUserStatus("Idle_Msg");
+            buttonManager.ResetButtonColorStates(defaultColor);
+            await Task.Delay(1);
+            StatusTextBlock.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Render);
+
+            if (hwInfo.BoardId != "DTCL")
+            {
                 if (((SolidColorBrush)Slot1Ellipse.Fill).Color == Colors.DodgerBlue)
                 {
                     Slot1CheckSel.IsEnabled = true;
@@ -1837,21 +1895,6 @@ namespace DTCL
                     Slot4CheckSlv.IsEnabled = true;
                 }
             }
-
-            commandInProgress = false;
-            // LedState.LedIdleSate();
-
-            // LedState.RedLedOff();
-            // LedState.GreenLedOn();
-            var res = await LedState.FirmwareCtrlLed();
-            await LedState.LedIdleSate(cartNo);
-
-            OperationProgressBar.Value = 0;
-            UpdateUserStatus("Idle_Msg");
-            buttonManager.ResetButtonColorStates(defaultColor);
-            await Task.Delay(1);
-            StatusTextBlock.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.Render);
-
             hwInfo.StartScanning();
         }
 
@@ -1892,6 +1935,51 @@ namespace DTCL
             withCart.IsEnabled = true;
             withOutCart.IsEnabled = true;
 
+            // Get selected slots from UI
+            var selectedSlots = GetSelectedSlots();
+            var hasSelection = selectedSlots.Count > 0;
+
+            // Check if any cart is present in any slot
+            bool anyCartPresent = IsAnyCartPresent();
+
+            if (hwInfo.BoardId != "DTCL")
+            {
+                // Validate based on with/without cart selection
+                if (withCart.IsChecked == true)
+                {
+                    // WITH CART MODE: Validate cart presence and slot selection
+                    if (!anyCartPresent)
+                    {
+                        // No cart detected in any slot
+                        CustomMessageBox.Show(
+                            PopUpMessagesContainerObj.FindMessageById("PC_Insert_Cart_Msg"), this);
+                        hwInfo.StartScanning();
+                        return;
+                    }
+                    else if (!hasSelection)
+                    {
+                        // Cart present but user hasn't selected any slot
+                        CustomMessageBox.Show(
+                            PopUpMessagesContainerObj.FindMessageById("Slot_Not_Selected_Msg"), this);
+                        hwInfo.StartScanning();
+                        return;
+                    }
+                }
+                else if (withOutCart.IsChecked == true)
+                {
+                    // WITHOUT CART MODE: Cart must NOT be present
+                    if (anyCartPresent)
+                    {
+                        // Cart detected when it shouldn't be
+                        CustomMessageBox.Show(
+                            PopUpMessagesContainerObj.FindMessageById("PC_Remove_Cart_Msg"), this);
+                        hwInfo.StartScanning();
+                        return;
+                    }
+                }
+            }
+
+            // Validation passed - proceed with log setup
             OldLog.Background = new SolidColorBrush(Colors.DodgerBlue);
             NewLog.Background = new SolidColorBrush(defaultColor);
 
@@ -1918,6 +2006,50 @@ namespace DTCL
             withCart.IsEnabled = true;
             withOutCart.IsEnabled = true;
 
+            // Get selected slots from UI
+            var selectedSlots = GetSelectedSlots();
+            var hasSelection = selectedSlots.Count > 0;
+
+            // Check if any cart is present in any slot
+            bool anyCartPresent = IsAnyCartPresent();
+
+            if (hwInfo.BoardId != "DTCL")
+            {
+                // Validate based on with/without cart selection
+                if (withCart.IsChecked == true)
+                {
+                    // WITH CART MODE: Validate cart presence and slot selection
+                    if (!anyCartPresent)
+                    {
+                        // No cart detected in any slot
+                        CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("PC_Insert_Cart_Msg"), this);
+                        hwInfo.StartScanning();
+                        return;
+                    }
+                    else if (!hasSelection)
+                    {
+                        // Cart present but user hasn't selected any slot
+                        CustomMessageBox.Show(
+                            PopUpMessagesContainerObj.FindMessageById("Slot_Not_Selected_Msg"), this);
+                        hwInfo.StartScanning();
+                        return;
+                    }
+                }
+                else if (withOutCart.IsChecked == true)
+                {
+                    // WITHOUT CART MODE: Cart must NOT be present
+                    if (anyCartPresent)
+                    {
+                        // Cart detected when it shouldn't be
+                        CustomMessageBox.Show(
+                            PopUpMessagesContainerObj.FindMessageById("PC_Remove_Cart_Msg"), this);
+                        hwInfo.StartScanning();
+                        return;
+                    }
+                }
+            }
+
+            // Validation passed - proceed with log setup
             NewLog.Background = new SolidColorBrush(Colors.DodgerBlue);
             OldLog.Background = new SolidColorBrush(defaultColor);
 
@@ -1963,13 +2095,9 @@ namespace DTCL
                 if (withCart.IsChecked == true)
                 {
                     if (hasSelection)
-                    {
                         await HandleWithCartridgeMode(hardwareInfo, selectedSlots);
-                    }
                     else
-                    {
                         await HandleNoSelectionWithCartridge(hardwareInfo);
-                    }
                 }
                 // Handle without cartridge mode
                 else if (withOutCart.IsChecked == true)
@@ -1986,7 +2114,6 @@ namespace DTCL
             }
             finally
             {
-                // Always resume scanning
                 hardwareInfo.StartScanning();
             }
         }
@@ -2002,6 +2129,28 @@ namespace DTCL
             if (Slot4CheckSel.IsChecked == true) selectedSlots.Add(4);
 
             return selectedSlots;
+        }
+
+        /// <summary>
+        /// Check if any cart is present in any slot (regardless of selection status)
+        /// Used for validation in NewLog/OldLog clicks
+        /// </summary>
+        /// <returns>True if at least one cart is detected in any slot</returns>
+        bool IsAnyCartPresent()
+        {
+            // Check all slots for cart presence
+            int slotCount = hwInfo.HardwareType == HardwareType.DTCL ? 3 : 4;
+
+            for (int i = 1; i <= slotCount; i++)
+            {
+                if (hwInfo.SlotInfo[i].IsCartDetectedAtSlot ||
+                    hwInfo.SlotInfo[i].DetectedCartTypeAtSlot != CartType.Unknown)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         async Task HandleWithCartridgeMode(HardwareInfo hardwareInfo, List<int> selectedSlots)
@@ -2030,8 +2179,36 @@ namespace DTCL
 
                 // Setup UI and confirm log
                 await SetupPerformanceCheckUI();
-                await CreatePerformanceLog(slotNumber, DTCSINo[slotNumber].Text, slot);
-                return; // Only process first selected slot
+
+                // For DPS hardware with OldLog mode, skip creating log here
+                // It will be created just before each slot's performance check in InitiatePC_Click
+                if (hwInfo.BoardId == "DTCL" || PCLog.Instance.LogType != "Old")
+                {
+                    await CreatePerformanceLog(slotNumber, DTCSINo[slotNumber].Text, slot);
+                }
+                //return; // Only process first selected slot
+            }
+               
+            if (hwInfo.BoardId != "DTCL")
+            {
+                if (PCLog.Instance.LogType == "Old")
+                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("Old_Log_Sel_Msg"), this);
+                else
+                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("New_Log_Msg2"), this);
+                Slot1CheckSel.IsEnabled = false;
+                Slot2CheckSel.IsEnabled = false;
+                Slot3CheckSel.IsEnabled = false;
+                Slot4CheckSel.IsEnabled = false;
+
+                Slot1CheckMst.IsEnabled = false;
+                Slot2CheckMst.IsEnabled = false;
+                Slot3CheckMst.IsEnabled = false;
+                Slot4CheckMst.IsEnabled = false;
+
+                Slot1CheckSlv.IsEnabled = false;
+                Slot2CheckSlv.IsEnabled = false;
+                Slot3CheckSlv.IsEnabled = false;
+                Slot4CheckSlv.IsEnabled = false;
             }
         }
 
@@ -2062,7 +2239,13 @@ namespace DTCL
 
             // Setup UI and confirm log
             await SetupPerformanceCheckUI();
-            await CreatePerformanceLog(selectedSlots[0], DTCSINo[selectedSlots[0]].Text, hardwareInfo.SlotInfo[selectedSlots[0]]);
+
+            // For DPS hardware with OldLog mode, skip creating log here
+            // It will be created just before each slot's performance check in InitiatePC_Click
+            if (hwInfo.BoardId == "DTCL" || PCLog.Instance.LogType != "Old")
+            {
+                await CreatePerformanceLog(selectedSlots[0], DTCSINo[selectedSlots[0]].Text, hardwareInfo.SlotInfo[selectedSlots[0]]);
+            }
         }
 
         async Task HandleNoSelectionWithCartridge(HardwareInfo hardwareInfo)
@@ -2106,12 +2289,17 @@ namespace DTCL
                 // Setup UI and confirm log for cartridge mode
                 await SetupPerformanceCheckUI();
 
-                for (int i = 1; i <= 3; i++)
+                // For DPS hardware with OldLog mode, skip creating log here
+                // It will be created just before each slot's performance check in InitiatePC_Click
+                if (hwInfo.BoardId == "DTCL" || PCLog.Instance.LogType != "Old")
                 {
-                    if (hardwareInfo.SlotInfo[i].IsCartDetectedAtSlot)
+                    for (int i = 1; i <= 3; i++)
                     {
-                        await CreatePerformanceLog(i, DTCSINo[i].Text, hardwareInfo.SlotInfo[i]);
-                        break;
+                        if (hardwareInfo.SlotInfo[i].IsCartDetectedAtSlot)
+                        {
+                            await CreatePerformanceLog(i, DTCSINo[i].Text, hardwareInfo.SlotInfo[i]);
+                            break;
+                        }
                     }
                 }
             }
@@ -2155,7 +2343,13 @@ namespace DTCL
 
                 hwInfo.SlotInfo[0].IsSlotSelected_ByUser = true;
                 hwInfo.SlotInfo[0].DetectedCartTypeAtSlot = CartType.Unknown;
-                await CreatePerformanceLog(1, "", hwInfo.SlotInfo[0]); // Use dummy slot instead of null
+
+                // For DPS hardware with OldLog mode, skip creating log here
+                // It will be created just before each slot's performance check in InitiatePC_Click
+                if (hwInfo.BoardId == "DTCL" || PCLog.Instance.LogType != "Old")
+                {
+                    await CreatePerformanceLog(1, "", hwInfo.SlotInfo[0]); // Use dummy slot instead of null
+                }
             }
         }
 
@@ -2193,15 +2387,16 @@ namespace DTCL
                 PCLog.Instance
                     .AppendToOldLog(TestNumber.Text, InspectorName.Text, dtcSerialNumber, UnitSINo.Text, withCart.IsChecked ?? false, slotInfo);
 
-                CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("Old_Log_Sel_Msg"), this);
+                if(hwInfo.BoardId == "DTCL")
+                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("Old_Log_Sel_Msg"), this);
                 OldLog.Background = new SolidColorBrush(defaultColor);
             }
             else
             {
                 PCLog.Instance
                     .CreateNewLog(TestNumber.Text, InspectorName.Text, dtcSerialNumber, UnitSINo.Text, withCart.IsChecked ?? false, slotInfo);
-
-                CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("New_Log_Msg2"), this);
+                if (hwInfo.BoardId == "DTCL")
+                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("New_Log_Msg2"), this);
                 NewLog.Background = new SolidColorBrush(defaultColor);
             }
 
@@ -2322,7 +2517,7 @@ namespace DTCL
             if (withCart.IsChecked == true)
             {
                 foreach (var slotInfo in selectedSlots)
-                {
+                { 
                     // Determine iteration or duration mode
                     if (IterationSel.IsChecked == true)
                     {
@@ -2428,11 +2623,20 @@ namespace DTCL
                 return;
             }
 
-            foreach (var slotInfo in selectedSlots)
+            // DPS + OldLog mode: Process each slot completely before moving to next
+            if (hwInfo.BoardId != "DTCL" && PCLog.Instance.LogType == "Old")
             {
-                // Log initialization
-                if (IstRun == true)
+                foreach (var slotInfo in selectedSlots)
                 {
+                    // Create log header for this slot
+                    string dtcSiNo = "";
+                    if (withCart.IsChecked == true && slotInfo.SlotNumber > 0 && slotInfo.SlotNumber < DTCSINo.Length)
+                    {
+                        dtcSiNo = DTCSINo[slotInfo.SlotNumber]?.Text ?? "";
+                    }
+                    await CreatePerformanceLog(slotInfo.SlotNumber, dtcSiNo, slotInfo);
+
+                    // Log initialization for this slot (always edit for DPS+OldLog since we create header per slot)
                     PCLog.Instance.EditLogHeaderDateTime(slotInfo);
 
                     if (IterationSel.IsChecked == true)
@@ -2440,86 +2644,185 @@ namespace DTCL
                     else
                         PCLog.Instance.EditIterationDurationType(0, PCDurationTime, slotInfo);
 
-                    IstRun = false;
-                }
-            }
+                    // Run all iterations for this slot
+                    currentIteration = 0;
+                    var slotStartTime = DateTime.Now;
+                    var slotPCDurationTime = PCDurationTime;
 
-            while (!stopPcFlag && ((iterationMode && currentIteration < iterationCount) ||
-                                 (!iterationMode && PCDurationTime > 0)))
-            {
-                foreach (var slotInfo in selectedSlots)
-                {
-                    if (!stopPcFlag)
+                    while (!stopPcFlag && ((iterationMode && currentIteration < iterationCount) ||
+                                         (!iterationMode && slotPCDurationTime > 0)))
                     {
-                        isPcStarted = true;
-                        await LedState.LedBusySate(slotInfo.SlotNumber);
-
-                        // Cart validation and button visibility using original logic
-                        if (withCart.IsChecked == true)
+                        if (!stopPcFlag)
                         {
-                            CommandsLabel.Visibility = Visibility.Visible;
-                            buttonManager.ShowOrHideOnlyListButtons(new List<Button> { PerformanceCheck, Exit, Write, Erase, Read, Compare_LoopBack }, true);
+                            isPcStarted = true;
+                            await LedState.LedBusySate(slotInfo.SlotNumber);
+                            UpdateSlotEllipseColor(slotInfo.SlotNumber, Colors.Red);
+
+                            // Cart validation and button visibility
+                            if (withCart.IsChecked == true)
+                            {
+                                CommandsLabel.Visibility = Visibility.Visible;
+                                buttonManager.ShowOrHideOnlyListButtons(new List<Button> { PerformanceCheck, Exit, Write, Erase, Read, Compare_LoopBack }, true);
+                            }
+                            else
+                            {
+                                CommandsLabel.Visibility = Visibility.Hidden;
+                                buttonManager.ShowOrHideOnlyListButtons(new List<Button> { Exit, PerformanceCheck, Compare_LoopBack }, true);
+                                buttonManager.ShowOrHideOnlyListButtons(new List<Button> { Write, Erase, Read }, false);
+                            }
+
+                            var res = await startPC(sender, e, slotInfo, currentIteration);
+                            await LedState.LedIdleSate(slotInfo.SlotNumber);
+                            UpdateSlotEllipseColor(slotInfo.SlotNumber, Colors.DodgerBlue);
+
+                            PCProgressBar.Value = iterationMode ? currentIteration : (DateTime.Now - slotStartTime).TotalSeconds;
+
+                            // Calculate total elapsed time
+                            var totalElapsedTime = DateTime.Now - slotStartTime;
+                            var elapsedSeconds = (int)totalElapsedTime.TotalSeconds;
+
+                            // Update the duration if in time-based mode
+                            if (IterationSel.IsChecked == false)
+                            {
+                                slotPCDurationTime = (int)Math.Max(PCProgressBar.Maximum - elapsedSeconds, 0);
+                            }
+
+                            TimeElapsed.Text = ((int)(DateTime.Now - slotStartTime).TotalSeconds).ToString();
+                        }
+
+                        currentIteration++;
+                        CurrentIteration.Text = currentIteration.ToString();
+                        isPcStarted = false;
+                    }
+
+                    // Cleanup for this slot after all iterations
+                    if (slotInfo.DetectedCartTypeAtSlot != CartType.Unknown)
+                    {
+                        if (hwInfo.CartObj != null)
+                            await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+                    }
+
+                    // Post-performance check messages - only for the LAST slot
+                    if (slotInfo == selectedSlots[selectedSlots.Count - 1])
+                    {
+                        if (stopPcFlag)
+                        {
+                            if (hwInfo.CartObj != null)
+                                await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+
+                            PCLog.Instance.AddEntry("Performance Check Stopped", slotInfo);
                         }
                         else
                         {
-                            CommandsLabel.Visibility = Visibility.Hidden;
-                            buttonManager.ShowOrHideOnlyListButtons(new List<Button> { Exit, PerformanceCheck, Compare_LoopBack }, true);
-                            buttonManager.ShowOrHideOnlyListButtons(new List<Button> { Write, Erase, Read }, false);
+                            if (hwInfo.CartObj != null)
+                                await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+
+                            PCProgressBar.Value = PCProgressBar.Maximum;
+                            PCLog.Instance.AddEntry("Performance Check Completed", slotInfo);
                         }
-
-                        var res = await startPC(sender, e, slotInfo, currentIteration);
-                        await LedState.LedIdleSate(slotInfo.SlotNumber);
-
-                        PCProgressBar.Value = iterationMode ? currentIteration : (DateTime.Now - startTime).TotalSeconds;
-
-                        // Calculate total elapsed time
-                        var totalElapsedTime = DateTime.Now - startTime;
-                        var elapsedSeconds = (int)totalElapsedTime.TotalSeconds;
-
-                        // Update the duration if in time-based mode
-                        if (IterationSel.IsChecked == false)
-                        {
-                            PCDurationTime = (int)Math.Max(PCProgressBar.Maximum - elapsedSeconds, 0);
-                        }
-
-                        TimeElapsed.Text = ((int)(DateTime.Now - startTime).TotalSeconds).ToString();
                     }
                 }
 
-                if (selectedSlots.Count == 0)
-                {
-                    var res = await startPC(sender, e, null, currentIteration);
-                }
-
-                currentIteration++;
-                CurrentIteration.Text = currentIteration.ToString();
-                isPcStarted = false;
+                IstRun = false; // Mark as completed after all slots
             }
-
-            // Cleanup for each slot after all iterations
-            foreach (var slotInfo in selectedSlots)
+            // DTCL or NewLog mode: Process all slots together per iteration (original behavior)
+            else
             {
-                if (slotInfo.DetectedCartTypeAtSlot != CartType.Unknown)
+                foreach (var slotInfo in selectedSlots)
                 {
-                    if (hwInfo.CartObj != null)
-                        await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+                    // Log initialization
+                    if (IstRun == true)
+                    {
+                        PCLog.Instance.EditLogHeaderDateTime(slotInfo);
+
+                        if (IterationSel.IsChecked == true)
+                            PCLog.Instance.EditIterationDurationType(iterationCount, 0, slotInfo);
+                        else
+                            PCLog.Instance.EditIterationDurationType(0, PCDurationTime, slotInfo);
+
+                        IstRun = false;
+                    }
                 }
 
-                // Post-performance check messages
-                if (stopPcFlag)
+                while (!stopPcFlag && ((iterationMode && currentIteration < iterationCount) ||
+                                     (!iterationMode && PCDurationTime > 0)))
                 {
-                    if (hwInfo.CartObj != null)
-                        await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+                    foreach (var slotInfo in selectedSlots)
+                    {
+                        if (!stopPcFlag)
+                        {
+                            isPcStarted = true;
+                            await LedState.LedBusySate(slotInfo.SlotNumber);
+                            UpdateSlotEllipseColor(slotInfo.SlotNumber, Colors.Red);
 
-                    PCLog.Instance.AddEntry("Performance Check Stopped", slotInfo);
+                            // Cart validation and button visibility using original logic
+                            if (withCart.IsChecked == true)
+                            {
+                                CommandsLabel.Visibility = Visibility.Visible;
+                                buttonManager.ShowOrHideOnlyListButtons(new List<Button> { PerformanceCheck, Exit, Write, Erase, Read, Compare_LoopBack }, true);
+                            }
+                            else
+                            {
+                                CommandsLabel.Visibility = Visibility.Hidden;
+                                buttonManager.ShowOrHideOnlyListButtons(new List<Button> { Exit, PerformanceCheck, Compare_LoopBack }, true);
+                                buttonManager.ShowOrHideOnlyListButtons(new List<Button> { Write, Erase, Read }, false);
+                            }
+
+                            var res = await startPC(sender, e, slotInfo, currentIteration);
+                            await LedState.LedIdleSate(slotInfo.SlotNumber);
+                            UpdateSlotEllipseColor(slotInfo.SlotNumber, Colors.DodgerBlue);
+
+                            PCProgressBar.Value = iterationMode ? currentIteration : (DateTime.Now - startTime).TotalSeconds;
+
+                            // Calculate total elapsed time
+                            var totalElapsedTime = DateTime.Now - startTime;
+                            var elapsedSeconds = (int)totalElapsedTime.TotalSeconds;
+
+                            // Update the duration if in time-based mode
+                            if (IterationSel.IsChecked == false)
+                            {
+                                PCDurationTime = (int)Math.Max(PCProgressBar.Maximum - elapsedSeconds, 0);
+                            }
+
+                            TimeElapsed.Text = ((int)(DateTime.Now - startTime).TotalSeconds).ToString();
+                        }
+                    }
+
+                    if (selectedSlots.Count == 0)
+                    {
+                        var res = await startPC(sender, e, null, currentIteration);
+                    }
+
+                    currentIteration++;
+                    CurrentIteration.Text = currentIteration.ToString();
+                    isPcStarted = false;
                 }
-                else
-                {
-                    if (hwInfo.CartObj != null)
-                        await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
 
-                    PCProgressBar.Value = PCProgressBar.Maximum;
-                    PCLog.Instance.AddEntry("Performance Check Completed", slotInfo);
+                // Cleanup for each slot after all iterations
+                foreach (var slotInfo in selectedSlots)
+                {
+                    if (slotInfo.DetectedCartTypeAtSlot != CartType.Unknown)
+                    {
+                        if (hwInfo.CartObj != null)
+                            await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+                    }
+
+                    // Post-performance check messages
+                    if (stopPcFlag)
+                    {
+                        if (hwInfo.CartObj != null)
+                            await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+
+                        PCLog.Instance.AddEntry("Performance Check Stopped", slotInfo);
+                    }
+                    else
+                    {
+                        if (hwInfo.CartObj != null)
+                            await hwInfo.CartObj.EraseCartPCFiles(null, (byte)slotInfo.SlotNumber);
+
+                        PCProgressBar.Value = PCProgressBar.Maximum;
+                        PCLog.Instance.AddEntry("Performance Check Completed", slotInfo);
+                    }
                 }
             }
 
@@ -2682,8 +2985,6 @@ namespace DTCL
 
             await LedState.DTCLAppCtrlLed();
 
-            // await LedState.LedBusySate(slotInfo.SlotNumber);
-
             var clickedButton = sender as Button;
 
             Compare_LoopBack.Name = "LoopBack";
@@ -2704,6 +3005,23 @@ namespace DTCL
             while ((hwInfo.CartObj == null) && (withCart.IsChecked == true))
                 await Task.Delay(10);
 
+            if (hwInfo.BoardId != "DTCL")
+            {
+                Slot1CheckSel.IsEnabled = false;
+                Slot2CheckSel.IsEnabled = false;
+                Slot3CheckSel.IsEnabled = false;
+                Slot4CheckSel.IsEnabled = false;
+
+                Slot1CheckMst.IsEnabled = false;
+                Slot2CheckMst.IsEnabled = false;
+                Slot3CheckMst.IsEnabled = false;
+                Slot4CheckMst.IsEnabled = false;
+
+                Slot1CheckSlv.IsEnabled = false;
+                Slot2CheckSlv.IsEnabled = false;
+                Slot3CheckSlv.IsEnabled = false;
+                Slot4CheckSlv.IsEnabled = false;
+            }
             return true;
         }
 
@@ -2751,7 +3069,7 @@ namespace DTCL
 
             if (!hwInfo.IsConnected)
             {
-                if (hwInfo.BoardId == "DTCL")
+                if (hwInfo.BoardId == "DTCL" || (_currentLayout == LayoutMode.DTCLLayout))
                 {
                     UpdateUserStatus("DTCL_Not_Detected_Msg");
                     CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DTCL_Not_Detected_Msg"), this);
@@ -2759,8 +3077,8 @@ namespace DTCL
                 }
                 else
                 {
-                    UpdateUserStatus("DTCL_Not_Detected_Msg");
-                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DTCL_Not_Detected_Msg"), this);
+                    UpdateUserStatus("DPS_Not_Detected_Msg");
+                    CustomMessageBox.Show(PopUpMessagesContainerObj.FindMessageById("DPS_Not_Detected_Msg"), this);
                     return;
                 }
             }
@@ -2850,8 +3168,8 @@ namespace DTCL
             SetPeformanceCheckBlockVisibility(Visibility.Collapsed);
             buttonManager.ShowOnlyExitAtStart();
 
-            for (int itr = 1; itr < 5; itr++)
-                await postCommandExeOper(sender, hwInfo.SlotInfo[itr].SlotNumber);
+            //for (int itr = 1; itr < 5; itr++)
+                await postCommandExeOper(sender, 1);
 
             LoopBack.Visibility = Visibility.Visible;
             AppButton.Visibility = Visibility.Visible;
@@ -2892,12 +3210,12 @@ namespace DTCL
 
             if (data == null)
             {
-                MessageBox.Show($"S-WAVE Internal DPS_DTCL Version Number {GUI_VERSION} ");
+                MessageBox.Show($"S-WAVE Internal DPS_DTCL Version Number {GUI_VERSION}\nsupports both DPS and DTCL ");
             }
             else
             {
                 var version = System.Text.Encoding.ASCII.GetString(data);
-                MessageBox.Show($"S-WAVE Internal DPS_DTCL Version Number {GUI_VERSION} and Firmware Version is {version}");
+                MessageBox.Show($"S-WAVE Internal DPS_DTCL Version Number {GUI_VERSION} and Firmware Version is {version}\nsupports both DPS and DTCL ");
             }
         }
 
@@ -2944,13 +3262,19 @@ namespace DTCL
                 {
                     // Rule 1: Can't be both Master and Slave
                     if (slot.IsSlotRole_ByUser == SlotRole.Slave)
+                    {
+                        hwInfo.SetSlotRole(slot.SlotNumber, SlotRole.Slave);
                         throw new InvalidOperationException($"Slot {slot.SlotNumber} is already marked as Slave and cannot be Master.");
+                    }
 
                     // Rule 2: Only one master allowed
                     for (int itr = 1; itr < 5; itr++)
                     {
                         if (hwInfo.SlotInfo[itr] != null && hwInfo.SlotInfo[itr].IsSlotRole_ByUser == SlotRole.Master && hwInfo.SlotInfo[itr] != slot)
+                        {
+                            //hwInfo.SetSlotRole(slot.SlotNumber, SlotRole.Slave);
                             throw new InvalidOperationException($"Slot {hwInfo.SlotInfo[itr].SlotNumber} is already marked as Master. Only one master is allowed.");
+                        }
                     }
 
                     slot.IsSlotRole_ByUser = SlotRole.Master;
@@ -2982,7 +3306,10 @@ namespace DTCL
                 try
                 {
                     if (slot.IsSlotRole_ByUser == SlotRole.Master)
+                    {
+                        hwInfo.SetSlotRole(slot.SlotNumber, SlotRole.Master);
                         throw new InvalidOperationException($"Slot {slot.SlotNumber} is already marked as Master and cannot be Slave.");
+                    }
 
                     slot.IsSlotRole_ByUser = SlotRole.Slave;
                     // Update HardwareInfo with new role
@@ -3014,9 +3341,10 @@ namespace DTCL
                 {
                     DPSDTCSINo2.Visibility = Visibility.Visible;
                     L_DPSDTCSINo2.Visibility = Visibility.Visible;
+                    hwInfo.SlotInfo[2].IsSlotSelected_ByUser = true;
                 }
-
-                hwInfo.SetSlotRole(2, SlotRole.Slave);
+                else
+                    hwInfo.SetSlotRole(2, SlotRole.Slave);
             }
             else
             {
@@ -3024,6 +3352,7 @@ namespace DTCL
                 {
                     DPSDTCSINo2.Visibility = Visibility.Collapsed;
                     L_DPSDTCSINo2.Visibility = Visibility.Collapsed;
+                    hwInfo.SlotInfo[2].IsSlotSelected_ByUser = false;
                     hwInfo.SetSlotRole(2, SlotRole.None);
                 }
             }
@@ -3043,19 +3372,21 @@ namespace DTCL
                 {
                     DPSDTCSINo1.Visibility = Visibility.Visible;
                     L_DPSDTCSINo1.Visibility = Visibility.Visible;
+                    hwInfo.SlotInfo[1].IsSlotSelected_ByUser = true;
                 }
-
-                hwInfo.SetSlotRole(1, SlotRole.Slave);
+                else
+                    hwInfo.SetSlotRole(1, SlotRole.Slave);
             }
             else
             {
                 if (hwInfo.BoardId != "DTCL")
                 {
+                    hwInfo.SlotInfo[1].IsSlotSelected_ByUser = false;
                     DPSDTCSINo1.Visibility = Visibility.Collapsed;
                     L_DPSDTCSINo1.Visibility = Visibility.Collapsed;
                 }
-
-                hwInfo.SetSlotRole(1, SlotRole.None);
+                else
+                    hwInfo.SetSlotRole(1, SlotRole.None);
             }
 
             if (Slot1CheckSel.IsChecked == true && withOutCart.IsChecked == true)
@@ -3073,19 +3404,21 @@ namespace DTCL
                 {
                     DPSDTCSINo3.Visibility = Visibility.Visible;
                     L_DPSDTCSINo3.Visibility = Visibility.Visible;
+                    hwInfo.SlotInfo[3].IsSlotSelected_ByUser = true;
                 }
-
-                hwInfo.SetSlotRole(3, SlotRole.Slave);
+                else
+                    hwInfo.SetSlotRole(3, SlotRole.Slave);
             }
             else
             {
                 if (hwInfo.BoardId != "DTCL")
                 {
+                    hwInfo.SlotInfo[3].IsSlotSelected_ByUser = false;
                     DPSDTCSINo3.Visibility = Visibility.Collapsed;
                     L_DPSDTCSINo3.Visibility = Visibility.Collapsed;
                 }
-
-                hwInfo.SetSlotRole(3, SlotRole.None);
+                else
+                    hwInfo.SetSlotRole(3, SlotRole.None);
             }
 
             if (Slot3CheckSel.IsChecked == true && withOutCart.IsChecked == true)
@@ -3103,19 +3436,21 @@ namespace DTCL
                 {
                     DPSDTCSINo4.Visibility = Visibility.Visible;
                     L_DPSDTCSINo4.Visibility = Visibility.Visible;
+                    hwInfo.SlotInfo[4].IsSlotSelected_ByUser = true;
                 }
-
-                hwInfo.SetSlotRole(4, SlotRole.Slave);
+                else
+                    hwInfo.SetSlotRole(4, SlotRole.Slave);
             }
             else
             {
                 if (hwInfo.BoardId != "DTCL")
                 {
+                    hwInfo.SlotInfo[4].IsSlotSelected_ByUser = false;
                     DPSDTCSINo4.Visibility = Visibility.Collapsed;
                     L_DPSDTCSINo4.Visibility = Visibility.Collapsed;
                 }
-
-                hwInfo.SetSlotRole(4, SlotRole.None);
+                else
+                    hwInfo.SetSlotRole(4, SlotRole.None);
             }
 
             if (Slot4CheckSel.IsChecked == true && withOutCart.IsChecked == true)
@@ -3307,6 +3642,34 @@ namespace DTCL
             catch (Exception ex)
             {
                 Log.Log.Error($"Error reactivating hardware event handlers: {ex.Message}");
+            }
+        }
+        /// <summary>
+        /// Applies Windows 11 specific compatibility fixes for USB enumeration timing
+        /// Safe, non-invasive method that only affects timing on Windows 11
+        /// </summary>
+        private void ApplyWindows11Compatibility()
+        {
+            try
+            {
+                // Detect Windows 11 by version number
+                var osVersion = Environment.OSVersion.Version;
+                bool isWindows11 = osVersion.Major >= 10 && osVersion.Build >= 22000;
+
+                if (isWindows11)
+                {
+                    Log.Log.Info("Windows 11 detected - applying minimal USB compatibility timing");
+
+                    // Very small delay only - removed aggressive GC that was interfering with port detection
+                    System.Threading.Thread.Sleep(50);
+
+                    Log.Log.Info("Windows 11 USB compatibility timing applied");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Silently handle any errors - this is a compatibility enhancement, not critical
+                Log.Log.Warning($"Windows 11 compatibility check failed (non-critical): {ex.Message}");
             }
         }
     }
@@ -3548,41 +3911,86 @@ namespace DTCL
 
                     await sender.hwInfo.StopScanningAsync();
 
-                    // Create MuxWindow
-                    sender._muxWindow = new MuxWindow();
+                    // Read Default.txt to determine which MuxWindow to create
+                    // This is necessary because hardware is not detected until MUX scan is performed
+                    var layoutMode = MainWindow.LayoutMode.DTCLLayout; // Default
 
-                    // Handle MuxWindow closed event - close DPSMainWindow and shutdown
-                    /*sender._muxWindow.Closed += (s, args) => {
-                        Log.Log.Info("MuxWindow closed - closing DPSMainWindow and shutting down");
-                        sender._muxWindow = null;
-                        sender.isCreatingMuxWindow = false; // Reset flag
+                    if (System.IO.File.Exists(@"Default.txt"))
+                    {
+                        try
+                        {
+                            var data = Messages.FileOperations.ReadFileData(@"Default.txt", 0, Messages.FileOperations.getFileSize(@"Default.txt"));
+                            var configContent = System.Text.Encoding.ASCII.GetString(data);
+                            var configLines = configContent.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
 
-                        // Close DPSMainWindow which will trigger shutdown
-                        sender.isTransitioning = false; // Allow shutdown
-                        sender.Close();
-                    };*/
+                            // Read layout mode from first line
+                            if (configLines.Length > 0)
+                            {
+                                switch (configLines[0].ToLower())
+                                {
+                                    case "dps":
+                                        layoutMode = MainWindow.LayoutMode.DPSLayout;
+                                        break;
+                                    case "dtcl":
+                                        layoutMode = MainWindow.LayoutMode.DTCLLayout;
+                                        break;
+                                }
+                            }
 
-                    // Show MuxWindow
-                    sender._muxWindow.Show();
+                            Log.Log.Info($"Read Default.txt - Layout mode: {layoutMode}");
+                        }
+                        catch (Exception ex)
+                        {
+                            Log.Log.Error($"Error reading Default.txt: {ex.Message}, using default DTCL layout");
+                        }
+                    }
+                    else
+                    {
+                        Log.Log.Warning("Default.txt not found, using default DTCL layout");
+                    }
 
-                    Log.Log.Info($"MuxWindow shown, hiding DPSMainWindow");
+                    // Create appropriate MuxWindow based on layout mode
+                    if (layoutMode == MainWindow.LayoutMode.DPSLayout)
+                    {
+                        Log.Log.Info("Creating DPSMuxWindow for DPS layout");
+                        sender._muxWindow = new DPSMuxWindow();
+                    }
+                    else
+                    {
+                        Log.Log.Info("Creating MuxWindow for DTCL layout");
+                        sender._muxWindow = new MuxWindow();
+                    }
 
+                    // Note: We don't attach a Closed event handler here
+                    // The MuxWindow's Window_Closed handler will manage:
+                    // - Exit button: Close entire application
+                    // - X button: Return to MainWindow
+                    // This allows proper differentiation between exit modes
+
+                    // Set transition flag
+                    sender.isTransitioning = true;
+
+                    // Unsubscribe from hardware events
                     sender.hwInfo.HardwareDetected -= sender.OnHwConnected;
                     sender.hwInfo.HardwareDisconnected -= sender.OnHwDisconnected;
                     sender.hwInfo.CartDetected -= sender.OnCartDetected;
 
+                    // Dispose transport
                     if (sender.hwInfo._transport != null)
                     {
                         sender.hwInfo._transport.Dispose();
                         sender.hwInfo._transport = null;
                     }
 
-                    // Hide DPSMainWindow instead of closing it
+                    // Show MuxWindow
+                    sender._muxWindow.Show();
+                    Log.Log.Info($"MuxWindow shown, hiding MainWindow");
+
+                    // Hide MainWindow instead of closing it
                     sender.Hide();
 
-                    // Reset flag after window is shown
+                    // Reset creation flag after window is shown
                     sender.isCreatingMuxWindow = false;
-                    sender._muxWindow = null;
                 }
                 else
                 {

@@ -140,17 +140,30 @@ namespace DTCL
 
             try
             {
-                var box = new CustomMessageBox(message, AdditionalInfo)
+                var box = new CustomMessageBox(message, AdditionalInfo);
+
+                // Only set Owner if parent window is valid and already shown
+                // This prevents "Cannot set Owner property to a Window that has not been shown previously" error
+                if (parent != null && parent.IsLoaded && parent.IsVisible)
                 {
-                    Owner = parent,  // Set the parent window as owner
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner // Ensure it's centered on the parent
-                };
+                    box.Owner = parent;
+                    box.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                }
+                else
+                {
+                    // Parent not available - center on screen instead
+                    box.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                }
 
                 box.ShowDialog();
 
                 return box.Result;
             }
-            catch (Exception ex) { Log.Log.Error($"MessageBoxResult exception : {ex.Message}"); return MessageBoxResult.Ok; }
+            catch (Exception ex)
+            {
+                Log.Log.Error($"MessageBoxResult exception : {ex.Message}");
+                return MessageBoxResult.Ok;
+            }
         }
 
         public static MessageBoxResult Show2(PopUpMessages message, Window parent, string AdditionalInfo = "")
@@ -160,17 +173,30 @@ namespace DTCL
 
             try
             {
-                var box = new CustomMessageBox(AdditionalInfo, message)
+                var box = new CustomMessageBox(AdditionalInfo, message);
+
+                // Only set Owner if parent window is valid and already shown
+                // This prevents "Cannot set Owner property to a Window that has not been shown previously" error
+                if (parent != null && parent.IsLoaded && parent.IsVisible)
                 {
-                    Owner = parent,  // Set the parent window as owner
-                    WindowStartupLocation = WindowStartupLocation.CenterOwner // Ensure it's centered on the parent
-                };
+                    box.Owner = parent;
+                    box.WindowStartupLocation = WindowStartupLocation.CenterOwner;
+                }
+                else
+                {
+                    // Parent not available - center on screen instead
+                    box.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                }
 
                 box.ShowDialog();
 
                 return box.Result;
             }
-            catch (Exception ex) { Log.Log.Error($"MessageBoxResult exception : {ex.Message}"); return MessageBoxResult.Ok; }
+            catch (Exception ex)
+            {
+                Log.Log.Error($"MessageBoxResult exception : {ex.Message}");
+                return MessageBoxResult.Ok;
+            }
         }
 
         void TitleBar_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)

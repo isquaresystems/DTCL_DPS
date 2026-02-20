@@ -13,6 +13,9 @@ A professional data programming system for cartridge-based storage devices with 
 - [Hardware Variants](#-hardware-variants)
 - [Quick Start](#-quick-start)
 - [Building the Project](#-building-the-project)
+  - [GUI Application](#gui)
+  - [TestConsole](#testconsole-interactive-cli-testing-tool)
+  - [Firmware](#firmware)
 - [Version Management](#-version-management)
 - [Architecture Documentation](#-architecture-documentation)
 - [Development](#-development)
@@ -28,9 +31,10 @@ A professional data programming system for cartridge-based storage devices with 
 ### Core Components
 
 - **DTCL GUI**: C# WPF application for user interface and control
-- **DTCL Firmware**: STM32-based firmware for hardware control  
+- **DTCL Firmware**: STM32-based firmware for hardware control
 - **ISP Protocol**: Communication protocol between GUI and hardware (via USB COM port)
 - **MUX Support**: 8-channel multiplexer for testing multiple DTCL units
+- **TestConsole**: Interactive CLI testing tool for hardware operations (no GUI required)
 
 ### Hardware Configuration
 - **MCU**: STM32F411VET6 (Cortex-M4, 512KB Flash, 128KB RAM)
@@ -162,6 +166,56 @@ dotnet build DTCL.sln --configuration Debug
 dotnet build DTCL.sln --configuration Release
 ```
 
+### TestConsole (Interactive CLI Testing Tool)
+
+**TestConsole** is a lightweight command-line application for hardware testing without GUI dependencies.
+
+#### Features
+- 🎯 **Interactive COM port selection** - Lists and selects available ports
+- 🔍 **Automatic board detection** - Identifies DTCL, DPS2, or DPS3 hardware
+- 📡 **Smart slot scanning** - Detects which slots have carts inserted
+- 🎛️ **Adaptive menus** - Shows operations based on detected hardware type
+- 🚀 **DTCL auto-mode** - Automatically tests all detected slots
+- 🎮 **DPS slot selection** - Choose individual slots or all detected slots
+- 📊 **Per-slot results** - Individual pass/fail tracking
+
+#### Building TestConsole
+```bash
+cd TestConsole
+dotnet build                    # Debug build
+dotnet build -c Release         # Release build
+```
+
+#### Running TestConsole
+```bash
+# Using dotnet
+dotnet run
+
+# Or run the executable directly
+bin\Debug\net48\TestConsole.exe
+bin\Release\net48\TestConsole.exe
+```
+
+#### Usage Example
+```
+1. App lists COM ports → User selects port
+2. Connects and detects board type (DTCL/DPS2/DPS3)
+3. Scans and shows detected carts with types
+4. Shows adaptive menu (D2/D3 operations based on hardware)
+5. User selects operation:
+   - DTCL: Runs automatically on all detected slots
+   - DPS: User selects slots from detected list
+6. User enters iteration count → Operations execute
+7. Results displayed per slot
+```
+
+#### Use Cases
+- ✅ Quick hardware verification without GUI
+- ✅ Automated testing and stress testing
+- ✅ Debugging ISP protocol issues
+- ✅ Production line testing
+- ✅ CI/CD integration for hardware validation
+
 ### Firmware
 
 #### 🆕 Auto-Versioning System (Recommended)
@@ -266,7 +320,7 @@ All VSCode JSON files sync automatically when building with different versions.
 - **D2 Default**: 3.6 (configurable)
 - **D3 Default**: 3.6 (configurable)
 - **DTCL Default**: 3.6 (configurable) - Hybrid D2+D3 system
-- **GUI**: 9.8 (Set in `DPS_DTCL/MainWindow.xaml.cs`)
+- **GUI**: 1.3 (Set in `DPS_DTCL/MainWindow.xaml.cs` line 30)
 
 ### Checking Firmware Versions
 
@@ -444,8 +498,12 @@ DTCL4/
 - ✅ **Auto-versioning system**: Complete and tested
 - ✅ **Build script automation**: Professional build_all.bat script
 - ✅ **VSCode integration**: Automatic debug configuration updates
-- 🔄 **Thread safety improvements**: In progress
-- 🔄 **Protocol unification**: Planned for future releases
+- ✅ **DPS MUX Window**: Complete with 8 channels × 4 slots (32 total slots)
+- ✅ **Select All Functionality**: Complete with cart validation
+- ✅ **Dynamic Window Loading**: DPS vs DTCL MUX based on Default.txt
+- 🔄 **Hardware Testing**: DPS MUX pending hardware validation
+- 🔄 **Thread safety improvements**: Ongoing
+- 🔄 **DTCL MUX Refactoring**: Known critical issues documented
 
 ### Contributing Guidelines
 
@@ -614,6 +672,33 @@ cd ../D3_DPS_4IN1 && make VERSION_MAJOR=1 VERSION_MINOR=5 clean all
 - **No Hardware Detected**: Check USB drivers and COM port permissions
 - **Communication Timeouts**: Verify cable connection and port availability
 - **Operation Failures**: Check LED status on hardware for error indications
+
+### Critical Bug Fixes
+
+#### USB CDC Transmission Failures on Intel Client PCs ✅ RESOLVED (Feb 15, 2026)
+**Symptom**: Files written with size 0 (data corruption), timing-dependent heisenbug - works with DEBUG log but fails with INFO log
+
+**Status**: ✅ **FULLY RESOLVED** - Tested successfully on Intel client PC
+
+**Root Causes Fixed**:
+1. **Spurious firmware responses** - Firmware sending RX_MODE_ACK when TX_DATA expected
+2. **Array mutation bug** - SetMode() modifying input array, causing retry routing errors
+3. **Missing await statements** - EraseCartFiles() fire-and-forget causing UART timeouts
+4. **Firmware state not reset** - No delay after RESET commands causing sequence mismatches
+
+**Solutions Implemented**:
+- Added `SPURIOUS_RESPONSE` enum value for proper error handling
+- Implemented retry logic with fresh cmdPayload copies (prevents array mutation issues)
+- Added 50ms delay after RESET commands for firmware state stabilization
+- Fixed all missing await statements in async operations
+- Single source progress updates (eliminates UI flickering)
+
+**For Complete Technical Details**: See [`docs/BugFixes/USB_CDC_Transmission_Failures_Intel_PCs.md`](docs/BugFixes/USB_CDC_Transmission_Failures_Intel_PCs.md)
+- Timeline of issues discovered
+- Root cause analysis with command format examples
+- Complete code changes and rationale
+- Testing results and validation
+- Key lessons learned for future development
 
 ### VSCode Integration
 - **Debug configs not updating**: Run `make update-json` manually
