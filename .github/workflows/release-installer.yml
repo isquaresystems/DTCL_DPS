@@ -1,0 +1,109 @@
+name: Create Installer Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.3)'
+        required: true
+        default: '1.3'
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Install Inno Setup
+        run: |
+          choco install innosetup -y
+          echo "C:\Program Files (x86)\Inno Setup 6" >> $GITHUB_PATH
+
+      - name: Restore NuGet packages
+        run: nuget restore DPS_DTCL/DTCL.sln
+
+      - name: Build Release
+        run: |
+          msbuild DPS_DTCL/DTCL.sln `
+            /p:Configuration=Release `
+            /p:Platform="Any CPU" `
+            /v:minimal
+
+      - name: Get version from tag
+        id: get_version
+        run: |
+          if ("${{ github.event_name }}" -eq "workflow_dispatch") {
+            echo "VERSION=${{ github.event.inputs.version }}" >> $env:GITHUB_ENV
+          } else {
+            $version = "${{ github.ref_name }}" -replace '^v', ''
+            echo "VERSION=$version" >> $env:GITHUB_ENV
+          }
+
+      - name: Update version in Inno Setup script
+        run: |
+          (Get-Content installer/DTCL_DPS.iss) -replace '#define AppVersion ".*"', "#define AppVersion `"${{ env.VERSION }}`"" | Set-Content installer/DTCL_DPS.iss
+
+      - name: Build Installer
+        run: |
+          iscc installer/DTCL_DPS.iss
+
+      - name: Verify installer was created
+        run: |
+          if (Test-Path "installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe") {
+            echo "✓ Installer created successfully"
+            $size = (Get-Item "installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe").Length / 1MB
+            echo "Installer size: $([math]::Round($size, 2)) MB"
+          } else {
+            echo "✗ Installer not found!"
+            exit 1
+          }
+
+      - name: Create GitHub Release
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v1
+        with:
+          files: installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe
+          body: |
+            ## DTCL_DPS v${{ env.VERSION }} - Windows Installer
+
+            ### What's New
+            See [commit history](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}) for changes.
+
+            ### Installation
+            1. Download `DTCL_DPS_Setup_v${{ env.VERSION }}.exe`
+            2. Run the installer
+            3. Follow the setup wizard
+
+            **Requirements:**
+            - Windows 10/11 (x64)
+            - .NET Framework 4.8 (installer will check and prompt if missing)
+
+            ### Features
+            - DPS2 4IN1 (NAND Flash) support
+            - DPS3 4IN1 (Compact Flash) support
+            - DTCL Hybrid (2 slots: 1 D2 + 1 D3)
+            - DPS MUX support (8 channels × 4 slots)
+            - TestConsole CLI tool included
+
+            ---
+            🤖 Built with GitHub Actions using Inno Setup
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Installer as Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: DTCL_DPS_Setup_v${{ env.VERSION }}
+          path: installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe
+          retention-days: 90
