@@ -1,15 +1,17 @@
 name: Create Installer Release
 
 on:
-  push:
-    tags:
-      - 'v*'
   workflow_dispatch:
     inputs:
       version:
         description: 'Version number (e.g., 1.3)'
         required: true
         default: '1.3'
+      create_release:
+        description: 'Create GitHub Release'
+        type: boolean
+        required: false
+        default: true
 
 jobs:
   build-and-release:
@@ -40,15 +42,10 @@ jobs:
             /p:Platform="Any CPU" `
             /v:minimal
 
-      - name: Get version from tag
+      - name: Set version
         id: get_version
         run: |
-          if ("${{ github.event_name }}" -eq "workflow_dispatch") {
-            echo "VERSION=${{ github.event.inputs.version }}" >> $env:GITHUB_ENV
-          } else {
-            $version = "${{ github.ref_name }}" -replace '^v', ''
-            echo "VERSION=$version" >> $env:GITHUB_ENV
-          }
+          echo "VERSION=${{ github.event.inputs.version }}" >> $env:GITHUB_ENV
 
       - name: Update version in Inno Setup script
         run: |
@@ -70,15 +67,17 @@ jobs:
           }
 
       - name: Create GitHub Release
-        if: github.event_name == 'push'
+        if: github.event.inputs.create_release == 'true'
         uses: softprops/action-gh-release@v1
         with:
+          tag_name: v${{ env.VERSION }}
+          name: DTCL_DPS v${{ env.VERSION }}
           files: installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe
           body: |
             ## DTCL_DPS v${{ env.VERSION }} - Windows Installer
 
             ### What's New
-            See [commit history](https://github.com/${{ github.repository }}/commits/${{ github.ref_name }}) for changes.
+            See [commit history](https://github.com/${{ github.repository }}/commits/main) for changes.
 
             ### Installation
             1. Download `DTCL_DPS_Setup_v${{ env.VERSION }}.exe`
