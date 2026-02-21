@@ -488,6 +488,18 @@ make VERSION_MAJOR=3 VERSION_MINOR=6 clean all
   - Fixed MUX protocol numeric casting issues (char literals vs numeric values)
   - Implemented timer-based MUX detection pattern
   - Clean validation flow for log confirmation
+- **Inno Setup Installer Automation**: ✅ Complete automated installer system (Feb 2026)
+  - Created Inno Setup script (`installer/DTCL_DPS.iss`) for Windows installer
+  - Implemented GitHub Actions workflow (`.github/workflows/release-installer.yml`)
+  - Manual trigger only (no automatic releases) - full control over when releases are created
+  - Organized runtime files in `DPS_DTCL/Resources/` folder for clean source control
+  - Configured `.csproj` to copy Resources to output directory during build
+  - Renamed executable from `DTCL.exe` to `DTCL_DPS.exe` for better branding
+  - Professional S-Wave icon integration (installer, shortcuts, uninstaller)
+  - Default installation path: `D:\S-WAVE SYSTEMS\DTCL_DPS` (user-selectable)
+  - Fixed Inno Setup Pascal script syntax (registry functions, .NET Framework detection)
+  - Fixed missing embedded resources (MirageJet.jpg, swave_icon.png for GUI display)
+  - Includes all dependencies: DTCL_DPS.exe, TestConsole.exe, data folders (D1/D2/D3), configs
 - **Known Issues**: DTCL MUX window has critical issues documented in CRITICAL_ISSUES.md
 
 ### Current State
@@ -497,6 +509,11 @@ make VERSION_MAJOR=3 VERSION_MINOR=6 clean all
 - ✅ **DTCL Hardware Support**: GUI fully functional for DTCL hardware (2 slots: 1 D2 + 1 D3)
 - ✅ **DPS2/DPS3 4IN1 Support**: Hardware detection and basic operations working
 - ✅ **DPS MUX Window**: Fully implemented for 8 channels × 4 slots (32 total slots) - Feb 2026
+- ✅ **Installer Automation**: Complete Inno Setup installer with GitHub Actions CI/CD - Feb 2026
+  - Manual trigger workflow for controlled releases
+  - Professional S-Wave branding throughout installer
+  - Organized Resources folder structure for runtime files
+  - Executable renamed to DTCL_DPS.exe
 - 🔄 **DTCL MUX Subsystem**: Has known critical bugs (see CRITICAL_ISSUES.md)
 - 🔄 **Performance Check**: Needs hardware type-specific conditions for DPS2/3 4IN1
 
@@ -809,6 +826,116 @@ Following the initial DPS MUX implementation (Feb 7), several critical enhanceme
   - **Fix Applied**: Multi-frame decoding loop in DataHandlerIsp.cs + retry logic bug fix
   - **Status**: ⏳ Fixed, awaiting client PC validation
   - **Details**: Complete analysis, historical attempts (v1-v16), testing procedures, future debugging guide
+
+#### ✅ Inno Setup Installer Automation (February 21, 2026) - COMPLETED
+**Status**: Full automated installer system implemented and working
+
+Successfully implemented professional Windows installer automation using Inno Setup with GitHub Actions CI/CD pipeline.
+
+**✅ Completed Components**:
+
+1. **Resources Folder Organization**
+   - Created `DPS_DTCL/Resources/` for organized runtime files
+   - Structure:
+     ```
+     Resources/
+     ├── D1/               (data files)
+     ├── D2/               (NAND flash files & JSON configs)
+     ├── D3/               (Compact flash files & JSON configs)
+     ├── PopUpMessage/     (JSON configuration)
+     ├── Default.txt       (layout configuration)
+     ├── MirageJet.jpg     (GUI image - embedded & copied)
+     ├── swave_icon.ico    (S-Wave icon - embedded & copied)
+     └── swave_icon.png    (S-Wave icon - embedded & copied)
+     ```
+   - Updated `.csproj` to copy Resources/** to output directory root
+   - Images added as both embedded Resources (for GUI) and Content files (for installer)
+   - Updated `.gitignore` to track Resources/ folder
+
+2. **Executable Naming**
+   - Renamed from `DTCL.exe` to `DTCL_DPS.exe` for professional branding
+   - Updated AssemblyName in DTCL.csproj
+   - Updated all installer references
+
+3. **Inno Setup Script** (`installer/DTCL_DPS.iss`)
+   - Professional installer with .NET Framework 4.8 detection
+   - S-Wave icon integration:
+     - SetupIconFile: Installer displays S-Wave icon
+     - All shortcuts use S-Wave icon (Start Menu, Desktop, Quick Launch)
+     - Uninstaller shows S-Wave icon
+   - Default installation path: `D:\S-WAVE SYSTEMS\DTCL_DPS` (user-selectable)
+   - Directory selection page enabled (`DisableDirPage=no`)
+   - Includes all files:
+     - DTCL_DPS.exe (main GUI)
+     - TestConsole.exe (CLI tool)
+     - All DLLs and dependencies
+     - Data folders (D1/, D2/, D3/, PopUpMessage/)
+     - Configuration files (*.config, Default.txt)
+     - Images (MirageJet.jpg, swave_icon.ico, swave_icon.png)
+     - Documentation (README.md)
+   - Professional shortcuts:
+     - Start Menu: DTCL_DPS (with S-Wave icon)
+     - Desktop: DTCL_DPS (optional, with S-Wave icon)
+     - TestConsole shortcut (with S-Wave icon)
+
+4. **GitHub Actions Workflow** (`.github/workflows/release-installer.yml`)
+   - **Manual trigger only** (no automatic releases)
+   - User inputs:
+     - Version number (e.g., 1.4)
+     - Create GitHub Release checkbox (default: true)
+   - Workflow steps:
+     1. Checkout code
+     2. Setup MSBuild and NuGet
+     3. Install Inno Setup via Chocolatey
+     4. Restore packages and build Release configuration
+     5. Dynamically update version in Inno Setup script
+     6. Compile installer with `iscc`
+     7. Verify installer created
+     8. Create GitHub Release (if checkbox enabled)
+     9. Upload installer as artifact (90-day retention)
+   - Output: `DTCL_DPS_Setup_vX.X.exe` (~5-10 MB)
+
+5. **Key Fixes Applied**
+   - Fixed Inno Setup Pascal syntax error:
+     - Changed `HKLM` to `HKEY_LOCAL_MACHINE`
+     - Changed registry value type from `Integer` to `Cardinal`
+   - Fixed missing embedded resources:
+     - Added MirageJet.jpg and swave_icon.png as embedded Resources
+     - GUI now displays images correctly after installation
+   - Cleaned up unused folders:
+     - Deleted AutoTest/ (not used)
+     - Deleted Connected Services/ (empty)
+     - Removed WCFMetadata reference from .csproj
+
+**Files Created/Modified**:
+- ✅ Created: `installer/DTCL_DPS.iss` - Inno Setup script
+- ✅ Created: `.github/workflows/release-installer.yml` - Installer automation
+- ✅ Created: `DPS_DTCL/Resources/` - Runtime files folder
+- ✅ Modified: `DPS_DTCL/DTCL.csproj` - AssemblyName, Resources, Content items
+- ✅ Modified: `.gitignore` - Track Resources/, exclude installer/output/
+
+**How to Create Release**:
+1. Go to GitHub Actions: https://github.com/isquaresystems/DTCL_DPS/actions
+2. Click "Create Installer Release"
+3. Run workflow:
+   - Version: e.g., `1.4`
+   - Create GitHub Release: ✅ (or uncheck for artifact only)
+4. Wait ~5 minutes for build completion
+5. Download installer from Releases page or workflow artifacts
+
+**Installation Features**:
+- ✅ User-selectable installation path (default: D:\S-WAVE SYSTEMS\DTCL_DPS)
+- ✅ .NET Framework 4.8 detection (blocks installation if missing)
+- ✅ Professional S-Wave branding throughout
+- ✅ Start Menu shortcuts with S-Wave icon
+- ✅ Optional Desktop shortcut
+- ✅ All runtime files included
+- ✅ Clean uninstaller
+
+**Future Enhancements** (Optional):
+- 🔄 Code signing certificate (removes "Unknown Publisher" warning)
+- 🔄 Automated version bumping from git tags
+- 🔄 Multi-language support in installer
 
 ### Future Considerations
 - **Protocol Evolution**: ISP protocol is stable, avoid breaking changes
