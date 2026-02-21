@@ -240,6 +240,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <!-- Embedded resources for GUI (compiled into exe) -->
+    <Resource Include="Resources\MirageJet.jpg" />
+    <Resource Include="Resources\swave_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
     <!-- Copy Resources folder contents to output directory -->
     <Content Include="Resources\**\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
