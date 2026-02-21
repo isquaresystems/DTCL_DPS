@@ -1,0 +1,921 @@
+{
+  "PopUpMessagesList": [
+    {
+      "MessageId": "Idle_Msg",
+      "MessageText": "",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Insert_cart_Msg",
+      "MessageText": "Insert cartridge for command initiation \nand press PRGM button for programming",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Exe_Progress_Msg",
+      "MessageText": "Execution in progress, do not introduce or remove cartridge",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "DTCL_Not_Detected_Msg",
+      "MessageText": "DTCL Not Detected, check USB Cable \nor DTCL power on status",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Master_Not_Selected_Msg",
+      "MessageText": "Slecet Master Slot",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "1stCart_Not_Selected_Msg",
+      "MessageText": "Slecet First Slot",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "2ndCart_Not_Selected_Msg",
+      "MessageText": "Slecet Second Slot",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Slave_Not_Selected_Msg",
+      "MessageText": "Slecet atleast 1 Slave Slot",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Slot_Not_Selected_Msg",
+      "MessageText": "Select atleast 1 slot",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "DPS_Not_Detected_Msg",
+      "MessageText": "DPS 4 IN 1 Not Detected, check USB Cable \nor DPS power on status",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "DPS_Sel_Slot_Msg",
+      "MessageText": "Select atleast 1 slot and click prgm",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "DTCL_Detected_Msg",
+      "MessageText": "DTCL Detected",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "DPS_Detected_Msg",
+      "MessageText": "DPS 4 IN 1 Detected",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Multi_cart_Msg",
+      "MessageText": "Multiple Cartridge Detected, Insert Only One Cartridge",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "No_cart_Msg",
+      "MessageText": "No Cartridge Detected, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Write_Start_Msg",
+      "MessageText": "Write command will erase existing data in the cartridge, confirm Ok to progress or cancel",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Read_Start_Msg",
+      "MessageText": "Read command will erase files in download folder, confirm Ok to progress or cancel",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Write_Complete_Msg",
+      "MessageText": "Write completed, exit command",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Write_Complete_Continue_Msg",
+      "MessageText": "Write completed, do you want to continue for next slot?",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Write_Failed_Msg",
+      "MessageText": "Write Failed, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Write_Failed_Msg_Continue",
+      "MessageText": "Write Failed, exit command",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Read_Complete_Msg",
+      "MessageText": "Read Completed, exit command",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Multi_Slot_Read_Msg",
+      "MessageText": "Multiple slot selected for read command,exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Multi_Slot_Utility_Msg",
+      "MessageText": "Multiple slot selected, select only one slot for this utility,exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Read_Complete_Continue_Msg",
+      "MessageText": "Read Completed, exit command",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Read_Blank_Cart_Msg",
+      "MessageText": "Cartridge is Blank, exit command",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Read_Blank_Cart_Continue_Msg",
+      "MessageText": "Cartridge is Blank, exit command",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Read_Failed_Msg",
+      "MessageText": "Read Failed",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Read_Failed_Continue_Msg",
+      "MessageText": "Read Failed",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Erase_Start_Msg",
+      "MessageText": "Erase command will delete the existing data in the cartridge, confirm OK to progress or cancel",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Erase_Complete_Msg",
+      "MessageText": "Erase Completed, exit command",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Erase_Complete_Continue_Msg",
+      "MessageText": "Erase Completed, exit command",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Erase_Failed_Msg",
+      "MessageText": "Erase Failed, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Erase_Failed_Continue_Msg",
+      "MessageText": "Erase Failed, exit command",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_start_Msg",
+      "MessageText": "Is the introduce cartridge the master, confirm OK to progress or Cancel",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_Cancelled_Msg",
+      "MessageText": "Copy cancelled, exit command",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_completed_Msg",
+      "MessageText": "Copy completed, exit command",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_Failed_Msg",
+      "MessageText": "Copy failed, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_Inprogess_Msg",
+      "MessageText": "Execution in progress for reading master cartridge,\ndo not introduce or remove cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_Inprogess_slave_Msg",
+      "MessageText": "Execution in progress for copying into slave cartridge,\ndo not introduce or remove cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_Overwrite_Msg",
+      "MessageText": "Insert slave cartridge,\nCopy will erase existing data in the slave cartridge,\nwaiting for slave cartridge Insertion",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_Overwrite_Msg3",
+      "MessageText": "Copy will erase existing data in the slave cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Copy_Overwrite_Msg2",
+      "MessageText": "Copy will erase existing data in the slave cartridge",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Compare_Reading_Ist_cart_Msg",
+      "MessageText": "Execution in progress for reading 1st cartridge,\ndo not introduce or remove cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Compare_Waiting_cart_Msg",
+      "MessageText": "Insert 2nd cartridge,\nwaiting for 2nd cartridge Insertion",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Master_Blank_Msg",
+      "MessageText": "Header is missing in master cartridge, command cannot progress, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Master_Blank_Msg2",
+      "MessageText": "Master cartridge is blank, command cannot progress, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Slave_CartDetected_Msg",
+      "MessageText": "Slave cartridge detected, confirm Ok to progress or Cancel",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Compare_Completed_Msg",
+      "MessageText": "Compare completed, exit command",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Compare_Cancelled_Msg",
+      "MessageText": "Compare cancelled, exit command",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Compare_Failed_Msg",
+      "MessageText": "Compare Failed, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Compare_Inprogess_Msg",
+      "MessageText": "Execution in progress for compare,\ndo not introduce or remove cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Ist_Blank_Msg",
+      "MessageText": "Ist cartridge is blank, command cannot progress, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Second_CartDetected_Msg",
+      "MessageText": "2nd cartridge detected, confirm Ok to progress or cancel",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "SecondCart_Blank_Msg",
+      "MessageText": "2nd cartridge is blank, command cannot progress, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Format_Start_Msg",
+      "MessageText": "Format will delete the data in cartridge, confirm Ok to progress or cancel",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Format_Completed_Msg",
+      "MessageText": "Format completed, exit command",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Format_Not_Supported_Msg",
+      "MessageText": "Format not supported, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Format_Failed_Msg",
+      "MessageText": "Format failed, exit command",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "New_Log_Msg1",
+      "MessageText": "New Log file created, confirm Ok to progress or cancel",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OKCancel",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "New_Log_Msg2",
+      "MessageText": "New Log File Created",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Please_Remove_Msg",
+      "MessageText": "Please remove inserted cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Start_Msg",
+      "MessageText": "Start PC",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Stopped_Msg",
+      "MessageText": "Performance Check Stopped, Please Remove cartridge and click Start again",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Completed_Msg",
+      "MessageText": "Performance Check Completed",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Stopped_Msg2",
+      "MessageText": "Performance Check Stopped",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Download_Sucess_Msg",
+      "MessageText": "Download Files Created Successfully",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Exit_Msg",
+      "MessageText": "Do you want to exit, confirm",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_NotDetect_Msg",
+      "MessageText": "Ensure to connect PC port1 and Port 2, Switch on Hub",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Enter_Serial_Msg",
+      "MessageText": "Enter unit serial and DTC serial nos. for the selected ports\n Enter Test Name and Inspector name,\n on editing click Confirm Log",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 16
+    },
+    {
+      "MessageId": "USBMux_Exe_Progress_Msg",
+      "MessageText": "Execution in progress, Do not disturb current execution setup",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Enter_Serial_Msg3",
+      "MessageText": "Enter test no and inspector name",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Enter_Serial_Msg4",
+      "MessageText": "Remove default and enter values",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Enter_Serial_Msg2",
+      "MessageText": "Enter unit serial nos. for the selected ports\n Enter Test Name and Inspector name,\n on editing press Confirm Log",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Info_Msg",
+      "MessageText": "Select With or Without Cartridge, and click Scan button",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_NotDetect_Msg2",
+      "MessageText": "Ensure to connect port1 and Port 2 of the hub to the PC",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Detect_Msg",
+      "MessageText": "Hub Detected, Ensure to connect Devices to \nthe Hub device ports,External power supply to \nthe Hub,Place front panel switches in Auto and \nExternal,Switch on External power supply and Devices",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 15
+    },
+    {
+      "MessageId": "USBMux_No_Log",
+      "MessageText": "Select atleast one Port, to create log",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Slot_Sel",
+      "MessageText": "Select atleast one Port",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_New_Log",
+      "MessageText": "New Log File Created for port-",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Enter_Iter_Log",
+      "MessageText": "Select and enter the interation/duration, on editing click Initiate PC",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Start_PC_Msg",
+      "MessageText": "Press start for connection status",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_New_Log2",
+      "MessageText": "Log files have been created",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_NotDetect_Manual_Msg",
+      "MessageText": "USB mux not detected, Ensure its in manual mode",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Detect_Manual_Msg",
+      "MessageText": "USB MUX present and its in manual mode, Use rotary sitch to test",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Scan_Msg",
+      "MessageText": "Scanning the ports",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Scan_finish_Msg",
+      "MessageText": "Select the connected ports for the desired units to be performance tested\n and subsequently select with cartridge or without cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 16
+    },
+    {
+      "MessageId": "USBMux_Cart_Sel_Msg",
+      "MessageText": "Select with or without cartridge",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Initial_Msg",
+      "MessageText": "Ensure to connect the UUTs to the desired ports, to have the front panel switches\n in Auto Mode, External power, to switch on the power to the Hub, to switch on the external power supply",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_ManualMode_Msg",
+      "MessageText": "USB MUX present and its in auto mode, change to manual mode",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Insert_Cart_Msg",
+      "MessageText": "Insert cartridges in the selected units",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Remove_Cart_Msg",
+      "MessageText": "Multiple cartridges detected, retain only one cartrdige",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "USBMux_Default_Serial_Msg",
+      "MessageText": "Is it ok to proceed with default values",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Scan_DTCL_Msg",
+      "MessageText": "Scanning for DTCL, please wait.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Dnld_Files_Sucess_Msg",
+      "MessageText": "Download Files  Created Successfully.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Block_Read_Fail_Msg",
+      "MessageText": "Block Read Failed.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Block_Read_Sucess_Msg",
+      "MessageText": "Block Read Success.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Block_Write_Fail_Msg",
+      "MessageText": "Block Write Failed.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Block_Write_Sucess_Msg",
+      "MessageText": "Block Write Success.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Old_Log_Sel_Msg",
+      "MessageText": "Old Log File Selected.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Old_Log_Enter_Msg",
+      "MessageText": "Old Log File Selected, Enter Log details and click ConfirmLog.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Sel_Log_Type_Msg",
+      "MessageText": "Select log type.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Sel_Log_Type_Msg2",
+      "MessageText": "Confirm Log Before Starting PC.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Log_File_Fail",
+      "MessageText": "Log File Does Not Exist.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Stop_Pc_Msg",
+      "MessageText": "Performance check stopped, close to come out of the window else retain.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Start_Pc_Fail_Msg",
+      "MessageText": "Performance Check did not start.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "New_Log_Enter_Msg",
+      "MessageText": "New Log File Selected, Enter Log details and click Ok.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "multi_unit_diff_cart_Msg",
+      "MessageText": "Different Types of Cartridge Detcted, do you want to proceed.",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "multi_scan_Msg",
+      "MessageText": "Scanning in progress, do not introduce or remove new DTCL unit.",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "serial_No_Entry_msg",
+      "MessageText": "Please enter serial number.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Missing_Msg",
+      "MessageText": "Header File is Missing",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Missing_Msg_Read",
+      "MessageText": "Header File is Missing, read failed",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Missing_Continue_Msg_Read",
+      "MessageText": "Header File is Missing, read failed",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Missing_Msg_Write",
+      "MessageText": "Header File is Missing, write failed",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Missing_Msg_Write_Continue",
+      "MessageText": "Header File is Missing, write failed",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Missing_Msg2",
+      "MessageText": "Header File is missing, do you want to proceed?",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Missing_Msg3",
+      "MessageText": "Browse Header File First before Confirm",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Confirm_Msg",
+      "MessageText": "Sucessfully Written Header File",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Fail_Msg",
+      "MessageText": "Failed to write Header File",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Header_Compliance_Msg",
+      "MessageText": "Header and files are not in compliance,do you want to proceed?",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Invalid_FileSize_Msg",
+      "MessageText": "Invalid size of file",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Invalid_File_Msg",
+      "MessageText": "file is invalid",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Missing_File",
+      "MessageText": "File does not exist",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Invalid_Iter",
+      "MessageText": "Invalid iteration count. Please enter a positive integer.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Invalid_Duration",
+      "MessageText": "Invalid duration. Please enter non-negative values for minutes and seconds, with a total duration greater than zero.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_CartChange_Msg",
+      "MessageText": "Different cartridge inserted,",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Invalid_Name",
+      "MessageText": "Please enter valid names to create Log",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "LoopBack_Pass",
+      "MessageText": "Loop Back test completed sucessfully",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "LoopBack_Fail",
+      "MessageText": "Loop Back test failed",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Mux_DtclDetect_Fail",
+      "MessageText": "Scan Complete, no DTCL detected",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "Mux_DtclDetect_Sucess",
+      "MessageText": "Scan Complete, number of DTCL detected is ",
+      "MessageBoxIcon": "Information",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    }
+  ]
+}

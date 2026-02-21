@@ -6,9 +6,8 @@ obj/
 *.exe
 *.dll
 *.pdb
-!DPS_DTCL/D1/*.bin
-!DPS_DTCL/D2/*.bin
-!DPS_DTCL/D3/*.bin
+# Allow Resources folder (runtime files)
+!DPS_DTCL/Resources/**
 
 # ======================
 # VISUAL STUDIO
