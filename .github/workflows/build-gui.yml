@@ -62,15 +62,28 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup .NET Framework
+      - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v2
 
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2
+
+      - name: Restore NuGet packages
+        run: nuget restore DPS_DTCL/DTCL.sln
+
       - name: Build TestConsole
-        run: dotnet build TestConsole/TestConsole.csproj --configuration Release
+        run: |
+          msbuild TestConsole/TestConsole.csproj `
+            /p:Configuration=Release `
+            /p:Platform=AnyCPU `
+            /v:minimal
 
       - name: Upload TestConsole Artifact
         uses: actions/upload-artifact@v4
         with:
           name: TestConsole-Release
-          path: TestConsole/bin/Release/net48/**
+          path: |
+            TestConsole/bin/Release/TestConsole.exe
+            TestConsole/bin/Release/*.dll
+            TestConsole/bin/Release/*.config
           retention-days: 30
