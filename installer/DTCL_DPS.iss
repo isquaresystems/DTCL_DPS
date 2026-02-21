@@ -2,7 +2,7 @@
 #define AppVersion "1.3"
 #define AppPublisher "ISquare Systems"
 #define AppURL "https://github.com/isquaresystems/DTCL_DPS"
-#define AppExeName "DTCL.exe"
+#define AppExeName "DTCL_DPS.exe"
 
 [Setup]
 AppId={{7AE233D7-8AB0-4B2E-8CCB-157257E32195}
@@ -12,7 +12,7 @@ AppPublisher={#AppPublisher}
 AppPublisherURL={#AppURL}
 AppSupportURL={#AppURL}
 AppUpdatesURL={#AppURL}
-DefaultDirName={autopf}\{#AppName}
+DefaultDirName=D:\S-WAVE SYSTEMS\{#AppName}
 DefaultGroupName={#AppName}
 DisableProgramGroupPage=yes
 OutputDir=output
@@ -34,7 +34,7 @@ Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescrip
 
 [Files]
 ; Main executable
-Source: "..\DPS_DTCL\bin\Release\DTCL.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\DPS_DTCL\bin\Release\DTCL_DPS.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 ; All DLL dependencies
 Source: "..\DPS_DTCL\bin\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
@@ -42,6 +42,11 @@ Source: "..\DPS_DTCL\bin\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 ; Configuration files
 Source: "..\DPS_DTCL\bin\Release\*.config"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\DPS_DTCL\bin\Release\Default.txt"; DestDir: "{app}"; Flags: ignoreversion
+
+; Image files and icons
+Source: "..\DPS_DTCL\bin\Release\MirageJet.jpg"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\DPS_DTCL\bin\Release\swave_icon.ico"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\DPS_DTCL\bin\Release\swave_icon.png"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Data folders (D1, D2, D3, PopUpMessage)
 Source: "..\DPS_DTCL\bin\Release\D1\*"; DestDir: "{app}\D1"; Flags: ignoreversion recursesubdirs createallsubdirs

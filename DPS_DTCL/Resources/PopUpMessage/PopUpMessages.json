@@ -64,6 +64,20 @@
       "FontSize": 18
     },
     {
+      "MessageId": "PC_Insert_Cart_Msg",
+      "MessageText": "No cartridge detected. Please insert cartridge in at least one slot.",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Remove_Cart_Msg",
+      "MessageText": "Cartridge detected. Please remove all cartridges for 'Without Cart' mode.",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
       "MessageId": "DPS_Not_Detected_Msg",
       "MessageText": "DPS 4 IN 1 Not Detected, check USB Cable \nor DPS power on status",
       "MessageBoxIcon": "Error",
@@ -911,10 +925,52 @@
       "FontSize": 18
     },
     {
+      "MessageId": "Mux_DpsDetect_Fail",
+      "MessageText": "Scan Complete, no DPS detected",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
       "MessageId": "Mux_DtclDetect_Sucess",
       "MessageText": "Scan Complete, number of DTCL detected is ",
       "MessageBoxIcon": "Information",
       "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "No_Channel_Selected",
+      "MessageText": "No channels or slots selected. Please select at least one slot for testing.",
+      "MessageBoxIcon": "Warning",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Start_Confirm_Msg",
+      "MessageText": "Start Performance Check?",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Start_Confirm_Msg_Detailed",
+      "MessageText": "Start Performance Check?\n\nMode: [With Cart/Without Cart]\nChannels: [Count]\nTotal Slots: [Count]",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Error_Msg",
+      "MessageText": "Error during performance check. Please check logs for details.",
+      "MessageBoxIcon": "Error",
+      "MessageBoxButtons": "OK",
+      "FontSize": 18
+    },
+    {
+      "MessageId": "PC_Start_Confirm_Msg_Detailed2",
+      "MessageText": "confirmMessage",
+      "MessageBoxIcon": "Question",
+      "MessageBoxButtons": "YesNo",
       "FontSize": 18
     }
   ]
