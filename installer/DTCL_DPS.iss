@@ -69,12 +69,12 @@ Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#AppName}}"; F
 [Code]
 function IsDotNetInstalled: Boolean;
 var
-  ResultCode: Integer;
+  Release: Cardinal;
 begin
-  // Check if .NET Framework 4.8 is installed
-  Result := RegKeyExists(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full') and
-            (RegQueryDWordValue(HKLM, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full', 'Release', ResultCode)) and
-            (ResultCode >= 528040);
+  // Check if .NET Framework 4.8 is installed (Release >= 528040)
+  Result := RegQueryDWordValue(HKEY_LOCAL_MACHINE,
+    'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full',
+    'Release', Release) and (Release >= 528040);
 end;
 
 function InitializeSetup: Boolean;
