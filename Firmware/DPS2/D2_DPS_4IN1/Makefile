@@ -280,7 +280,11 @@ legacy: $(BUILD_DIR)/$(TARGET).elf $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TAR
 # clean up
 #######################################
 clean:
-	cmd /c "if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR)"
+ifeq ($(OS),Windows_NT)
+	-rmdir /s /q $(BUILD_DIR) 2>nul || echo "Build directory cleaned"
+else
+	-rm -fR $(BUILD_DIR)
+endif
 
 #######################################
 # dependencies

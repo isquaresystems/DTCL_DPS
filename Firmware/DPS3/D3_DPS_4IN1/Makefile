@@ -92,7 +92,6 @@ CXX_SOURCES = \
 Core/Src/main.cpp \
 Core/Src/cpp_minimal.cpp \
 Core/Src/FAT/FatFsWrapperSingleton.cpp \
-Core/Src/FAT/FatFsWrapperSingletonTest.cpp \
 Core/Src/Darin3.cpp \
 Core/Src/Protocol/SerialTransport.cpp \
 Core/Src/Protocol/IspCmdControl.cpp \
@@ -272,7 +271,11 @@ $(BUILD_DIR):
 # clean up
 #######################################
 clean:
-	cmd /c "if exist $(BUILD_DIR) rmdir /s /q $(BUILD_DIR)"
+ifeq ($(OS),Windows_NT)
+	-rmdir /s /q $(BUILD_DIR) 2>nul || echo "Build directory cleaned"
+else
+	-rm -fR $(BUILD_DIR)
+endif
 
 #######################################
 # dependencies
