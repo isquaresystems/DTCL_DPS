@@ -63,8 +63,6 @@ Source: "..\TestConsole\bin\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversi
 ; Firmware ELF files (DPS2, DPS3, DTCL — for ST-Link flashing)
 Source: "ELF\*"; DestDir: "{app}\ELF"; Flags: ignoreversion
 
-; Documentation
-Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
 [Icons]
 Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\swave_icon.ico"
@@ -74,7 +72,7 @@ Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename:
 Name: "{userappdata}\Microsoft\Internet Explorer\Quick Launch\{#AppName}"; Filename: "{app}\{#AppExeName}"; IconFilename: "{app}\swave_icon.ico"; Tasks: quicklaunchicon
 
 [Run]
-Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent
+Filename: "{app}\{#AppExeName}"; Description: "{cm:LaunchProgram,{#AppName}}"; Flags: nowait postinstall skipifsilent unchecked
 
 [Code]
 function IsDotNetInstalled: Boolean;
