@@ -3,10 +3,22 @@ name: Create Installer Release
 on:
   workflow_dispatch:
     inputs:
-      version:
-        description: 'Version number (e.g., 1.3)'
+      gui_version:
+        description: 'GUI version (e.g., 1.3)'
         required: true
         default: '1.3'
+      dps3_version:
+        description: 'DPS3 firmware version (e.g., 1.1)'
+        required: true
+        default: '1.1'
+      dps2_version:
+        description: 'DPS2 firmware version (e.g., 1.1)'
+        required: true
+        default: '1.1'
+      dtcl_version:
+        description: 'DTCL firmware version (e.g., 3.6)'
+        required: true
+        default: '3.6'
       create_release:
         description: 'Create GitHub Release'
         type: boolean
@@ -14,8 +26,96 @@ on:
         default: true
 
 jobs:
-  build-and-release:
+  build-dps3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+
+      - name: Parse version
+        id: ver
+        run: |
+          MAJOR=$(echo "${{ github.event.inputs.dps3_version }}" | cut -d. -f1)
+          MINOR=$(echo "${{ github.event.inputs.dps3_version }}" | cut -d. -f2)
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+
+      - name: Build DPS3 firmware
+        working-directory: Firmware/DPS3/D3_DPS_4IN1
+        run: make VERSION_MAJOR=${{ steps.ver.outputs.major }} VERSION_MINOR=${{ steps.ver.outputs.minor }} clean all
+
+      - name: Upload DPS3 ELF
+        uses: actions/upload-artifact@v4
+        with:
+          name: DPS3-ELF
+          path: Firmware/DPS3/D3_DPS_4IN1/build/*.elf
+          retention-days: 1
+
+  build-dps2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+
+      - name: Parse version
+        id: ver
+        run: |
+          MAJOR=$(echo "${{ github.event.inputs.dps2_version }}" | cut -d. -f1)
+          MINOR=$(echo "${{ github.event.inputs.dps2_version }}" | cut -d. -f2)
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+
+      - name: Build DPS2 firmware
+        working-directory: Firmware/DPS2/D2_DPS_4IN1
+        run: make VERSION_MAJOR=${{ steps.ver.outputs.major }} VERSION_MINOR=${{ steps.ver.outputs.minor }} clean all
+
+      - name: Upload DPS2 ELF
+        uses: actions/upload-artifact@v4
+        with:
+          name: DPS2-ELF
+          path: Firmware/DPS2/D2_DPS_4IN1/build/*.elf
+          retention-days: 1
+
+  build-dtcl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+
+      - name: Parse version
+        id: ver
+        run: |
+          MAJOR=$(echo "${{ github.event.inputs.dtcl_version }}" | cut -d. -f1)
+          MINOR=$(echo "${{ github.event.inputs.dtcl_version }}" | cut -d. -f2)
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+
+      - name: Build DTCL firmware
+        working-directory: Firmware/DTCL
+        run: make VERSION_MAJOR=${{ steps.ver.outputs.major }} VERSION_MINOR=${{ steps.ver.outputs.minor }} clean all
+
+      - name: Upload DTCL ELF
+        uses: actions/upload-artifact@v4
+        with:
+          name: DTCL-ELF
+          path: Firmware/DTCL/build/*.elf
+          retention-days: 1
+
+  build-installer:
     runs-on: windows-latest
+    needs: [build-dps3, build-dps2, build-dtcl]
 
     steps:
       - name: Checkout code
@@ -35,25 +135,47 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore DPS_DTCL/DTCL.sln
 
-      - name: Build Release
+      - name: Build GUI
         run: |
           msbuild DPS_DTCL/DTCL.sln `
             /p:Configuration=Release `
             /p:Platform="Any CPU" `
             /v:minimal
 
-      - name: Set version
-        id: get_version
+      - name: Build TestConsole
         run: |
-          echo "VERSION=${{ github.event.inputs.version }}" >> $env:GITHUB_ENV
+          msbuild TestConsole/TestConsole.csproj `
+            /p:Configuration=Release `
+            /p:Platform=AnyCPU `
+            /v:minimal
+
+      - name: Download DPS3 ELF
+        uses: actions/download-artifact@v4
+        with:
+          name: DPS3-ELF
+          path: installer/ELF
+
+      - name: Download DPS2 ELF
+        uses: actions/download-artifact@v4
+        with:
+          name: DPS2-ELF
+          path: installer/ELF
+
+      - name: Download DTCL ELF
+        uses: actions/download-artifact@v4
+        with:
+          name: DTCL-ELF
+          path: installer/ELF
+
+      - name: Set version
+        run: echo "VERSION=${{ github.event.inputs.gui_version }}" >> $env:GITHUB_ENV
 
       - name: Update version in Inno Setup script
         run: |
           (Get-Content installer/DTCL_DPS.iss) -replace '#define AppVersion ".*"', "#define AppVersion `"${{ env.VERSION }}`"" | Set-Content installer/DTCL_DPS.iss
 
       - name: Build Installer
-        run: |
-          iscc installer/DTCL_DPS.iss
+        run: iscc installer/DTCL_DPS.iss
 
       - name: Verify installer was created
         run: |
@@ -76,6 +198,12 @@ jobs:
           body: |
             ## DTCL_DPS v${{ env.VERSION }} - Windows Installer
 
+            ### Versions
+            - GUI: v${{ github.event.inputs.gui_version }}
+            - DPS3 Firmware: v${{ github.event.inputs.dps3_version }}
+            - DPS2 Firmware: v${{ github.event.inputs.dps2_version }}
+            - DTCL Firmware: v${{ github.event.inputs.dtcl_version }}
+
             ### What's New
             See [commit history](https://github.com/${{ github.repository }}/commits/main) for changes.
 
@@ -94,9 +222,10 @@ jobs:
             - DTCL Hybrid (2 slots: 1 D2 + 1 D3)
             - DPS MUX support (8 channels × 4 slots)
             - TestConsole CLI tool included
+            - Firmware ELF files included in `ELF\` folder
 
             ---
-            🤖 Built with GitHub Actions using Inno Setup
+            🤖 Built with GitHub Actions using Inno Setup + arm-none-eabi-gcc
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

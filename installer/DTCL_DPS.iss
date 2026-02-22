@@ -60,6 +60,9 @@ Source: "..\DPS_DTCL\bin\Release\PopUpMessage\*"; DestDir: "{app}\PopUpMessage";
 Source: "..\TestConsole\bin\Release\TestConsole.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\TestConsole\bin\Release\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 
+; Firmware ELF files (DPS2, DPS3, DTCL — for ST-Link flashing)
+Source: "ELF\*"; DestDir: "{app}\ELF"; Flags: ignoreversion
+
 ; Documentation
 Source: "..\README.md"; DestDir: "{app}"; Flags: ignoreversion isreadme
 
