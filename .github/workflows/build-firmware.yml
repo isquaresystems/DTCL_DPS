@@ -1,0 +1,54 @@
+name: Build Firmware
+
+on:
+  push:
+    branches: [main, develop]
+    paths:
+      - 'Firmware/**'
+      - '.github/workflows/build-firmware.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-dps3:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+
+      - name: Build DPS3 firmware
+        working-directory: Firmware/DPS3/D3_DPS_4IN1
+        run: make VERSION_MAJOR=1 VERSION_MINOR=0 clean all
+
+  build-dps2:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+
+      - name: Build DPS2 firmware
+        working-directory: Firmware/DPS2/D2_DPS_4IN1
+        run: make VERSION_MAJOR=1 VERSION_MINOR=0 clean all
+
+  build-dtcl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+
+      - name: Build DTCL firmware
+        working-directory: Firmware/DTCL
+        run: make VERSION_MAJOR=3 VERSION_MINOR=6 clean all

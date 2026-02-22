@@ -1,0 +1,80 @@
+name: Create Firmware Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 1.1)'
+        required: true
+        default: '1.1'
+      create_release:
+        description: 'Create GitHub Release'
+        type: boolean
+        required: false
+        default: true
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install ARM toolchain
+        run: sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
+
+      - name: Parse version
+        id: ver
+        run: |
+          MAJOR=$(echo "${{ github.event.inputs.version }}" | cut -d. -f1)
+          MINOR=$(echo "${{ github.event.inputs.version }}" | cut -d. -f2)
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+
+      - name: Build DPS3 firmware
+        working-directory: Firmware/DPS3/D3_DPS_4IN1
+        run: make VERSION_MAJOR=${{ steps.ver.outputs.major }} VERSION_MINOR=${{ steps.ver.outputs.minor }} clean all
+
+      - name: Build DPS2 firmware
+        working-directory: Firmware/DPS2/D2_DPS_4IN1
+        run: make VERSION_MAJOR=${{ steps.ver.outputs.major }} VERSION_MINOR=${{ steps.ver.outputs.minor }} clean all
+
+      - name: Build DTCL firmware
+        working-directory: Firmware/DTCL
+        run: make VERSION_MAJOR=${{ steps.ver.outputs.major }} VERSION_MINOR=${{ steps.ver.outputs.minor }} clean all
+
+      - name: Create GitHub Release
+        if: github.event.inputs.create_release == 'true'
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: firmware-v${{ github.event.inputs.version }}
+          name: Firmware v${{ github.event.inputs.version }}
+          files: |
+            Firmware/DPS3/D3_DPS_4IN1/build/*.hex
+            Firmware/DPS3/D3_DPS_4IN1/build/*.bin
+            Firmware/DPS2/D2_DPS_4IN1/build/*.hex
+            Firmware/DPS2/D2_DPS_4IN1/build/*.bin
+            Firmware/DTCL/build/*.hex
+            Firmware/DTCL/build/*.bin
+          body: |
+            ## Firmware v${{ github.event.inputs.version }}
+
+            ### Files
+
+            | File | Hardware | Description |
+            |---|---|---|
+            | `D3_DPS_4IN1_V*.hex` | DPS3 4IN1 | Compact Flash firmware (flash via ST-Link) |
+            | `D3_DPS_4IN1_V*.bin` | DPS3 4IN1 | Compact Flash firmware (raw binary) |
+            | `D2_DPS_4IN1_V*.hex` | DPS2 4IN1 | NAND Flash firmware (flash via ST-Link) |
+            | `D2_DPS_4IN1_V*.bin` | DPS2 4IN1 | NAND Flash firmware (raw binary) |
+            | `DTCL_V*.hex` | DTCL Hybrid | Hybrid D2+D3 firmware (flash via ST-Link) |
+            | `DTCL_V*.bin` | DTCL Hybrid | Hybrid D2+D3 firmware (raw binary) |
+
+            ### Flashing
+            Use ST-Link Utility or `st-flash` to program the `.hex` or `.bin` file to the STM32F411 target.
+
+            ---
+            🤖 Built with GitHub Actions using arm-none-eabi-gcc
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
