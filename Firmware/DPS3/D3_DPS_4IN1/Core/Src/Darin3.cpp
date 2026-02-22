@@ -80,7 +80,6 @@ uint32_t Darin3::prepareForRx(const uint8_t* data,
         return 2;  // could not open file
     }
     writerOpen_ = true;
-
     // Ready to receive chunks
     return 0;
 }

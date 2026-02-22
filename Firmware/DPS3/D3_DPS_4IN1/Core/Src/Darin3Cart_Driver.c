@@ -538,147 +538,8 @@ void generic_CF_CMD(unsigned char sector_num1,unsigned char Cmd, unsigned char C
  DataBus_Configure(DIR_INPUT);
 }
 
-// Write with setup/hold time
-void DataBus_WriteByte(uint8_t data)
-{
-    // Set data on bus with proper setup time
-    GPIOE->BSRR = (0xFF << 16) | data;
+#if 0  /* TEST FUNCTIONS — disabled, keep for reference/debugging */
 
-    // Setup time delay - CompactFlash typically needs 30ns minimum
-    short_delay_us(1);  // 1 microsecond should be plenty
-}
-
-// Read with proper timing
-uint8_t DataBus_ReadByte(void)
-{
-    uint8_t data;
-
-    // Access time delay - CompactFlash typically needs 50-100ns
-    short_delay_us(1);  // 1 microsecond for safety
-
-    // Read data twice for stability (in case of bus capacitance)
-    data = (uint8_t)(GPIOE->IDR & 0xFF);
-    short_delay_us(1);
-    data = (uint8_t)(GPIOE->IDR & 0xFF);
-
-    return data;
-}
-
-void UpdateD3SlotStatus()
-{
-	for(int itr=0;itr<4;itr++)
-	{
-		if( 0 == GPIO_ReadPin(GPIOC, CD2_SLT[itr]))
-		{
-			SLT_STATUS[itr] = 0x03;
-		}
-		else
-		{
-			SLT_STATUS[itr] = 0x00;
-		}
-	}
-}
-
-uint16_t get_D3_Green_LedPins(CartridgeID id) {
-    return GREEN_LED[id];
-}
-
-uint16_t get_D3_Red_LedPins(CartridgeID id) {
-    return RED_LED[id];
-}
-
-void setGreenLed(CartridgeID id, uint8_t value)
-{
-	if(value ==1)
-	GPIO_WritePin(GPIOA, get_D3_Green_LedPins(id), 1);
-	else
-		GPIO_WritePin(GPIOA, get_D3_Green_LedPins(id), 0);
-}
-void setRedLed(CartridgeID id, uint8_t value)
-{
-	if(value ==1)
-	GPIO_WritePin(GPIOA, get_D3_Red_LedPins(id), 1);
-	else
-		GPIO_WritePin(GPIOA, get_D3_Red_LedPins(id), 0);
-}
-
-void short_delay_us(uint32_t us) {
-    for (volatile uint32_t i = 0; i < us * 8; i++) {
-        __NOP();  // One NOP ~1 cycle
-    }
-}
-
-void slotLedBlink(CartridgeID id, uint8_t value)
-{
-    uint16_t red_pin = get_D3_Red_LedPins(id);
-    uint16_t green_pin = get_D3_Green_LedPins(id);
-
-    while(value)
-    {
-        GPIOA->BSRR = red_pin;                      // Set red LED
-        GPIOA->BSRR = green_pin;                    // Set green LED
-        short_delay_us(500000);
-        GPIOA->BSRR = (red_pin << 16);              // Reset red LED
-        GPIOA->BSRR = (green_pin << 16);            // Reset green LED
-        short_delay_us(500000);
-        --value;
-    }
-}
-
-uint8_t LedLoopBack(uint8_t value)
-{
-    uint8_t data = 0, data2 = 0;
-    while(value)
-    {
-        GPIOA->ODR = (GPIOA->ODR & 0x1FE00U) | 0x1FF;
-
-        if(GPIOB->IDR & LB1_Pin)
-            data = data | 0x01;
-        if(GPIOB->IDR & LB2_Pin)
-            data = data | 0x02;
-        if(GPIOB->IDR & LB3_Pin)
-            data = data | 0x04;
-        if(GPIOB->IDR & LB4_Pin)
-            data = data | 0x08;
-
-        short_delay_us(500000);
-
-        GPIOA->ODR = (GPIOA->ODR & 0x1FE00U) | 0x00;
-        short_delay_us(500000);
-
-        if(GPIOB->IDR & LB1_Pin)
-            data2 = data2 | 0x01;
-        if(GPIOB->IDR & LB2_Pin)
-            data2 = data2 | 0x02;
-        if(GPIOB->IDR & LB3_Pin)
-            data2 = data2 | 0x04;
-        if(GPIOB->IDR & LB4_Pin)
-            data2 = data2 | 0x08;
-
-        --value;
-    }
-    if((data == 0x0F ) && (data2 == 0))
-        return 0;
-    else
-        return 1;
-}
-
-void BlinkAllLed(uint8_t value)
-{
-	while(value)
-	{
-		// Toggle PA1-PA8
-		GPIOA->ODR ^= 0x1FE;  // 0x1FE = bits 1-8
-		short_delay_us(500000);
-
-		// Toggle again to return to original state
-		GPIOA->ODR ^= 0x1FE;
-		short_delay_us(500000);
-	}
-}
-
-/******************** below are test function in case CF not working ********************/
-#if 0
 // New comprehensive 512-byte test function
 void ComprehensiveTest512(CartridgeID id)
 {
@@ -920,8 +781,7 @@ void ComprehensiveTest512(CartridgeID id)
 
 	// Status summary
 	volatile uint8_t final_status = read_status;
-
-	//int breakpoint_here = 0;  // Set breakpoint here to examine all results
+	(void)final_status;  // Suppress unused-variable warning; examine in debugger
 }
 
 void TesCompactFlashDriver(CartridgeID id)
@@ -1021,7 +881,6 @@ void TesCompactFlashDriver(CartridgeID id)
 		test_status = 0x00;  // Complete failure
 	}
 
-	//int breakpoint_here = 0;  // Set breakpoint here to examine all results
 }
 
 // Simple test to check what we're actually reading
@@ -1269,8 +1128,158 @@ void SimpleReadTest(CartridgeID id)
 	volatile uint8_t result2 = test_data[1];  // Should be 0x42 ('B')
 	volatile uint8_t result3 = test_data[2];  // Should be 0x43 ('C')
 
-	//int breakpoint_here = 0;  // Set breakpoint here to examine values
 }
-#endif
+
+#endif  /* TEST FUNCTIONS */
+
+// Write with setup/hold time
+void DataBus_WriteByte(uint8_t data)
+{
+    // Set data on bus with proper setup time
+    GPIOE->BSRR = (0xFF << 16) | data;
+
+    // Setup time delay - CompactFlash typically needs 30ns minimum
+    short_delay_us(1);  // 1 microsecond should be plenty
+}
+
+// Read with proper timing
+uint8_t DataBus_ReadByte(void)
+{
+    uint8_t data;
+
+    // Access time delay - CompactFlash typically needs 50-100ns
+    short_delay_us(1);  // 1 microsecond for safety
+
+    // Read data twice for stability (in case of bus capacitance)
+    data = (uint8_t)(GPIOE->IDR & 0xFF);
+    short_delay_us(1);
+    data = (uint8_t)(GPIOE->IDR & 0xFF);
+
+    return data;
+}
+
+void UpdateD3SlotStatus()
+{
+	for(int itr=0;itr<4;itr++)
+	{
+		if( 0 == GPIO_ReadPin(GPIOC, CD2_SLT[itr]))
+		{
+			SLT_STATUS[itr] = 0x03;
+		}
+		else
+		{
+			SLT_STATUS[itr] = 0x00;
+		}
+	}
+}
+
+uint16_t get_D3_Green_LedPins(CartridgeID id) {
+    return GREEN_LED[id];
+}
+
+uint16_t get_D3_Red_LedPins(CartridgeID id) {
+    return RED_LED[id];
+}
+
+void setGreenLed(CartridgeID id, uint8_t value)
+{
+	if(value ==1)
+	GPIO_WritePin(GPIOA, get_D3_Green_LedPins(id), 1);
+	else
+		GPIO_WritePin(GPIOA, get_D3_Green_LedPins(id), 0);
+}
+void setRedLed(CartridgeID id, uint8_t value)
+{
+	if(value ==1)
+	GPIO_WritePin(GPIOA, get_D3_Red_LedPins(id), 1);
+	else
+		GPIO_WritePin(GPIOA, get_D3_Red_LedPins(id), 0);
+}
+
+void short_delay_us(uint32_t us) {
+    for (volatile uint32_t i = 0; i < us * 8; i++) {
+        __NOP();  // One NOP ~1 cycle
+    }
+}
+
+// Interrupt-safe blocking delay using the DWT cycle counter.
+// Unlike HAL_Delay, this does not depend on the SysTick interrupt, so it works
+// correctly when called from inside an ISR (e.g. USB CDC receive callback).
+void blocking_delay_ms(uint32_t ms) {
+    CoreDebug->DEMCR |= CoreDebug_DEMCR_TRCENA_Msk;  // enable DWT
+    DWT->CTRL        |= DWT_CTRL_CYCCNTENA_Msk;       // enable cycle counter
+    uint32_t start  = DWT->CYCCNT;
+    uint32_t ticks  = ms * (SystemCoreClock / 1000UL);
+    while ((DWT->CYCCNT - start) < ticks);  // unsigned wrap handles rollover
+}
+
+void slotLedBlink(CartridgeID id, uint8_t value)
+{
+    uint16_t red_pin = get_D3_Red_LedPins(id);
+    uint16_t green_pin = get_D3_Green_LedPins(id);
+
+    while(value)
+    {
+        GPIOA->BSRR = red_pin;                      // Set red LED
+        GPIOA->BSRR = green_pin;                    // Set green LED
+        short_delay_us(500000);
+        GPIOA->BSRR = (red_pin << 16);              // Reset red LED
+        GPIOA->BSRR = (green_pin << 16);            // Reset green LED
+        short_delay_us(500000);
+        --value;
+    }
+}
+
+uint8_t LedLoopBack(uint8_t value)
+{
+    uint8_t data = 0, data2 = 0;
+    while(value)
+    {
+        GPIOA->ODR = (GPIOA->ODR & 0x1FE00U) | 0x1FF;
+
+        if(GPIOB->IDR & LB1_Pin)
+            data = data | 0x01;
+        if(GPIOB->IDR & LB2_Pin)
+            data = data | 0x02;
+        if(GPIOB->IDR & LB3_Pin)
+            data = data | 0x04;
+        if(GPIOB->IDR & LB4_Pin)
+            data = data | 0x08;
+
+        short_delay_us(500000);
+
+        GPIOA->ODR = (GPIOA->ODR & 0x1FE00U) | 0x00;
+        short_delay_us(500000);
+
+        if(GPIOB->IDR & LB1_Pin)
+            data2 = data2 | 0x01;
+        if(GPIOB->IDR & LB2_Pin)
+            data2 = data2 | 0x02;
+        if(GPIOB->IDR & LB3_Pin)
+            data2 = data2 | 0x04;
+        if(GPIOB->IDR & LB4_Pin)
+            data2 = data2 | 0x08;
+
+        --value;
+    }
+    if((data == 0x0F ) && (data2 == 0))
+        return 0;
+    else
+        return 1;
+}
+
+void BlinkAllLed(uint8_t value)
+{
+	while(value)
+	{
+		// Toggle PA1-PA8
+		GPIOA->ODR ^= 0x1FE;  // 0x1FE = bits 1-8
+		short_delay_us(500000);
+
+		// Toggle again to return to original state
+		GPIOA->ODR ^= 0x1FE;
+		short_delay_us(500000);
+	}
+}
 
 #endif

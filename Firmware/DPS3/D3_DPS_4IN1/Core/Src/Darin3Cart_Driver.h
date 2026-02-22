@@ -61,6 +61,7 @@ uint16_t get_D3_slt_status(CartridgeID id);
 void setGreenLed(CartridgeID id, uint8_t value);
 void setRedLed(CartridgeID id, uint8_t value);
 void short_delay_us(uint32_t us);
+void blocking_delay_ms(uint32_t ms);
 void slotLedBlink(CartridgeID id, uint8_t value);
 uint8_t LedLoopBack(uint8_t value);
 void BlinkAllLed(uint8_t value);

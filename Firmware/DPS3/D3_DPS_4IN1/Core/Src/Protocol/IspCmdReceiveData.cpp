@@ -59,7 +59,15 @@ void IspCmdReceiveData::handleStartCommand(const uint8_t* data, uint32_t len)
     	currentState = State::IDLE;
     	// Logger removed
     	if (!res)
-    	 sendDoneAck(IspReturnCodes::SUBCMD_SUCESS);
+    	{
+    		// prepareForRx opened the write stream (FA_CREATE_ALWAYS) but no
+    		// data chunks will arrive, so the len=0 end-of-stream call that
+    		// handleDataChunk normally sends never happens.  Call it now so
+    		// Darin3::processRxData runs closeWriteStream() → f_close(), which
+    		// commits the (empty) file's directory entry to the CF card.
+    		processor->processRxSubCommand(subCommand, &rxBuffer[0], 0);
+    		sendDoneAck(IspReturnCodes::SUBCMD_SUCESS);
+    	}
     	else
     		sendDoneAck(IspReturnCodes::SUBCMD_FAILED);
     	reset();
