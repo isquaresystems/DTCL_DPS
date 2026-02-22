@@ -26,10 +26,12 @@ TARGET_VERSIONED = $(TARGET)_$(VERSION_SUFFIX)
 
 # Auto-update VSCode JSON files with correct ELF filename
 update-json:
+ifeq ($(OS),Windows_NT)
 	@echo "Updating VSCode configurations for version $(VERSION_MAJOR).$(VERSION_MINOR)..."
 	@powershell -Command "if (Test-Path '.vscode/launch.json') { (Get-Content '.vscode/launch.json') -replace 'D2_DPS_4IN1_V\d+_\d+\.elf', 'D2_DPS_4IN1_V$(VERSION_MAJOR)_$(VERSION_MINOR).elf' -replace 'D2_DPS_4IN1_VERSION\.elf', 'D2_DPS_4IN1_V$(VERSION_MAJOR)_$(VERSION_MINOR).elf' | Set-Content '.vscode/launch.json' }"
 	@powershell -Command "if (Test-Path '.vscode/tasks.json') { (Get-Content '.vscode/tasks.json') -replace 'D2_DPS_4IN1_V\d+_\d+', 'D2_DPS_4IN1_V$(VERSION_MAJOR)_$(VERSION_MINOR)' -replace 'D2_DPS_4IN1_VERSION', 'D2_DPS_4IN1_V$(VERSION_MAJOR)_$(VERSION_MINOR)' | Set-Content '.vscode/tasks.json' }"
 	@powershell -Command "if (Test-Path '.vscode/settings.json') { (Get-Content '.vscode/settings.json') -replace 'D2_DPS_4IN1_V\d+_\d+\.elf', 'D2_DPS_4IN1_V$(VERSION_MAJOR)_$(VERSION_MINOR).elf' -replace 'D2_DPS_4IN1_VERSION\.elf', 'D2_DPS_4IN1_V$(VERSION_MAJOR)_$(VERSION_MINOR).elf' | Set-Content '.vscode/settings.json' }"
+endif
 
 
 ######################################
