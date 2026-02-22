@@ -1,5 +1,5 @@
 #pragma once
-#include "Protocol/IISPSubCommandHandler.h"
+#include "Protocol/IIspSubCommandHandler.h"
 #include "Darin3Cart_Driver.h"
 #include "version.h"
 #include "stm32f4xx_hal.h"
@@ -315,10 +315,32 @@ public:
 		FatFsWrapper& fs = FatFsWrapper::getInstance();
 		fs.unmount();
 
+		// Power OFF.
+		// Use blocking_delay_ms (DWT-based) instead of HAL_Delay — HAL_Delay relies
+		// on the SysTick interrupt which cannot fire if we are already inside a
+		// higher-priority ISR (USB CDC receive), causing it to hang.
+		// short_delay_us(1000) was only ~320µs at 100MHz (loop calibrated as us*8 NOPs),
+		// which is insufficient for CF Vcc to discharge.
 		HAL_GPIO_WritePin(POWER_CYCLE_1_GPIO_Port, POWER_CYCLE_1_Pin, GPIO_PIN_RESET);
-		short_delay_us(1000);
+		blocking_delay_ms(100);  // 100ms: Vcc discharges past CF POR threshold
+
+		// Power ON.
 		HAL_GPIO_WritePin(POWER_CYCLE_1_GPIO_Port, POWER_CYCLE_1_Pin, GPIO_PIN_SET);
+
+		// Wait for CF card power-on reset to complete before touching the bus.
+		// Root cause of FR_NOT_READY (~50% failure): previously 0ms here — disk_initialize
+		// fired immediately after GPIO_PIN_SET, racing the card's internal POR circuit.
+		// CF spec minimum: 50ms after Vcc stable. 500ms is safe for all CF card brands.
+		blocking_delay_ms(500);
+
 		FRESULT res = fs.mount();
+
+		// One retry for cards that need slightly more settling time.
+		if (res != FR_OK) {
+			blocking_delay_ms(300);
+			res = fs.mount();
+		}
+
 		uint8_t result[1] = {static_cast<uint8_t>(res)};
 		uint16_t txLen = EnocdeCmdRes((uint8_t)IspSubCommand::D3_POWER_CYCLE, &result[0], 1 );
 		return txLen;
