@@ -11,7 +11,28 @@ on:
   workflow_dispatch:
 
 jobs:
+  changes:
+    runs-on: ubuntu-latest
+    outputs:
+      dps3: ${{ steps.filter.outputs.dps3 }}
+      dps2: ${{ steps.filter.outputs.dps2 }}
+      dtcl: ${{ steps.filter.outputs.dtcl }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            dps3:
+              - 'Firmware/DPS3/**'
+            dps2:
+              - 'Firmware/DPS2/**'
+            dtcl:
+              - 'Firmware/DTCL/**'
+
   build-dps3:
+    needs: changes
+    if: needs.changes.outputs.dps3 == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +47,8 @@ jobs:
         run: make VERSION_MAJOR=1 VERSION_MINOR=0 clean all
 
   build-dps2:
+    needs: changes
+    if: needs.changes.outputs.dps2 == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:
@@ -40,6 +63,8 @@ jobs:
         run: make VERSION_MAJOR=1 VERSION_MINOR=0 clean all
 
   build-dtcl:
+    needs: changes
+    if: needs.changes.outputs.dtcl == 'true' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
 
     steps:

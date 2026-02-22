@@ -6,7 +6,7 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <!-- Background with Mirage fighter jet image -->
-        <Image Source="/MirageJet.jpg" Stretch="UniformToFill" Opacity="20.0">
+        <Image Source="pack://siteoforigin:,,,/MirageJet.jpg" Stretch="UniformToFill" Opacity="1.0">
             <Image.Effect>
                 <BlurEffect Radius="0"/>
             </Image.Effect>
@@ -27,22 +27,6 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Logo with fade-in and scale animation -->
-                <Image Source="pack://application:,,,/YourLogo.png" Width="100" Height="100" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <Image.RenderTransform>
-                        <ScaleTransform x:Name="LogoScale" ScaleX="1" ScaleY="1"/>
-                    </Image.RenderTransform>
-                    <Image.Triggers>
-                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:2"/>
-                                    <DoubleAnimation Storyboard.TargetName="LogoScale" Storyboard.TargetProperty="ScaleX" From="0.8" To="1" Duration="0:0:2"/>
-                                    <DoubleAnimation Storyboard.TargetName="LogoScale" Storyboard.TargetProperty="ScaleY" From="0.8" To="1" Duration="0:0:2"/>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger>
-                    </Image.Triggers>
-                </Image>
 
                 <!-- Application Name and Loading Text -->
                 <StackPanel Grid.Row="1" HorizontalAlignment="Center">
