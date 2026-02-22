@@ -177,11 +177,14 @@ jobs:
       - name: Build Installer
         run: iscc installer/DTCL_DPS.iss
 
+      - name: Create source zip
+        run: git archive --format=zip --output="installer/output/DTCL_DPS_Source_v${{ env.VERSION }}.zip" HEAD
+
       - name: Verify installer was created
         run: |
-          if (Test-Path "installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe") {
+          if (Test-Path "installer/output/DTCL_DPS_V${{ env.VERSION }}.exe") {
             echo "✓ Installer created successfully"
-            $size = (Get-Item "installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe").Length / 1MB
+            $size = (Get-Item "installer/output/DTCL_DPS_V${{ env.VERSION }}.exe").Length / 1MB
             echo "Installer size: $([math]::Round($size, 2)) MB"
           } else {
             echo "✗ Installer not found!"
@@ -194,7 +197,9 @@ jobs:
         with:
           tag_name: v${{ env.VERSION }}
           name: DTCL_DPS v${{ env.VERSION }}
-          files: installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe
+          files: |
+            installer/output/DTCL_DPS_V${{ env.VERSION }}.exe
+            installer/output/DTCL_DPS_Source_v${{ env.VERSION }}.zip
           body: |
             ## DTCL_DPS v${{ env.VERSION }} - Windows Installer
 
@@ -208,7 +213,7 @@ jobs:
             See [commit history](https://github.com/${{ github.repository }}/commits/main) for changes.
 
             ### Installation
-            1. Download `DTCL_DPS_Setup_v${{ env.VERSION }}.exe`
+            1. Download `DTCL_DPS_V${{ env.VERSION }}.exe`
             2. Run the installer
             3. Follow the setup wizard
 
@@ -232,6 +237,6 @@ jobs:
       - name: Upload Installer as Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: DTCL_DPS_Setup_v${{ env.VERSION }}
-          path: installer/output/DTCL_DPS_Setup_v${{ env.VERSION }}.exe
+          name: DTCL_DPS_V${{ env.VERSION }}
+          path: installer/output/DTCL_DPS_V${{ env.VERSION }}.exe
           retention-days: 90
